@@ -3,40 +3,26 @@
 Training script to showcase the end-to-end training and evaluation script.
 """
 
-import math
 import numpy as np
 import pandas as pd
-import tensorflow as tf
 import datetime
-import itertools
 import logging
-from scipy import ndimage, misc
+import cv2
+import keras
+
 from os.path import exists
 from joblib import load, dump
 from os import makedirs
 from os import environ
 
-import keras
-from keras import backend as K
+import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow.keras import models
 from tensorflow.keras import utils as np_utils
 
-from keras.callbacks import EarlyStopping, ModelCheckpoint
-from keras.models import Sequential, load_model
-from keras.layers import Dense, Flatten, Reshape, Conv1D, MaxPooling1D, AveragePooling1D,\
-UpSampling1D, InputLayer
-
-from sklearn.metrics import accuracy_score, confusion_matrix, roc_curve, auc
-from sklearn.model_selection import cross_val_score, train_test_split, StratifiedKFold, GridSearchCV
-from sklearn.preprocessing import MaxAbsScaler
+from sklearn.model_selection import train_test_split
 import joblib
-from sklearn.neighbors import LocalOutlierFactor
-from sklearn import cluster, datasets
 
-import random
-import os
-import cv2
 
 FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
 # Use filename="file.log" as a param to logging to log to a file
@@ -54,20 +40,21 @@ class TrainSKInterface:
         self.model_name = "classifier_pipeline.pkl"
         self.output_path = "/Users/I559573/Downloads/D2V2.0/D2V_Datasets/ImageSamples"
         self.file_name = "/Users/I559573/Downloads/D2V2.0/D2V_Datasets/ImageSamples/lgp_dataset"
-        
+
+
     def create_dataset_bin(self):
         IMG_WIDTH=224
         IMG_HEIGHT=224
         img_data_array = []
         for file in os.listdir(img_folder):
-                image_path = os.path.join(img_folder, file)
-                image = cv2.imread(image_path, cv2.IMREAD_COLOR)
-                image = cv2.resize(image, (IMG_HEIGHT, IMG_WIDTH),interpolation = cv2.INTER_AREA)
-                image = np.array(image)
-                image = image.astype('float32')
-                image /= 255
-                image = image.tobytes()
-                img_data_array.append(image)
+            image_path = os.path.join(img_folder, file)
+            image = cv2.imread(image_path, cv2.IMREAD_COLOR)
+            image = cv2.resize(image, (IMG_HEIGHT, IMG_WIDTH),interpolation = cv2.INTER_AREA)
+            image = np.array(image)
+            image = image.astype('float32')
+            image /= 255
+            image = image.tobytes()
+            img_data_array.append(image)
         return img_data_array 
     
 
@@ -78,8 +65,6 @@ class TrainSKInterface:
         
         path_img_ok = self.file_name + "/Images/OK/"
         path_img_ko = self.file_name + "/Images/NG/"
-        print(path_img_ok)
-        print(path_img_ko)
         
         img_dataset_ok_bin = create_dataset_bin(path_img_ok)
         img_dataset_ko_bin = create_dataset_bin(path_img_ko)
@@ -94,10 +79,11 @@ class TrainSKInterface:
         self.dataset_all = pd.concat([df_img_dataset_ok,df_img_dataset_ko], ignore_index=True)
         self.dataset_all = df_img_dataset_all.sample(frac=1).reset_index(drop=True)
         self.target_classes = self.dataset_all["label"].unique()
-        print(f"No. of training examples: {self.dataset_all.shape[0]}")
-        print(f"Classes: {self.target_classes}")
+        #print(f"No. of training examples: {self.dataset_all.shape[0]}")
+        #print(f"Classes: {self.target_classes}")
         
         return None
+
 
     def split_dataset(self) -> None:
         """
@@ -112,11 +98,12 @@ class TrainSKInterface:
         self.train, self.val = train_test_split(self.dataset_all, test_size=0.97, random_state=25)
         self.val, self.test = train_test_split(df_img_dataset_test, test_size=0.97, random_state=25)
 
-        print(f"No. of training examples: {self.train.shape[0]}")
-        print(f"No. of validation examples: {self.val.shape[0]}")
+        #print(f"No. of training examples: {self.train.shape[0]}")
+        #print(f"No. of validation examples: {self.val.shape[0]}")
 
         return None
-    
+
+
     def convert_back(self):
         temp_arr = []
         for i in df['image'].values:
@@ -125,7 +112,8 @@ class TrainSKInterface:
             temp_arr.append(a)
             #print(a.shape)
         return temp_arr
-    
+
+
     def prepare_model(self):
     
         base_model = tf.keras.applications.vgg16.VGG16(
@@ -159,7 +147,7 @@ class TrainSKInterface:
                       metrics = ['accuracy']
                      )
         
-        self.image_pipeline.summary()
+        #self.image_pipeline.summary()
         
         return None
 
@@ -171,12 +159,12 @@ class TrainSKInterface:
         img_train = convert_back(self.train)
         img_val = convert_back(self.val)
         
-        print(len(img_train))
-        print(len(img_test))
-        print(len(img_val))
-        print(img_train[0].shape)
-        print(img_test[0].shape)
-        print(img_val[0].shape)
+        #print(len(img_train))
+        #print(len(img_test))
+        #print(len(img_val))
+        #print(img_train[0].shape)
+        #print(img_test[0].shape)
+        #print(img_val[0].shape)
 
         self.image_pipeline.fit(
             x=np.array(img_train, np.float32), 
@@ -223,13 +211,11 @@ class TrainSKInterface:
         if self.image_pipeline is None:
             self.get_model()
 
-        img_test = np.array(convert_back(self.test), np.float32)
-        print(img_test[0].shape)
-        infer_data = np.array(img_test[0])
+        infer_data = np.array(convert_back(self.test), np.float32)
         logging.info(f"-----START INFERENCE-----")
-        prediction = self.image_pipeline.predict([infer_data])
-        predicted_label = self.target_classes[prediction[0]]
-        logging.info(f"The input '{infer_data}' was predicted as '{predicted_label}'")
+        prediction = self.image_pipeline.predict(infer_data[0:1])
+        predicted_label = "Anomalous" if prediction[0]>0.5 else "Normal"
+        logging.info(f"The input was predicted as '{predicted_label}'")
         logging.info(f"-----END INFERENCE-----")
 
         return predicted_label
