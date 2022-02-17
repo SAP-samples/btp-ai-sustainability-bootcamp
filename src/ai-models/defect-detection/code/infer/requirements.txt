@@ -1,0 +1,9 @@
+tensorflow==2.7.0
+scipy==1.7.3
+scikit-learn==1.0.2
+pandas==1.4.0
+numpy==1.22.1
+matplotlib==3.5.1
+keras==2.7.0
+joblib==1.1.0
+cv2==4.5.5
