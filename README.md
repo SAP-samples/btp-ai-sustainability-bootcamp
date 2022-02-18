@@ -4,15 +4,28 @@
 -->
 
 ## Description
+This github repository includes the sample code and exercises of the btp-ai-core-bootcamp, 
+which is developed and delivered by Partner Ecosystem Success Organization (formerly known as GPO) of SAP SE, showcasing SAP partners how to add <b>Intelligence</b> and <b>Sustainability</b> into your solutions on SAP Business Technology Platform with SAP AI Core and SAP Analytics Cloud for Planning. The bootcamp uses an end-to-end storyline about a Smart Factory filled with Intelligence and Sustainability
+- Building a deep learning model on acoustical sounds of machinery with SAP AI Core for condition monitoring based Predictive Maintenance 
+- Building a deep learning model on product images with SAP AI Core for automatic Defeat Detection in production lines
+- Maintenance Cost Planning/budgeting with Predictive Planning of SAP Analytics Cloud for Planning.  
+- Tracking Sustainability KPI on energy consumption and CO2 emission.
 
 ## Requirements
+### Software Requirements
+- SAP AI Core
+- SAP AI Launch Pad
+- SAP Analytics Cloud for Planning
+- SAP S/4HANA Cloud
+### Other Requirements
+- Complete the [openSAP course](https://open.sap.com/courses/sac3) about Planning with SAP Analytics Cloud
 
 ## Download and Installation
 
 ## Known Issues
 
 ## How to obtain support
-[Create an issue](https://github.com/SAP-samples/<repository-name>/issues) in this repository if you find a bug or have questions about the content.
+[Create an issue](https://github.com/SAP-samples/btp-ai-core-bootcamp/issues) in this repository if you find a bug or have questions about the content.
  
 For additional support, [ask a question in SAP Community](https://answers.sap.com/questions/ask.html).
 
