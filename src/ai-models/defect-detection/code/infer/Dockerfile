@@ -9,6 +9,6 @@ RUN mkdir -p /app/src
 RUN chgrp -R nogroup /app && \
     chmod -R 770 /app
 
-COPY infer_scikit.py /app/src/
+COPY infer.py /app/src/
 
-CMD ["gunicorn", "--chdir", "/app/src", "infer_scikit:app", "-b", "0.0.0.0:9001"]
+CMD ["gunicorn", "--chdir", "/app/src", "infer:app", "-b", "0.0.0.0:9001"]
