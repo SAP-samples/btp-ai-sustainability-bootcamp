@@ -39,4 +39,4 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
           - >
-            set -e && echo "---Start Training---" && python /app/src/train_scikit.py && ls -lR /app/model && echo "---End Training---"
+            set -e && echo "---Start Training---" && python /app/src/train.py && ls -lR /app/model && echo "---End Training---"
