@@ -8,20 +8,14 @@ import pandas as pd
 import datetime
 import logging
 import cv2
-import keras
+import joblib
 
 from os.path import exists
 from joblib import load, dump
 from os import makedirs
 from os import environ
-
 import tensorflow as tf
-from tensorflow.keras import layers
-from tensorflow.keras import models
-from tensorflow.keras import utils as np_utils
-
 from sklearn.model_selection import train_test_split
-import joblib
 
 
 FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
@@ -38,8 +32,8 @@ class TrainSKInterface:
         self.target_classes = None
         self.dataset_name = "lgp_dataset"
         self.model_name = "classifier_pipeline.pkl"
-        self.output_path = "/Users/I559573/Downloads/D2V2.0/D2V_Datasets/ImageSamples"
-        self.file_name = "/Users/I559573/Downloads/D2V2.0/D2V_Datasets/ImageSamples/lgp_dataset"
+        self.output_path = environ["OUTPUT_PATH"]
+        self.file_name = environ["DATA_SOURCE"]
 
 
     def create_dataset_bin(self):
@@ -95,22 +89,26 @@ class TrainSKInterface:
         if self.dataset_all is None:
             raise Exception("Train or test data not set")
 
+        #Change splitting proportions
         self.train, self.val = train_test_split(self.dataset_all, test_size=0.97, random_state=25)
-        self.val, self.test = train_test_split(df_img_dataset_test, test_size=0.97, random_state=25)
+        self.val, self.test = train_test_split(self.val, test_size=0.97, random_state=25)
 
         #print(f"No. of training examples: {self.train.shape[0]}")
         #print(f"No. of validation examples: {self.val.shape[0]}")
+        #print(f"No. of test examples: {self.test.shape[0]}")
 
         return None
 
 
     def convert_back(self):
+        
         temp_arr = []
         for i in df['image'].values:
             a = np.frombuffer(i, dtype=np.float32)
             a = a.reshape(224,224,3)
             temp_arr.append(a)
             #print(a.shape)
+            
         return temp_arr
 
 
@@ -135,7 +133,7 @@ class TrainSKInterface:
         x = layers.Dense(512, activation='relu')(x)
 
         # Add a dropout rate of 0.5
-        #x = layers.Dropout(0.5)(x)
+        #x = layers.Dropout(0.5)(x) #To be uncommented
 
         # Add a final sigmoid layer with 1 node for classification output
         x = layers.Dense(1, activation='sigmoid')(x)
@@ -150,6 +148,7 @@ class TrainSKInterface:
         #self.image_pipeline.summary()
         
         return None
+
 
     def train_model(self) -> None:
         """
@@ -171,10 +170,11 @@ class TrainSKInterface:
             y=np.array(list(map(int,df_img_dataset_train['label'])), np.float32), 
             validation_data = (np.array(img_val, np.float32), df_img_dataset_val['label'].values)
             #,steps_per_epoch = 100
-            ,epochs = 2
+            ,epochs = 20 #To be changed
         )
 
         return None
+
 
     def save_model(self) -> None:
         """
@@ -190,6 +190,7 @@ class TrainSKInterface:
 
         return None
 
+
     def get_model(self) -> None:
         """
         Get the model if it is available locally
@@ -204,6 +205,7 @@ class TrainSKInterface:
 
         return None
 
+
     def infer_model(self) -> str:
         """
         Perform an inference on the model that was trained
@@ -214,11 +216,12 @@ class TrainSKInterface:
         infer_data = np.array(convert_back(self.test), np.float32)
         logging.info(f"-----START INFERENCE-----")
         prediction = self.image_pipeline.predict(infer_data[0:1])
-        predicted_label = "Anomalous" if prediction[0]>0.5 else "Normal"
+        predicted_label = "Anomalous" if prediction[0] > 0.5 else "Normal"
         logging.info(f"The input was predicted as '{predicted_label}'")
         logging.info(f"-----END INFERENCE-----")
 
         return predicted_label
+
 
     def run_workflow(self) -> None:
         """
