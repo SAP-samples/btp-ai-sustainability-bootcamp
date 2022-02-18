@@ -6,4 +6,4 @@ numpy==1.21.5
 matplotlib==3.5.1
 keras==2.8.0
 joblib==1.1.0
-opencv-python==4.5.5.62
+opencv-python-headless==4.5.3.56

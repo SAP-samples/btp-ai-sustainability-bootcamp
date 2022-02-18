@@ -9,12 +9,14 @@ import datetime
 import logging
 import cv2
 import joblib
+import os
 
 from os.path import exists
 from joblib import load, dump
 from os import makedirs
 from os import environ
 import tensorflow as tf
+from tensorflow.keras import layers
 from sklearn.model_selection import train_test_split
 
 
@@ -36,7 +38,7 @@ class TrainSKInterface:
         self.file_name = environ["DATA_SOURCE"]
 
 
-    def create_dataset_bin(self):
+    def create_dataset_bin(self, img_folder):
         IMG_WIDTH=224
         IMG_HEIGHT=224
         img_data_array = []
@@ -57,11 +59,14 @@ class TrainSKInterface:
         Reads the images file from path
         """
         
-        path_img_ok = self.file_name + "/Images/OK/"
-        path_img_ko = self.file_name + "/Images/NG/"
+        path_img_ok = self.file_name + "/OK/"
+        path_img_ko = self.file_name + "/NG/"
+
+        logging.info(f"{path_img_ok}")
+        logging.info(f"{path_img_ko}")
         
-        img_dataset_ok_bin = create_dataset_bin(path_img_ok)
-        img_dataset_ko_bin = create_dataset_bin(path_img_ko)
+        img_dataset_ok_bin = self.create_dataset_bin(path_img_ok)
+        img_dataset_ko_bin = self.create_dataset_bin(path_img_ko)
 
         df_img_dataset_ok = pd.DataFrame(columns = ['image','label'])
         df_img_dataset_ok['image'] = img_dataset_ok_bin
@@ -71,7 +76,7 @@ class TrainSKInterface:
         df_img_dataset_ko['label'] = 1
 
         self.dataset_all = pd.concat([df_img_dataset_ok,df_img_dataset_ko], ignore_index=True)
-        self.dataset_all = df_img_dataset_all.sample(frac=1).reset_index(drop=True)
+        self.dataset_all = self.dataset_all.sample(frac=1).reset_index(drop=True)
         self.target_classes = self.dataset_all["label"].unique()
         #print(f"No. of training examples: {self.dataset_all.shape[0]}")
         #print(f"Classes: {self.target_classes}")
@@ -100,7 +105,7 @@ class TrainSKInterface:
         return None
 
 
-    def convert_back(self):
+    def convert_back(self, df):
         
         temp_arr = []
         for i in df['image'].values:
@@ -155,20 +160,18 @@ class TrainSKInterface:
         Train and save the model
         """
         
-        img_train = convert_back(self.train)
-        img_val = convert_back(self.val)
+        img_train = self.convert_back(self.train)
+        img_val = self.convert_back(self.val)
         
         #print(len(img_train))
-        #print(len(img_test))
         #print(len(img_val))
         #print(img_train[0].shape)
-        #print(img_test[0].shape)
         #print(img_val[0].shape)
 
         self.image_pipeline.fit(
             x=np.array(img_train, np.float32), 
-            y=np.array(list(map(int,df_img_dataset_train['label'])), np.float32), 
-            validation_data = (np.array(img_val, np.float32), df_img_dataset_val['label'].values)
+            y=np.array(list(map(int,self.train['label'])), np.float32), 
+            validation_data = (np.array(img_val, np.float32), self.val['label'].values)
             #,steps_per_epoch = 100
             ,epochs = 20 #To be changed
         )
@@ -213,7 +216,7 @@ class TrainSKInterface:
         if self.image_pipeline is None:
             self.get_model()
 
-        infer_data = np.array(convert_back(self.test), np.float32)
+        infer_data = np.array(self.convert_back(self.test), np.float32)
         logging.info(f"-----START INFERENCE-----")
         prediction = self.image_pipeline.predict(infer_data[0:1])
         predicted_label = "Anomalous" if prediction[0] > 0.5 else "Normal"
