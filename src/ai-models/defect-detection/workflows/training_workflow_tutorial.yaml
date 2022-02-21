@@ -21,7 +21,7 @@ spec:
     - name: image-clf-sk-training
       metadata:
         labels:
-          ai.sap.com/resourcePlan: starter
+          ai.sap.com/resourcePlan: Train-L
       inputs:
         artifacts:
           - name: image-data

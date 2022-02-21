@@ -2,6 +2,7 @@ FROM python:3.7-slim
 
 RUN pip3 install --upgrade pip
 COPY requirements.txt ./requirements.txt
+RUN pip3 install ai-tracking-sdk --index-url http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.snapshots.pypi/simple/ --trusted-host nexus.wdf.sap.corp
 RUN pip3 install -r requirements.txt
 
 RUN mkdir -p /app/src/ && \
