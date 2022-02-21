@@ -11,6 +11,7 @@ import cv2
 import joblib
 import os
 
+from sapai import tracking
 from os.path import exists
 from joblib import load, dump
 from os import makedirs
@@ -95,8 +96,8 @@ class TrainSKInterface:
             raise Exception("Train or test data not set")
 
         #Change splitting proportions
-        self.train, self.val = train_test_split(self.dataset_all, test_size=0.97, random_state=25)
-        self.val, self.test = train_test_split(self.val, test_size=0.97, random_state=25)
+        self.train, self.val = train_test_split(self.dataset_all, test_size=0.4, random_state=25)
+        self.val, self.test = train_test_split(self.val, test_size=0.5, random_state=25)
 
         #print(f"No. of training examples: {self.train.shape[0]}")
         #print(f"No. of validation examples: {self.val.shape[0]}")
@@ -138,7 +139,7 @@ class TrainSKInterface:
         x = layers.Dense(512, activation='relu')(x)
 
         # Add a dropout rate of 0.5
-        #x = layers.Dropout(0.5)(x) #To be uncommented
+        x = layers.Dropout(0.5)(x) #To be uncommented
 
         # Add a final sigmoid layer with 1 node for classification output
         x = layers.Dense(1, activation='sigmoid')(x)
@@ -173,7 +174,7 @@ class TrainSKInterface:
             y=np.array(list(map(int,self.train['label'])), np.float32), 
             validation_data = (np.array(img_val, np.float32), self.val['label'].values)
             #,steps_per_epoch = 100
-            ,epochs = 20 #To be changed
+            ,epochs = 100 #To be changed
         )
 
         return None
@@ -209,7 +210,7 @@ class TrainSKInterface:
         return None
 
 
-    def infer_model(self) -> str:
+    def model_metrics(self):
         """
         Perform an inference on the model that was trained
         """
@@ -217,13 +218,26 @@ class TrainSKInterface:
             self.get_model()
 
         infer_data = np.array(self.convert_back(self.test), np.float32)
-        logging.info(f"-----START INFERENCE-----")
-        prediction = self.image_pipeline.predict(infer_data[0:1])
-        predicted_label = "Anomalous" if prediction[0] > 0.5 else "Normal"
-        logging.info(f"The input was predicted as '{predicted_label}'")
-        logging.info(f"-----END INFERENCE-----")
+        infer_data_labels = self.test['label'].values
+        
+        #logging.info(f"-----START INFERENCE-----")
+        #prediction = self.image_pipeline.predict(infer_data[0:1])
+        #predicted_label = "Anomalous" if prediction[0] > 0.5 else "Normal"
+        #logging.info(f"The input was predicted as '{predicted_label}'")
+        #logging.info(f"-----END INFERENCE-----")
+        
+        score = self.image_pipeline.evaluate(infer_data[0:10], infer_data_labels[0:10])
+        print("Accuracy: " + str(score[0]))
 
-        return predicted_label
+        metric = [
+            {"name": "Model Accuracy",
+            "value": float(score[0]),
+            "labels":[{"name": "dataset", "value": "test set"}]}
+            ]
+        print(metric)
+        tracking.log_metrics(metric, artifact_name = "defect-detection")
+
+        return None
 
 
     def run_workflow(self) -> None:
@@ -241,7 +255,7 @@ class TrainSKInterface:
             self.train_model()
             self.save_model()
 
-        self.infer_model()
+        self.model_metrics()
 
         return None
 
