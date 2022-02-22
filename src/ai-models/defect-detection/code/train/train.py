@@ -10,6 +10,7 @@ import logging
 import cv2
 import joblib
 import os
+import keras
 
 from sapai import tracking
 from os.path import exists
@@ -18,6 +19,7 @@ from os import makedirs
 from os import environ
 import tensorflow as tf
 from tensorflow.keras import layers
+from tensorflow.python.keras import backend as K
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 
@@ -166,6 +168,10 @@ class TrainSKInterface:
         Train and save the model
         """
         
+        config = tf.compat.v1.ConfigProto(device_count = {'GPU': 1, 'CPU': 7}) 
+        sess = tf.compat.v1.Session(config=config) 
+        keras.backend.set_session(sess)
+
         img_train = self.convert_back(self.train)
         img_val = self.convert_back(self.val)
         
@@ -179,7 +185,7 @@ class TrainSKInterface:
             y=np.array(list(map(int,self.train['label'])), np.float32), 
             validation_data = (np.array(img_val, np.float32), self.val['label'].values)
             #,steps_per_epoch = 100
-            ,epochs = 5 #To be changed
+            ,epochs = 40 #To be changed
         )
 
         self.loss = history.history['loss']
@@ -230,12 +236,12 @@ class TrainSKInterface:
         infer_data = np.array(self.convert_back(self.test), np.float32)
         infer_data_labels = self.test['label'].values
         
-        score = self.image_pipeline.evaluate(infer_data[0:10], infer_data_labels[0:10])
+        score = self.image_pipeline.evaluate(infer_data[0:100], infer_data_labels[0:100])
         #print("Accuracy: " + str(score[0]))
 
         metric = [
             {"name": "Model Accuracy",
-            "value": float(score[0]),
+            "value": float(score[1]),
             "labels":[{"name": "dataset", "value": "test set"}]}
             ]
         #print(metric)
@@ -253,8 +259,8 @@ class TrainSKInterface:
         tracking.set_custom_info(custom_info_1)
         
         #confusion matrix
-        y_pred = np.round(self.image_pipeline.predict(infer_data[0:10]), 0)
-        cnf_matrix = confusion_matrix(infer_data_labels[0:10], y_pred)
+        y_pred = np.round(self.image_pipeline.predict(infer_data[0:100]), 0)
+        cnf_matrix = confusion_matrix(infer_data_labels[0:100], y_pred)
         cf_matrix = [
                         {'actual label - 0': str(cnf_matrix[0])},
                         {'actual label - 1': str(cnf_matrix[1])}
