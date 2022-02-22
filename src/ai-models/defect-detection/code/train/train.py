@@ -19,6 +19,7 @@ from os import environ
 import tensorflow as tf
 from tensorflow.keras import layers
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
 
 
 FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
@@ -37,6 +38,10 @@ class TrainSKInterface:
         self.model_name = "classifier_pipeline.pkl"
         self.output_path = environ["OUTPUT_PATH"]
         self.file_name = environ["DATA_SOURCE"]
+        self.loss = None
+        self.val_loss = None
+        self.accuracy = None
+        self.val_accuracy = None
 
 
     def create_dataset_bin(self, img_folder):
@@ -169,13 +174,18 @@ class TrainSKInterface:
         #print(img_train[0].shape)
         #print(img_val[0].shape)
 
-        self.image_pipeline.fit(
+        history = self.image_pipeline.fit(
             x=np.array(img_train, np.float32), 
             y=np.array(list(map(int,self.train['label'])), np.float32), 
             validation_data = (np.array(img_val, np.float32), self.val['label'].values)
             #,steps_per_epoch = 100
-            ,epochs = 100 #To be changed
+            ,epochs = 5 #To be changed
         )
+
+        self.loss = history.history['loss']
+        self.val_loss = history.history['val_loss']
+        self.accuracy = history.history['accuracy']
+        self.val_accuracy = history.history['val_accuracy']
 
         return None
 
@@ -220,22 +230,40 @@ class TrainSKInterface:
         infer_data = np.array(self.convert_back(self.test), np.float32)
         infer_data_labels = self.test['label'].values
         
-        #logging.info(f"-----START INFERENCE-----")
-        #prediction = self.image_pipeline.predict(infer_data[0:1])
-        #predicted_label = "Anomalous" if prediction[0] > 0.5 else "Normal"
-        #logging.info(f"The input was predicted as '{predicted_label}'")
-        #logging.info(f"-----END INFERENCE-----")
-        
         score = self.image_pipeline.evaluate(infer_data[0:10], infer_data_labels[0:10])
-        print("Accuracy: " + str(score[0]))
+        #print("Accuracy: " + str(score[0]))
 
         metric = [
             {"name": "Model Accuracy",
             "value": float(score[0]),
             "labels":[{"name": "dataset", "value": "test set"}]}
             ]
-        print(metric)
+        #print(metric)
         tracking.log_metrics(metric, artifact_name = "defect-detection")
+
+        training_metrics = [
+                    {'loss': str(self.loss)},
+                    {'val_loss': str(self.val_loss)},
+                    {'accuracy': str(self.accuracy)},
+                    {'val_accuracy': str(self.val_accuracy)}
+                ]
+        custom_info_1 = [{"name": "Metrics", "value": str(training_metrics)}]
+
+        #print(custom_info_1)
+        tracking.set_custom_info(custom_info_1)
+        
+        #confusion matrix
+        y_pred = np.round(self.image_pipeline.predict(infer_data[0:10]), 0)
+        cnf_matrix = confusion_matrix(infer_data_labels[0:10], y_pred)
+        cf_matrix = [
+                        {'actual label - 0': str(cnf_matrix[0])},
+                        {'actual label - 1': str(cnf_matrix[1])}
+                    ]
+        custom_info_2 = [{"name": "Confusion Matrix (columns: predicted-class, rows: actual-class)",
+                    "value": str(cf_matrix)}]
+
+        #print(custom_info_2)
+        tracking.set_custom_info(custom_info_2)
 
         return None
 
