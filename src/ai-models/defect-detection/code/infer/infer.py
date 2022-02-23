@@ -5,13 +5,12 @@ Inference script that extends from the base infer interface
 
 from os.path import exists
 from joblib import load
-
+import numpy as np
 from flask import Flask, request
 
 app = Flask(__name__)
 
 image_pipeline, target_classes = None, None
-
 
 @app.before_first_request
 def init():
@@ -44,7 +43,9 @@ def predict():
 
     global image_pipeline, target_classes
     input_data = dict(request.json)
-    prediction = image_pipeline.predict([input_data["image"]])
+    input_data = np.array(input_data["image"], np.float32)
+
+    prediction = image_pipeline.predict(input_data)
     predicted_label = "Anomalous" if prediction[0] > 0.5 else "Normal" #To be tuned
     #predicted_label = target_classes[prediction[0]]
     output = {"predictions": predicted_label}
@@ -56,4 +57,3 @@ if __name__ == "__main__":
     init()
     app.run(host="0.0.0.0", debug=True, port=9001)
 
-# curl --location --request POST 'http://localhost:9001/v1/models/textmodel:predict' --header 'Content-Type: application/json' --data-raw '{"text": "A restaurant with great ambiance"}'

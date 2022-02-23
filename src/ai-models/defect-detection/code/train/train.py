@@ -20,6 +20,7 @@ from os import environ
 import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow.python.keras import backend as K
+from tensorflow.python.client import device_lib
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 
@@ -168,9 +169,13 @@ class TrainSKInterface:
         Train and save the model
         """
         
-        config = tf.compat.v1.ConfigProto(device_count = {'GPU': 1, 'CPU': 7}) 
-        sess = tf.compat.v1.Session(config=config) 
-        keras.backend.set_session(sess)
+        dev = device_lib.list_local_devices()
+        print([x.name for x in dev ])
+        print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+
+        #config = tf.compat.v1.ConfigProto(device_count = {'GPU': 1, 'CPU': 15}) 
+        #sess = tf.compat.v1.Session(config=config) 
+        #keras.backend.set_session(sess)
 
         img_train = self.convert_back(self.train)
         img_val = self.convert_back(self.val)
@@ -236,7 +241,7 @@ class TrainSKInterface:
         infer_data = np.array(self.convert_back(self.test), np.float32)
         infer_data_labels = self.test['label'].values
         
-        score = self.image_pipeline.evaluate(infer_data[0:100], infer_data_labels[0:100])
+        score = self.image_pipeline.evaluate(infer_data, infer_data_labels)
         #print("Accuracy: " + str(score[0]))
 
         metric = [
@@ -259,8 +264,8 @@ class TrainSKInterface:
         tracking.set_custom_info(custom_info_1)
         
         #confusion matrix
-        y_pred = np.round(self.image_pipeline.predict(infer_data[0:100]), 0)
-        cnf_matrix = confusion_matrix(infer_data_labels[0:100], y_pred)
+        y_pred = np.round(self.image_pipeline.predict(infer_data), 0)
+        cnf_matrix = confusion_matrix(infer_data_labels, y_pred)
         cf_matrix = [
                         {'actual label - 0': str(cnf_matrix[0])},
                         {'actual label - 1': str(cnf_matrix[1])}
