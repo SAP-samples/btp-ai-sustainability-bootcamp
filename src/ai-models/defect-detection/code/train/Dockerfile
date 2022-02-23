@@ -1,4 +1,5 @@
-FROM python:3.7-slim
+FROM python:3.7-buster
+RUN export LD_LIBRARY_PATH=/usr/local/nvidia/lib:$LD_LIBRARY_PATH
 
 RUN pip3 install --upgrade pip
 COPY requirements.txt ./requirements.txt
