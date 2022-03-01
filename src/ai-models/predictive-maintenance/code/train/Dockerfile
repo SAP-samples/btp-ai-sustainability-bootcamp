@@ -6,6 +6,10 @@ COPY requirements.txt ./requirements.txt
 RUN pip3 install ai-tracking-sdk --index-url http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.snapshots.pypi/simple/ --trusted-host nexus.wdf.sap.corp
 RUN pip3 install -r requirements.txt
 
+#required for librosa
+RUN apt-get update -y
+RUN apt-get install -y libsndfile-dev
+
 RUN mkdir -p /app/src/ && \
     mkdir -p /app/model && \
     mkdir -p /app/data
