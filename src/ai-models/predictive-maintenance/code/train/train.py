@@ -73,7 +73,7 @@ class TrainInterface:
         
         clips=glob(path)
         clips_df=pd.DataFrame(data={'path':clips,
-                            'label':[c.split('/')[2] for c in clips]} )
+                            'label':[c.split('/')[-2] for c in clips]} )
 
 
         self.dataset = self.dataset.sample(frac=1).reset_index(drop=True)
@@ -227,7 +227,7 @@ class TrainInterface:
             "labels":[{"name": "dataset", "value": "test set"}]}
             ]
         #print(metric)
-        tracking.log_metrics(metric, artifact_name = "defect-detection")
+        tracking.log_metrics(metric, artifact_name = "sound-clf")
 
         training_metrics = [
                     {'loss': str(self.loss)},
