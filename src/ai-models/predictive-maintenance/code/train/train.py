@@ -26,8 +26,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 
 from sapai import tracking
-
-\
 FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
 # Use filename="file.log" as a param to logging to log to a file
 logging.basicConfig(format=FORMAT, level=logging.INFO)
@@ -38,7 +36,7 @@ class TrainInterface:
         # Set the params for the training below
         self.tf_model = None
         self.dataset = None
-        self.train, self.validation, self.test = None, None, None
+        self.train, self.val, self.test = None, None, None
         self.X_train, self.X_validation, self.X_test = [],[],[]
         self.y_train, self.y_validation, self.y_test = [],[],[]
         self.target_classes = None
@@ -59,7 +57,7 @@ class TrainInterface:
                                                  fmax=sr/2)
         log_mel = librosa.power_to_db(mel_spectrogram)
         MFCCs=librosa.feature.mfcc(scale, sr, n_mfcc=40, fmax=sr/2)
-        acoustic_features=np.concatenate( (MFCCs,log_mel_spectrogram), axis =0)
+        acoustic_features=np.concatenate( (MFCCs,log_mel), axis =0)
         return acoustic_features
         
 
@@ -69,13 +67,14 @@ class TrainInterface:
         """
         
         path=self.file_name+'/*/*'
+        
+        
         logging.info(f"{path}")
         
         clips=glob(path)
-        clips_df=pd.DataFrame(data={'path':clips,
-                            'label':[c.split('/')[-2] for c in clips]} )
-
-
+        self.dataset=pd.DataFrame(data={'path':clips,
+                            'label':[0 if c.split('/')[-2]=='normal' else 1 for c in clips]} )
+        
         self.dataset = self.dataset.sample(frac=1).reset_index(drop=True)
         self.target_classes = self.dataset["label"].unique()
 
@@ -94,26 +93,23 @@ class TrainInterface:
             raise Exception("Train or test data not set")
 
         #Change splitting proportions
-        self.train, self.val = train_test_split(self.dataset_all, test_size=0.4, random_state=25)
+        self.train, self.val = train_test_split(self.dataset, test_size=0.4, random_state=25)
         self.val, self.test = train_test_split(self.val, test_size=0.5, random_state=25)
-
-        train, test = train_test_split(clips_df, test_size=0.20, random_state=25)
-        train, validation = train_test_split(train, test_size=0.20, random_state=25)
         
         return None
 
     def compute_features(self) -> None:
  
         for i,r in self.train.iterrows():
-            self.X_train.append(acoustic_feature_computation(r['path']))
+            self.X_train.append(self.acoustic_feature_computation(r['path']))
             self.y_train.append(r['label'])
             
         for i,r in self.test.iterrows():
-            self.X_test.append(acoustic_feature_computation(r['path']))
+            self.X_test.append(self.acoustic_feature_computation(r['path']))
             self.y_test.append(r['label'])
  
-        for i,r in self.validation.iterrows():
-            self.X_validation.append(acoustic_feature_computation(r['path']))
+        for i,r in self.val.iterrows():
+            self.X_validation.append(self.acoustic_feature_computation(r['path']))
             self.y_validation.append(r['label'])
         
         return None 
@@ -161,13 +157,15 @@ class TrainInterface:
         #config = tf.compat.v1.ConfigProto(device_count = {'GPU': 1, 'CPU': 15}) 
         #sess = tf.compat.v1.Session(config=config) 
         #keras.backend.set_session(sess)
+
         
         history = self.tf_model.fit(
-            x=np.array(img_train, np.float32), 
-            y=np.array(list(map(int,self.train['label'])), np.float32), 
-            validation_data = (np.array(img_val, np.float32), self.val['label'].values)
-            #,steps_per_epoch = 100
-            ,epochs = 40 #To be changed
+            x=np.array(self.X_train, np.float32), 
+            y=np.array(self.y_train, np.float32), 
+            validation_data = ( np.array(self.X_validation, np.float32),
+                                np.array(self.y_validation, np.float32),
+                                           ),        
+            epochs = 40 #To be changed
         )
 
         self.loss = history.history['loss']
@@ -215,8 +213,8 @@ class TrainInterface:
         if self.tf_model is None:
             self.get_model()
 
-        infer_data = np.array(self.convert_back(self.test), np.float32)
-        infer_data_labels = self.test['label'].values
+        infer_data = np.array(self.X_test, np.float32)
+        infer_data_labels = np.array(self.y_test, np.float32)
         
         score = self.tf_model.evaluate(infer_data, infer_data_labels)
         #print("Accuracy: " + str(score[0]))
@@ -227,7 +225,7 @@ class TrainInterface:
             "labels":[{"name": "dataset", "value": "test set"}]}
             ]
         #print(metric)
-        tracking.log_metrics(metric, artifact_name = "sound-clf")
+        tracking.log_metrics(metric, artifact_name = "sound-metrics")
 
         training_metrics = [
                     {'loss': str(self.loss)},
@@ -260,9 +258,17 @@ class TrainInterface:
         """
         Run the training script with all the necessary steps
         """
+        logging.info(f"Let's gooo")
+        
         self.read_dataset()
+        logging.info(f"Data has been read")
+
         self.split_dataset()
+        logging.info(f"Dataset has been split")
+
         self.compute_features()
+        logging.info(f"Features has been extracted")
+
         
         self.get_model()
         if self.tf_model is None:
@@ -272,7 +278,7 @@ class TrainInterface:
             self.train_model()
             self.save_model()
 
-        self.model_metrics()
+        #self.model_metrics()
 
         return None
 

@@ -1,5 +1,6 @@
 FROM python:3.7-buster
 RUN export LD_LIBRARY_PATH=/usr/local/nvidia/lib:$LD_LIBRARY_PATH
+RUN export NUMBA_CACHE_DIR=/tmp/
 
 RUN pip3 install --upgrade pip
 COPY requirements.txt ./requirements.txt
