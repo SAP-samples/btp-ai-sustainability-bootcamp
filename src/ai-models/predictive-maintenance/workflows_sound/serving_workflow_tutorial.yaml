@@ -1,0 +1,42 @@
+apiVersion: ai.sap.com/v1alpha1
+kind: ServingTemplate
+metadata:
+  name: sound-serve
+  annotations:
+    scenarios.ai.sap.com/description: "SAP AI Core tutorial scenario"
+    scenarios.ai.sap.com/name: "sound-scenario"
+    executables.ai.sap.com/description: "CNN for acoustic scene classification"
+    executables.ai.sap.com/name: "sound-serve-exec"
+  labels:
+    scenarios.ai.sap.com/id: "sound-scenario"
+    executables.ai.sap.com/id: "sound-serve"
+    ai.sap.com/version: "1.0.0"
+spec:
+  inputs:
+    parameters: []
+    artifacts:
+      - name: soundmodel #Pay attention to the format, for instance sound-model is not allowed!!!
+  template:
+    apiVersion: "serving.kubeflow.org/v1beta1"
+    metadata:
+      annotations: |
+        autoscaling.knative.dev/metric: concurrency
+        autoscaling.knative.dev/target: 1
+        autoscaling.knative.dev/targetBurstCapacity: 0
+      labels: |
+        ai.sap.com/resourcePlan: starter
+    spec: |
+      predictor:
+        imagePullSecrets:
+          - name: docker-registry-secret
+        minReplicas: 1
+        maxReplicas: 5
+        containers:
+        - name: kfserving-container
+          image: "docker.io/yoshidj/sound-serve:0.0.1"
+          ports:
+            - containerPort: 9001
+              protocol: TCP
+          env:
+            - name: STORAGE_URI
+              value: "{{inputs.artifacts.soundmodel}}"
