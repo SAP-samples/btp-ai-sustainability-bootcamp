@@ -15,7 +15,7 @@ spec:
   inputs:
     parameters: []
     artifacts:
-      - name: sound-model
+      - name: soundmodel #Pay attention to the format, for instance sound-model is not allowed!!!
   template:
     apiVersion: "serving.kubeflow.org/v1beta1"
     metadata:
@@ -39,4 +39,4 @@ spec:
               protocol: TCP
           env:
             - name: STORAGE_URI
-              value: "{{inputs.artifacts.sound-model}}"
+              value: "{{inputs.artifacts.soundmodel}}"
