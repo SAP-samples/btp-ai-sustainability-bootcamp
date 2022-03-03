@@ -8,6 +8,10 @@ ENV MPLCONFIGDIR=/tmp/MPLCONFIGDIR/
 COPY requirements.txt ./requirements.txt
 RUN pip3 install -r requirements.txt
 
+#required for librosa
+RUN apt-get update -y
+RUN apt-get install -y libsndfile-dev
+
 RUN mkdir -p /app/src
 
 RUN chgrp -R nogroup /app && \
