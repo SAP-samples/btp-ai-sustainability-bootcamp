@@ -20,7 +20,7 @@ class Machine:
 
     def _print_status(self):
         sep=','
-        status_string=self._equipment_nr+sep
+        status_string=self._equipment_nr+sep+self._status+sep
         for v in self._statusParameters.values():
             status_string=status_string+str(v)+sep
         return status_string[0:-1]
