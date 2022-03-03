@@ -1,0 +1,21 @@
+OK:
+  energy_consumption: 10000
+  fault_prob: 0.1
+  breakdown_prob: 0.01
+  defect_rate: 0.01
+  yield: 1500
+  noise: 0
+NONOK:
+  energy_consumption: 20000
+  fault_prob: 0.0
+  breakdown_prob: 0.10
+  defect_rate: 0.03
+  yield: 50
+  noise: 1
+BROKEN:
+  energy_consumption: 0
+  fault_prob: 0
+  breakdown_prob: 0
+  defect_rate:
+  yield: 0
+  noise: 0
