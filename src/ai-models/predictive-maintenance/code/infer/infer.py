@@ -47,7 +47,7 @@ def init():
     return None
 
 
-@app.route("/v1/models/{}:predict".format("imagemodel"), methods=["POST"])
+@app.route("/v1/models/{}:predict".format("soundmodel"), methods=["POST"])
 def predict():
     """
     Perform an inference on the model created in initialize
