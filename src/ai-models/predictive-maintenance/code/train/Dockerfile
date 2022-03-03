@@ -1,4 +1,9 @@
 FROM python:3.7-buster
+
+RUN mkdir -m 777 /tmp/NUMBA_CACHE_DIR /tmp/MPLCONFIGDIR
+ENV NUMBA_CACHE_DIR=/tmp/NUMBA_CACHE_DIR/
+ENV MPLCONFIGDIR=/tmp/MPLCONFIGDIR/
+
 RUN export LD_LIBRARY_PATH=/usr/local/nvidia/lib:$LD_LIBRARY_PATH
 RUN export NUMBA_CACHE_DIR=/tmp/
 

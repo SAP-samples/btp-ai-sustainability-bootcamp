@@ -165,7 +165,7 @@ class TrainInterface:
             validation_data = ( np.array(self.X_validation, np.float32),
                                 np.array(self.y_validation, np.float32),
                                            ),        
-            epochs = 40 #To be changed
+            epochs = 100 #To be changed
         )
 
         self.loss = history.history['loss']
@@ -240,7 +240,8 @@ class TrainInterface:
         
         #confusion matrix
         y_pred = np.round(self.tf_model.predict(infer_data), 0)
-        cnf_matrix = confusion_matrix(infer_data_labels, y_pred)
+        x,y = zip(*y_pred)
+        cnf_matrix = confusion_matrix(infer_data_labels, y)
         cf_matrix = [
                         {'actual label - 0': str(cnf_matrix[0])},
                         {'actual label - 1': str(cnf_matrix[1])}
@@ -278,7 +279,7 @@ class TrainInterface:
             self.train_model()
             self.save_model()
 
-        #self.model_metrics()
+        self.model_metrics()
 
         return None
 
