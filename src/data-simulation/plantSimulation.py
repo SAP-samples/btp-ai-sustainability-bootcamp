@@ -70,6 +70,7 @@ class FactorySimulation():
         if breakdown:
             machine._set_status('BROKEN')
             plant._turnOff()
+            plant._set_status()
             self._downtimesClock[plant._plant_nr][machine._equipment_nr]=self._RepairDuration
             return 1
         else:
@@ -83,7 +84,7 @@ class FactorySimulation():
         return
 
     def cyclic_maintenance(self):
-        if _cyclicMaintClock==1:
+        if self._cyclicMaintClock==1:
             for p in self.Factory._plants_dict.values():
                 for m in p._machines_dict.values():
                     m._set_status('OK')
@@ -104,10 +105,11 @@ class FactorySimulation():
             #Update clocks
             if self._cyclicMaintClock>0:
                 self._cyclicMaintClock=self._cyclicMaintClock -1
-            for i in self._downtimesClock.values():
-                for j in i.values():
-                    if j > 0:
-                        j=j-1
+            for kp, vp in self._downtimesClock.items():
+                for km, vm in vp.items():
+                    if vm > 0:
+                        self._downtimesClock[kp][km]=vm-1
+
             print(self._cyclicMaintClock)
             print(self._downtimesClock)
 
@@ -117,10 +119,8 @@ class FactorySimulation():
                 self._factory._turnOff()
                 print(" start cyclic ",self._cyclicMaintClock)
 
-
             # Loop on plants
             for p in self._factory._plants_dict.values():
-
 
                 # If plant is on, extract random faults/breakdowns
                 for m in p._machine_dict.values():
