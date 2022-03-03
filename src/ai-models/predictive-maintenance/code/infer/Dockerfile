@@ -1,6 +1,10 @@
 FROM python:3.7.11
 ENV LANG C.UTF-8
 
+RUN mkdir -m 777 /tmp/NUMBA_CACHE_DIR /tmp/MPLCONFIGDIR
+ENV NUMBA_CACHE_DIR=/tmp/NUMBA_CACHE_DIR/
+ENV MPLCONFIGDIR=/tmp/MPLCONFIGDIR/
+
 COPY requirements.txt ./requirements.txt
 RUN pip3 install -r requirements.txt
 
