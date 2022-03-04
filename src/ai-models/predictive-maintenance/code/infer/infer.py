@@ -8,6 +8,11 @@ from joblib import load
 import numpy as np
 from flask import Flask, request
 import librosa
+import logging
+
+FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
+# Use filename="file.log" as a param to logging to log to a file
+logging.basicConfig(format=FORMAT, level=logging.INFO)
 
 app = Flask(__name__)
 
@@ -34,17 +39,17 @@ def init():
 
 
 def acoustic_feature_computation(clip):
-    scale, sr = librosa.load(clip)
     mel_spectrogram = librosa.feature.melspectrogram(
-        scale, 
-        sr, 
-        hop_length=512,
-        n_mels=64,
-        fmax=sr/2)
+        y = clip, 
+        sr = 22050, 
+        hop_length = 512,
+        n_mels = 64,
+        fmax = 22050/2
+        )
     log_mel = librosa.power_to_db(mel_spectrogram)
     log_mel_spectrogram = librosa.power_to_db(mel_spectrogram)
-    MFCCs=librosa.feature.mfcc(scale, sr, n_mfcc=40, fmax=sr/2)
-    acoustic_features=np.concatenate( (MFCCs,log_mel_spectrogram), axis =0)
+    MFCCs = librosa.feature.mfcc(y = clip, sr = 22050, n_mfcc = 40, fmax = 22050/2)
+    acoustic_features = np.concatenate((MFCCs,log_mel_spectrogram), axis = 0)
     return acoustic_features
 
 
@@ -61,11 +66,14 @@ def predict():
     input_data = dict(request.json)
 
     input_data = input_data["sound"]
-    input_data = np.frombuffer(input_data, count = 33075, dtype = np.float32)
+    input_data = np.frombuffer(bytes.fromhex(input_data), count = 33075, dtype = np.float32)
     acoustic_features = acoustic_feature_computation(input_data)
+    #logging.info(f"Shape: "+str(acoustic_features.shape))
+    b = np.array([acoustic_features])
 
-    prediction = sound_pipeline.predict([acoustic_features])
-    predicted_label = "Anomalous" if prediction[0] > 0.5 else "Normal" #To be tuned
+    prediction = sound_pipeline.predict(b)
+    x,y = zip(*prediction)
+    predicted_label = "Anomalous" if y[0] > 0.5 else "Normal" #To be tuned
     #predicted_label = target_classes[prediction[0]]
     output = {"predictions": predicted_label}
 
