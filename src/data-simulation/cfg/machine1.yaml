@@ -10,12 +10,12 @@ NONOK:
   fault_prob: 0.0
   breakdown_prob: 0.10
   defect_rate: 0.03
-  yield: 50
+  yield: 1500
   noise: 1
 BROKEN:
   energy_consumption: 0
   fault_prob: 0
   breakdown_prob: 0
-  defect_rate:
+  defect_rate: 0
   yield: 0
   noise: 0
