@@ -50,12 +50,11 @@ class Plant():
         return
 
     def _print_status(self):
-        nl='\n'
         sep=','
-        status_string=plant_nr+sep
+        status_string=self._plant_nr+sep+str(self._isOn)+sep
         for v in self._status.values():
             status_string=status_string+str(v)+sep
-        return status_string[0:-1]+nl
+        return status_string[0:-1]
 
     def _compute_yield(self):
         if self._isOn:
