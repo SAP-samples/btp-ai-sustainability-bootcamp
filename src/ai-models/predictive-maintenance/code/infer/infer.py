@@ -66,16 +66,19 @@ def predict():
     input_data = dict(request.json)
 
     input_data = input_data["sound"]
-    input_data = np.frombuffer(bytes.fromhex(input_data), count = 33075, dtype = np.float32)
-    acoustic_features = acoustic_feature_computation(input_data)
+    lst_input_data = [np.frombuffer(bytes.fromhex(i), count = 33075, dtype = np.float32) for i in input_data]
+    x_inference = [acoustic_feature_computation(i) for i in lst_input_data]
     #logging.info(f"Shape: "+str(acoustic_features.shape))
-    b = np.array([acoustic_features])
+    b = np.array(x_inference)
 
     prediction = sound_pipeline.predict(b)
-    x,y = zip(*prediction)
-    predicted_label = "Anomalous" if y[0] > 0.5 else "Normal" #To be tuned
+    x, y = zip(*prediction)
+    predicted_labels = []
+    for i in y:
+        predicted_label = "Anomalous" if y[0] > 0.5 else "Normal" #To be tuned
+        predicted_labels.append(predicted_label)
     #predicted_label = target_classes[prediction[0]]
-    output = {"predictions": predicted_label}
+    output = {"Predictions": predicted_labels}
 
     return output
 
