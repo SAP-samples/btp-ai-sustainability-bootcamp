@@ -1,14 +1,14 @@
 OK:
   energy_consumption: 10000
-  fault_prob: 0.1
-  breakdown_prob: 0.01
+  fault_prob: 0.005
+  breakdown_prob: 0.0001
   defect_rate: 0.01
   yield: 1500
   noise: 0
 NONOK:
   energy_consumption: 20000
-  fault_prob: 0.0
-  breakdown_prob: 0.10
+  fault_prob: 0
+  breakdown_prob: 0.002
   defect_rate: 0.03
   yield: 1500
   noise: 1
