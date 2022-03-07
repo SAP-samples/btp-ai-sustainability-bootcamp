@@ -1,0 +1,14 @@
+# Other
+*.DS_Store
+*.orig
+*.log
+
+*.iml
+*.flattened-pom.xml
+
+# IDEs
+# .vscode
+# .idea
+
+# added by cds deploy
+default-env.json
