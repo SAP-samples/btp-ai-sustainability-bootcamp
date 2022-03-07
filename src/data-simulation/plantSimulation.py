@@ -9,19 +9,20 @@ class FactorySimulation():
     def __init__(self, factory_nr):
         self._factory = plant.Factory(factory_nr)
         self._cyclicStartDate = datetime.strptime('2020-01-01','%Y-%m-%d')
-        self._cyclicEndDate = datetime.strptime('2020-12-31','%Y-%m-%d')
-        self._preventiveEndDate = datetime.now()
+        self._cyclicEndDate = datetime.strptime('2021-01-01','%Y-%m-%d')
+        self._proactiveEndDate = datetime.now()
         self._cyclicMaintFreq = 28 #in days
         self._MaintDuration = 24 #in hours
         self._cyclicMaintList=[]
         self._cyclicMaintClock=0
         self._downtimesClock={}
+        self._faultClock={}
         self._RepairDuration = 5*24 #in hours
         self.nPlants=1
         self.nMachines=2
         self._corrective_nr = 1
+        self._predictive_nr = 1
         self._cyclic_nr = 1
-        self._proactive_nr = 1
         self.cfg= 'cfg/machine1.yaml'
         self._outfile = 'sim_'+factory_nr+'.csv'
 
@@ -32,12 +33,14 @@ class FactorySimulation():
             p_name='p'+str(p)
             P = plant.Plant(p_name)
             self._downtimesClock[p_name]={}
+            self._faultClock[p_name]={}
             self._factory.add_plants(P)
             for m in range(1,self.nMachines+1):
                 m_name='m'+str(m)
                 M = plant.Machine(m_name, self.cfg)
                 P.add_machine(M)
                 self._downtimesClock[p_name][m_name]=0
+                self._faultClock[p_name][m_name]=0
         return
 
     # Create cyclic maintenance list
@@ -59,16 +62,21 @@ class FactorySimulation():
             return 0
 
     # Function to extract faults on a certain machine
-    def fault_generator(self, plant, machine ):
+    def fault_generator(self, plant, machine, proactive ):
         prob=machine._statusParameters['fault_prob']
         print('fault_gen ',prob)
         fault=self.event_generator(prob)
+        #if proactive maintenance is not in place
         if fault:
             machine._set_status('NONOK')
             plant._set_status()
+            if proactive:
+                plant._turnOff()
+                plant._set_status()
+                self._faultClock[plant._plant_nr][machine._equipment_nr]=self._MaintDuration
         return
 
-    # Function to generate breakdowns on a certain machine
+    # Function to generate breakdown on a certain machine
     def breakdown_generator(self, plant, machine ):
         prob=machine._statusParameters['breakdown_prob']
         print('break_gen ',prob)
@@ -82,6 +90,7 @@ class FactorySimulation():
         else:
             return 0
 
+    # Function to bring up a plant after a corrective maintenance
     def corrective_maintenance( self, plant, machine):
         if self._downtimesClock[plant._plant_nr][machine._equipment_nr] == 1 :
             machine._set_status('OK')
@@ -90,6 +99,16 @@ class FactorySimulation():
             self._corrective_nr = self._corrective_nr+1
         return
 
+    # Function to bring up a plant after a "predictive" maintenance
+    def predictive_maintenance( self, plant, machine):
+        if self._faultClock[plant._plant_nr][machine._equipment_nr] == 1 :
+            machine._set_status('OK')
+            plant._turnOn()
+            plant._set_status()
+            self._predictive_nr = self._predictive_nr+1
+        return
+
+    # Function to bring up the factory after a corrective maintenance
     def cyclic_maintenance(self):
         if self._cyclicMaintClock==1:
             for p in self._factory._plants_dict.values():
@@ -109,20 +128,30 @@ class FactorySimulation():
         ### Start the simulation
         t=self._cyclicStartDate
         D=timedelta(hours=1)
-        while t < self._cyclicEndDate:
+        proactive = 0
+
+        while t < self._proactiveEndDate:
             t =t + D
             print("***",t)
 
+            if t > self._cyclicEndDate :
+                proactive=1
+
             #Update clocks
+            # cyclic maintenance
             if self._cyclicMaintClock>0:
                 self._cyclicMaintClock=self._cyclicMaintClock -1
+            # corrective maintenance
             for kp, vp in self._downtimesClock.items():
                 for km, vm in vp.items():
                     if vm > 0:
                         self._downtimesClock[kp][km]=vm-1
+            # predictive maintenance
+            for kp, vp in self._faultClock.items():
+                for km, vm in vp.items():
+                    if vm > 0:
+                        self._faultClock[kp][km]=vm-1
 
-            print(self._cyclicMaintClock)
-            print(self._downtimesClock)
 
             # Was a cyclic maintenance scheduled for today? if so, turn the factory off
             if self._cyclicMaintClock == 0 and t.strftime('%Y-%m-%d') in [ d.strftime('%Y-%m-%d') for d in self._cyclicMaintList]:
@@ -136,11 +165,12 @@ class FactorySimulation():
                 # If plant is on, extract random faults/breakdowns
                 for m in p._machine_dict.values():
                     if p._isOn:
-                        self.fault_generator(p, m)
+                        self.fault_generator(p, m, proactive)
                         self.breakdown_generator(p, m)
 
                     #Execute maintenance, if needed
                     self.corrective_maintenance(p,m)
+                    self.predictive_maintenance(p,m)
                     self.cyclic_maintenance()
 
                     #Print the status of each machine
@@ -158,6 +188,12 @@ class FactorySimulation():
                         f.write(sep)
                     if self._downtimesClock[p._plant_nr][m._equipment_nr] > 1 :
                         maintenance_nr='CORRECTIVE'+str(self._corrective_nr).zfill(5)
+                        f.write(maintenance_nr)
+                        f.write(sep)
+                    else:
+                        f.write(sep)
+                    if self._faultClock[p._plant_nr][m._equipment_nr] > 1 :
+                        maintenance_nr='PROACTIVE'+str(self._predictive_nr).zfill(5)
                         f.write(maintenance_nr)
                         f.write('\n')
                     else:
