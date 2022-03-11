@@ -71,9 +71,9 @@ class FactorySimulation():
             machine._set_status('NONOK')
             plant._set_status()
             if proactive:
-                plant._turnOff()
-                plant._set_status()
-                self._faultClock[plant._plant_nr][machine._equipment_nr]=self._MaintDuration
+                # set the fault clock to -1: the maintenance hasn't started yet.
+                #The AI algo will recognise the fault and schedule the machine within few hours
+                self._faultClock[plant._plant_nr][machine._equipment_nr]=-2
         return
 
     # Function to generate breakdown on a certain machine
@@ -99,8 +99,14 @@ class FactorySimulation():
             self._corrective_nr = self._corrective_nr+1
         return
 
-    # Function to bring up a plant after a "predictive" maintenance
+    # Function to :
+    # - stop the environment for a maintenance
+    # - bring up a plant after a "predictive" maintenance
     def predictive_maintenance( self, plant, machine):
+        if self._faultClock[plant._plant_nr][machine._equipment_nr] == -1 :
+            plant._turnOff()
+            plant._set_status()
+            self._faultClock[plant._plant_nr][machine._equipment_nr] = self._MaintDuration
         if self._faultClock[plant._plant_nr][machine._equipment_nr] == 1 :
             machine._set_status('OK')
             plant._turnOn()
@@ -151,7 +157,8 @@ class FactorySimulation():
                 for km, vm in vp.items():
                     if vm > 0:
                         self._faultClock[kp][km]=vm-1
-
+                    if vm < 0:
+                        self._faultClock[kp][km]=vm+1
 
             # Was a cyclic maintenance scheduled for today? if so, turn the factory off
             if self._cyclicMaintClock == 0 and t.strftime('%Y-%m-%d') in [ d.strftime('%Y-%m-%d') for d in self._cyclicMaintList]:
@@ -203,7 +210,7 @@ class FactorySimulation():
         return
 
 def main():
-        Sim = FactorySimulation('factory_1')
+        Sim = FactorySimulation('factory_2')
         Sim.build_factory()
         Sim._factory._turnOn()
         Sim.schedule_cyclic_maintenance()
