@@ -1,0 +1,170 @@
+{
+  "services": {
+    "LaunchPage": {
+      "adapter": {
+        "config": {
+          "catalogs": [],
+          "groups": [
+            {
+              "id": "SmartQualityInspection",
+              "title": "Smart Quality Inspection",
+              "isPreset": true,
+              "isVisible": true,
+              "isGroupLocked": false,
+              "tiles": [
+                {
+                  "id": "ManageCVQualityRecords",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Quality Records via Computer Vision",
+                    "targetURL": "#CVQualityRecords-manage"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "PredictiveMaintenance",
+              "title": "Predictive Maintenance",
+              "isPreset": true,
+              "isVisible": true,
+              "isGroupLocked": false,
+              "tiles": [
+                {
+                  "id": "ManageEquipmentConditions",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Equipment Conditions",
+                    "targetURL": "#EquipmentConditions-manage"
+                  }
+                },
+                {
+                  "id": "ManageSoundAnomalies",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Equipment Sound Anomalies",
+                    "targetURL": "#SoundAnomalies-manage"
+                  }
+                },
+                {
+                  "id": "ManageSoundAnomalyTypes",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Sound Anomaly Types of Equipment",
+                    "targetURL": "#SoundAnomalyTypes-manage"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "NavTargetResolution": {
+      "config": {
+        "enableClientSideTargetResolution": true
+      }
+    },
+    "ClientSideTargetResolution": {
+      "adapter": {
+        "config": {
+          "inbounds": {
+            "BrowseBooks": {
+              "semanticObject": "Books",
+              "action": "display",
+              "title": "Browse Books",
+              "signature": {
+                "parameters": {
+                  "Books.ID": {
+                    "renameTo": "ID"
+                  },
+                  "Authors.books.ID": {
+                    "renameTo": "ID"
+                  }
+                },
+                "additionalParameters": "ignored"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=bookshop",
+                "url": "/browse/webapp"
+              }
+            },
+            "BrowseAuthors": {
+              "semanticObject": "Authors",
+              "action": "display",
+              "title": "Browse Authors",
+              "signature": {
+                "parameters": {
+                  "Books.author.ID":{
+                    "renameTo": "ID"
+                  }
+                },
+                "additionalParameters": "ignored"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=authors",
+                "url": "/admin-authors/webapp"
+              }
+            },
+            "ManageCVQualityRecords": {
+              "semanticObject": "CVQualityRecords",
+              "action": "manage",
+              "title": "Manage Quality Records via CV",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=cvqualityrecords",
+                "url": "/defeat-detection/cv-quality-records/webapp"
+              }
+            },
+            "ManageEquipmentConditions": {
+              "semanticObject": "EquipmentConditions",
+              "action": "manage",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=equipmentconditions",
+                "url": "/predictive-maintenance/equipment-conditions/webapp"
+              }
+            },
+            "ManageSoundAnomalies": {
+              "semanticObject": "SoundAnomalies",
+              "action": "manage",
+              "title": "Manage Equipment Sound Anomalies",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=soundanomalies",
+                "url": "/predictive-maintenance/sound-anomalies/webapp"
+              }
+            },
+            "ManageSoundAnomalyTypes": {
+              "semanticObject": "SoundAnomalyTypes",
+              "action": "manage",
+              "title": "Manage Sound Anomaly Types of Equipment",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=soundanomalytypes",
+                "url": "/predictive-maintenance/sound-anomaly-types/webapp"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
