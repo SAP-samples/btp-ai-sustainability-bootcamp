@@ -8,7 +8,10 @@
 ## Requirements
 
 ## Download and Installation
-
+```
+npm install
+cds watch
+```
 ## Known Issues
 
 ## How to obtain support
