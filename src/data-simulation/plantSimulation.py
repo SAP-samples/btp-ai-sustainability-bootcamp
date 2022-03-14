@@ -2,6 +2,7 @@ import plant as plant
 from datetime import datetime, timedelta
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class FactorySimulation():
@@ -43,6 +44,98 @@ class FactorySimulation():
                 self._faultClock[p_name][m_name]=0
         return
 
+    # Populate the factory with plants and machines and create the clock
+    def draw_factory(self):
+
+        #create figure
+        fig_width = 20  # cm
+        max_fig_height = 20  # cm
+        height_per_plant = 5
+        width_per_machines = fig_width / self.nMachines
+        fig_height= height_per_plant * self.nPlants
+        if fig_height > max_fig_height:
+            fig_height = max_fig_height
+        fig = plt.figure(figsize=(fig_width / 2.54, fig_height / 2.54))
+
+        #create axis. 1 unit = 1 cm
+        ax = fig.add_axes((0, 0, 1, 1))
+        ax.set_xlim(0, fig_width)
+        ax.set_ylim(0, fig_height)
+        ax.tick_params(bottom=False, top=False, left=False, right=False)
+        ax.tick_params(labelbottom=False, labeltop=False, labelleft=False, labelright=False)
+
+        #border
+        ax.spines["top"].set_color("black")
+        ax.spines["bottom"].set_color("black")
+        ax.spines["left"].set_color("black")
+        ax.spines["right"].set_color("black")
+        ax.spines["top"].set_linewidth(4)
+        ax.spines["bottom"].set_linewidth(4)
+        ax.spines["left"].set_linewidth(4)
+        ax.spines["right"].set_linewidth(4)
+
+        #plants and machines
+        plants_titles_coordinates=[]
+        plants_titles=[]
+
+        plant_counter=self.nPlants-1
+        radii = min(height_per_plant,width_per_machines) * 0.3
+        for kp,p in self._factory._plants_dict.items():
+            plants_titles_coordinates.append((fig_width*0.1, height_per_plant* 0.9  + height_per_plant * plant_counter))
+            plants_titles.append(kp)
+
+            machine_counter=0
+            machines_coordinates=[]
+            machines_titles=[]
+
+            for km,m in p._machine_dict.items():
+                machines_coordinates.append( ( width_per_machines * 0.5 + width_per_machines * machine_counter , height_per_plant* 0.5  + height_per_plant * plant_counter))
+                machines_titles.append(km)
+                machine_counter=machine_counter+1
+
+            #Draw machines
+            for i, m_coord in enumerate(machines_coordinates):
+                x, y = m_coord
+                theta = np.linspace(0, 2 * np.pi, 100)
+                ax.plot(
+                x + radii * np.cos(theta),
+                y + radii * np.sin(theta),
+                color="gold",
+                )
+                ax.text(
+                x, y,
+                machines_titles[i],
+                horizontalalignment="center",
+                verticalalignment="center",
+                color="black",
+                )
+            for i in range(self.nMachines-1):
+                ax.annotate(
+                    "",
+                (machines_coordinates[i+1][0] - radii, machines_coordinates[i+1][1]),
+                (machines_coordinates[i][0] + radii, machines_coordinates[i][1]),
+                        arrowprops=dict(arrowstyle = "-|>"),
+                    )
+
+            plant_counter=plant_counter -1
+
+        #Draw plants titles
+        for i, m_coord in enumerate(plants_titles_coordinates):
+            x, y = m_coord
+            ax.text(
+            x, y,
+            plants_titles[i],
+            horizontalalignment="center",
+            verticalalignment="center",
+            color="black",
+            )
+        png_title=str(self._factory._factory_nr)+'.png'
+        fig.savefig(png_title,dpi=300)
+        return
+
+
+
+
     # Create cyclic maintenance list
     def schedule_cyclic_maintenance(self):
         s=self._cyclicStartDate
@@ -64,7 +157,6 @@ class FactorySimulation():
     # Function to extract faults on a certain machine
     def fault_generator(self, plant, machine, proactive ):
         prob=machine._statusParameters['fault_prob']
-        print('fault_gen ',prob)
         fault=self.event_generator(prob)
         #if proactive maintenance is not in place
         if fault:
@@ -79,7 +171,6 @@ class FactorySimulation():
     # Function to generate breakdown on a certain machine
     def breakdown_generator(self, plant, machine ):
         prob=machine._statusParameters['breakdown_prob']
-        print('break_gen ',prob)
         breakdown=self.event_generator(prob)
         if breakdown:
             machine._set_status('BROKEN')
@@ -138,7 +229,6 @@ class FactorySimulation():
 
         while t < self._proactiveEndDate:
             t =t + D
-            print("***",t)
 
             if t > self._cyclicEndDate :
                 proactive=1
@@ -164,7 +254,6 @@ class FactorySimulation():
             if self._cyclicMaintClock == 0 and t.strftime('%Y-%m-%d') in [ d.strftime('%Y-%m-%d') for d in self._cyclicMaintList]:
                 self._cyclicMaintClock = self._MaintDuration
                 self._factory._turnOff()
-                print(" start cyclic ",self._cyclicMaintClock)
 
             # Loop on plants
             for p in self._factory._plants_dict.values():
@@ -210,8 +299,9 @@ class FactorySimulation():
         return
 
 def main():
-        Sim = FactorySimulation('factory_2')
+        Sim = FactorySimulation('factory_1x2')
         Sim.build_factory()
+        Sim.draw_factory()
         Sim._factory._turnOn()
         Sim.schedule_cyclic_maintenance()
         print(Sim._cyclicMaintList)
