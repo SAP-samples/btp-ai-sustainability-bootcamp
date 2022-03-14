@@ -11,6 +11,9 @@ target/
 app/catalog/node_modules/
 app/catalog/dist/
 
+#temp local pure sapui5 fiori app
+app/sap.ai.sample.smart-factory-app
+
 # Web IDE, App Studio
 .che/
 .gen/

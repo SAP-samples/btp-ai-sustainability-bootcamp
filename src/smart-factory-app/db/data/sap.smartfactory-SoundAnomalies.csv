@@ -1,0 +1,3 @@
+ID;detectedAt;plant;prodLineId;equipment;anomalyType_code;confidence;status
+1;2021-11-24 16:11:32.4209753;1010;1;210100091;PL;0.90;0
+2;2021-11-25 12:11:32.8904233;1010;1;10001883;BD;0.80;1
