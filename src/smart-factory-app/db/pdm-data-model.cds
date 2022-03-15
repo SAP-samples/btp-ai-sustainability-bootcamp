@@ -5,6 +5,15 @@ using {
   sap
 } from '@sap/cds/common';
 
+////////////////////////////////////////////////////////////
+//Data Model for Predctive Maintenance module
+//PlantConditions:  The recorded condition of the plants given a time period.
+//EquipmentConditions: The recorded condition of the equipment given a time period
+//SoundAnomalies: The detected sound anomaly attached to an equipment
+//SoundAnomalyTypes: CodeList of the sound anomaly types
+//SoundAnomalyStatus: Enum of the sound anomaly status
+////////////////////////////////////////////////////////////
+
 //['Timestamp',
 //'Plant','PlantStatus','PlantYield', 'PlantDefectiveProducts','PlantEnergyConsumption (kW)', \
 //'Machine','MachineStatus','MachineEnergyConsumption (kW)', 'MachineFaultProb', 'MachineBreakDownProb', 'MachineDefectsRate', 'MachineYield', 'MachineNoise' ,\
@@ -18,11 +27,14 @@ entity PlantConditions : managed {
       yield        : Decimal;
       defeatedProd : Decimal;
       energyCons   : Decimal;
+      equipmentConditions : Association to many EquipmentConditions 
+      on equipmentConditions.plantCondId = $self;
 }
 
 entity EquipmentConditions : managed {
   key ID               : Integer;
       plant            : String(4);
+      plantCondId      : Association to PlantConditions;
       prodLineId       : Integer;
       equipment        : String(18);
       equipmentStatus  : EquipmnetStatus;
@@ -36,6 +48,7 @@ entity EquipmentConditions : managed {
       on soundAnomalies.eqCond = $self;
       
       //follow-up action on equipment condtion level instead of SoundAnomaly level
+      //which could be a maintenance request or order in SAP S/4HANA Cloud
       followUpActionType : AnomalyFollowUpActionType;
       followUpDoc : String(12);
 
@@ -56,31 +69,6 @@ type EquipmnetStatus : String enum {
   OK        = 'Y';
   NotOk     = 'N';
   BreakDown = 'B'
-}
-
-entity CVQualityRecords : managed {
-  key ID           : Integer;
-      detectedAt   : Timestamp;
-      plant        : String(4);
-      prodLineId   : Integer;
-      productId    : String(18);
-      productName  : String(100);
-      image        : LargeBinary @Core.MediaType : 'image/png';
-      confidence   : Decimal;
-      qualityLabel : QualityLabel;
-//todo: Object Detection with Bounding Box
-// Items       : Composition of many {
-//                 confidence : Decimal;
-//                 topLeft    : Decimal;
-//                 topRight   : Decimal;
-//                 width      : Decimal;
-//                 height     : Decimal;
-//               };
-}
-
-type QualityLabel : String enum {
-  OK    = 'Y';
-  NotOk = 'N';
 }
 
 entity SoundAnomalies : managed {
