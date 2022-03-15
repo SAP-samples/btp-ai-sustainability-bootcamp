@@ -26,7 +26,7 @@ annotate AdminService.CVQualityRecords with @(
 			Data: [
 				{Value: qualityLabel},
 				{Value: confidence},
-				{Value: recordedAt}
+				{Value: detectedAt}
 			]
 		},
 		FieldGroup#Admin: {

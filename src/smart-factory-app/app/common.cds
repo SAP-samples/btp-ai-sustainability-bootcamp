@@ -18,7 +18,7 @@ annotate sf.CVQualityRecords with @(
         prodLineId,
         productId,
         productName,
-        recordedAt,
+        detectedAt,
         qualityLabel
         ],
         LineItem        : [
@@ -47,8 +47,8 @@ annotate sf.CVQualityRecords with @(
             Label : '{i18n>Confidence}'
         },
         {
-            Value : recordedAt,
-            Label : '{i18n>RecordedAt}'
+            Value : detectedAt,
+            Label : '{i18n>DetectedAt}'
         }
         ]
     }
@@ -84,7 +84,7 @@ annotate sf.CVQualityRecords with {
     productName  @title : '{i18n>ProductName}';
     qualityLabel @title : '{i18n>QualityLabel}';
     confidence   @title : '{i18n>Confidence}';
-    recordedAt   @title : '{i18n>RecordedAt}';
+    detectedAt   @title : '{i18n>DetectedAt}';
 }
 
 ////////////////////////////////////////////////////////////////////////////
