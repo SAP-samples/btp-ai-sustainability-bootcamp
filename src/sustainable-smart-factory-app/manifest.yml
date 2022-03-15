@@ -1,5 +1,5 @@
 # Generated manifest.yml based on template version 0.1.0
-# appName = smart-factory-app
+# appName = sustainable-smart-factory-app
 # language=nodejs
 # multitenancy=false
 ---
@@ -7,18 +7,18 @@ applications:
 # -----------------------------------------------------------------------------------
 # Backend Service
 # -----------------------------------------------------------------------------------
-- name: smart-factory-app-srv
+- name: sustainable-smart-factory-app-srv
   random-route: true  # for development only
   path: gen/srv
   memory: 256M
   buildpack: nodejs_buildpack
   services:
-  - smart-factory-app-db
+  - sustainable-smart-factory-app-db
 
 # -----------------------------------------------------------------------------------
 # HANA Database Content Deployer App
 # -----------------------------------------------------------------------------------
-- name: smart-factory-app-db-deployer
+- name: sustainable-smart-factory-app-db-deployer
   path: gen/db
   no-route: true
   health-check-type: process
@@ -26,4 +26,4 @@ applications:
   instances: 1
   buildpack: nodejs_buildpack
   services:
-  - smart-factory-app-db
+  - sustainable-smart-factory-app-db

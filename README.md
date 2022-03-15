@@ -5,7 +5,7 @@
 
 ## Description
 This github repository includes the sample code and exercises of the btp-ai-core-bootcamp, 
-which is developed and delivered by Partner Ecosystem Success Organization (formerly known as GPO) of SAP SE, showcasing SAP partners how to add <b>Intelligence</b> and <b>Sustainability</b> into your solutions on SAP Business Technology Platform with SAP AI Core and SAP Analytics Cloud for Planning. The bootcamp uses an end-to-end storyline about a Smart Factory filled with Intelligence and Sustainability
+which is developed and delivered by Partner Ecosystem Success Organization (formerly known as GPO) of SAP SE, showcasing SAP partners how to add <b>Intelligence</b> and <b>Sustainability</b> into your solutions on SAP Business Technology Platform with SAP AI Core and SAP Analytics Cloud for Planning. The bootcamp uses an end-to-end storyline about a Sustainable Smart Factory filled with Intelligence and Sustainability
 - Building a deep learning model on acoustical sounds of machinery with SAP AI Core for condition monitoring based Predictive Maintenance 
 - Building a deep learning model on product images with SAP AI Core for automatic Defeat Detection in production lines
 - Maintenance Cost Planning/budgeting with Predictive Planning of SAP Analytics Cloud for Planning.  
