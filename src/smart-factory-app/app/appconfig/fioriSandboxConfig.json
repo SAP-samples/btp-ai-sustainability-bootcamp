@@ -30,6 +30,14 @@
               "isGroupLocked": false,
               "tiles": [
                 {
+                  "id": "ManagePlantConditions",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Plant Conditions",
+                    "targetURL": "#PlantConditions-manage"
+                  }
+                },
+                {
                   "id": "ManageEquipmentConditions",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
@@ -89,24 +97,6 @@
                 "url": "/browse/webapp"
               }
             },
-            "BrowseAuthors": {
-              "semanticObject": "Authors",
-              "action": "display",
-              "title": "Browse Authors",
-              "signature": {
-                "parameters": {
-                  "Books.author.ID":{
-                    "renameTo": "ID"
-                  }
-                },
-                "additionalParameters": "ignored"
-              },
-              "resolutionResult": {
-                "applicationType": "SAPUI5",
-                "additionalInformation": "SAPUI5.Component=authors",
-                "url": "/admin-authors/webapp"
-              }
-            },
             "ManageCVQualityRecords": {
               "semanticObject": "CVQualityRecords",
               "action": "manage",
@@ -119,6 +109,19 @@
                 "applicationType": "SAPUI5",
                 "additionalInformation": "SAPUI5.Component=cvqualityrecords",
                 "url": "/defeat-detection/cv-quality-records/webapp"
+              }
+            },
+            "ManagePlantConditions": {
+              "semanticObject": "PlantConditions",
+              "action": "manage",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=plantconditions",
+                "url": "/predictive-maintenance/plant-conditions/webapp"
               }
             },
             "ManageEquipmentConditions": {
