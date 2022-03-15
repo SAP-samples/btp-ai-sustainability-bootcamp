@@ -32,7 +32,8 @@ entity EquipmentConditions : managed {
       fault            : Integer;
       breakDownProb    : Decimal;
       //detected sound anomalies of the equipment during the period
-      soundAnomalies   : Association to SoundAnomalies;
+      soundAnomalies   : Association to many SoundAnomalies 
+      on soundAnomalies.eqCond = $self;
       
       //follow-up action on equipment condtion level instead of SoundAnomaly level
       followUpActionType : AnomalyFollowUpActionType;
@@ -59,7 +60,7 @@ type EquipmnetStatus : String enum {
 
 entity CVQualityRecords : managed {
   key ID           : Integer;
-      recordedAt   : Timestamp;
+      detectedAt   : Timestamp;
       plant        : String(4);
       prodLineId   : Integer;
       productId    : String(18);
@@ -93,6 +94,7 @@ entity SoundAnomalies : managed {
       status      : SoundAnomalyStatus;
       //The follow up action such as maintenance notificaiton, request and order in S4HC
       followUpDoc : String(12);
+      eqCond : Association to EquipmentConditions;  //> the backlink
 }
 
 entity SoundAnomalyTypes : sap.common.CodeList {
