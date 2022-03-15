@@ -67,8 +67,8 @@ annotate CatalogService.CVQualityRecords with @(UI : {
             Label : '{i18n>QualityLabel}'
         },
         {
-            Value : recordedAt,
-            Label : '{i18n>RecordedAt}'
+            Value : detectedAt,
+            Label : '{i18n>DetectedAt}'
         }
     ]
 }, );
