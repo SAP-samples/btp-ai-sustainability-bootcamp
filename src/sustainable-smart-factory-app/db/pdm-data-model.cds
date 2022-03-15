@@ -21,20 +21,20 @@ using {
 entity PlantConditions : managed {
   key ID           : Integer;
       plant        : String(4);
-      plantStatus  : String;
+      plantStatus  : String(30);
       recStartedAt : Timestamp;
       recEndedAt   : Timestamp;
       yield        : Decimal;
       defeatedProd : Decimal;
       energyCons   : Decimal;
       equipmentConditions : Association to many EquipmentConditions 
-      on equipmentConditions.plantCondId = $self;
+      on equipmentConditions.plantCond = $self;
 }
 
 entity EquipmentConditions : managed {
   key ID               : Integer;
       plant            : String(4);
-      plantCondId      : Association to PlantConditions;
+      plantCond      : Association to PlantConditions;
       prodLineId       : Integer;
       equipment        : String(18);
       equipmentStatus  : EquipmnetStatus;

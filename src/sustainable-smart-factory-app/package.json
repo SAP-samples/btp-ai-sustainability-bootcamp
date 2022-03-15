@@ -1,7 +1,7 @@
 {
-    "name": "smart-factory-app",
+    "name": "sustainable-smart-factory-app",
     "version": "1.0.0",
-    "description": "Smart Factory App for BTP AI Bootcamp",
+    "description": "Sustainable Smart Factory App for BTP AI Bootcamp",
     "repository": "https://github.com/SAP-samples/btp-ai-core-bootcamp",
     "license": "UNLICENSED",
     "private": true,
