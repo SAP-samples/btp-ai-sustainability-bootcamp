@@ -1,4 +1,4 @@
-using { sap.smartfactory as sf } from '../db/data-model';
+using { sap.smartfactory as sf } from '../db/sqi-data-model';
 service CatalogService @(path:'/browse') {
 
   /** For displaying lists of Books */
