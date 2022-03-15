@@ -12,8 +12,8 @@ class PlotSimulation():
         self.df=pd.DataFrame()
         self.dfw=pd.DataFrame()
         self.dfm=pd.DataFrame()
-        self.nPlants=1
-        self.nMachines=2
+        self.nPlants=2
+        self.nMachines=3
         self.maintCost=2000
         self.repairCost=20000
         self.energy_cost= 0.219  # euros/kWh

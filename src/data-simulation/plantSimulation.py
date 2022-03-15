@@ -133,9 +133,6 @@ class FactorySimulation():
         fig.savefig(png_title,dpi=300)
         return
 
-
-
-
     # Create cyclic maintenance list
     def schedule_cyclic_maintenance(self):
         s=self._cyclicStartDate
@@ -153,6 +150,25 @@ class FactorySimulation():
             return 1
         else:
             return 0
+
+    # Function to extract faults on a certain machine
+    def measure_generator(self):
+        for p in self._factory._plants_dict.values():
+            if p._isOn:
+                for m in p._machine_dict.values():
+                    if m._status!='BROKEN':
+                        mu=m._statusParameters['energy_consumption_avg']
+                        sigma=m._statusParameters['energy_consumption_std']
+                        m._statusParameters['energy_consumption']=np.random.normal(loc=mu, scale=sigma, size=1)[0]
+                        mu=m._statusParameters['yield_avg']
+                        sigma=m._statusParameters['yield_std']
+                        m._statusParameters['yield']=np.random.normal(loc=mu, scale=sigma, size=1)[0]
+                        mu=m._statusParameters['defect_rate_avg']
+                        sigma=m._statusParameters['defect_rate_std']
+                        m._statusParameters['defect_rate']=np.random.normal(loc=mu, scale=sigma, size=1)[0]
+        p._set_status()
+        return
+
 
     # Function to extract faults on a certain machine
     def fault_generator(self, plant, machine, proactive ):
@@ -255,14 +271,18 @@ class FactorySimulation():
                 self._cyclicMaintClock = self._MaintDuration
                 self._factory._turnOff()
 
+            # Extract current energy consumption and yield value of the machines according to gaussian ditributions
+            self.measure_generator()
+
             # Loop on plants
             for p in self._factory._plants_dict.values():
 
-                # If plant is on, extract random faults/breakdowns
+                # If plant is on, extract random faults/breakdowns.
                 for m in p._machine_dict.values():
                     if p._isOn:
                         self.fault_generator(p, m, proactive)
                         self.breakdown_generator(p, m)
+
 
                     #Execute maintenance, if needed
                     self.corrective_maintenance(p,m)
@@ -299,7 +319,7 @@ class FactorySimulation():
         return
 
 def main():
-        Sim = FactorySimulation('factory_1x2')
+        Sim = FactorySimulation('factory_1x2_random')
         Sim.build_factory()
         Sim.draw_factory()
         Sim._factory._turnOn()
