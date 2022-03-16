@@ -13,7 +13,7 @@ entity CVQualityRecords : managed {
   key ID           : Integer;
       detectedAt   : Timestamp;
       plant        : String(4);
-      prodLineId   : Integer;
+      plantSection : String(3);
       productId    : String(18);
       productName  : String(100);
       image        : LargeBinary @Core.MediaType : 'image/png';
@@ -33,5 +33,3 @@ type QualityLabel : String enum {
   OK    = 'Y';
   NotOk = 'N';
 }
-
-
