@@ -3,8 +3,8 @@
     "sap.app": {
         "id": "equipmentconditions",
         "type": "application",
-        "title": "Manage Equipment Conditions",
-        "description": "Manage Equipment Conditions",
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
         "i18n": "i18n/i18n.properties",
         "dataSources": {
             "AdminService": {

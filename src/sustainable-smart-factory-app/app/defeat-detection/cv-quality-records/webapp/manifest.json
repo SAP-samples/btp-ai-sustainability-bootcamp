@@ -3,8 +3,8 @@
     "sap.app": {
         "id": "cvqualityrecords",
         "type": "application",
-        "title": "Manage Quality Records via CV",
-        "description": "Manage Quality Records via CV",
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
         "i18n": "i18n/i18n.properties",
         "dataSources": {
             "AdminService": {
