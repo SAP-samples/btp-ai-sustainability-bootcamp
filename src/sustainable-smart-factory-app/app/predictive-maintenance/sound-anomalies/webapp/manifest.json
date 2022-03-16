@@ -3,8 +3,8 @@
     "sap.app": {
         "id": "soundanomalies",
         "type": "application",
-        "title": "Manage Sound Anomalies",
-        "description": "Manage Sound Anomalies of Equipments",
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
         "i18n": "i18n/i18n.properties",
         "dataSources": {
             "AdminService": {
