@@ -15,7 +15,7 @@ annotate sf.CVQualityRecords with @(
         SelectionFields : [
         ID,
         plant,
-        prodLineId,
+        plantSection,
         productId,
         productName,
         detectedAt,
@@ -79,7 +79,7 @@ annotate sf.CVQualityRecords with @(UI : {HeaderInfo : {
 annotate sf.CVQualityRecords with {
     ID           @title : '{i18n>ID}';
     plant        @title : '{i18n>Plant}';
-    prodLineId   @title : '{i18n>ProductionLineID}';
+    plantSection   @title : '{i18n>PlantSection}';
     productId    @title : '{i18n>ProductID}';
     productName  @title : '{i18n>ProductName}';
     qualityLabel @title : '{i18n>QualityLabel}';
@@ -171,7 +171,7 @@ annotate sf.EquipmentConditions with @(
         SelectionFields : [
         ID,
         plant,
-        prodLineId,
+        plantSection,
         equipment
         ],
         LineItem        : [
@@ -184,8 +184,8 @@ annotate sf.EquipmentConditions with @(
             Label : '{i18n>Plant}'
         },
         {
-            Value : prodLineId,
-            Label : '{i18n>ProductionLineID}'
+            Value : plantSection,
+            Label : '{i18n>PlantSection}'
         },
         {
             Value : equipment,
@@ -228,7 +228,7 @@ annotate sf.EquipmentConditions with @(UI : {HeaderInfo : {
 annotate sf.EquipmentConditions with {
     ID           @title : '{i18n>ID}';
     plant        @title : '{i18n>Plant}';
-    prodLineId   @title : '{i18n>ProductionLineID}';
+    plantSection   @title : '{i18n>PlantSection}';
     equipment    @title : '{i18n>Equipment}';
     equipmentStatus   @title : '{i18n>EquipmentStatus}';
     recStartedAt @title : '{i18n>RecStartedAt}';
@@ -250,7 +250,7 @@ annotate sf.SoundAnomalies with @(
         SelectionFields : [
         ID,
         plant,
-        prodLineId,
+        plantSection,
         equipment,
         anomalyType.name,
         confidence,
@@ -267,8 +267,8 @@ annotate sf.SoundAnomalies with @(
             Label : '{i18n>Plant}'
         },
         {
-            Value : prodLineId,
-            Label : '{i18n>ProductionLineID}'
+            Value : plantSection,
+            Label : '{i18n>PlantSection}'
         },
         {
             Value : equipment,
@@ -320,7 +320,7 @@ annotate sf.SoundAnomalies with @(UI : {HeaderInfo : {
 annotate sf.SoundAnomalies with {
     ID              @title : '{i18n>ID}';
     plant           @title : '{i18n>Plant}';
-    prodLineId      @title : '{i18n>ProductionLineID}';
+    plantSection      @title : '{i18n>PlantSection}';
     equipment       @title : '{i18n>Equipment}';
     anomalyTypeCode @title : '{i18n>AnomalyTypeCode}'  @Common : {
         Text            : anomalyType.code,

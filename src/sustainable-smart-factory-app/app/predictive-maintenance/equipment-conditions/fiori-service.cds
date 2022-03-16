@@ -18,7 +18,7 @@ annotate AdminService.EquipmentConditions with @(
 			Data: [
 				{Value: ID},
 				{Value: plant},
-				{Value: prodLineId},
+				{Value: plantSection},
 				{Value: equipment},
 				{Value: equipmentStatus},
 				{Value: recStartedAt},

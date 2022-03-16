@@ -51,8 +51,8 @@ annotate CatalogService.CVQualityRecords with @(UI : {
             Label : '{i18n>Plant}'
         },
         {
-            Value : prodLineId,
-            Label : '{i18n>ProductionLineID}'
+            Value : plantSection,
+            Label : '{i18n>PlantSection}'
         },
         {
             Value : productId,
