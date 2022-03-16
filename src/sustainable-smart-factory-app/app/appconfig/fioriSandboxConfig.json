@@ -17,6 +17,9 @@
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
                     "title": "Quality Records via Computer Vision",
+                    "subtitle": "",
+                    "info": "Auto Quality Inspection via Computer Vision",
+                    "icon": "sap-icon://quality-issue",
                     "targetURL": "#CVQualityRecords-manage"
                   }
                 }
@@ -34,6 +37,9 @@
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
                     "title": "Manage Plant Conditions",
+                    "subtitle": "",
+                    "info": "Plant condition by time period",
+                    "icon": "sap-icon://factory",
                     "targetURL": "#PlantConditions-manage"
                   }
                 },
@@ -42,6 +48,9 @@
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
                     "title": "Manage Equipment Conditions",
+                    "subtitle": "",
+                    "info": "Equipment condition by time period",
+                    "icon": "sap-icon://machine",
                     "targetURL": "#EquipmentConditions-manage"
                   }
                 },
@@ -50,6 +59,9 @@
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
                     "title": "Manage Equipment Sound Anomalies",
+                    "subtitle": "",
+                    "info": "Sound Anomalies Detected by AI",
+                    "icon": "sap-icon://sound-loud",
                     "targetURL": "#SoundAnomalies-manage"
                   }
                 },
@@ -57,7 +69,10 @@
                   "id": "ManageSoundAnomalyTypes",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
-                    "title": "Manage Sound Anomaly Types of Equipment",
+                    "title": "Manage Sound Anomaly Types",
+                    "subtitle": "",
+                    "info": "Config. Sound Anomaly Types",
+                    "icon": "sap-icon://settings",
                     "targetURL": "#SoundAnomalyTypes-manage"
                   }
                 }
