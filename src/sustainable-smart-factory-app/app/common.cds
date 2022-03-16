@@ -249,8 +249,6 @@ annotate sf.SoundAnomalies with @(
         Identification  : [{Value : ID}],
         SelectionFields : [
         ID,
-        plant,
-        plantSection,
         equipment,
         anomalyType.name,
         confidence,
@@ -261,14 +259,6 @@ annotate sf.SoundAnomalies with @(
         {
             Value : ID,
             Label : '{i18n>ID}'
-        },
-        {
-            Value : plant,
-            Label : '{i18n>Plant}'
-        },
-        {
-            Value : plantSection,
-            Label : '{i18n>PlantSection}'
         },
         {
             Value : equipment,
@@ -319,8 +309,6 @@ annotate sf.SoundAnomalies with @(UI : {HeaderInfo : {
 //
 annotate sf.SoundAnomalies with {
     ID              @title : '{i18n>ID}';
-    plant           @title : '{i18n>Plant}';
-    plantSection      @title : '{i18n>PlantSection}';
     equipment       @title : '{i18n>Equipment}';
     anomalyTypeCode @title : '{i18n>AnomalyTypeCode}'  @Common : {
         Text            : anomalyType.code,

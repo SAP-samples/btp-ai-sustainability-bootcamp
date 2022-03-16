@@ -36,7 +36,7 @@ entity EquipmentConditions : managed {
       plant              : String(4);
       plantCond          : Association to PlantConditions;
       plantSection       : String(3);
-      funcLocation      : String(30);
+      funcLocation       : String(30);
       equipment          : String(18);
       equipmentName      : String(40);
       equipmentStatus    : EquipmnetStatus;
@@ -75,8 +75,6 @@ type EquipmnetStatus : String enum {
 entity SoundAnomalies : managed {
   key ID           : Integer;
       detectedAt   : Timestamp;
-      plant        : String(4);
-      plantSection : String(3);
       equipment    : String(18);
       anomalyType  : Association to SoundAnomalyTypes;
       confidence   : Decimal;

@@ -26,8 +26,6 @@ annotate AdminService.SoundAnomalies with @(UI : {
     ],
     FieldGroup #General : {Data : [
     {Value : ID},
-    {Value : plant},
-    {Value : plantSection},
     {Value : equipment},
     {Value : status}
     ]},
