@@ -29,8 +29,8 @@ annotate AdminService.EquipmentConditions with @(
 			Data: [
 				{Value: faultProb},
 				{Value: breakDownProb},
-				{Value: followUpActionType},
-				{Value: followUpDoc}
+				{Value: followUpDocType},
+				{Value: followUpDocNum}
 			]
 		},
 		FieldGroup#Admin: {

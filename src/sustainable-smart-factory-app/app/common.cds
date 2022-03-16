@@ -235,8 +235,8 @@ annotate sf.EquipmentConditions with {
     recEndedAt   @title : '{i18n>RecEndedAt}';
     faultProb   @title : '{i18n>FaultProb}';
     breakDownProb   @title : '{i18n>BreakDownProb}';
-    followUpActionType @title : '{i18n>FollowUpActionType}';
-    followUpDoc   @title : '{i18n>FollowUpDoc}';
+    followUpDocType @title : '{i18n>FollowUpDocType}';
+    followUpDocNum   @title : '{i18n>FollowUpDocNum}';
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -338,7 +338,7 @@ annotate sf.SoundAnomalyTypes with @(
         SelectionFields : [
         code,
         name,
-        followUpAction
+        suggestedFollowUpAction
         ],
         LineItem        : [
         {
@@ -354,8 +354,8 @@ annotate sf.SoundAnomalyTypes with @(
             Label : '{i18n>AnomalyTypeDesc}'
         },
         {
-            Value : followUpAction,
-            Label : '{i18n>FollowUpAction}'
+            Value : suggestedFollowUpAction,
+            Label : '{i18n>SuggestedFollowUpAction}'
         }
         ]
     }
@@ -388,5 +388,5 @@ annotate sf.SoundAnomalyTypes with {
     code           @title : '{i18n>AnomalyTypeCode}';
     name           @title : '{i18n>AnomalyTypeName}';
     descr          @title : '{i18n>AnomalyTypeDesc}'  @UI.MultiLineText;
-    followUpAction @title : '{i18n>FollowUpAction}';
+    suggestedFollowUpAction @title : '{i18n>SuggestedFollowUpAction}';
 }

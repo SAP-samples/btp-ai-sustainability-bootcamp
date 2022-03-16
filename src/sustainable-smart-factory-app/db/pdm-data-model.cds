@@ -51,11 +51,12 @@ entity EquipmentConditions : managed {
 
       //follow-up action on equipment condtion level instead of SoundAnomaly level
       //which could be a maintenance request or order in SAP S/4HANA Cloud
-      followUpActionType : AnomalyFollowUpActionType;
-      followUpDoc        : String(12);
+      followUpDocType : AnomalyFollowUpActionType;
+      followUpDocNum        : String(12);
+
       //or explicit maintenance order linkage
-      maintenanceOrder   : String(12);
-      maintOrderType     : Association to MaintenanceOrderTypes;
+      //maintenanceOrder   : String(12);
+      //maintOrderType     : Association to MaintenanceOrderTypes;
 }
 
 entity MaintenanceOrderTypes : sap.common.CodeList {
@@ -79,14 +80,12 @@ entity SoundAnomalies : managed {
       anomalyType  : Association to SoundAnomalyTypes;
       confidence   : Decimal;
       status       : SoundAnomalyStatus;
-      //The follow up action such as maintenance notificaiton, request and order in S4HC
-      followUpDoc  : String(12);
       eqCond       : Association to EquipmentConditions; //> the backlink
 }
 
 entity SoundAnomalyTypes : sap.common.CodeList {
   key code           : String(2);
-      followUpAction : AnomalyFollowUpActionType;
+      suggestedFollowUpAction : AnomalyFollowUpActionType;
 }
 
 type SoundAnomalyStatus : Integer enum {
