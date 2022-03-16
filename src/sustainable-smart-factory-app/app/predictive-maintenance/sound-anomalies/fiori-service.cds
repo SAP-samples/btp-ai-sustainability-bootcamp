@@ -34,7 +34,7 @@ annotate AdminService.SoundAnomalies with @(UI : {
     {Value : anomalyType.code},
     {Value : anomalyType.name},
     {Value : anomalyType.descr},
-    {Value : anomalyType.followUpAction},
+    {Value : anomalyType.suggestedFollowUpAction},
     {Value : confidence},
     {Value : detectedAt}
     ]},

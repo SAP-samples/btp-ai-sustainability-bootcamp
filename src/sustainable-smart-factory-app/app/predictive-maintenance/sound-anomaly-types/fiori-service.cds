@@ -16,7 +16,7 @@ annotate AdminService.SoundAnomalyTypes with @(
 				{Value: code},
 				{Value: name},
 				{Value: descr},
-				{Value: followUpAction}
+				{Value: suggestedFollowUpAction}
 			]
 		}
 	}
