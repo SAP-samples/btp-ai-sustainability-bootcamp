@@ -22,7 +22,12 @@ annotate AdminService.EquipmentConditions with @(
 				{Value: equipment},
 				{Value: equipmentStatus},
 				{Value: recStartedAt},
-				{Value: recEndedAt}
+				{Value: recEndedAt},
+				{
+					$Type  : 'UI.DataFieldForAction',
+					Action : 'AdminService.createMO',
+					Label  : 'Create Maintenance Order'
+				}				
 			]
 		},
 		FieldGroup#Details: {
