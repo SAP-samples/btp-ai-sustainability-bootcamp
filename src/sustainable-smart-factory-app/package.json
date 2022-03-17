@@ -7,10 +7,11 @@
     "private": true,
     "dependencies": {
         "@sap/cds": "^5",
-        "smartfactory": "./",
+        "@sap/cloud-sdk-vdm-maintenance-order-service": "^2.0.0",
         "express": "^4",
         "hdb": "^0.18.3",
-        "passport": "0.4.1"
+        "passport": "0.4.1",
+        "smartfactory": "./"
     },
     "devDependencies": {
         "sqlite3": "^5.0.2"

@@ -45,6 +45,7 @@ entity EquipmentConditions : managed {
       faultProb          : Decimal;
       fault              : Integer;
       breakDownProb      : Decimal;
+      virtual moCreated: Boolean;
       //detected sound anomalies of the equipment during the period
       soundAnomalies     : Association to many SoundAnomalies
                              on soundAnomalies.eqCond = $self;
