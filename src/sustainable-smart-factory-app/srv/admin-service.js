@@ -13,24 +13,28 @@ module.exports = async function () {
   this.before("NEW", "CVQualityRecords", genid);
   this.before("NEW", "SoundAnomalies", genid);
 
+  /** Logic Flow on create a Maintenance Order in S4
+   * 1. On specific equipment condition, either list or object page (preferably)
+   * Check if conditions are met so to trigger a maintenance order txn.
+   * 2. Retrieve EQ ID
+   * 3. Create Maintenance Order in S4
+   * 4. Update EquipmentConditions record with the Maintenance Order ID returned from S4 API
+   *
+   * Note: default-env.json is used for local project connecting to my btp trial landscape.
+   * Destination used is pointing to my301832 s4 tenant.
+   */
+
   this.on("createMO", async (req) => {
-    /** Logic Flow on create a Maintenance Order in S4
-     * 1. On specific equipment condition, either list or object page (preferably)
-     * Check if conditions are met so to trigger a maintenance order txn.
-     * 2. Retrieve EQ ID
-     * 3. Create Maintenance Order in S4
-     * 4. Update EquipmentConditions record with the Maintenance Order ID returned from S4 API
-     *
-     * Note: default-env.json is used for local project connecting to my btp trial landscape.
-     * Destination used is pointing to my301832 s4 tenant.
-     */
-    console.log("data: " + req.data);
+    //  1. On specific equipment condition, either list or object page (preferably)
+    //  Check if conditions are met so to trigger a maintenance order txn.
+    //  2. Retrieve EQ ID
     const eqCondEntity = req.params[0];
-    console.log(eqCondEntity); //  { ID: 1, IsActiveEntity: 'true' }
     const eq = await SELECT.from(EquipmentConditions, eqCondEntity).columns([
       "equipment",
     ]);
-    console.log(eq);
+    // console.log("data: " + req.data);
+    // console.log(eqCondEntity); //  { ID: 1, IsActiveEntity: 'true' }
+    // console.log(eq);
 
     // 3. Create Maintenance Order in S4
     // To be improved to include other data fields.
@@ -50,7 +54,6 @@ module.exports = async function () {
       .execute(sdkDest);
 
     //  4. Update EquipmentConditions record with the Maintenance Order ID returned from S4 API
-    // const moId = retrieveMaintenanceOrderID(result);
     // console.log(moId);
     // console.log(result.toJSON());
     const moResult = result.toJSON();
@@ -70,13 +73,16 @@ module.exports = async function () {
         followUpDocType: "MO",
         followUpDocNum: moId,
       });
+      req.notify(`Maintenance Order created for Equipment (` + eq.equipment + `) successfully.`);
+
     } catch (e) {
       //> failed to acquire the lock, likely because of timeout
+      req.error({
+        message: "Error in updating EquipmentConditions entity on MO record.",
+        target: "followUpDocNum",
+        status: 418,
+      });
     }
-
-    // To-Do: Find out how to auto refresh page, else now need to navigate back and forth to reflect changes
-
-    // End
   });
 };
 
