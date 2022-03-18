@@ -1,4 +1,4 @@
-using { AdminService } from 'smartfactory';
+using {AdminService} from 'smartfactory';
 using from '../../common'; // to help UI linter get the complete annotations
 
 ////////////////////////////////////////////////////////////////////////////
@@ -7,46 +7,56 @@ using from '../../common'; // to help UI linter get the complete annotations
 //
 
 annotate AdminService.EquipmentConditions with @(
-	UI: {
-		Facets: [
-			{$Type: 'UI.ReferenceFacet', Label: '{i18n>General}', Target: '@UI.FieldGroup#General'},
-			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Details}', Target: '@UI.FieldGroup#Details'},
-			{$Type: 'UI.ReferenceFacet', Label: '{i18n>SoundAnomalies}', Target: 'soundAnomalies/@UI.LineItem'},
-			{$Type: 'UI.ReferenceFacet', Label: '{i18n>Admin}', Target: '@UI.FieldGroup#Admin'}
-		],
-		FieldGroup#General: {
-			Data: [
-				{Value: ID},
-				{Value: plant},
-				{Value: plantSection},
-				{Value: equipment},
-				{Value: equipmentStatus},
-				{Value: recStartedAt},
-				{Value: recEndedAt},
-				{
-					$Type  : 'UI.DataFieldForAction',
-					Action : 'AdminService.createMO',
-					Label  : 'Create Maintenance Order'
-				}				
-			]
-		},
-		FieldGroup#Details: {
-			Data: [
-				{Value: faultProb},
-				{Value: breakDownProb},
-				{Value: followUpDocType},
-				{Value: followUpDocNum}
-			]
-		},
-		FieldGroup#Admin: {
-			Data: [
-				{Value: createdBy},
-				{Value: createdAt},
-				{Value: modifiedBy},
-				{Value: modifiedAt}
-			]
-		}
-	}
+    UI     : {
+        Facets              : [
+            {
+                $Type  : 'UI.ReferenceFacet',
+                Label  : '{i18n>General}',
+                Target : '@UI.FieldGroup#General'
+            },
+            {
+                $Type  : 'UI.ReferenceFacet',
+                Label  : '{i18n>Details}',
+                Target : '@UI.FieldGroup#Details'
+            },
+            {
+                $Type  : 'UI.ReferenceFacet',
+                Label  : '{i18n>SoundAnomalies}',
+                Target : 'soundAnomalies/@UI.LineItem'
+            },
+            {
+                $Type  : 'UI.ReferenceFacet',
+                Label  : '{i18n>Admin}',
+                Target : '@UI.FieldGroup#Admin'
+            }
+        ],
+        FieldGroup #General : {Data : [
+            {Value : ID},
+            {Value : plant},
+            {Value : plantSection},
+            {Value : equipment},
+            {Value : equipmentStatus},
+            {Value : recStartedAt},
+            {Value : recEndedAt},
+            {
+                $Type  : 'UI.DataFieldForAction',
+                Action : 'AdminService.createMO',
+                Label  : 'Create Maintenance Order'
+            }
+        ]},
+        FieldGroup #Details : {Data : [
+            {Value : faultProb},
+            {Value : breakDownProb},
+            {Value : followUpDocType},
+            {Value : followUpDocNum}
+        ]},
+        FieldGroup #Admin   : {Data : [
+            {Value : createdBy},
+            {Value : createdAt},
+            {Value : modifiedBy},
+            {Value : modifiedAt}
+        ]}
+    }
 );
 
 
@@ -84,27 +94,48 @@ annotate AdminService.EquipmentConditions with @odata.draft.enabled;
 // }
 
 // // Workaround for Fiori popup for asking user to enter a new UUID on Create
-annotate AdminService.EquipmentConditions with { ID @Core.Computed; }
+annotate AdminService.EquipmentConditions with {
+    ID @Core.Computed;
+}
 
-annotate AdminService.EquipmentConditions.SoundAnomalies with @(
-	UI: {
-		LineItem: [
-			{Value: product_ID, Label:'Product ID'},
-			{Value: title, Label:'Product Title'},
-			{Value: price, Label:'Unit Price'},
-			{Value: quantity, Label:'Quantity'},
-		],
-		Identification: [ //Is the main field group
-			{Value: quantity, Label:'Quantity'},
-			{Value: title, Label:'Product'},
-			{Value: price, Label:'Unit Price'},
-		],
-		Facets: [
-			{$Type: 'UI.ReferenceFacet', Label: '{i18n>OrderItems}', Target: '@UI.Identification'},
-		],
-	},
-) {
-	quantity @(
-		Common.FieldControl: #Mandatory
-	);
+annotate AdminService.EquipmentConditions.SoundAnomalies with @(UI : {
+    LineItem       : [
+        {
+            Value : product_ID,
+            Label : 'Product ID'
+        },
+        {
+            Value : title,
+            Label : 'Product Title'
+        },
+        {
+            Value : price,
+            Label : 'Unit Price'
+        },
+        {
+            Value : quantity,
+            Label : 'Quantity'
+        },
+    ],
+    Identification : [ //Is the main field group
+        {
+            Value : quantity,
+            Label : 'Quantity'
+        },
+        {
+            Value : title,
+            Label : 'Product'
+        },
+        {
+            Value : price,
+            Label : 'Unit Price'
+        },
+    ],
+    Facets         : [{
+        $Type  : 'UI.ReferenceFacet',
+        Label  : '{i18n>OrderItems}',
+        Target : '@UI.Identification'
+    }, ],
+}, ) {
+    quantity @(Common.FieldControl : #Mandatory);
 };
