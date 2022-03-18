@@ -37,12 +37,7 @@ annotate AdminService.EquipmentConditions with @(
             {Value : equipment},
             {Value : equipmentStatus},
             {Value : recStartedAt},
-            {Value : recEndedAt},
-            {
-                $Type  : 'UI.DataFieldForAction',
-                Action : 'AdminService.createMO',
-                Label  : 'Create Maintenance Order'
-            }
+            {Value : recEndedAt}
         ]},
         FieldGroup #Details : {Data : [
             {Value : faultProb},
