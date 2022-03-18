@@ -77,11 +77,16 @@ type EquipmnetStatus : String enum {
 entity SoundAnomalies : managed {
   key ID           : Integer;
       detectedAt   : Timestamp;
+      detectedDate : Date;
       equipment    : String(18);
       anomalyType  : Association to SoundAnomalyTypes;
       confidence   : Decimal;
       status       : SoundAnomalyStatus;
       eqCond       : Association to EquipmentConditions; //> the backlink
+      @Analytics.Measure   : true
+      @Aggregation.default : #SUM
+      numberOfAnomalies : Integer
+      default 1;
 }
 
 entity SoundAnomalyTypes : sap.common.CodeList {
