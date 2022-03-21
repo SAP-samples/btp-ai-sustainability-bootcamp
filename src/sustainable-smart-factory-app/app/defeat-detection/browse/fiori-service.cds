@@ -14,7 +14,7 @@ annotate CatalogService.CVQualityRecords with @(UI : {
         $Type  : 'UI.ReferenceFacet',
         Label  : '{i18n>Description}',
         Target : '@UI.FieldGroup#Descr'
-    }, ],
+    } ],
     Facets            : [{
         $Type  : 'UI.ReferenceFacet',
         Label  : '{i18n>Details}',
