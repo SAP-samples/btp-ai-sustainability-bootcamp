@@ -378,6 +378,8 @@ annotate sf.SoundAnomalies with {
     }               @UI.MultiLineText;
     confidence      @title : '{i18n>Confidence}';
     detectedAt      @title : '{i18n>DetectedAt}';
+    detectedDate      @title : '{i18n>DetectedDate}';
+    numberOfAnomalies   @title : '{i18n>NumberOfAnomalies}';
     status          @title : '{i18n>AnomalyStatus}';
 }
 
