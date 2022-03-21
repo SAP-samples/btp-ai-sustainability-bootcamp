@@ -2,7 +2,6 @@
 _out
 *.db
 connection.properties
-default-*.json
 package-lock.json
 app/catalog/package-lock.json
 gen/
@@ -34,6 +33,3 @@ mta_archives/
 # IDEs
 # .vscode
 # .idea
-
-# added by cds deploy
-default-env.json
