@@ -1,6 +1,6 @@
 OK:
-  energy_consumption: 10000
-  energy_consumption_avg: 10000
+  energy_consumption: 1000
+  energy_consumption_avg: 1000
   energy_consumption_std: 100
   fault_prob: 0.005
   breakdown_prob: 0.0001
@@ -12,9 +12,9 @@ OK:
   yield_std: 5
   noise: 0
 NONOK:
-  energy_consumption: 20000
-  energy_consumption_avg: 20000
-  energy_consumption_std: 500
+  energy_consumption: 1100
+  energy_consumption_avg: 1100
+  energy_consumption_std: 110
   fault_prob: 0
   breakdown_prob: 0.002
   defect_rate: 0.03
