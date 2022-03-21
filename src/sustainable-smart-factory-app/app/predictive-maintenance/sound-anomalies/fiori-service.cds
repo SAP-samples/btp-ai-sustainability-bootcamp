@@ -26,8 +26,6 @@ annotate AdminService.SoundAnomalies with @(UI : {
     ],
     FieldGroup #General : {Data : [
     {Value : ID},
-    {Value : plant},
-    {Value : prodLineId},
     {Value : equipment},
     {Value : status}
     ]},
@@ -36,7 +34,7 @@ annotate AdminService.SoundAnomalies with @(UI : {
     {Value : anomalyType.code},
     {Value : anomalyType.name},
     {Value : anomalyType.descr},
-    {Value : anomalyType.followUpAction},
+    {Value : anomalyType.suggestedFollowUpAction},
     {Value : confidence},
     {Value : detectedAt}
     ]},

@@ -1,0 +1,52 @@
+{
+    "VCAP_SERVICES": {
+        "destination": [
+            {
+                "name": "bookshop-destination-service",
+                "label": "destination",
+                "tags": [
+                    "destination"
+                ],
+                "credentials": {
+                    "uaadomain": "authentication.eu10.hana.ondemand.com",
+                    "tenantmode": "dedicated",
+                    "clientid": "sb-clone994bdc32f82145a6bb9748fa69eda858!b111216|destination-xsappname!b404",
+                    "instanceid": "994bdc32-f821-45a6-bb97-48fa69eda858",
+                    "verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzn1eBoaonn/Zrx2Z4UpnB8UZs/OsQSWlHipBZmOVEt/gqSyWZ6PwobJ+0o4My9yggklhXIWlHaBZO8I+Y6ecldtY9tb9t2BxHvwz2ADfQeaTyc4SpPpvkl35o4iBj6X3ElKaW9LMHk3x4b3P2oSky86epeFmwOMgg9KXfJ/VI6JokJHXrb44Ss1OOyjvhtd5kLI7CYLcHKx1CIsOiDZQyX9ZjuZ+aDspfQffib0DT7ie4EjuiqWkKg43B/onm4HOiDUlKSn8TxWP/fgYOWjyAhGz5MnwhcgOIOZbZ2IiFueNr90MW1kuk/1vmzOvv60PLW2/+pvWv4FjO0B+z9DhMwIDAQAB-----END PUBLIC KEY-----",
+                    "xsappname": "clone994bdc32f82145a6bb9748fa69eda858!b111216|destination-xsappname!b404",
+                    "identityzone": "8221c96ftrial",
+                    "clientsecret": "ae9fe575-ef59-42a2-a69e-c42a398bfa7e$B_FYiwqPJURj6rPbCInoXg_FY6iJ7e4IOzjRQHb5o9A=",
+                    "tenantid": "2d496316-67c0-4dce-a398-0cb30cb28a35",
+                    "uri": "https://destination-configuration.cfapps.eu10.hana.ondemand.com",
+                    "url": "https://8221c96ftrial.authentication.eu10.hana.ondemand.com"
+                }
+            }
+        ],
+        "xsuaa": [
+            {
+                "name": "bookshop-xsuaa-service",
+                "label": "xsuaa",
+                "tags": [
+                    "xsuaa"
+                ],
+                "credentials": {
+                    "tenantmode": "dedicated",
+                    "sburl": "https://internal-xsuaa.authentication.eu10.hana.ondemand.com",
+                    "subaccountid": "2d496316-67c0-4dce-a398-0cb30cb28a35",
+                    "credential-type": "instance-secret",
+                    "clientid": "sb-bookshop!t111216",
+                    "xsappname": "bookshop!t111216",
+                    "clientsecret": "ohanVxOQZXYqnw62VOxfu7uQMK8=",
+                    "url": "https://8221c96ftrial.authentication.eu10.hana.ondemand.com",
+                    "uaadomain": "authentication.eu10.hana.ondemand.com",
+                    "verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzn1eBoaonn/Zrx2Z4UpnB8UZs/OsQSWlHipBZmOVEt/gqSyWZ6PwobJ+0o4My9yggklhXIWlHaBZO8I+Y6ecldtY9tb9t2BxHvwz2ADfQeaTyc4SpPpvkl35o4iBj6X3ElKaW9LMHk3x4b3P2oSky86epeFmwOMgg9KXfJ/VI6JokJHXrb44Ss1OOyjvhtd5kLI7CYLcHKx1CIsOiDZQyX9ZjuZ+aDspfQffib0DT7ie4EjuiqWkKg43B/onm4HOiDUlKSn8TxWP/fgYOWjyAhGz5MnwhcgOIOZbZ2IiFueNr90MW1kuk/1vmzOvv60PLW2/+pvWv4FjO0B+z9DhMwIDAQAB-----END PUBLIC KEY-----",
+                    "apiurl": "https://api.authentication.eu10.hana.ondemand.com",
+                    "identityzone": "8221c96ftrial",
+                    "identityzoneid": "2d496316-67c0-4dce-a398-0cb30cb28a35",
+                    "tenantid": "2d496316-67c0-4dce-a398-0cb30cb28a35",
+                    "zoneid": "2d496316-67c0-4dce-a398-0cb30cb28a35"
+                }
+            }
+        ]
+    }
+}
