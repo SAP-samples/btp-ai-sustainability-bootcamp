@@ -19,8 +19,8 @@ class FactorySimulation():
         self._downtimesClock={}
         self._faultClock={}
         self._RepairDuration = 5*24 #in hours
-        self.nPlants=1
-        self.nMachines=2
+        self.nPlants=2
+        self.nMachines=5
         self._corrective_nr = 1
         self._predictive_nr = 1
         self._cyclic_nr = 1
@@ -181,7 +181,7 @@ class FactorySimulation():
             if proactive:
                 # set the fault clock to -1: the maintenance hasn't started yet.
                 #The AI algo will recognise the fault and schedule the machine within few hours
-                self._faultClock[plant._plant_nr][machine._equipment_nr]=-2
+                self._faultClock[plant._plant_nr][machine._equipment_nr]=-25
         return
 
     # Function to generate breakdown on a certain machine
@@ -319,7 +319,7 @@ class FactorySimulation():
         return
 
 def main():
-        Sim = FactorySimulation('factory_1x2_random')
+        Sim = FactorySimulation('factory_2x5_random')
         Sim.build_factory()
         Sim.draw_factory()
         Sim._factory._turnOn()
