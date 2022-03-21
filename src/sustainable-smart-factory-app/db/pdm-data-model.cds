@@ -83,10 +83,7 @@ entity SoundAnomalies : managed {
       confidence   : Decimal;
       status       : SoundAnomalyStatus;
       eqCond       : Association to EquipmentConditions; //> the backlink
-      @Analytics.Measure   : true
-      @Aggregation.default : #SUM
-      numberOfAnomalies : Integer
-      default 1;
+      numberOfAnomalies : Integer default 1;
 }
 
 entity SoundAnomalyTypes : sap.common.CodeList {
@@ -106,3 +103,68 @@ type AnomalyFollowUpActionType : String enum {
   MaintenanceRequest     = 'MR';
   MaintenanceOrder       = 'MO';
 }
+
+//Views
+// entity SoundAnomaliesExtendedView                
+// as projection on SoundAnomalies {
+//     * , 
+//     eqCond.ID as eqCondId, 
+//     eqCond.equipmentName as equipmentName, 
+//     eqCond.equipmentStatus as equipmentStatus, 
+//     eqCond.plant as plant, 
+//     eqCond.funcLocation as funcLocation, 
+//     eqCond.recStartedAt as recStartedAt, 
+//     eqCond.recEndedAt as recEndedAt, 
+//     anomalyType.name as anomalyType, 
+//     anomalyType.suggestedFollowUpAction as suggestedAction
+//   } excluding {
+//     createdBy,
+//     modifiedBy
+//   };
+
+  // analytical annotation
+  // @Aggregation.ApplySupported.PropertyRestrictions : true
+  // entity EquipmentConditionsDetailView as
+  //   select from SoundAnomaliesExtendedView {
+  //     plant,
+  //     funcLocation,
+  //     equipment,
+  //     equipmentName,
+  //     equipmentStatus,
+  //     detectedDate,
+  //     recStartedAt,
+  //     recEndedAt,
+  //     ID as anomalyId,
+  //     anomalyType,
+  //     suggestedAction,
+  //     numberOfAnomalies
+  //   };
+
+  //   annotate EquipmentConditionsDetailView with {
+  //   @Analytics.Dimension : true
+  //   plant;
+  //   @Analytics.Dimension : true
+  //   funcLocation;
+  //   @Analytics.Dimension : true
+  //   equipment;
+  //   @Analytics.Dimension : true
+  //   equipmentName;
+  //   @Analytics.Dimension : true
+  //   equipmentStatus;
+  //   @Analytics.Dimension : true
+  //   detectedDate;
+  //   @Analytics.Dimension : true
+  //   recStartedAt;
+  //   @Analytics.Dimension : true
+  //   recEndedAt;
+  //   @Analytics.Dimension : true
+  //   anomalyId;
+  //   @Analytics.Dimension : true
+  //   anomalyType;
+  //   @Analytics.Dimension : true
+  //   suggestedAction;
+
+  //   @Analytics.Measure   : true
+  //   @Aggregation.default : #SUM
+  //   numberOfAnomalies;
+  // };
