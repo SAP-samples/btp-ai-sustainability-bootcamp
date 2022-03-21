@@ -33,6 +33,22 @@
               "isGroupLocked": false,
               "tiles": [
                 {
+                  "id": "PlantConditionsVisualisation",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Plant Conditions Visualisation",
+                    "targetURL": "#PlantConditions-display"
+                  }
+                },
+                {
+                  "id": "EquipmentConditionsALP",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Equipment Condition Insights",
+                    "targetURL": "#SoundAnomaliesExtendedView-display"
+                  }
+                },
+                {
                   "id": "ManagePlantConditions",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
@@ -124,6 +140,42 @@
                 "applicationType": "SAPUI5",
                 "additionalInformation": "SAPUI5.Component=cvqualityrecords",
                 "url": "/defeat-detection/cv-quality-records/webapp"
+              }
+            },
+            "PlantConditionsVisualisation": {
+              "semanticObject": "PlantConditions",
+              "action": "display",
+              "title": "Plant Conditions Visualisation",
+              "signature": {
+                "parameters": {
+                  "PlantConditions.ID": {
+                    "renameTo": "ID"
+                  }
+                },
+                "additionalParameters": "ignored"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=plantconditionsvisual",
+                "url": "/predictive-maintenance/plant-conditions-visualisation/webapp"
+              }
+            },
+            "EquipmentConditionsALP": {
+              "semanticObject": "SoundAnomaliesExtendedView",
+              "action": "display",
+              "title": "Equipment Condition Insights",
+              "signature": {
+                "parameters": {
+                  "SoundAnomaliesExtendedView.ID": {
+                    "renameTo": "ID"
+                  }
+                },
+                "additionalParameters": "ignored"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=sf.equipmentconditionsalp",
+                "url": "./predictive-maintenance/equipment-conditions-alp/webapp"
               }
             },
             "ManagePlantConditions": {
