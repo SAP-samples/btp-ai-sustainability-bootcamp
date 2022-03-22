@@ -10,6 +10,11 @@ from flask import Flask, request
 import librosa
 import logging
 
+from base64 import b64encode
+import base64
+import io
+from json import dumps
+
 FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
 # Use filename="file.log" as a param to logging to log to a file
 logging.basicConfig(format=FORMAT, level=logging.INFO)
@@ -65,20 +70,17 @@ def predict():
     global sound_pipeline, target_classes
     input_data = dict(request.json)
 
-    input_data = input_data["sound"]
-    lst_input_data = [np.frombuffer(bytes.fromhex(i), count = 33075, dtype = np.float32) for i in input_data]
-    x_inference = [acoustic_feature_computation(i) for i in lst_input_data]
-    #logging.info(f"Shape: "+str(acoustic_features.shape))
-    b = np.array(x_inference)
+    wave_file_as_binary = base64.b64decode(input_data['sound'])
+    data, samplerate = librosa.load(io.BytesIO(wave_file_as_binary))
+    x_inference = acoustic_feature_computation(data)
+    b = np.array([np.array(x_inference)])
 
     prediction = sound_pipeline.predict(b)
-    x, y = zip(*prediction)
-    predicted_labels = []
-    for i in y:
-        predicted_label = "Anomalous" if y[0] > 0.5 else "Normal" #To be tuned
-        predicted_labels.append(predicted_label)
+    prediction = prediction[0]
+    predicted_label = "Normal" if prediction[0] > 0.5 else "Anomalous" #To be tuned
+    predicted_prob = prediction[0] if prediction[0] > 0.5 else prediction[1]
     #predicted_label = target_classes[prediction[0]]
-    output = {"Predictions": predicted_labels}
+    output = {predicted_label:str(predicted_prob)}
 
     return output
 
