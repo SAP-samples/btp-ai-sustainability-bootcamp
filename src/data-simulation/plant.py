@@ -21,8 +21,12 @@ class Machine:
     def _print_status(self):
         sep=','
         status_string=self._equipment_nr+sep+self._status+sep
-        for v in self._statusParameters.values():
-            status_string=status_string+str(v)+sep
+        status_string=status_string+str( self._statusParameters['energy_consumption'] )+sep
+        status_string=status_string+str( self._statusParameters['fault_prob'] )+sep
+        status_string=status_string+str( self._statusParameters['breakdown_prob'] )+sep
+        status_string=status_string+str( self._statusParameters['defect_rate'] )+sep
+        status_string=status_string+str( self._statusParameters['yield'] )+sep
+        status_string=status_string+str( self._statusParameters['noise'] )+sep
         return status_string[0:-1]
 
 

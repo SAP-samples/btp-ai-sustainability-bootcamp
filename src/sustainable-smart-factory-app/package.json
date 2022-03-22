@@ -1,0 +1,59 @@
+{
+    "name": "sustainable-smart-factory-app",
+    "version": "1.0.0",
+    "description": "Sustainable Smart Factory App for BTP AI Bootcamp",
+    "repository": "https://github.com/SAP-samples/btp-ai-core-bootcamp",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@sap/cds": "^5",
+        "@sap/cds-odata-v2-adapter-proxy": "^1.8.11",
+        "@sap/cloud-sdk-vdm-maintenance-order-service": "^2.0.0",
+        "express": "^4",
+        "hdb": "^0.18.3",
+        "passport": "0.4.1",
+        "smartfactory": "./"
+    },
+    "devDependencies": {
+        "sqlite3": "^5.0.2"
+    },
+    "scripts": {
+        "start": "cds run",
+        "watch": "cds watch"
+    },
+    "eslintConfig": {
+        "extends": "eslint:recommended",
+        "env": {
+            "es2020": true,
+            "node": true,
+            "jest": true,
+            "mocha": true
+        },
+        "globals": {
+            "SELECT": true,
+            "INSERT": true,
+            "UPDATE": true,
+            "DELETE": true,
+            "CREATE": true,
+            "DROP": true,
+            "CDL": true,
+            "CQL": true,
+            "CXL": true,
+            "cds": true
+        },
+        "rules": {
+            "no-console": "off",
+            "require-atomic-updates": "off"
+        }
+    },
+    "cds": {
+        "requires": {
+            "db": {
+                "kind": "sql"
+            }
+        },
+        "hana": {
+            "deploy-format": "hdbtable"
+        }
+    }
+}

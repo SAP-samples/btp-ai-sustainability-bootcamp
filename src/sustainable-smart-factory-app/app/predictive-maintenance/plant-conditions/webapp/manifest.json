@@ -1,0 +1,109 @@
+{
+    "_version": "1.8.0",
+    "sap.app": {
+        "id": "plantconditions",
+        "type": "application",
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "i18n": "i18n/i18n.properties",
+        "dataSources": {
+            "AdminService": {
+                "uri": "/admin/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "-sourceTemplate": {
+            "id": "ui5template.basicSAPUI5ApplicationProject",
+            "-id": "ui5template.smartTemplate",
+            "-version": "1.40.12"
+        }
+    },
+    "sap.ui5": {
+        "dependencies": {
+            "libs": {
+                "sap.fe.templates": {}
+            }
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "": {
+                "dataSource": "AdminService",
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect" : true,
+                    "earlyRequests": true,
+                    "groupProperties": {
+                        "default": {
+                            "submit": "Auto"
+                        }
+                    }
+                }
+            }
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "sonsList",
+                    "target": "PlantConditionsList"
+                },
+                {
+                    "pattern": "PlantConditions({key}):?query:",
+                    "name": "PlantConditionsDetails",
+                    "target": "PlantConditionsDetails"
+                }
+            ],
+            "targets": {
+                "PlantConditionsList": {
+                    "type": "Component",
+                    "id": "PlantConditionsList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings" : {
+                            "entitySet" : "PlantConditions",
+                            "initialLoad": true,
+                            "navigation" : {
+                                "PlantConditions" : {
+                                    "detail" : {
+                                        "route" : "PlantConditionsDetails"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "PlantConditionsDetails": {
+                    "type": "Component",
+                    "id": "PlantConditionsDetailsList",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings" : {
+                            "entitySet" : "PlantConditions",
+                            "navigation" : {
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "fullWidth": false
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    }
+}
