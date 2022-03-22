@@ -1,0 +1,35 @@
+# CAP
+_out
+*.db
+connection.properties
+package-lock.json
+app/catalog/package-lock.json
+gen/
+node_modules/
+target/
+app/catalog/node_modules/
+app/catalog/dist/
+
+#temp local pure sapui5 fiori app
+app/sap.ai.sample.smart-factory-app
+
+# Web IDE, App Studio
+.che/
+.gen/
+
+# MTA
+*_mta_build_tmp
+*.mtar
+mta_archives/
+
+# Other
+*.DS_Store
+*.orig
+*.log
+
+*.iml
+*.flattened-pom.xml
+
+# IDEs
+# .vscode
+# .idea

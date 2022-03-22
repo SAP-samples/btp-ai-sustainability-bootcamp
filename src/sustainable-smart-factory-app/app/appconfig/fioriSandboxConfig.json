@@ -1,0 +1,240 @@
+{
+  "services": {
+    "LaunchPage": {
+      "adapter": {
+        "config": {
+          "catalogs": [],
+          "groups": [
+            {
+              "id": "SmartQualityInspection",
+              "title": "Smart Quality Inspection",
+              "isPreset": true,
+              "isVisible": true,
+              "isGroupLocked": false,
+              "tiles": [
+                {
+                  "id": "ManageCVQualityRecords",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Quality Records via Computer Vision",
+                    "subtitle": "",
+                    "info": "Auto Quality Inspection via Computer Vision",
+                    "icon": "sap-icon://quality-issue",
+                    "targetURL": "#CVQualityRecords-manage"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "PredictiveMaintenance",
+              "title": "Predictive Maintenance",
+              "isPreset": true,
+              "isVisible": true,
+              "isGroupLocked": false,
+              "tiles": [
+                {
+                  "id": "PlantConditionsVisualisation",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Plant Conditions Visualisation",
+                    "targetURL": "#PlantConditions-display"
+                  }
+                },
+                {
+                  "id": "EquipmentConditionsALP",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Equipment Condition Insights",
+                    "targetURL": "#SoundAnomaliesExtendedView-display"
+                  }
+                },
+                {
+                  "id": "ManagePlantConditions",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Plant Conditions",
+                    "subtitle": "",
+                    "info": "Plant Condition Monitoring by Time Period",
+                    "icon": "sap-icon://factory",
+                    "targetURL": "#PlantConditions-manage"
+                  }
+                },
+                {
+                  "id": "ManageEquipmentConditions",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Equipment Conditions",
+                    "subtitle": "",
+                    "info": "Equipment Condition Moniotiring by Time Period",
+                    "icon": "sap-icon://machine",
+                    "targetURL": "#EquipmentConditions-manage"
+                  }
+                },
+                {
+                  "id": "ManageSoundAnomalies",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Equipment Sound Anomalies",
+                    "subtitle": "",
+                    "info": "Sound Anomalies Detected for Equipment by AI",
+                    "icon": "sap-icon://sound-loud",
+                    "targetURL": "#SoundAnomalies-manage"
+                  }
+                },
+                {
+                  "id": "ManageSoundAnomalyTypes",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Configure Sound Anomaly Types",
+                    "subtitle": "",
+                    "info": "Config. Sound Anomaly Types of Equipment",
+                    "icon": "sap-icon://settings",
+                    "targetURL": "#SoundAnomalyTypes-manage"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "NavTargetResolution": {
+      "config": {
+        "enableClientSideTargetResolution": true
+      }
+    },
+    "ClientSideTargetResolution": {
+      "adapter": {
+        "config": {
+          "inbounds": {
+            "BrowseBooks": {
+              "semanticObject": "Books",
+              "action": "display",
+              "title": "Browse Books",
+              "signature": {
+                "parameters": {
+                  "Books.ID": {
+                    "renameTo": "ID"
+                  },
+                  "Authors.books.ID": {
+                    "renameTo": "ID"
+                  }
+                },
+                "additionalParameters": "ignored"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=bookshop",
+                "url": "/browse/webapp"
+              }
+            },
+            "ManageCVQualityRecords": {
+              "semanticObject": "CVQualityRecords",
+              "action": "manage",
+              "title": "Manage Quality Records via CV",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=cvqualityrecords",
+                "url": "/defeat-detection/cv-quality-records/webapp"
+              }
+            },
+            "PlantConditionsVisualisation": {
+              "semanticObject": "PlantConditions",
+              "action": "display",
+              "title": "Plant Conditions Visualisation",
+              "signature": {
+                "parameters": {
+                  "PlantConditions.ID": {
+                    "renameTo": "ID"
+                  }
+                },
+                "additionalParameters": "ignored"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=plantconditionsvisual",
+                "url": "/predictive-maintenance/plant-conditions-visualisation/webapp"
+              }
+            },
+            "EquipmentConditionsALP": {
+              "semanticObject": "SoundAnomaliesExtendedView",
+              "action": "display",
+              "title": "Equipment Condition Insights",
+              "signature": {
+                "parameters": {
+                  "SoundAnomaliesExtendedView.ID": {
+                    "renameTo": "ID"
+                  }
+                },
+                "additionalParameters": "ignored"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=sf.equipmentconditionsalp",
+                "url": "./predictive-maintenance/equipment-conditions-alp/webapp"
+              }
+            },
+            "ManagePlantConditions": {
+              "semanticObject": "PlantConditions",
+              "action": "manage",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=plantconditions",
+                "url": "/predictive-maintenance/plant-conditions/webapp"
+              }
+            },
+            "ManageEquipmentConditions": {
+              "semanticObject": "EquipmentConditions",
+              "action": "manage",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=equipmentconditions",
+                "url": "/predictive-maintenance/equipment-conditions/webapp"
+              }
+            },
+            "ManageSoundAnomalies": {
+              "semanticObject": "SoundAnomalies",
+              "action": "manage",
+              "title": "Manage Equipment Sound Anomalies",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=soundanomalies",
+                "url": "/predictive-maintenance/sound-anomalies/webapp"
+              }
+            },
+            "ManageSoundAnomalyTypes": {
+              "semanticObject": "SoundAnomalyTypes",
+              "action": "manage",
+              "title": "Manage Sound Anomaly Types of Equipment",
+              "signature": {
+                "parameters": {},
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=soundanomalytypes",
+                "url": "/predictive-maintenance/sound-anomaly-types/webapp"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
