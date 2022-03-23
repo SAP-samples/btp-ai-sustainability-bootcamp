@@ -8,6 +8,9 @@ service AnalyticsService @(path : '/analytics') {
   pdm.SoundAnomaliesExtendedView
   { * };
   
+  // Value Helps
+  entity EquipmentVH as projection on pdm.EquipmentView;
+
   // @sap.semantics : 'aggregate'
   // define view Scans as
   //   select from pdm.SoundAnomaliesExtendedView {
