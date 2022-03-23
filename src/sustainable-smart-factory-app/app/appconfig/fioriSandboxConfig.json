@@ -45,6 +45,9 @@
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
                     "title": "Equipment Condition Insights",
+                    "subtitle": "",
+                    "info": "Equipment Conditions Analytical List Page",
+                    "icon": "sap-icon://manager-insight",
                     "targetURL": "#AnomaliesExtendedView-display"
                   }
                 },
