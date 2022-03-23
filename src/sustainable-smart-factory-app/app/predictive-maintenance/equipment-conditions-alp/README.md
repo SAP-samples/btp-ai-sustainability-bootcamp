@@ -16,7 +16,7 @@
 |**Enable Code Assist Libraries**<br>False|
 |**Add Eslint configuration**<br>False|
 |**Enable Telemetry**<br>False|
-|**Main Entity**<br>SoundAnomaliesExtendedView|
+|**Main Entity**<br>AnomaliesExtendedView|
 
 ## equipment-conditions-alp
 

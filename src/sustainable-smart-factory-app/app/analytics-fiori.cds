@@ -1,7 +1,7 @@
 using {sap.smartfactory as sf} from 'smartfactory';
-annotate sf.SoundAnomaliesExtendedView with {
+annotate sf.AnomaliesExtendedView with {
   @Common : {
-    SemanticObject : 'SoundAnomaliesExtendedView',
+    SemanticObject : 'AnomaliesExtendedView',
     Text           : {
       $value              : equipment,
       @UI.TextArrangement : #TextLast
@@ -12,7 +12,7 @@ annotate sf.SoundAnomaliesExtendedView with {
   //Visual Filter for equipment
   @Common : {ValueList #EquipmentVisualFilter : {
     $Type                        : 'Common.ValueListType',
-    CollectionPath               : 'SoundAnomaliesExtendedView',
+    CollectionPath               : 'AnomaliesExtendedView',
     PresentationVariantQualifier : 'AnomaliesByEquipment',
     Parameters                   : [{
       $Type             : 'Common.ValueListParameterInOut',
@@ -26,7 +26,7 @@ annotate sf.SoundAnomaliesExtendedView with {
   //Visual Filter for anomalyType
   @Common : {ValueList #EquipmentVisualFilter : {
     $Type                        : 'Common.ValueListType',
-    CollectionPath               : 'SoundAnomaliesExtendedView',
+    CollectionPath               : 'AnomaliesExtendedView',
     PresentationVariantQualifier : 'AnomaliesByType',
     Parameters                   : [{
       $Type             : 'Common.ValueListParameterInOut',
@@ -40,7 +40,7 @@ annotate sf.SoundAnomaliesExtendedView with {
   //Visual Filter for funcLocation
   @Common : {ValueList #EquipmentVisualFilter : {
     $Type                        : 'Common.ValueListType',
-    CollectionPath               : 'SoundAnomaliesExtendedView',
+    CollectionPath               : 'AnomaliesExtendedView',
     PresentationVariantQualifier : 'AnomaliesByFuncLocation',
     Parameters                   : [{
       $Type             : 'Common.ValueListParameterInOut',
@@ -52,7 +52,7 @@ annotate sf.SoundAnomaliesExtendedView with {
   funcLocation;
 };
 
-annotate sf.SoundAnomaliesExtendedView with @(UI : {
+annotate sf.AnomaliesExtendedView with @(UI : {
   SelectionFields                  : [
     plant,
     funcLocation,
@@ -134,7 +134,7 @@ annotate sf.SoundAnomaliesExtendedView with @(UI : {
   LineItem                         : [
     {
       $Type          : 'UI.DataFieldForIntentBasedNavigation',
-      SemanticObject : 'SoundAnomaliesExtendedView',
+      SemanticObject : 'AnomaliesExtendedView',
       Action         : 'display'
     },
     {Value : ID},
@@ -162,7 +162,7 @@ annotate sf.SoundAnomaliesExtendedView with @(UI : {
   ]}
 });
 
-annotate sf.SoundAnomaliesExtendedView with {
+annotate sf.AnomaliesExtendedView with {
   funcLocation   @title : '{i18n>FuncLocation}';
 //     ID              @title : '{i18n>ID}';
 //     equipment       @title : '{i18n>Equipment}';

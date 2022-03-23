@@ -6,7 +6,7 @@ using from '../../common'; // to help UI linter get the complete annotations
 //	Books Object Page
 //
 
-annotate AdminService.SoundAnomalies with @(UI : {
+annotate AdminService.Anomalies with @(UI : {
     Facets              : [
     {
         $Type  : 'UI.ReferenceFacet',
@@ -52,8 +52,8 @@ annotate AdminService.SoundAnomalies with @(UI : {
 //  Draft for Localized Data
 //
 
-annotate sap.smartfactory.SoundAnomalies with @fiori.draft.enabled;
-annotate AdminService.SoundAnomalies with @odata.draft.enabled;
+annotate sap.smartfactory.Anomalies with @fiori.draft.enabled;
+annotate AdminService.Anomalies with @odata.draft.enabled;
 
 // annotate AdminService.Books.texts with @(
 // 	UI: {
@@ -80,9 +80,9 @@ annotate AdminService.SoundAnomalies with @odata.draft.enabled;
 // }
 
 // // Workaround for Fiori popup for asking user to enter a new UUID on Create
-annotate AdminService.SoundAnomalies with {
+annotate AdminService.Anomalies with {
     ID @Core.Computed;
 }
 
-//annotate sap.smartfactory.SoundAnomalies with @fiori.draft.enabled;
-//annotate AdminService.SoundAnomalies with @odata.draft.enabled;
+//annotate sap.smartfactory.Anomalies with @fiori.draft.enabled;
+//annotate AdminService.Anomalies with @odata.draft.enabled;

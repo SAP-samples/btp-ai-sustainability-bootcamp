@@ -14,6 +14,6 @@ service AdminService {
     )
     action createMO();
   };
-  entity SoundAnomalies as projection on pdm.SoundAnomalies;
-  entity SoundAnomalyTypes as projection on pdm.SoundAnomalyTypes;
+  entity Anomalies as projection on pdm.Anomalies;
+  entity AnomalyTypes as projection on pdm.AnomalyTypes;
 }
