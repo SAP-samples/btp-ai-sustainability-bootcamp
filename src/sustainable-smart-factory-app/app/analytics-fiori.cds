@@ -36,6 +36,20 @@ annotate sf.SoundAnomaliesExtendedView with {
   }}
   @(ValueList.entity : 'AnomalyTypeNameVH', )
   anomalyType;
+
+  //Visual Filter for funcLocation
+  @Common : {ValueList #EquipmentVisualFilter : {
+    $Type                        : 'Common.ValueListType',
+    CollectionPath               : 'SoundAnomaliesExtendedView',
+    PresentationVariantQualifier : 'AnomaliesByFuncLocation',
+    Parameters                   : [{
+      $Type             : 'Common.ValueListParameterInOut',
+      LocalDataProperty : 'funcLocation',
+      ValueListProperty : 'funcLocation'
+    }]
+  }}
+  @(ValueList.entity : 'FuncLocationVH', )
+  funcLocation;
 };
 
 annotate sf.SoundAnomaliesExtendedView with @(UI : {
@@ -47,6 +61,7 @@ annotate sf.SoundAnomaliesExtendedView with @(UI : {
     anomalyType
   ],
   PresentationVariant #equipment   : {Visualizations : ['@UI.Chart#equipment', ], },
+  PresentationVariant #AnomaliesByFuncLocation   : {Visualizations : ['@UI.Chart#AnomaliesByFuncLocation', ], },
   PresentationVariant #AnomaliesByEquipment   : {Visualizations : ['@UI.Chart#AnomaliesByEquipment', ], },
   PresentationVariant #AnomaliesByType   : {Visualizations : ['@UI.Chart#AnomaliesByType', ], },  
   PresentationVariant #AnomaliesByDate   : {Visualizations : ['@UI.Chart#AnomaliesByDate', ], },
@@ -64,6 +79,19 @@ annotate sf.SoundAnomaliesExtendedView with @(UI : {
     }]
   },
   
+  Chart #AnomaliesByFuncLocation                : {
+    ChartType           : #Column,
+    Dimensions          : [funcLocation],
+    DimensionAttributes : [{
+      Dimension : funcLocation,
+      Role      : #Category
+    }],
+    Measures            : [numberOfAnomalies],
+    MeasureAttributes   : [{
+      Measure : numberOfAnomalies,
+      Role    : #Axis1
+    }]
+  },
   Chart #AnomaliesByEquipment                 : {
     ChartType           : #Column,
     Dimensions          : [equipment],
