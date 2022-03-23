@@ -37,6 +37,9 @@
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
                     "title": "Plant Conditions Visualisation",
+                    "subtitle": "",
+                    "info": "Plant Conditions wt. Layout Visualisation",
+                    "icon": "sap-icon://building",
                     "targetURL": "#PlantConditions-display"
                   }
                 },
