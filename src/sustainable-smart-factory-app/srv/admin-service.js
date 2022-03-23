@@ -226,11 +226,16 @@ module.exports = async function () {
     cvInferenceReq(options, async function (error, response) {
       if (error) throw new Error(error);
       console.log(response.body);
+      // to get confidence & quality label from response
       await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
-        confidence: confidence,
-        qualityLabel: "Y"
+        confidence: "0.9",
+        qualityLabel: "Y",
       });
     });
+
+    req.notify(
+      `CV Image (ID: ` + cvImageEntity.ID + `) entity processed successfully.`
+    );
   });
 
   this.before("NEW", "CVQualityRecords", genid);
