@@ -9,9 +9,9 @@ using {
 //Data Model for Predctive Maintenance module
 //PlantConditions:  The recorded condition of the plants given a time period.
 //EquipmentConditions: The recorded condition of the equipment given a time period
-//SoundAnomalies: The detected sound anomaly attached to an equipment
-//SoundAnomalyTypes: CodeList of the sound anomaly types
-//SoundAnomalyStatus: Enum of the sound anomaly status
+//Anomalies: The detected sound anomaly attached to an equipment
+//AnomalyTypes: CodeList of the sound anomaly types
+//AnomalyStatus: Enum of the sound anomaly status
 ////////////////////////////////////////////////////////////
 
 //['Timestamp',
@@ -47,10 +47,10 @@ entity EquipmentConditions : managed {
       breakDownProb      : Decimal;
       virtual moCreated: Boolean;
       //detected sound anomalies of the equipment during the period
-      soundAnomalies     : Association to many SoundAnomalies
-                             on soundAnomalies.eqCond = $self;
+      anomalies     : Association to many Anomalies
+                             on anomalies.eqCond = $self;
 
-      //follow-up action on equipment condtion level instead of SoundAnomaly level
+      //follow-up action on equipment condtion level instead of Anomaly level
       //which could be a maintenance request or order in SAP S/4HANA Cloud
       followUpDocType : AnomalyFollowUpActionType;
       followUpDocNum        : String(12);
@@ -74,24 +74,34 @@ type EquipmnetStatus : String enum {
   BreakDown = 'B'
 }
 
-entity SoundAnomalies : managed {
+entity Anomalies : managed {
   key ID           : Integer;
       detectedAt   : Timestamp;
       detectedDate : Date;
       equipment    : String(18);
-      anomalyType  : Association to SoundAnomalyTypes;
+
+      //Generlise the Anomalies instead of Anomalies.
+      //sourceType could be sound, image, temperature, humidity etc
+      sourceType   : String(20);
+      rawValue     : String(10);
+      rawMeasureUnit: String(3);
+
+      anomalyType  : Association to AnomalyTypes;
       confidence   : Decimal;
-      status       : SoundAnomalyStatus;
+      status       : AnomalyStatus;
       eqCond       : Association to EquipmentConditions; //> the backlink
-      numberOfAnomalies : Integer default 1;
+      numberOfAnomalies : Integer default 1; //for aggregation
 }
 
-entity SoundAnomalyTypes : sap.common.CodeList {
+entity AnomalyTypes : sap.common.CodeList {
   key code           : String(2);
       suggestedFollowUpAction : AnomalyFollowUpActionType;
+      //indicator whether to trigger the follow-up action automatically or not
+      autoTrigger : Boolean default true;
+      triggerThreshold : Integer default 2;
 }
 
-type SoundAnomalyStatus : Integer enum {
+type AnomalyStatus : Integer enum {
   New       = 0;
   InProcess = 1;
   Processed = 2;
@@ -105,8 +115,8 @@ type AnomalyFollowUpActionType : String enum {
 }
 
 //Views
-// entity SoundAnomaliesExtendedView                
-// as projection on SoundAnomalies {
+// entity AnomaliesExtendedView                
+// as projection on Anomalies {
 //     * , 
 //     eqCond.ID as eqCondId, 
 //     eqCond.equipmentName as equipmentName, 
@@ -125,7 +135,7 @@ type AnomalyFollowUpActionType : String enum {
   // analytical annotation
   // @Aggregation.ApplySupported.PropertyRestrictions : true
   // entity EquipmentConditionsDetailView as
-  //   select from SoundAnomaliesExtendedView {
+  //   select from AnomaliesExtendedView {
   //     plant,
   //     funcLocation,
   //     equipment,

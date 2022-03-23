@@ -1,53 +1,58 @@
 using {sap.smartfactory as sf} from 'smartfactory';
-annotate sf.SoundAnomaliesExtendedView with {
+annotate sf.AnomaliesExtendedView with {
   @Common : {
-    SemanticObject : 'SoundAnomaliesExtendedView',
+    SemanticObject : 'AnomaliesExtendedView',
     Text           : {
       $value              : equipment,
       @UI.TextArrangement : #TextLast
     }
   }
   equipment;
-  // @Common : {ValueList #PriorityTxtVisualFilter : {
-  //   $Type                        : 'Common.ValueListType',
-  //   CollectionPath               : 'MessageHeaderSet',
-  //   PresentationVariantQualifier : 'PriorityTxt',
-  //   Parameters                   : [{
-  //     $Type             : 'Common.ValueListParameterInOut',
-  //     LocalDataProperty : 'PriorityTxt',
-  //     ValueListProperty : 'PriorityTxt'
-  //   }]
-  // }}
-  // PriorityTxt @(ValueList.entity : 'PriorityTxtVH', );
-  // @Common : {ValueList #StatusTxtVisualFilter : {
-  //   $Type                        : 'Common.ValueListType',
-  //   CollectionPath               : 'MessageHeaderSet',
-  //   PresentationVariantQualifier : 'StatusTxt',
-  //   Parameters                   : [{
-  //     $Type             : 'Common.ValueListParameterInOut',
-  //     LocalDataProperty : 'StatusTxt',
-  //     ValueListProperty : 'StatusTxt'
-  //   }]
-  // }}
-  // @(ValueList.entity : 'StatusTxtVH', )
-  // StatusTxt;
-  // @(ValueList.entity : 'StatusVH', )
-  // Status;
-  // @Common : {ValueList #SystemIdVisualFilter : {
-  //   $Type                        : 'Common.ValueListType',
-  //   CollectionPath               : 'MessageHeaderSet',
-  //   PresentationVariantQualifier : 'SystemId',
-  //   Parameters                   : [{
-  //     $Type             : 'Common.ValueListParameterInOut',
-  //     LocalDataProperty : 'SystemId',
-  //     ValueListProperty : 'SystemId'
-  //   }]
-  // }}
-  // @(ValueList.entity : 'SystemIdVH', )
-  // SystemId;
+
+  //Visual Filter for equipment
+  @Common : {ValueList #EquipmentVisualFilter : {
+    $Type                        : 'Common.ValueListType',
+    CollectionPath               : 'AnomaliesExtendedView',
+    PresentationVariantQualifier : 'AnomaliesByEquipment',
+    Parameters                   : [{
+      $Type             : 'Common.ValueListParameterInOut',
+      LocalDataProperty : 'equipment',
+      ValueListProperty : 'equipment'
+    }]
+  }}
+  @(ValueList.entity : 'EquipmentVH', )
+  equipment;
+
+  //Visual Filter for anomalyType
+  @Common : {ValueList #EquipmentVisualFilter : {
+    $Type                        : 'Common.ValueListType',
+    CollectionPath               : 'AnomaliesExtendedView',
+    PresentationVariantQualifier : 'AnomaliesByType',
+    Parameters                   : [{
+      $Type             : 'Common.ValueListParameterInOut',
+      LocalDataProperty : 'anomalyType',
+      ValueListProperty : 'anomalyType'
+    }]
+  }}
+  @(ValueList.entity : 'AnomalyTypeNameVH', )
+  anomalyType;
+
+  //Visual Filter for funcLocation
+  @Common : {ValueList #EquipmentVisualFilter : {
+    $Type                        : 'Common.ValueListType',
+    CollectionPath               : 'AnomaliesExtendedView',
+    PresentationVariantQualifier : 'AnomaliesByFuncLocation',
+    Parameters                   : [{
+      $Type             : 'Common.ValueListParameterInOut',
+      LocalDataProperty : 'funcLocation',
+      ValueListProperty : 'funcLocation'
+    }]
+  }}
+  @(ValueList.entity : 'FuncLocationVH', )
+  funcLocation;
 };
 
-annotate sf.SoundAnomaliesExtendedView with @(UI : {
+annotate sf.AnomaliesExtendedView with @(UI : {
   SelectionFields                  : [
     plant,
     funcLocation,
@@ -55,9 +60,11 @@ annotate sf.SoundAnomaliesExtendedView with @(UI : {
     detectedDate,
     anomalyType
   ],
-  PresentationVariant #AnomaliesByDate   : {Visualizations : ['@UI.Chart#AnomaliesByDate', ], },
+  PresentationVariant #equipment   : {Visualizations : ['@UI.Chart#equipment', ], },
+  PresentationVariant #AnomaliesByFuncLocation   : {Visualizations : ['@UI.Chart#AnomaliesByFuncLocation', ], },
   PresentationVariant #AnomaliesByEquipment   : {Visualizations : ['@UI.Chart#AnomaliesByEquipment', ], },
-  
+  PresentationVariant #AnomaliesByType   : {Visualizations : ['@UI.Chart#AnomaliesByType', ], },  
+  PresentationVariant #AnomaliesByDate   : {Visualizations : ['@UI.Chart#AnomaliesByDate', ], },
   Chart                            : {
     ChartType           : #Line,
     Dimensions          : [detectedDate, equipment, anomalyType],
@@ -71,11 +78,38 @@ annotate sf.SoundAnomaliesExtendedView with @(UI : {
       Role    : #Axis1
     }]
   },
+  
+  Chart #AnomaliesByFuncLocation                : {
+    ChartType           : #Column,
+    Dimensions          : [funcLocation],
+    DimensionAttributes : [{
+      Dimension : funcLocation,
+      Role      : #Category
+    }],
+    Measures            : [numberOfAnomalies],
+    MeasureAttributes   : [{
+      Measure : numberOfAnomalies,
+      Role    : #Axis1
+    }]
+  },
   Chart #AnomaliesByEquipment                 : {
-    ChartType           : #Line,
+    ChartType           : #Column,
     Dimensions          : [equipment],
     DimensionAttributes : [{
       Dimension : equipment,
+      Role      : #Category
+    }],
+    Measures            : [numberOfAnomalies],
+    MeasureAttributes   : [{
+      Measure : numberOfAnomalies,
+      Role    : #Axis1
+    }]
+  },
+  Chart #AnomaliesByType                 : {
+    ChartType           : #Donut,
+    Dimensions          : [anomalyType],
+    DimensionAttributes : [{
+      Dimension : anomalyType,
       Role      : #Category
     }],
     Measures            : [numberOfAnomalies],
@@ -100,7 +134,7 @@ annotate sf.SoundAnomaliesExtendedView with @(UI : {
   LineItem                         : [
     {
       $Type          : 'UI.DataFieldForIntentBasedNavigation',
-      SemanticObject : 'SoundAnomaliesExtendedView',
+      SemanticObject : 'AnomaliesExtendedView',
       Action         : 'display'
     },
     {Value : ID},
@@ -128,7 +162,8 @@ annotate sf.SoundAnomaliesExtendedView with @(UI : {
   ]}
 });
 
-// annotate sf.SoundAnomaliesExtendedView with {
+annotate sf.AnomaliesExtendedView with {
+  funcLocation   @title : '{i18n>FuncLocation}';
 //     ID              @title : '{i18n>ID}';
 //     equipment       @title : '{i18n>Equipment}';
 //     anomalyType @title : '{i18n>AnomalyTypeName}'  @Common : {
@@ -139,4 +174,4 @@ annotate sf.SoundAnomaliesExtendedView with @(UI : {
 //     detectedAt      @title : '{i18n>DetectedAt}';
 
 //     status          @title : '{i18n>AnomalyStatus}';
-// }
+ }

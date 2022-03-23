@@ -3,17 +3,17 @@ using {sap.smartfactory as pdm} from './pdm-analytics-model';
 
 ////////////////////////////////////////////////////////////
 //Analytics Model for Predctive Maintenance module
-//SoundAnomaliesExtendedView:  The extended view of SoundAnomalies.
+//AnomaliesExtendedView:  The extended view of Anomalies.
 //EquipmentConditions: The recorded condition of the equipment given a time period
-//SoundAnomalies: The detected sound anomaly attached to an equipment
-//SoundAnomalyTypes: CodeList of the sound anomaly types
-//SoundAnomalyStatus: Enum of the sound anomaly status
+//Anomalies: The detected sound anomaly attached to an equipment
+//AnomalyTypes: CodeList of the sound anomaly types
+//AnomalyStatus: Enum of the sound anomaly status
 ////////////////////////////////////////////////////////////
 
 //Views
  @Aggregation.ApplySupported.PropertyRestrictions : true
-entity SoundAnomaliesExtendedView                
-as projection on pdm.SoundAnomalies {
+entity AnomaliesExtendedView                
+as projection on pdm.Anomalies {
     ID,
     detectedAt,
     detectedDate,
@@ -35,7 +35,7 @@ as projection on pdm.SoundAnomalies {
     numberOfAnomalies
   } ;
 
-annotate SoundAnomaliesExtendedView with {
+annotate AnomaliesExtendedView with {
     @Analytics.Dimension : true
     ID;
     @Analytics.Dimension : true
@@ -71,3 +71,28 @@ annotate SoundAnomaliesExtendedView with {
     @Aggregation.default : #SUM
     numberOfAnomalies;
   };
+
+//Value Helpers
+view EquipmentView as select distinct equipment from AnomaliesExtendedView;
+
+@readonly
+@cds.odata.valuelist
+entity EquipmentVH {
+  key equipment : AnomaliesExtendedView : equipment;
+};
+
+view AnomalyTypeNameView as select distinct anomalyType from AnomaliesExtendedView;
+
+@readonly
+@cds.odata.valuelist
+entity AnomalyTypeNameVH {
+  key anomalyType : AnomaliesExtendedView : anomalyType;
+};
+
+view FuncLocationView as select distinct funcLocation from AnomaliesExtendedView;
+
+@readonly
+@cds.odata.valuelist
+entity FuncLocationVH {
+  key funcLocation : AnomaliesExtendedView : funcLocation;
+};
