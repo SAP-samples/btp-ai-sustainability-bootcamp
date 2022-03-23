@@ -72,11 +72,19 @@ annotate SoundAnomaliesExtendedView with {
     numberOfAnomalies;
   };
 
-//Value Helper for Equipment
+//Value Helpers
 view EquipmentView as select distinct equipment from SoundAnomaliesExtendedView;
 
 @readonly
 @cds.odata.valuelist
 entity EquipmentVH {
   key equipment : SoundAnomaliesExtendedView : equipment;
+};
+
+view AnomalyTypeNameView as select distinct anomalyType from SoundAnomaliesExtendedView;
+
+@readonly
+@cds.odata.valuelist
+entity AnomalyTypeNameVH {
+  key anomalyType : SoundAnomaliesExtendedView : anomalyType;
 };
