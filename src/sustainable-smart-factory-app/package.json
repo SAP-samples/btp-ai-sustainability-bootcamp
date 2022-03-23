@@ -10,6 +10,7 @@
         "@sap/cds-odata-v2-adapter-proxy": "^1.8.11",
         "@sap/cloud-sdk-vdm-maintenance-order-service": "^2.0.0",
         "express": "^4",
+        "fs": "0.0.1-security",
         "hdb": "^0.18.3",
         "passport": "0.4.1",
         "request": "^2.88.2",

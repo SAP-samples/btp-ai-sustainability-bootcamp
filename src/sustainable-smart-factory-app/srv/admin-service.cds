@@ -23,6 +23,15 @@ service AdminService {
     )
     action createMO();
   };
-  entity Anomalies as projection on pdm.Anomalies;
+  entity Anomalies as projection on pdm.Anomalies actions {
+    @sap.applicable.path : 'anomalyInference'
+    @(
+        cds.odata.bindingparameter.name : '_it',
+        Common.SideEffects              : {
+            TargetProperties : ['_it/confidence', '_it/status']
+        }
+    )
+    action inferenceSoundAnomaly();
+  };
   entity AnomalyTypes as projection on pdm.AnomalyTypes;
 }
