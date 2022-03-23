@@ -71,3 +71,12 @@ annotate SoundAnomaliesExtendedView with {
     @Aggregation.default : #SUM
     numberOfAnomalies;
   };
+
+//Value Helper for Equipment
+view EquipmentView as select distinct equipment from SoundAnomaliesExtendedView;
+
+@readonly
+@cds.odata.valuelist
+entity EquipmentVH {
+  key equipment : SoundAnomaliesExtendedView : equipment;
+};

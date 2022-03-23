@@ -8,17 +8,20 @@ annotate sf.SoundAnomaliesExtendedView with {
     }
   }
   equipment;
-  // @Common : {ValueList #PriorityTxtVisualFilter : {
-  //   $Type                        : 'Common.ValueListType',
-  //   CollectionPath               : 'MessageHeaderSet',
-  //   PresentationVariantQualifier : 'PriorityTxt',
-  //   Parameters                   : [{
-  //     $Type             : 'Common.ValueListParameterInOut',
-  //     LocalDataProperty : 'PriorityTxt',
-  //     ValueListProperty : 'PriorityTxt'
-  //   }]
-  // }}
-  // PriorityTxt @(ValueList.entity : 'PriorityTxtVH', );
+
+  @Common : {ValueList #EquipmentVisualFilter : {
+    $Type                        : 'Common.ValueListType',
+    CollectionPath               : 'SoundAnomaliesExtendedView',
+    PresentationVariantQualifier : 'AnomaliesByEquipment',
+    Parameters                   : [{
+      $Type             : 'Common.ValueListParameterInOut',
+      LocalDataProperty : 'equipment',
+      ValueListProperty : 'equipment'
+    }]
+  }}
+  @(ValueList.entity : 'EquipmentVH', )
+  equipment;
+
   // @Common : {ValueList #StatusTxtVisualFilter : {
   //   $Type                        : 'Common.ValueListType',
   //   CollectionPath               : 'MessageHeaderSet',
@@ -55,6 +58,7 @@ annotate sf.SoundAnomaliesExtendedView with @(UI : {
     detectedDate,
     anomalyType
   ],
+  PresentationVariant #equipment   : {Visualizations : ['@UI.Chart#equipment', ], },
   PresentationVariant #AnomaliesByDate   : {Visualizations : ['@UI.Chart#AnomaliesByDate', ], },
   PresentationVariant #AnomaliesByEquipment   : {Visualizations : ['@UI.Chart#AnomaliesByEquipment', ], },
   
@@ -71,8 +75,9 @@ annotate sf.SoundAnomaliesExtendedView with @(UI : {
       Role    : #Axis1
     }]
   },
+  
   Chart #AnomaliesByEquipment                 : {
-    ChartType           : #Line,
+    ChartType           : #Column,
     Dimensions          : [equipment],
     DimensionAttributes : [{
       Dimension : equipment,
@@ -89,6 +94,19 @@ annotate sf.SoundAnomaliesExtendedView with @(UI : {
     Dimensions          : [detectedDate],
     DimensionAttributes : [{
       Dimension : detectedDate,
+      Role      : #Category
+    }],
+    Measures            : [numberOfAnomalies],
+    MeasureAttributes   : [{
+      Measure : numberOfAnomalies,
+      Role    : #Axis1
+    }]
+  },
+  Chart #AnomaliesByType                 : {
+    ChartType           : #Donut,
+    Dimensions          : [anomalyType],
+    DimensionAttributes : [{
+      Dimension : anomalyType,
       Role      : #Category
     }],
     Measures            : [numberOfAnomalies],
@@ -128,7 +146,8 @@ annotate sf.SoundAnomaliesExtendedView with @(UI : {
   ]}
 });
 
-// annotate sf.SoundAnomaliesExtendedView with {
+annotate sf.SoundAnomaliesExtendedView with {
+  funcLocation   @title : '{i18n>FuncLocation}';
 //     ID              @title : '{i18n>ID}';
 //     equipment       @title : '{i18n>Equipment}';
 //     anomalyType @title : '{i18n>AnomalyTypeName}'  @Common : {
@@ -139,4 +158,4 @@ annotate sf.SoundAnomaliesExtendedView with @(UI : {
 //     detectedAt      @title : '{i18n>DetectedAt}';
 
 //     status          @title : '{i18n>AnomalyStatus}';
-// }
+ }
