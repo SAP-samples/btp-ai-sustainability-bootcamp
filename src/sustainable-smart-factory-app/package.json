@@ -12,6 +12,7 @@
         "express": "^4",
         "hdb": "^0.18.3",
         "passport": "0.4.1",
+        "request": "^2.88.2",
         "smartfactory": "./"
     },
     "devDependencies": {
