@@ -21,8 +21,8 @@ annotate AdminService.EquipmentConditions with @(
             },
             {
                 $Type  : 'UI.ReferenceFacet',
-                Label  : '{i18n>SoundAnomalies}',
-                Target : 'soundAnomalies/@UI.LineItem'
+                Label  : '{i18n>Anomalies}',
+                Target : 'anomalies/@UI.LineItem'
             },
             {
                 $Type  : 'UI.ReferenceFacet',
@@ -93,7 +93,7 @@ annotate AdminService.EquipmentConditions with {
     ID @Core.Computed;
 }
 
-annotate AdminService.EquipmentConditions.SoundAnomalies with @(UI : {
+annotate AdminService.EquipmentConditions.Anomalies with @(UI : {
     LineItem       : [
         {
             Value : product_ID,
