@@ -46,10 +46,18 @@ annotate sf.CVQualityRecords with @(
                 Value : confidence,
                 Label : '{i18n>Confidence}'
             },
+            // {
+            //     Value : detectedAt,
+            //     Label : '{i18n>DetectedAt}'
+            // },
             {
-                Value : detectedAt,
-                Label : '{i18n>DetectedAt}'
-            }
+                $Type             : 'UI.DataFieldForAction',
+                Action            : 'AdminService.inferenceImageCV',
+                IconUrl           : 'sap-icon://detail-view',
+                Inline            : true,
+                ![@UI.Emphasized] : true, //Button is highlighted
+            },
+            {Value : image, }
         ]
     }
 ) {
@@ -64,12 +72,23 @@ annotate sf.CVQualityRecords with @(
 //
 //	CVQualityRecords Details
 //
-annotate sf.CVQualityRecords with @(UI : {HeaderInfo : {
-    TypeName       : '{i18n>CVQualityRecord}',
-    TypeNamePlural : '{i18n>CVQualityRecords}',
-    Title          : {Value : ID},
-    Description    : {Value : productId}
-}, });
+annotate sf.CVQualityRecords with @(UI : {
+    HeaderInfo        : {
+        TypeName       : '{i18n>CVQualityRecord}',
+        TypeNamePlural : '{i18n>CVQualityRecords}',
+        Title          : {Value : ID},
+        Description    : {Value : productId},
+        ImageUrl       : image
+    },
+    HeaderFacets      : [{
+        $Type  : 'UI.ReferenceFacet',
+        Label  : '{i18n>Description}',
+        Target : '@UI.FieldGroup#Descr'
+    }],
+    FieldGroup #Descr : {Data : [
+        {Value : productId}
+    ]},
+});
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -85,6 +104,10 @@ annotate sf.CVQualityRecords with {
     qualityLabel @title : '{i18n>QualityLabel}';
     confidence   @title : '{i18n>Confidence}';
     detectedAt   @title : '{i18n>DetectedAt}';
+    image        @(
+        Common.Label  : 'Image',
+        UI.IsImageURL : true
+    );
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -210,11 +233,20 @@ annotate sf.EquipmentConditions with @(
                 Label : '{i18n>RecEndedAt}'
             },
         // {
-        //     $Type   : 'UI.DataFieldForAction',
-        //     Action  : 'AdminService.createMO',
-        //     Label   : 'Create Maintenance Order',
-        //     IconUrl : 'sap-icon://technical-object',
-        //     Inline  : true
+        //     Value : followUpDocNum,
+        //     Label : 'Doc ID'
+        // },
+        // {
+        //     Value : followUpDocType,
+        //     Label : 'Doc Type'
+        // },
+        // {
+        //     $Type             : 'UI.DataFieldForAction',
+        //     Action            : 'AdminService.createMO',
+        //     Label             : 'Create Maintenance Order',
+        //     IconUrl           : 'sap-icon://technical-object',
+        //     Inline            : true,
+        //     ![@UI.Emphasized] : true, //Button is highlighted
         // }
         ]
     }
@@ -362,25 +394,25 @@ annotate sf.SoundAnomalies with @(UI : {HeaderInfo : {
 //	SoundAnomalies Elements
 //
 annotate sf.SoundAnomalies with {
-    ID              @title : '{i18n>ID}';
-    equipment       @title : '{i18n>Equipment}';
-    anomalyTypeCode @title : '{i18n>AnomalyTypeCode}'  @Common : {
+    ID                @title : '{i18n>ID}';
+    equipment         @title : '{i18n>Equipment}';
+    anomalyTypeCode   @title : '{i18n>AnomalyTypeCode}'  @Common : {
         Text            : anomalyType.code,
         TextArrangement : #TextOnly
     };
-    anomalyTypeName @title : '{i18n>AnomalyTypeName}'  @Common : {
+    anomalyTypeName   @title : '{i18n>AnomalyTypeName}'  @Common : {
         Text            : anomalyType.name,
         TextArrangement : #TextOnly
     };
-    anomalyTypeDesc @title : '{i18n>AnomalyTypeDesc}'  @Common : {
+    anomalyTypeDesc   @title : '{i18n>AnomalyTypeDesc}'  @Common : {
         Text            : anomalyType.descr,
         TextArrangement : #TextOnly
-    }               @UI.MultiLineText;
-    confidence      @title : '{i18n>Confidence}';
-    detectedAt      @title : '{i18n>DetectedAt}';
+    }                 @UI.MultiLineText;
+    confidence        @title : '{i18n>Confidence}';
+    detectedAt        @title : '{i18n>DetectedAt}';
     detectedDate      @title : '{i18n>DetectedDate}';
-    numberOfAnomalies   @title : '{i18n>NumberOfAnomalies}';
-    status          @title : '{i18n>AnomalyStatus}';
+    numberOfAnomalies @title : '{i18n>NumberOfAnomalies}';
+    status            @title : '{i18n>AnomalyStatus}';
 }
 
 ////////////////////////////////////////////////////////////////////////////
