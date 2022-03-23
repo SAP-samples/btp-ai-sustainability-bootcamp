@@ -85,9 +85,7 @@ annotate sf.CVQualityRecords with @(UI : {
         Label  : '{i18n>Description}',
         Target : '@UI.FieldGroup#Descr'
     }],
-    FieldGroup #Descr : {Data : [
-        {Value : productId}
-    ]},
+    FieldGroup #Descr : {Data : [{Value : productId}]},
 });
 
 
@@ -316,7 +314,7 @@ annotate sf.EquipmentConditions with {
     plant           @title : '{i18n>Plant}';
     plantSection    @title : '{i18n>PlantSection}';
     equipment       @title : '{i18n>Equipment}';
-    funcLocation   @title : '{i18n>FuncLocation}';
+    funcLocation    @title : '{i18n>FuncLocation}';
     equipmentStatus @title : '{i18n>EquipmentStatus}';
     recStartedAt    @title : '{i18n>RecStartedAt}';
     recEndedAt      @title : '{i18n>RecEndedAt}';
@@ -402,9 +400,9 @@ annotate sf.Anomalies with @(UI : {HeaderInfo : {
 //	Anomalies Elements
 //
 annotate sf.Anomalies with {
-    ID              @title : '{i18n>ID}';
-    equipment       @title : '{i18n>Equipment}';
-    anomalyTypeCode @title : '{i18n>AnomalyTypeCode}'  @Common : {
+    ID                @title : '{i18n>ID}';
+    equipment         @title : '{i18n>Equipment}';
+    anomalyTypeCode   @title : '{i18n>AnomalyTypeCode}'  @Common : {
         Text            : anomalyType.code,
         TextArrangement : #TextOnly
     };
