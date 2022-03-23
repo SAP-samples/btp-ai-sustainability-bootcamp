@@ -19,7 +19,7 @@
                     "title": "Quality Records via Computer Vision",
                     "subtitle": "",
                     "info": "Auto Quality Inspection via Computer Vision",
-                    "icon": "sap-icon://quality-issue",
+                    "icon": "sap-icon://web-cam",
                     "targetURL": "#CVQualityRecords-manage"
                   }
                 }
@@ -83,7 +83,7 @@
                     "title": "Manage Equipment Anomalies",
                     "subtitle": "",
                     "info": "Anomalies Detected for Equipment by AI",
-                    "icon": "sap-icon://sound-loud",
+                    "icon": "sap-icon://alert",
                     "targetURL": "#Anomalies-manage"
                   }
                 },
