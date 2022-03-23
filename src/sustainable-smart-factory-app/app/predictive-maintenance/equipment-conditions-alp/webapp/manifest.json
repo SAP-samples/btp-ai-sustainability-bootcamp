@@ -44,7 +44,7 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "SoundAnomaliesExtendedView",
+                    "semanticObject": "AnomaliesExtendedView",
                     "action": "display",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
@@ -133,8 +133,8 @@
             "showDraftToggle": false
         },
         "pages": {
-            "AnalyticalListPage|SoundAnomaliesExtendedView": {
-                "entitySet": "SoundAnomaliesExtendedView",
+            "AnalyticalListPage|AnomaliesExtendedView": {
+                "entitySet": "AnomaliesExtendedView",
                 "component": {
                     "name": "sap.suite.ui.generic.template.AnalyticalListPage",
                     "list": true,
@@ -151,8 +151,8 @@
                     }
                 },
                 "pages": {
-                    "ObjectPage|SoundAnomaliesExtendedView": {
-                        "entitySet": "SoundAnomaliesExtendedView",
+                    "ObjectPage|AnomaliesExtendedView": {
+                        "entitySet": "AnomaliesExtendedView",
                         "defaultLayoutTypeIfExternalNavigation": "MidColumnFullScreen",
                         "component": {
                             "name": "sap.suite.ui.generic.template.ObjectPage"
