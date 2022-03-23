@@ -284,6 +284,7 @@ annotate sf.EquipmentConditions with {
     plant           @title : '{i18n>Plant}';
     plantSection    @title : '{i18n>PlantSection}';
     equipment       @title : '{i18n>Equipment}';
+    funcLocation   @title : '{i18n>FuncLocation}';
     equipmentStatus @title : '{i18n>EquipmentStatus}';
     recStartedAt    @title : '{i18n>RecStartedAt}';
     recEndedAt      @title : '{i18n>RecEndedAt}';
