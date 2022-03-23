@@ -11,7 +11,17 @@ using {sap.smartfactory as sf} from 'smartfactory';
 annotate sf.CVQualityRecords with @(
     Common.SemanticKey : [ID],
     UI                 : {
-        Identification  : [{Value : ID}],
+        Identification  : [
+            {Value : ID},
+            {
+                $Type             : 'UI.DataFieldForAction',
+                Action            : 'AdminService.inferenceImageCV',
+                IconUrl           : 'sap-icon://detail-view',
+                Inline            : true,
+                Label             : 'Inference Image on ML Model',
+                ![@UI.Emphasized] : true, //Button is highlighted
+            }
+        ],
         SelectionFields : [
             ID,
             plant,
@@ -331,7 +341,17 @@ annotate sf.EquipmentConditions with {
 annotate sf.Anomalies with @(
     Common.SemanticKey : [ID],
     UI                 : {
-        Identification  : [{Value : ID}],
+        Identification  : [
+            {Value : ID},
+            {
+                $Type             : 'UI.DataFieldForAction',
+                Action            : 'AdminService.inferenceSoundAnomaly',
+                IconUrl           : 'sap-icon://detail-view',
+                Inline            : true,
+                Label             : 'Inference Anomaly on ML Model',
+                ![@UI.Emphasized] : true, //Button is highlighted
+            },
+        ],
         SelectionFields : [
             ID,
             equipment,
