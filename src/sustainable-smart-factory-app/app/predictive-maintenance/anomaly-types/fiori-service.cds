@@ -3,10 +3,10 @@ using from '../../common'; // to help UI linter get the complete annotations
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	SoundAnomalyTypes Object Page
+//	AnomalyTypes Object Page
 //
 
-annotate AdminService.SoundAnomalyTypes with @(
+annotate AdminService.AnomalyTypes with @(
 	UI: {
 		Facets: [
 			{$Type: 'UI.ReferenceFacet', Label: '{i18n>General}', Target: '@UI.FieldGroup#General'},
@@ -29,8 +29,8 @@ annotate AdminService.SoundAnomalyTypes with @(
 //  Draft for Localized Data
 //
 
-annotate sap.smartfactory.SoundAnomalyTypes with @fiori.draft.enabled;
-annotate AdminService.SoundAnomalyTypes with @odata.draft.enabled;
+annotate sap.smartfactory.AnomalyTypes with @fiori.draft.enabled;
+annotate AdminService.AnomalyTypes with @odata.draft.enabled;
 
 // annotate AdminService.Books.texts with @(
 // 	UI: {
@@ -57,7 +57,7 @@ annotate AdminService.SoundAnomalyTypes with @odata.draft.enabled;
 // }
 
 // // Workaround for Fiori popup for asking user to enter a new UUID on Create
-//annotate AdminService.SoundAnomalyTypes with { ID @Core.Computed; }
+//annotate AdminService.AnomalyTypes with { ID @Core.Computed; }
 
-//annotate sap.smartfactory.SoundAnomalyTypes with @fiori.draft.enabled;
-//annotate AdminService.SoundAnomalyTypes with @odata.draft.enabled;
+//annotate sap.smartfactory.AnomalyTypes with @fiori.draft.enabled;
+//annotate AdminService.AnomalyTypes with @odata.draft.enabled;

@@ -1,7 +1,7 @@
 {
     "_version": "1.8.0",
     "sap.app": {
-        "id": "soundanomalies",
+        "id": "anomalies",
         "type": "application",
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
@@ -51,63 +51,63 @@
             "routes": [
                 {
                     "pattern": ":?query:",
-                    "name": "SoundAnomaliesList",
-                    "target": "SoundAnomaliesList"
+                    "name": "AnomaliesList",
+                    "target": "AnomaliesList"
                 },
                 {
-                    "pattern": "SoundAnomalies({key}):?query:",
-                    "name": "SoundAnomaliesDetails",
-                    "target": "SoundAnomaliesDetails"
+                    "pattern": "Anomalies({key}):?query:",
+                    "name": "AnomaliesDetails",
+                    "target": "AnomaliesDetails"
                 },
                 {
-                    "pattern": "SoundAnomalies({key}/anomalyType({key2}):?query:",
-                    "name": "SoundAnomalyTypesDetails",
-                    "target": "SoundAnomalyTypesDetails"
+                    "pattern": "Anomalies({key}/anomalyType({key2}):?query:",
+                    "name": "AnomalyTypesDetails",
+                    "target": "AnomalyTypesDetails"
                 }
             ],
             "targets": {
-                "SoundAnomaliesList": {
+                "AnomaliesList": {
                     "type": "Component",
-                    "id": "SoundAnomaliesList",
+                    "id": "AnomaliesList",
                     "name": "sap.fe.templates.ListReport",
                     "options": {
                         "settings" : {
-                            "entitySet" : "SoundAnomalies",
+                            "entitySet" : "Anomalies",
                             "initialLoad": true,
                             "navigation" : {
-                                "SoundAnomalies" : {
+                                "Anomalies" : {
                                     "detail" : {
-                                        "route" : "SoundAnomaliesDetails"
+                                        "route" : "AnomaliesDetails"
                                     }
                                 }
                             }
                         }
                     }
                 },
-                "SoundAnomaliesDetails": {
+                "AnomaliesDetails": {
                     "type": "Component",
-                    "id": "SoundAnomaliesDetailsList",
+                    "id": "AnomaliesDetailsList",
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
                         "settings" : {
-                            "entitySet" : "SoundAnomalies",
+                            "entitySet" : "Anomalies",
                             "navigation" : {
-                                "SoundAnomalyTypes" : {
+                                "AnomalyTypes" : {
                                     "detail" : {
-                                        "route" : "SoundAnomalyTypesDetails"
+                                        "route" : "AnomalyTypesDetails"
                                     }
                                 }
                             }
                         }
                     }
                 },
-                "SoundAnomalyTypesDetails": {
+                "AnomalyTypesDetails": {
                     "type": "Component",
-                    "id": "SoundAnomalyTypesDetailsList",
+                    "id": "AnomalyTypesDetailsList",
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
                         "settings" : {
-                            "entitySet" : "SoundAnomalyTypes"
+                            "entitySet" : "AnomalyTypes"
                         }
                     }
                 }

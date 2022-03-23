@@ -11,7 +11,7 @@ module.exports = async function () {
   const { EquipmentConditions } = db.entities;
 
   this.before("NEW", "CVQualityRecords", genid);
-  this.before("NEW", "SoundAnomalies", genid);
+  this.before("NEW", "Anomalies", genid);
 
   /** Logic Flow on create a Maintenance Order in S4
    * 1. On specific equipment condition, either list or object page (preferably)

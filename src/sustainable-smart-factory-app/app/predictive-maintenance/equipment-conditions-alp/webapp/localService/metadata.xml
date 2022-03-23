@@ -21,9 +21,9 @@
     <edmx:DataServices m:DataServiceVersion="2.0">
         <Schema Namespace="AnalyticsService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
             <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
-                <EntitySet Name="SoundAnomaliesExtendedView" EntityType="AnalyticsService.SoundAnomaliesExtendedView" sap:semantics="aggregate"/>
+                <EntitySet Name="AnomaliesExtendedView" EntityType="AnalyticsService.AnomaliesExtendedView" sap:semantics="aggregate"/>
             </EntityContainer>
-            <EntityType Name="SoundAnomaliesExtendedView" sap:semantics="aggregate">
+            <EntityType Name="AnomaliesExtendedView" sap:semantics="aggregate">
                 <Key>
                     <PropertyRef Name="ID__"/>
                 </Key>
@@ -44,7 +44,7 @@
                 <Property Name="anomalyType" Type="Edm.String" MaxLength="255" sap:aggregation-role="dimension" sap:label="Anomaly Type"/>
                 <Property Name="suggestedAction" Type="Edm.String" sap:aggregation-role="dimension" sap:label="Suggested Action"/>
             </EntityType>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Aggregation.ApplySupported">
                     <Record Type="Aggregation.ApplySupportedType">
                         <PropertyValue Property="PropertyRestrictions" Bool="true"/>
@@ -137,7 +137,7 @@
                 <Annotation Term="UI.LineItem">
                     <Collection>
                         <Record Type="UI.DataFieldForIntentBasedNavigation">
-                            <PropertyValue Property="SemanticObject" String="SoundAnomalies"/>
+                            <PropertyValue Property="SemanticObject" String="Anomalies"/>
                             <PropertyValue Property="Action" String="display"/>
                         </Record>
                         <Record Type="UI.DataField">
@@ -217,7 +217,7 @@
                     </Collection>
                 </Annotation>
             </Annotations>
-            <Annotations Target="AnalyticsService.EntityContainer/SoundAnomaliesExtendedView" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.EntityContainer/AnomaliesExtendedView" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Aggregation.ApplySupported">
                     <Record Type="Aggregation.ApplySupportedType">
                         <PropertyValue Property="PropertyRestrictions" Bool="true"/>
@@ -248,70 +248,70 @@
                     </Record>
                 </Annotation>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/ID__" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/ID__" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="UI.Hidden" Bool="true"/>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/anomalyId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/anomalyId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Analytics.Dimension" Bool="true"/>
-                <Annotation Term="Common.SemanticObject" String="SoundAnomalies"/>
+                <Annotation Term="Common.SemanticObject" String="Anomalies"/>
                 <Annotation Term="Common.Text" Path="ID">
                     <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
                 </Annotation>
                 <Annotation Term="Common.Label" String="ID"/>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/detectedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/detectedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Analytics.Dimension" Bool="true"/>
                 <Annotation Term="Common.Label" String="Detected At"/>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/detectedDate" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/detectedDate" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Analytics.Dimension" Bool="true"/>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/equipment" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/equipment" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Analytics.Dimension" Bool="true"/>
                 <Annotation Term="Common.Label" String="Equipment"/>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/confidence" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/confidence" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Analytics.Dimension" Bool="true"/>
                 <Annotation Term="Common.Label" String="Confidence"/>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/anomalyStatus" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/anomalyStatus" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Analytics.Dimension" Bool="true"/>
                 <Annotation Term="Common.Label" String="Anomaly Status"/>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/eqCondId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/eqCondId" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.SemanticObject" String="EquipmentConditions"/>
                 <Annotation Term="Common.Text" Path="ID">
                     <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextOnly"/>
                 </Annotation>
                 <Annotation Term="Common.Label" String="ID"/>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/equipmentName" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/equipmentName" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Analytics.Dimension" Bool="true"/>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/equipmentStatus" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/equipmentStatus" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Analytics.Dimension" Bool="true"/>
                 <Annotation Term="Common.Label" String="Equipment Status"/>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/plant" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/plant" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Analytics.Dimension" Bool="true"/>
                 <Annotation Term="Common.Label" String="Plant"/>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/funcLocation" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/funcLocation" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Analytics.Dimension" Bool="true"/>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/recStartedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/recStartedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Analytics.Dimension" Bool="true"/>
                 <Annotation Term="Common.Label" String="Rec. Started At"/>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/recEndedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/recEndedAt" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Analytics.Dimension" Bool="true"/>
                 <Annotation Term="Common.Label" String="Rec. Ended At"/>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/anomalyType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/anomalyType" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Analytics.Dimension" Bool="true"/>
                 <Annotation Term="Common.Label" String="Anomaly Type"/>
             </Annotations>
-            <Annotations Target="AnalyticsService.SoundAnomaliesExtendedView/suggestedAction" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <Annotations Target="AnalyticsService.AnomaliesExtendedView/suggestedAction" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Analytics.Dimension" Bool="true"/>
                 <Annotation Term="Common.Label" String="Suggested Action"/>
             </Annotations>

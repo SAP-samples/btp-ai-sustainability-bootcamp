@@ -1,6 +1,6 @@
 sap.ui.define(["sap/fe/core/AppComponent"], function(AppComponent) {
 	"use strict";
-	return AppComponent.extend("soundanomalies.Component", {
+	return AppComponent.extend("anomalies.Component", {
 		metadata: { manifest: "json" }
 	});
 });
