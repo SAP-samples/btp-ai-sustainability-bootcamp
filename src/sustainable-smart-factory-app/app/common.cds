@@ -366,7 +366,14 @@ annotate sf.Anomalies with @(
             {
                 Value : detectedAt,
                 Label : '{i18n>DetectedAt}'
-            }
+            },
+            {
+                $Type             : 'UI.DataFieldForAction',
+                Action            : 'AdminService.inferenceSoundAnomaly',
+                IconUrl           : 'sap-icon://detail-view',
+                Inline            : true,
+                ![@UI.Emphasized] : true, //Button is highlighted
+            },
         ]
     }
 ) {
