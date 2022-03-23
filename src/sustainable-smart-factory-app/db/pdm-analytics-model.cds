@@ -88,3 +88,11 @@ view AnomalyTypeNameView as select distinct anomalyType from SoundAnomaliesExten
 entity AnomalyTypeNameVH {
   key anomalyType : SoundAnomaliesExtendedView : anomalyType;
 };
+
+view FuncLocationView as select distinct funcLocation from SoundAnomaliesExtendedView;
+
+@readonly
+@cds.odata.valuelist
+entity FuncLocationVH {
+  key funcLocation : SoundAnomaliesExtendedView : funcLocation;
+};

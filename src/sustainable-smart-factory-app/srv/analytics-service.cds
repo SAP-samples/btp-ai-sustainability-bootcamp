@@ -11,6 +11,7 @@ service AnalyticsService @(path : '/analytics') {
   // Value Helps
   entity EquipmentVH as projection on pdm.EquipmentView;
   entity AnomalyTypeNameVH as projection on pdm.AnomalyTypeNameView;
+  entity FuncLocationVH as projection on pdm.FuncLocationView;
 
   // @sap.semantics : 'aggregate'
   // define view Scans as
