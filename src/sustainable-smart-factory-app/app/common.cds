@@ -316,6 +316,7 @@ annotate sf.EquipmentConditions with {
     plant           @title : '{i18n>Plant}';
     plantSection    @title : '{i18n>PlantSection}';
     equipment       @title : '{i18n>Equipment}';
+    funcLocation   @title : '{i18n>FuncLocation}';
     equipmentStatus @title : '{i18n>EquipmentStatus}';
     recStartedAt    @title : '{i18n>RecStartedAt}';
     recEndedAt      @title : '{i18n>RecEndedAt}';
@@ -327,9 +328,9 @@ annotate sf.EquipmentConditions with {
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	SoundAnomalies Lists
+//	Anomalies Lists
 //
-annotate sf.SoundAnomalies with @(
+annotate sf.Anomalies with @(
     Common.SemanticKey : [ID],
     UI                 : {
         Identification  : [{Value : ID}],
@@ -370,20 +371,20 @@ annotate sf.SoundAnomalies with @(
     }
 ) {
     ID @Common : {
-        SemanticObject  : 'SoundAnomalies',
+        SemanticObject  : 'Anomalies',
         Text            : ID,
         TextArrangement : #TextOnly
     };
-//anomalyType @ValueList.entity      : 'SoundAnomalyTypes';
+//anomalyType @ValueList.entity      : 'AnomalyTypes';
 };
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	SoundAnomalies Details
+//	Anomalies Details
 //
-annotate sf.SoundAnomalies with @(UI : {HeaderInfo : {
-    TypeName       : '{i18n>SoundAnomaly}',
-    TypeNamePlural : '{i18n>SoundAnomalies}',
+annotate sf.Anomalies with @(UI : {HeaderInfo : {
+    TypeName       : '{i18n>Anomaly}',
+    TypeNamePlural : '{i18n>Anomalies}',
     Title          : {Value : ID},
     Description    : {Value : anomalyType.name}
 }, });
@@ -391,12 +392,12 @@ annotate sf.SoundAnomalies with @(UI : {HeaderInfo : {
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	SoundAnomalies Elements
+//	Anomalies Elements
 //
-annotate sf.SoundAnomalies with {
-    ID                @title : '{i18n>ID}';
-    equipment         @title : '{i18n>Equipment}';
-    anomalyTypeCode   @title : '{i18n>AnomalyTypeCode}'  @Common : {
+annotate sf.Anomalies with {
+    ID              @title : '{i18n>ID}';
+    equipment       @title : '{i18n>Equipment}';
+    anomalyTypeCode @title : '{i18n>AnomalyTypeCode}'  @Common : {
         Text            : anomalyType.code,
         TextArrangement : #TextOnly
     };
@@ -417,9 +418,9 @@ annotate sf.SoundAnomalies with {
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	SoundAnomalyTypes Lists
+//	AnomalyTypes Lists
 //
-annotate sf.SoundAnomalyTypes with @(
+annotate sf.AnomalyTypes with @(
     Common.SemanticKey : [code],
     UI                 : {
         Identification  : [{Value : code}],
@@ -449,20 +450,20 @@ annotate sf.SoundAnomalyTypes with @(
     }
 ) {
     ID @Common : {
-        SemanticObject  : 'SoundAnomalyTypes',
+        SemanticObject  : 'AnomalyTypes',
         Text            : code,
         TextArrangement : #TextOnly
     };
-//anomalyType @ValueList.entity      : 'SoundAnomalyTypes';
+//anomalyType @ValueList.entity      : 'AnomalyTypes';
 };
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	SoundAnomalyTypes Details
+//	AnomalyTypes Details
 //
-annotate sf.SoundAnomalyTypes with @(UI : {HeaderInfo : {
-    TypeName       : '{i18n>SoundAnomalyTypes}',
-    TypeNamePlural : '{i18n>SoundAnomalyTypes}',
+annotate sf.AnomalyTypes with @(UI : {HeaderInfo : {
+    TypeName       : '{i18n>AnomalyTypes}',
+    TypeNamePlural : '{i18n>AnomalyTypes}',
     Title          : {Value : code},
     Description    : {Value : name}
 }, });
@@ -470,9 +471,9 @@ annotate sf.SoundAnomalyTypes with @(UI : {HeaderInfo : {
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	SoundAnomalyTypes Elements
+//	AnomalyTypes Elements
 //
-annotate sf.SoundAnomalyTypes with {
+annotate sf.AnomalyTypes with {
     code                    @title : '{i18n>AnomalyTypeCode}';
     name                    @title : '{i18n>AnomalyTypeName}';
     descr                   @title : '{i18n>AnomalyTypeDesc}'  @UI.MultiLineText;

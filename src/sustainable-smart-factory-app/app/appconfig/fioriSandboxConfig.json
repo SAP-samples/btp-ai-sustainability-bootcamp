@@ -37,6 +37,9 @@
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
                     "title": "Plant Conditions Visualisation",
+                    "subtitle": "",
+                    "info": "Plant Conditions wt. Layout Visualisation",
+                    "icon": "sap-icon://building",
                     "targetURL": "#PlantConditions-display"
                   }
                 },
@@ -45,7 +48,10 @@
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
                     "title": "Equipment Condition Insights",
-                    "targetURL": "#SoundAnomaliesExtendedView-display"
+                    "subtitle": "",
+                    "info": "Equipment Conditions Analytical List Page",
+                    "icon": "sap-icon://manager-insight",
+                    "targetURL": "#AnomaliesExtendedView-display"
                   }
                 },
                 {
@@ -71,25 +77,25 @@
                   }
                 },
                 {
-                  "id": "ManageSoundAnomalies",
+                  "id": "ManageAnomalies",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
-                    "title": "Manage Equipment Sound Anomalies",
+                    "title": "Manage Equipment Anomalies",
                     "subtitle": "",
-                    "info": "Sound Anomalies Detected for Equipment by AI",
+                    "info": "Anomalies Detected for Equipment by AI",
                     "icon": "sap-icon://sound-loud",
-                    "targetURL": "#SoundAnomalies-manage"
+                    "targetURL": "#Anomalies-manage"
                   }
                 },
                 {
-                  "id": "ManageSoundAnomalyTypes",
+                  "id": "ManageAnomalyTypes",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
                   "properties": {
-                    "title": "Configure Sound Anomaly Types",
+                    "title": "Configure Anomaly Types",
                     "subtitle": "",
-                    "info": "Config. Sound Anomaly Types of Equipment",
+                    "info": "Config. Anomaly Types of Equipment",
                     "icon": "sap-icon://settings",
-                    "targetURL": "#SoundAnomalyTypes-manage"
+                    "targetURL": "#AnomalyTypes-manage"
                   }
                 }
               ]
@@ -161,12 +167,12 @@
               }
             },
             "EquipmentConditionsALP": {
-              "semanticObject": "SoundAnomaliesExtendedView",
+              "semanticObject": "AnomaliesExtendedView",
               "action": "display",
               "title": "Equipment Condition Insights",
               "signature": {
                 "parameters": {
-                  "SoundAnomaliesExtendedView.ID": {
+                  "AnomaliesExtendedView.ID": {
                     "renameTo": "ID"
                   }
                 },
@@ -204,24 +210,24 @@
                 "url": "/predictive-maintenance/equipment-conditions/webapp"
               }
             },
-            "ManageSoundAnomalies": {
-              "semanticObject": "SoundAnomalies",
+            "ManageAnomalies": {
+              "semanticObject": "Anomalies",
               "action": "manage",
-              "title": "Manage Equipment Sound Anomalies",
+              "title": "Manage Equipment Anomalies",
               "signature": {
                 "parameters": {},
                 "additionalParameters": "allowed"
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
-                "additionalInformation": "SAPUI5.Component=soundanomalies",
-                "url": "/predictive-maintenance/sound-anomalies/webapp"
+                "additionalInformation": "SAPUI5.Component=anomalies",
+                "url": "/predictive-maintenance/anomalies/webapp"
               }
             },
-            "ManageSoundAnomalyTypes": {
-              "semanticObject": "SoundAnomalyTypes",
+            "ManageAnomalyTypes": {
+              "semanticObject": "AnomalyTypes",
               "action": "manage",
-              "title": "Manage Sound Anomaly Types of Equipment",
+              "title": "Manage Anomaly Types of Equipment",
               "signature": {
                 "parameters": {},
                 "additionalParameters": "allowed"
@@ -229,7 +235,7 @@
               "resolutionResult": {
                 "applicationType": "SAPUI5",
                 "additionalInformation": "SAPUI5.Component=soundanomalytypes",
-                "url": "/predictive-maintenance/sound-anomaly-types/webapp"
+                "url": "/predictive-maintenance/anomaly-types/webapp"
               }
             }
           }

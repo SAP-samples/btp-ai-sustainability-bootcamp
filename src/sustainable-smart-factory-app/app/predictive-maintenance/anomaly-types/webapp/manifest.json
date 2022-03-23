@@ -1,0 +1,114 @@
+{
+    "_version": "1.8.0",
+    "sap.app": {
+        "id": "soundanomalytypes",
+        "type": "application",
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "i18n": "i18n/i18n.properties",
+        "dataSources": {
+            "AdminService": {
+                "uri": "/admin/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "-sourceTemplate": {
+            "id": "ui5template.basicSAPUI5ApplicationProject",
+            "-id": "ui5template.smartTemplate",
+            "-version": "1.40.12"
+        }
+    },
+    "sap.ui5": {
+        "dependencies": {
+            "libs": {
+                "sap.fe.templates": {}
+            }
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "": {
+                "dataSource": "AdminService",
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect" : true,
+                    "earlyRequests": true,
+                    "groupProperties": {
+                        "default": {
+                            "submit": "Auto"
+                        }
+                    }
+                }
+            }
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "AnomalyTypesList",
+                    "target": "AnomalyTypesList"
+                },
+                {
+                    "pattern": "AnomalyTypes({key}):?query:",
+                    "name": "AnomalyTypesDetails",
+                    "target": "AnomalyTypesDetails"
+                }
+            ],
+            "targets": {
+                "AnomalyTypesList": {
+                    "type": "Component",
+                    "id": "AnomalyTypesList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings" : {
+                            "entitySet" : "AnomalyTypes",
+                            "initialLoad": true,
+                            "navigation" : {
+                                "AnomalyTypes" : {
+                                    "detail" : {
+                                        "route" : "AnomalyTypesDetails"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "AnomalyTypesDetails": {
+                    "type": "Component",
+                    "id": "AnomalyTypesDetailsList",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings" : {
+                            "entitySet" : "AnomalyTypes",
+                            "navigation" : {
+                                "AnomalyTypes" : {
+                                    "detail" : {
+                                        "route" : "AnomalyTypesDetails"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "fullWidth": false
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    }
+}
