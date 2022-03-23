@@ -83,12 +83,15 @@ entity SoundAnomalies : managed {
       confidence   : Decimal;
       status       : SoundAnomalyStatus;
       eqCond       : Association to EquipmentConditions; //> the backlink
-      numberOfAnomalies : Integer default 1;
+      numberOfAnomalies : Integer default 1; //for aggregation
 }
 
 entity SoundAnomalyTypes : sap.common.CodeList {
   key code           : String(2);
       suggestedFollowUpAction : AnomalyFollowUpActionType;
+      //indicator whether to trigger the follow-up action automatically or not
+      autoTrigger : Boolean default true;
+      triggerThreshold : Integer default 2;
 }
 
 type SoundAnomalyStatus : Integer enum {
