@@ -75,6 +75,15 @@
                                         "route" : "EquipmentConditionsDetails"
                                     }
                                 }
+                            },
+                            "controlConfiguration" :{
+                                "@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "tableSettings": {
+                                        "selectionMode": "Single",
+                                        "selectAll": true,
+                                        "type": "ResponsiveTable"
+                                    }
+                                }
                             }
                         }
                     }
