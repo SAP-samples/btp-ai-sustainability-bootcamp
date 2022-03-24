@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout">
+	<l:VerticalLayout>
+		<l:content>
+			<Image src="{image}" width="100%" />
+		</l:content>
+	</l:VerticalLayout>
+</core:FragmentDefinition>

@@ -78,7 +78,7 @@ class PlotSimulation():
         return
 
 if __name__ == "__main__":
-    plots=PlotSimulation('sim_factory_2x5_random.csv')
+    plots=PlotSimulation('sim_LGP_factory.csv')
     plots.load_sim()
     plots.plot_maintenance()
     plots.plot_energy()

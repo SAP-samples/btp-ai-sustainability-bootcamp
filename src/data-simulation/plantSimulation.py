@@ -24,8 +24,11 @@ class FactorySimulation():
         self._corrective_nr = 1
         self._predictive_nr = 1
         self._cyclic_nr = 1
+        self._gaussian_sigma_perc = 0.10
+        self._proactivness = 24 # time to schedule a proactive maintenance ( in hours)
         self.cfg= 'cfg/machine1.yaml'
-        self._outfile = 'sim_'+factory_nr+'.csv'
+        self._outfile1 = 'sim_'+factory_nr+'.csv'
+        self._outfile2 = 'maintenance_'+factory_nr+'.csv'
 
 
     # Populate the factory with plants and machines and create the clock
@@ -157,16 +160,16 @@ class FactorySimulation():
             if p._isOn:
                 for m in p._machine_dict.values():
                     if m._status!='BROKEN':
-                        mu=m._statusParameters['energy_consumption_avg']
-                        sigma=m._statusParameters['energy_consumption_std']
+                        mu=m._statusParameters['nominal_energy_consumption']
+                        sigma=m._statusParameters['nominal_energy_consumption']*self._gaussian_sigma_perc
                         m._statusParameters['energy_consumption']=np.random.normal(loc=mu, scale=sigma, size=1)[0]
-                        mu=m._statusParameters['yield_avg']
-                        sigma=m._statusParameters['yield_std']
+                        mu=m._statusParameters['nominal_yield']
+                        sigma=m._statusParameters['nominal_yield']*self._gaussian_sigma_perc
                         m._statusParameters['yield']=np.random.normal(loc=mu, scale=sigma, size=1)[0]
-                        mu=m._statusParameters['defect_rate_avg']
-                        sigma=m._statusParameters['defect_rate_std']
+                        mu=m._statusParameters['nominal_defect_rate']
+                        sigma=m._statusParameters['nominal_defect_rate']*self._gaussian_sigma_perc
                         m._statusParameters['defect_rate']=np.random.normal(loc=mu, scale=sigma, size=1)[0]
-        p._set_status()
+                p._set_status()
         return
 
 
@@ -181,7 +184,7 @@ class FactorySimulation():
             if proactive:
                 # set the fault clock to -1: the maintenance hasn't started yet.
                 #The AI algo will recognise the fault and schedule the machine within few hours
-                self._faultClock[plant._plant_nr][machine._equipment_nr]=-25
+                self._faultClock[plant._plant_nr][machine._equipment_nr]=-1-self._proactivness
         return
 
     # Function to generate breakdown on a certain machine
@@ -235,7 +238,9 @@ class FactorySimulation():
     def run(self):
 
         ### Open output file
-        f = open(self._outfile, "w")
+        f1 = open(self._outfile1, "w")
+        f2 = open(self._outfile2, "w")
+
         sep=','
 
         ### Start the simulation
@@ -290,36 +295,37 @@ class FactorySimulation():
                     self.cyclic_maintenance()
 
                     #Print the status of each machine
-                    f.write(str(t))
-                    f.write(sep)
-                    f.write(p._print_status())
-                    f.write(sep)
-                    f.write(m._print_status())
-                    f.write(sep)
+                    f1.write(str(t))
+                    f1.write(sep)
+                    f1.write(p._print_status())
+                    f1.write(sep)
+                    f1.write(m._print_status())
+                    f1.write(sep)
                     if self._cyclicMaintClock > 1 :
                         maintenance_nr='CYCLIC'+str(self._cyclic_nr).zfill(5)
-                        f.write(maintenance_nr)
-                        f.write(sep)
+                        f1.write(maintenance_nr)
+                        f1.write(sep)
                     else:
-                        f.write(sep)
+                        f1.write(sep)
                     if self._downtimesClock[p._plant_nr][m._equipment_nr] > 1 :
                         maintenance_nr='CORRECTIVE'+str(self._corrective_nr).zfill(5)
-                        f.write(maintenance_nr)
-                        f.write(sep)
+                        f1.write(maintenance_nr)
+                        f1.write(sep)
                     else:
-                        f.write(sep)
+                        f1.write(sep)
                     if self._faultClock[p._plant_nr][m._equipment_nr] > 1 :
                         maintenance_nr='PROACTIVE'+str(self._predictive_nr).zfill(5)
-                        f.write(maintenance_nr)
-                        f.write('\n')
+                        f1.write(maintenance_nr)
+                        f1.write('\n')
                     else:
-                        f.write('\n')
+                        f1.write('\n')
 
-        f.close()
+        f1.close()
+        f2.close()
         return
 
 def main():
-        Sim = FactorySimulation('factory_2x5_random')
+        Sim = FactorySimulation('LGP_factory')
         Sim.build_factory()
         Sim.draw_factory()
         Sim._factory._turnOn()
