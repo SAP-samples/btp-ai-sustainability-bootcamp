@@ -96,7 +96,7 @@ entity Anomalies : managed {
 
 entity AnomalyTypes : sap.common.CodeList {
   key code           : String(2);
-      suggestedFollowUpAction : AnomalyFollowUpActionType;
+      suggestedFollowUpAction : AnomalyFollowUpActionType default 'MO';
       //indicator whether to trigger the follow-up action automatically or not
       autoTrigger : Boolean default true;
       triggerThreshold : Integer default 2;
