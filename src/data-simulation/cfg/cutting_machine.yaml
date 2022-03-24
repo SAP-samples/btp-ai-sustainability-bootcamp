@@ -1,21 +1,21 @@
 OK:
-  nominal_energy_consumption: 1000
-  nominal_defect_rate: 0.01
-  nominal_yield: 1500
-  energy_consumption: 1000
-  defect_rate: 0.01
-  yield: 1500
+  nominal_energy_consumption: 4
+  nominal_defect_rate: 0.003
+  nominal_yield: 500
+  energy_consumption: 4
+  defect_rate: 0.003
+  yield: 500
   fault_prob: 0.005
   breakdown_prob: 0.0001
   noise: 0
   maintenance_cost: 1500
 NONOK:
-  nominal_energy_consumption: 1100
-  nominal_defect_rate: 0.03
-  nominal_yield: 1500
-  energy_consumption: 1100
-  defect_rate: 0.03
-  yield: 1500
+  nominal_energy_consumption: 4.4
+  nominal_defect_rate: 0.005
+  nominal_yield: 500
+  energy_consumption: 4.4
+  defect_rate: 0.005
+  yield: 500
   fault_prob: 0
   breakdown_prob: 0.002
   noise: 1

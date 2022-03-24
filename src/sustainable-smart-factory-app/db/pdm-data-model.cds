@@ -82,9 +82,10 @@ entity Anomalies : managed {
 
       //Generlise the Anomalies instead of Anomalies.
       //sourceType could be sound, image, temperature, humidity etc
-      sourceType   : String(20);
-      rawValue     : String(10);
-      rawMeasureUnit: String(3);
+      //If the sourceType is is sound or image, then rawValue will be the file path.
+      sourceType   : String(20) default 'Sound';
+      rawValue     : String(50);
+      rawMeasureUnit: String(10) default 'File Path';
 
       anomalyType  : Association to AnomalyTypes;
       confidence   : Decimal;

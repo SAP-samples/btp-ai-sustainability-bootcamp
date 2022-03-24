@@ -97,6 +97,21 @@
                                         "route" : "AnomalyTypesDetails"
                                     }
                                 }
+                            },
+                            "content": {
+								"body": {
+									"sections": {
+										"customAudioSection": {
+											"type": "XMLFragment",
+											"name": "anomalies.custom.CustomAudioSection",
+											"title": "{i18n>customAudioSection}",
+											"position": {
+												"placement": "After",
+												"anchor": "Details"
+											}
+										}
+									}
+                                }
                             }
                         }
                     }
