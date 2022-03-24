@@ -17,10 +17,8 @@ const sdkDest = { destinationName: "S4HC_D2V" };
 
 const oauth_url =
   "https://iotdev.authentication.eu10.hana.ondemand.com/oauth/token?grant_type=client_credentials";
-const sound_inference_url =
-  "https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments/d4e89dce2e1567bc/v1/models/soundmodel:predict";
-const cv_inference_url =
-  "https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments/dfccff3697592a4a/v1/models/imagemodel:predict";
+const sound_inference_url = "/d4e89dce2e1567bc/v1/models/soundmodel:predict";
+const cv_inference_url = "/dfccff3697592a4a/v1/models/imagemodel:predict";
 const clientid = "sb-a21dc034-456f-4378-a9f3-e9924fdd859f!b11737|aicore!b540";
 const clientsecret = "your-password";
 const authUser =
@@ -118,145 +116,116 @@ module.exports = async function () {
    * - This follow method is for manual creation of a specific anomaly captured
    * - To differentiate "infered" file vs new, anomaly status will indicate 0 as new
    *
-   * 1. Encode Sound file (.wave) as base64
-   * 2. Parse base 64 as body under JSON sound parameter
-   * 3. Process results - Anomalous or Normal
+   * a. Encode Sound file (.wave) as base64
+   * b. Parse base 64 as body under JSON sound parameter
+   * c. Process results - Anomalous or Normal
    *
-   * [To-Improve] Either implement Promise to improve async calls OR to utilise
-   * build-in CAP express, so that loading will be improved too.
+   * 1. Connect to AICORE Remote Service (defined in package.json)
+   * 2. Prepare base64 format of file
+   * 3. Start CDS TX to call AI Core Inference API (path is defined at the top sound_inference_url)
+   * 4. Return results
    */
   this.on("inferenceSoundAnomaly", async (req) => {
+    //  1. Connect to AICORE Remote Service (defined in package.json)
+    const aicoreAPI = await cds.connect.to("aicore");
     const anomalyEntity = req.params[0];
-    //  1. Encode Sound file (.wave) as base64
+
+    //  2. Prepare base64 format of file
     const fileBase64 = fs.readFileSync(
       "app/media/sound/REC" + anomalyEntity.ID + ".wav",
       {
         encoding: "base64",
       }
     );
-
-    //  2. Parse base64 as body under JSON sound parameter
-    var confidence;
-    var soundInferenceReq = require("request");
-    var options = {
-      method: "POST",
-      url: sound_inference_url,
-      headers: {
-        Authorization: token,
-        "AI-Resource-Group": "sound",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        sound: fileBase64,
-      }),
-    };
-    //  [To-Improve] Either implement Promise to improve async calls OR to utilise
-    //  build-in CAP express, so that loading will be improved too.
-    soundInferenceReq(options, async function (error, response) {
-      if (error) throw new Error(error);
-      console.log(response.body);
-      var obj = JSON.parse(response.body);
-      if (obj.hasOwnProperty("Normal")) {
-        console.log("Normal");
-        confidence = obj.Normal;
-      } else {
-        console.log("Anomalous");
-        confidence = obj.Anomalous;
-      }
-      await UPDATE(Anomalies, anomalyEntity.ID).with({
-        status: "2",
-        confidence: confidence,
-      });
-      console.log(confidence);
+    var data = JSON.stringify({
+      sound: fileBase64,
     });
 
-    //  [To-Do] 3. Process results - Anomalous or Normal
-    //  - Update Anomaly Status & Confidence
-    // console.log(req.params[0]);
-    // const an = await SELECT.from(Anomalies, anomalyEntity).columns(["status"]);
-    try {
-      // let anomaly = await SELECT.from(Anomalies, anomalyEntity).forUpdate();
-      //> Anomalies is locked for other transactions
-      req.notify(
-        `Anomaly (ID: ` + anomalyEntity.ID + `) entity processed successfully.`
-      );
-      // console.log("update.");
-    } catch (e) {
-      //> failed to acquire the lock, likely because of timeout
-      req.error({
-        message: "Error in updating Anomaly entity on status.",
-        target: "status",
-        status: 418,
-      });
+    var headers = {
+      "AI-Resource-Group": "sound",
+      "Content-Type": "application/json",
+      Authorization: token,
+    };
+
+    //  3. Start CDS TX to call AI Core Inference API (path is defined at the top cv_inference_url)
+    const results = await aicoreAPI
+      .tx(req)
+      .send("POST", sound_inference_url, data, headers);
+
+    var confidence;
+
+    if (results.hasOwnProperty("Normal")) {
+      // console.log("Normal");
+      confidence = results.Normal;
+    } else {
+      // console.log("Anomalous");
+      confidence = results.Anomalous;
     }
+    await UPDATE(Anomalies, anomalyEntity.ID).with({
+      status: "2",
+      confidence: confidence,
+    });
+
+    req.notify(
+      `Anomaly (ID: ` + anomalyEntity.ID + `) entity processed successfully.`
+    );
   });
 
   /** Logic Flow of Inferencing CV Image Anomaly
+   *  [To-Improve] Depends on Use Case, AICORE URL can be defined in BTP Destination.
+   *  For simplicity, we use CAP's Remote Service Consumption capabilities
    *
+   * 1. Connect to AICORE Remote Service (defined in package.json)
+   * 2. Prepare base64 format of file
+   * 3. Start CDS TX to call AI Core Inference API (path is defined at the top cv_inference_url)
+   * 4. Return results
    */
   this.on("inferenceImageCV", async (req) => {
+    //  1. Connect to AICORE Remote Service (defined in package.json)
+    const aicoreAPI = await cds.connect.to("aicore");
     const cvImageEntity = req.params[0];
-    console.log(cvImageEntity);
+
+    //  2. Prepare base64 format of file
     const fileBase64 = fs.readFileSync(
       "app/media/cv/IMG" + cvImageEntity.ID + ".bmp",
       {
         encoding: "base64",
       }
     );
-
-    // const cv = await SELECT.from(CVQualityRecords, cvImageEntity).columns([
-    //   "confidence",
-    // ]);
-
-    // console.log(cv.confidence);
-
-    var axios = require("axios");
-
     var data = JSON.stringify({
       image: fileBase64,
     });
 
-    var config = {
-      method: "post",
-      url: cv_inference_url,
-      headers: {
-        "AI-Resource-Group": "defect-det",
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-      data: data,
+    var headers = {
+      "AI-Resource-Group": "defect-det",
+      "Content-Type": "application/json",
+      Authorization: token,
     };
 
-    axios(config)
-      .then(async function (response) {
-        console.log(JSON.stringify(response.data));
+    //  3. Start CDS TX to call AI Core Inference API (path is defined at the top cv_inference_url)
+    const results = await aicoreAPI
+      .tx(req)
+      .send("POST", cv_inference_url, data, headers);
 
-        var obj = JSON.parse(JSON.stringify(response.data));
-        var label;
-        if (obj.hasOwnProperty("Normal")) {
-          console.log("Normal");
-          confidence = obj.Normal;
-          label = "Y";
-        } else {
-          console.log("Anomalous");
-          confidence = obj.Anomalous;
-          label = "N";
-        }
-        // to get confidence & quality label from response
-        await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
-          confidence: confidence,
-          qualityLabel: label,
-        });
+    var confidence, label;
 
-        req.notify(
-          `CV Image (ID: ` +
-            cvImageEntity.ID +
-            `) entity processed successfully.`
-        );
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    if (results.hasOwnProperty("Normal")) {
+      // console.log("Normal");
+      confidence = results.Normal;
+      label = "Y";
+    } else {
+      // console.log("Anomalous");
+      confidence = results.Anomalous;
+      label = "N";
+    }
+    await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
+      confidence: confidence,
+      qualityLabel: label,
+    });
+
+    req.notify(
+      `CV Image (ID: ` + cvImageEntity.ID + `) entity processed successfully.`
+    );
   });
 
   this.before("NEW", "CVQualityRecords", genid);
