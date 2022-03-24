@@ -20,7 +20,7 @@ const oauth_url =
 const sound_inference_url =
   "https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments/d4e89dce2e1567bc/v1/models/soundmodel:predict";
 const cv_inference_url =
-  "https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments/de03ea10650c58a8/v1/models/imagemodel:predict";
+  "https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments/dfccff3697592a4a/v1/models/imagemodel:predict";
 const clientid = "sb-a21dc034-456f-4378-a9f3-e9924fdd859f!b11737|aicore!b540";
 const clientsecret = "NtnTn+lF63ffBF64YvA1BhqPdRA=";
 const authUser =
@@ -41,7 +41,6 @@ module.exports = async function () {
    * Note: default-env.json is used for local project connecting to my btp trial landscape.
    * Destination used is pointing to my301832 s4 tenant.
    */
-
   this.on("createMO", async (req) => {
     //  1. On specific equipment condition, either list or object page (preferably)
     //  Check if conditions are met so to trigger a maintenance order txn.
@@ -110,8 +109,7 @@ module.exports = async function () {
     }
   });
 
-  /**
-   * Logic Flow of Inferencing Sound Anomaly
+  /** Logic Flow of Inferencing Sound Anomaly
    * [To-Do] Hook after-create event of anomaly to auto inference sound and update field.
    * Assumptions:
    * - Sound recordings for inference are uploaded to a specific file system location
@@ -193,6 +191,9 @@ module.exports = async function () {
     }
   });
 
+  /** Logic Flow of Inferencing CV Image Anomaly
+   *
+   */
   this.on("inferenceImageCV", async (req) => {
     const cvImageEntity = req.params[0];
     console.log(cvImageEntity);
@@ -203,39 +204,59 @@ module.exports = async function () {
       }
     );
 
-    const cv = await SELECT.from(CVQualityRecords, cvImageEntity).columns([
-      "confidence",
-    ]);
+    // const cv = await SELECT.from(CVQualityRecords, cvImageEntity).columns([
+    //   "confidence",
+    // ]);
 
-    console.log(cv.confidence);
+    // console.log(cv.confidence);
 
-    //  Parse Bearer Token for API Call
-    var cvInferenceReq = require("request");
-    var options = {
-      method: "POST",
+    var axios = require("axios");
+
+    var data = JSON.stringify({
+      image: fileBase64,
+    });
+
+    var config = {
+      method: "post",
       url: cv_inference_url,
       headers: {
         "AI-Resource-Group": "defect-det",
         "Content-Type": "application/json",
         Authorization: token,
       },
-      body: JSON.stringify({
-        sound: fileBase64,
-      }),
+      data: data,
     };
-    cvInferenceReq(options, async function (error, response) {
-      if (error) throw new Error(error);
-      console.log(response.body);
-      // to get confidence & quality label from response
-      await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
-        confidence: "0.9",
-        qualityLabel: "Y",
-      });
-    });
 
-    req.notify(
-      `CV Image (ID: ` + cvImageEntity.ID + `) entity processed successfully.`
-    );
+    axios(config)
+      .then(async function (response) {
+        console.log(JSON.stringify(response.data));
+
+        var obj = JSON.parse(JSON.stringify(response.data));
+        var label;
+        if (obj.hasOwnProperty("Normal")) {
+          console.log("Normal");
+          confidence = obj.Normal;
+          label = "Y";
+        } else {
+          console.log("Anomalous");
+          confidence = obj.Anomalous;
+          label = "N";
+        }
+        // to get confidence & quality label from response
+        await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
+          confidence: confidence,
+          qualityLabel: label,
+        });
+
+        req.notify(
+          `CV Image (ID: ` +
+            cvImageEntity.ID +
+            `) entity processed successfully.`
+        );
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   });
 
   this.before("NEW", "CVQualityRecords", genid);

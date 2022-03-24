@@ -87,6 +87,21 @@
                         "settings" : {
                             "entitySet" : "CVQualityRecords",
                             "navigation" : {
+                            },
+                            "content": {
+								"body": {
+									"sections": {
+										"customImageSection": {
+											"type": "XMLFragment",
+											"name": "cvqualityrecords.custom.CustomImageSection",
+											"title": "{i18n>customImageSection}",
+											"position": {
+												"placement": "After",
+												"anchor": "Details"
+											}
+										}
+									}
+                                }
                             }
                         }
                     }
