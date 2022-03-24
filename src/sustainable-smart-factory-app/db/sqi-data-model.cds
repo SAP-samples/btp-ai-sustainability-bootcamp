@@ -13,9 +13,9 @@ entity CVQualityRecords : managed {
   key ID           : Integer;
       detectedAt   : Timestamp;
       plant        : String(4);
-      plantSection : String(3);
-      productId    : String(18);
-      productName  : String(100);
+      plantSection : String(3) default 'YOH';
+      productId    : String(18) default 'SG23';
+      productName  : String(100) default 'LGP';
       image        : String;
       // image        : LargeBinary @Core.MediaType : 'image/png';
       confidence   : Decimal;
