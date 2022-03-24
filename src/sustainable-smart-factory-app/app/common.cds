@@ -11,7 +11,17 @@ using {sap.smartfactory as sf} from 'smartfactory';
 annotate sf.CVQualityRecords with @(
     Common.SemanticKey : [ID],
     UI                 : {
-        Identification  : [{Value : ID}],
+        Identification  : [
+            {Value : ID},
+            {
+                $Type             : 'UI.DataFieldForAction',
+                Action            : 'AdminService.inferenceImageCV',
+                IconUrl           : 'sap-icon://detail-view',
+                Inline            : true,
+                Label             : 'Inference Image on ML Model',
+                ![@UI.Emphasized] : true, //Button is highlighted
+            }
+        ],
         SelectionFields : [
             ID,
             plant,
@@ -46,10 +56,18 @@ annotate sf.CVQualityRecords with @(
                 Value : confidence,
                 Label : '{i18n>Confidence}'
             },
+            // {
+            //     Value : detectedAt,
+            //     Label : '{i18n>DetectedAt}'
+            // },
             {
-                Value : detectedAt,
-                Label : '{i18n>DetectedAt}'
-            }
+                $Type             : 'UI.DataFieldForAction',
+                Action            : 'AdminService.inferenceImageCV',
+                IconUrl           : 'sap-icon://detail-view',
+                Inline            : true,
+                ![@UI.Emphasized] : true, //Button is highlighted
+            },
+            {Value : image, }
         ]
     }
 ) {
@@ -64,12 +82,21 @@ annotate sf.CVQualityRecords with @(
 //
 //	CVQualityRecords Details
 //
-annotate sf.CVQualityRecords with @(UI : {HeaderInfo : {
-    TypeName       : '{i18n>CVQualityRecord}',
-    TypeNamePlural : '{i18n>CVQualityRecords}',
-    Title          : {Value : ID},
-    Description    : {Value : productId}
-}, });
+annotate sf.CVQualityRecords with @(UI : {
+    HeaderInfo        : {
+        TypeName       : '{i18n>CVQualityRecord}',
+        TypeNamePlural : '{i18n>CVQualityRecords}',
+        Title          : {Value : ID},
+        Description    : {Value : productId},
+        ImageUrl       : image
+    },
+    HeaderFacets      : [{
+        $Type  : 'UI.ReferenceFacet',
+        Label  : '{i18n>Description}',
+        Target : '@UI.FieldGroup#Descr'
+    }],
+    FieldGroup #Descr : {Data : [{Value : productId}]},
+});
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -85,6 +112,10 @@ annotate sf.CVQualityRecords with {
     qualityLabel @title : '{i18n>QualityLabel}';
     confidence   @title : '{i18n>Confidence}';
     detectedAt   @title : '{i18n>DetectedAt}';
+    image        @(
+        Common.Label  : 'Image',
+        UI.IsImageURL : true
+    );
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -210,11 +241,20 @@ annotate sf.EquipmentConditions with @(
                 Label : '{i18n>RecEndedAt}'
             },
         // {
-        //     $Type   : 'UI.DataFieldForAction',
-        //     Action  : 'AdminService.createMO',
-        //     Label   : 'Create Maintenance Order',
-        //     IconUrl : 'sap-icon://technical-object',
-        //     Inline  : true
+        //     Value : followUpDocNum,
+        //     Label : 'Doc ID'
+        // },
+        // {
+        //     Value : followUpDocType,
+        //     Label : 'Doc Type'
+        // },
+        // {
+        //     $Type             : 'UI.DataFieldForAction',
+        //     Action            : 'AdminService.createMO',
+        //     Label             : 'Create Maintenance Order',
+        //     IconUrl           : 'sap-icon://technical-object',
+        //     Inline            : true,
+        //     ![@UI.Emphasized] : true, //Button is highlighted
         // }
         ]
     }
@@ -284,6 +324,7 @@ annotate sf.EquipmentConditions with {
     plant           @title : '{i18n>Plant}';
     plantSection    @title : '{i18n>PlantSection}';
     equipment       @title : '{i18n>Equipment}';
+    funcLocation    @title : '{i18n>FuncLocation}';
     equipmentStatus @title : '{i18n>EquipmentStatus}';
     recStartedAt    @title : '{i18n>RecStartedAt}';
     recEndedAt      @title : '{i18n>RecEndedAt}';
@@ -295,12 +336,22 @@ annotate sf.EquipmentConditions with {
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	SoundAnomalies Lists
+//	Anomalies Lists
 //
-annotate sf.SoundAnomalies with @(
+annotate sf.Anomalies with @(
     Common.SemanticKey : [ID],
     UI                 : {
-        Identification  : [{Value : ID}],
+        Identification  : [
+            {Value : ID},
+            {
+                $Type             : 'UI.DataFieldForAction',
+                Action            : 'AdminService.inferenceSoundAnomaly',
+                IconUrl           : 'sap-icon://detail-view',
+                Inline            : true,
+                Label             : 'Inference Anomaly on ML Model',
+                ![@UI.Emphasized] : true, //Button is highlighted
+            },
+        ],
         SelectionFields : [
             ID,
             equipment,
@@ -333,25 +384,32 @@ annotate sf.SoundAnomalies with @(
             {
                 Value : detectedAt,
                 Label : '{i18n>DetectedAt}'
-            }
+            },
+            {
+                $Type             : 'UI.DataFieldForAction',
+                Action            : 'AdminService.inferenceSoundAnomaly',
+                IconUrl           : 'sap-icon://detail-view',
+                Inline            : true,
+                ![@UI.Emphasized] : true, //Button is highlighted
+            },
         ]
     }
 ) {
     ID @Common : {
-        SemanticObject  : 'SoundAnomalies',
+        SemanticObject  : 'Anomalies',
         Text            : ID,
         TextArrangement : #TextOnly
     };
-//anomalyType @ValueList.entity      : 'SoundAnomalyTypes';
+//anomalyType @ValueList.entity      : 'AnomalyTypes';
 };
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	SoundAnomalies Details
+//	Anomalies Details
 //
-annotate sf.SoundAnomalies with @(UI : {HeaderInfo : {
-    TypeName       : '{i18n>SoundAnomaly}',
-    TypeNamePlural : '{i18n>SoundAnomalies}',
+annotate sf.Anomalies with @(UI : {HeaderInfo : {
+    TypeName       : '{i18n>Anomaly}',
+    TypeNamePlural : '{i18n>Anomalies}',
     Title          : {Value : ID},
     Description    : {Value : anomalyType.name}
 }, });
@@ -359,33 +417,35 @@ annotate sf.SoundAnomalies with @(UI : {HeaderInfo : {
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	SoundAnomalies Elements
+//	Anomalies Elements
 //
-annotate sf.SoundAnomalies with {
-    ID              @title : '{i18n>ID}';
-    equipment       @title : '{i18n>Equipment}';
-    anomalyTypeCode @title : '{i18n>AnomalyTypeCode}'  @Common : {
+annotate sf.Anomalies with {
+    ID                @title : '{i18n>ID}';
+    equipment         @title : '{i18n>Equipment}';
+    anomalyTypeCode   @title : '{i18n>AnomalyTypeCode}'  @Common : {
         Text            : anomalyType.code,
         TextArrangement : #TextOnly
     };
-    anomalyTypeName @title : '{i18n>AnomalyTypeName}'  @Common : {
+    anomalyTypeName   @title : '{i18n>AnomalyTypeName}'  @Common : {
         Text            : anomalyType.name,
         TextArrangement : #TextOnly
     };
-    anomalyTypeDesc @title : '{i18n>AnomalyTypeDesc}'  @Common : {
+    anomalyTypeDesc   @title : '{i18n>AnomalyTypeDesc}'  @Common : {
         Text            : anomalyType.descr,
         TextArrangement : #TextOnly
-    }               @UI.MultiLineText;
-    confidence      @title : '{i18n>Confidence}';
-    detectedAt      @title : '{i18n>DetectedAt}';
-    status          @title : '{i18n>AnomalyStatus}';
+    }                 @UI.MultiLineText;
+    confidence        @title : '{i18n>Confidence}';
+    detectedAt        @title : '{i18n>DetectedAt}';
+    detectedDate      @title : '{i18n>DetectedDate}';
+    numberOfAnomalies @title : '{i18n>NumberOfAnomalies}';
+    status            @title : '{i18n>AnomalyStatus}';
 }
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	SoundAnomalyTypes Lists
+//	AnomalyTypes Lists
 //
-annotate sf.SoundAnomalyTypes with @(
+annotate sf.AnomalyTypes with @(
     Common.SemanticKey : [code],
     UI                 : {
         Identification  : [{Value : code}],
@@ -415,20 +475,20 @@ annotate sf.SoundAnomalyTypes with @(
     }
 ) {
     ID @Common : {
-        SemanticObject  : 'SoundAnomalyTypes',
+        SemanticObject  : 'AnomalyTypes',
         Text            : code,
         TextArrangement : #TextOnly
     };
-//anomalyType @ValueList.entity      : 'SoundAnomalyTypes';
+//anomalyType @ValueList.entity      : 'AnomalyTypes';
 };
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	SoundAnomalyTypes Details
+//	AnomalyTypes Details
 //
-annotate sf.SoundAnomalyTypes with @(UI : {HeaderInfo : {
-    TypeName       : '{i18n>SoundAnomalyTypes}',
-    TypeNamePlural : '{i18n>SoundAnomalyTypes}',
+annotate sf.AnomalyTypes with @(UI : {HeaderInfo : {
+    TypeName       : '{i18n>AnomalyTypes}',
+    TypeNamePlural : '{i18n>AnomalyTypes}',
     Title          : {Value : code},
     Description    : {Value : name}
 }, });
@@ -436,9 +496,9 @@ annotate sf.SoundAnomalyTypes with @(UI : {HeaderInfo : {
 
 ////////////////////////////////////////////////////////////////////////////
 //
-//	SoundAnomalyTypes Elements
+//	AnomalyTypes Elements
 //
-annotate sf.SoundAnomalyTypes with {
+annotate sf.AnomalyTypes with {
     code                    @title : '{i18n>AnomalyTypeCode}';
     name                    @title : '{i18n>AnomalyTypeName}';
     descr                   @title : '{i18n>AnomalyTypeDesc}'  @UI.MultiLineText;

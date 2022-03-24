@@ -16,7 +16,8 @@ entity CVQualityRecords : managed {
       plantSection : String(3);
       productId    : String(18);
       productName  : String(100);
-      image        : LargeBinary @Core.MediaType : 'image/png';
+      image        : String;
+      // image        : LargeBinary @Core.MediaType : 'image/png';
       confidence   : Decimal;
       qualityLabel : QualityLabel;
 //todo: Object Detection with Bounding Box
