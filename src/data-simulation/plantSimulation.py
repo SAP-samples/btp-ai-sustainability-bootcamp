@@ -27,7 +27,8 @@ class FactorySimulation():
         self._gaussian_sigma_perc = 0.10
         self._proactivness = 24 # time to schedule a proactive maintenance ( in hours)
         self.cfg= 'cfg/machine1.yaml'
-        self._outfile = 'sim_'+factory_nr+'.csv'
+        self._outfile1 = 'sim_'+factory_nr+'.csv'
+        self._outfile2 = 'maintenance_'+factory_nr+'.csv'
 
 
     # Populate the factory with plants and machines and create the clock
@@ -237,7 +238,9 @@ class FactorySimulation():
     def run(self):
 
         ### Open output file
-        f = open(self._outfile, "w")
+        f1 = open(self._outfile1, "w")
+        f2 = open(self._outfile2, "w")
+
         sep=','
 
         ### Start the simulation
@@ -292,32 +295,33 @@ class FactorySimulation():
                     self.cyclic_maintenance()
 
                     #Print the status of each machine
-                    f.write(str(t))
-                    f.write(sep)
-                    f.write(p._print_status())
-                    f.write(sep)
-                    f.write(m._print_status())
-                    f.write(sep)
+                    f1.write(str(t))
+                    f1.write(sep)
+                    f1.write(p._print_status())
+                    f1.write(sep)
+                    f1.write(m._print_status())
+                    f1.write(sep)
                     if self._cyclicMaintClock > 1 :
                         maintenance_nr='CYCLIC'+str(self._cyclic_nr).zfill(5)
-                        f.write(maintenance_nr)
-                        f.write(sep)
+                        f1.write(maintenance_nr)
+                        f1.write(sep)
                     else:
-                        f.write(sep)
+                        f1.write(sep)
                     if self._downtimesClock[p._plant_nr][m._equipment_nr] > 1 :
                         maintenance_nr='CORRECTIVE'+str(self._corrective_nr).zfill(5)
-                        f.write(maintenance_nr)
-                        f.write(sep)
+                        f1.write(maintenance_nr)
+                        f1.write(sep)
                     else:
-                        f.write(sep)
+                        f1.write(sep)
                     if self._faultClock[p._plant_nr][m._equipment_nr] > 1 :
                         maintenance_nr='PROACTIVE'+str(self._predictive_nr).zfill(5)
-                        f.write(maintenance_nr)
-                        f.write('\n')
+                        f1.write(maintenance_nr)
+                        f1.write('\n')
                     else:
-                        f.write('\n')
+                        f1.write('\n')
 
-        f.close()
+        f1.close()
+        f2.close()
         return
 
 def main():
