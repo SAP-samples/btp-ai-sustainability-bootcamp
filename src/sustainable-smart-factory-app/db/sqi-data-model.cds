@@ -11,7 +11,7 @@ using {
 ////////////////////////////////////////////////////////////
 entity CVQualityRecords : managed {
   key ID           : Integer;
-      detectedAt   : Timestamp;
+      detectedAt   : Timestamp @cds.on.update : $now;
       plant        : String(4);
       plantSection : String(3) default 'YOH';
       productId    : String(18) default 'SG23';

@@ -7,7 +7,7 @@ service AdminService {
     @(
         cds.odata.bindingparameter.name : '_it',
         Common.SideEffects              : {
-            TargetProperties : ['_it/confidence', '_it/qualityLabel']
+            TargetProperties : ['_it/confidence', '_it/qualityLabel', '_it/detectedAt']
         }
     )
     action inferenceImageCV();
@@ -33,7 +33,7 @@ service AdminService {
     @(
         cds.odata.bindingparameter.name : '_it',
         Common.SideEffects              : {
-            TargetProperties : ['_it/confidence', '_it/status']
+            TargetProperties : ['_it/confidence', '_it/status', '_it/detectedAt']
         }
     )
     action inferenceSoundAnomaly();
