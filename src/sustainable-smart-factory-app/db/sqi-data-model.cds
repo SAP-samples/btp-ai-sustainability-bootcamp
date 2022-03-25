@@ -11,15 +11,17 @@ using {
 ////////////////////////////////////////////////////////////
 entity CVQualityRecords : managed {
   key ID           : Integer;
-      detectedAt   : Timestamp;
+      detectedAt   : Timestamp @cds.on.update : $now;
+      detectedDate : Date;
       plant        : String(4);
-      plantSection : String(3);
-      productId    : String(18);
-      productName  : String(100);
+      plantSection : String(3) default 'YOH';
+      productId    : String(18) default 'SG23';
+      productName  : String(100) default 'LGP';
       image        : String;
       // image        : LargeBinary @Core.MediaType : 'image/png';
       confidence   : Decimal;
       qualityLabel : QualityLabel;
+      numberOfProducts: Integer default 1;
 //todo: Object Detection with Bounding Box
 // Items       : Composition of many {
 //                 confidence : Decimal;

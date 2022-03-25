@@ -7,13 +7,18 @@ service AdminService {
     @(
         cds.odata.bindingparameter.name : '_it',
         Common.SideEffects              : {
-            TargetProperties : ['_it/confidence', '_it/qualityLabel']
+            TargetProperties : ['_it/confidence', '_it/qualityLabel', '_it/detectedAt']
         }
     )
     action inferenceImageCV();
   };
   entity PlantConditions as projection on pdm.PlantConditions;
-  entity EquipmentConditions as projection on pdm.EquipmentConditions actions {
+  entity EquipmentConditions as select from pdm.EquipmentConditions{
+    *,
+    @Core.Computed
+	  count(anomalies.ID) as numberOfAnomalies: Integer,
+  } group by ID
+    actions {
     @sap.applicable.path : 'moCreated'
     @(
         cds.odata.bindingparameter.name : '_it',
@@ -28,7 +33,7 @@ service AdminService {
     @(
         cds.odata.bindingparameter.name : '_it',
         Common.SideEffects              : {
-            TargetProperties : ['_it/confidence', '_it/status']
+            TargetProperties : ['_it/confidence', '_it/status', '_it/detectedAt']
         }
     )
     action inferenceSoundAnomaly();

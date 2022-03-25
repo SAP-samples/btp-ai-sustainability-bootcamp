@@ -3,7 +3,7 @@ annotate sf.AnomaliesExtendedView with {
   @Common : {
     SemanticObject : 'AnomaliesExtendedView',
     Text           : {
-      $value              : equipment,
+      $value              : equipmentName,
       @UI.TextArrangement : #TextLast
     }
   }
@@ -17,14 +17,14 @@ annotate sf.AnomaliesExtendedView with {
     Parameters                   : [{
       $Type             : 'Common.ValueListParameterInOut',
       LocalDataProperty : 'equipment',
-      ValueListProperty : 'equipment'
+      ValueListProperty : 'equipmentName'
     }]
   }}
   @(ValueList.entity : 'EquipmentVH', )
   equipment;
 
   //Visual Filter for anomalyType
-  @Common : {ValueList #EquipmentVisualFilter : {
+  @Common : {ValueList #AnomalyTypeVisualFilter : {
     $Type                        : 'Common.ValueListType',
     CollectionPath               : 'AnomaliesExtendedView',
     PresentationVariantQualifier : 'AnomaliesByType',
@@ -38,7 +38,7 @@ annotate sf.AnomaliesExtendedView with {
   anomalyType;
 
   //Visual Filter for funcLocation
-  @Common : {ValueList #EquipmentVisualFilter : {
+  @Common : {ValueList #FuncLocationVisualFilter : {
     $Type                        : 'Common.ValueListType',
     CollectionPath               : 'AnomaliesExtendedView',
     PresentationVariantQualifier : 'AnomaliesByFuncLocation',

@@ -1,11 +1,6 @@
 using { AdminService } from 'smartfactory';
 using from '../../common'; // to help UI linter get the complete annotations
 
-////////////////////////////////////////////////////////////////////////////
-//
-//	Books Object Page
-//
-
 annotate AdminService.CVQualityRecords with @(
 	UI: {
 		Facets: [

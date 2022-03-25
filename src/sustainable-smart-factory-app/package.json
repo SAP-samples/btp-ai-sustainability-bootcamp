@@ -51,6 +51,12 @@
     },
     "cds": {
         "requires": {
+            "aicore":{
+                "kind": "rest",
+                "credentials": {
+                    "url": "https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments"
+                }
+            },
             "db": {
                 "kind": "sql"
             }

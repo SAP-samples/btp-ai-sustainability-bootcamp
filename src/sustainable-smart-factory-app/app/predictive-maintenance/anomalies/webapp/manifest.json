@@ -101,10 +101,10 @@
                             "content": {
 								"body": {
 									"sections": {
-										"customAudioSection": {
+										"customSourceSection": {
 											"type": "XMLFragment",
-											"name": "anomalies.custom.CustomAudioSection",
-											"title": "{i18n>customAudioSection}",
+											"name": "anomalies.custom.CustomSourceSection",
+											"title": "{i18n>customSourceSection}",
 											"position": {
 												"placement": "After",
 												"anchor": "Details"

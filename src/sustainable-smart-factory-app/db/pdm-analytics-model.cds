@@ -1,5 +1,5 @@
 namespace sap.smartfactory;
-using {sap.smartfactory as pdm} from './pdm-analytics-model';
+using {sap.smartfactory as pdm} from './pdm-data-model';
 
 ////////////////////////////////////////////////////////////
 //Analytics Model for Predctive Maintenance module

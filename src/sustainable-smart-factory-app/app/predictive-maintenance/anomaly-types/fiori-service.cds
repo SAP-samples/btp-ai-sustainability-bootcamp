@@ -16,7 +16,9 @@ annotate AdminService.AnomalyTypes with @(
 				{Value: code},
 				{Value: name},
 				{Value: descr},
-				{Value: suggestedFollowUpAction}
+				{Value: suggestedFollowUpAction},
+				{Value: autoTrigger},
+				{Value: triggerThreshold}
 			]
 		}
 	}
