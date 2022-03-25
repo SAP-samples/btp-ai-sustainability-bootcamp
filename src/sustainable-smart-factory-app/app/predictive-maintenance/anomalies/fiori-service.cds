@@ -8,41 +8,41 @@ using from '../../common'; // to help UI linter get the complete annotations
 
 annotate AdminService.Anomalies with @(UI : {
     Facets              : [
-    {
-        $Type  : 'UI.ReferenceFacet',
-        Label  : '{i18n>General}',
-        Target : '@UI.FieldGroup#General'
-    },
-    {
-        $Type  : 'UI.ReferenceFacet',
-        Label  : '{i18n>Details}',
-        Target : '@UI.FieldGroup#Details'
-    },
-    {
-        $Type  : 'UI.ReferenceFacet',
-        Label  : '{i18n>Admin}',
-        Target : '@UI.FieldGroup#Admin'
-    },
+        {
+            $Type  : 'UI.ReferenceFacet',
+            Label  : '{i18n>General}',
+            Target : '@UI.FieldGroup#General'
+        },
+        {
+            $Type  : 'UI.ReferenceFacet',
+            Label  : '{i18n>Details}',
+            Target : '@UI.FieldGroup#Details'
+        },
+        {
+            $Type  : 'UI.ReferenceFacet',
+            Label  : '{i18n>Admin}',
+            Target : '@UI.FieldGroup#Admin'
+        },
     ],
     FieldGroup #General : {Data : [
-    {Value : ID},
-    {Value : equipment},
-    {Value : status}
+        {Value : ID},
+        {Value : equipment},
+        {Value : status}
     ]},
     FieldGroup #Details : {Data : [
-    {Value : ID},
-    {Value : anomalyType.code},
-    {Value : anomalyType.name},
-    {Value : anomalyType.descr},
-    {Value : anomalyType.suggestedFollowUpAction},
-    {Value : confidence},
-    {Value : detectedAt}
+        {Value : ID},
+        {Value : anomalyType.code},
+        {Value : anomalyType.name},
+        {Value : anomalyType.descr},
+        {Value : anomalyType.suggestedFollowUpAction},
+        {Value : confidence},
+        {Value : detectedAt}
     ]},
     FieldGroup #Admin   : {Data : [
-    {Value : createdBy},
-    {Value : createdAt},
-    {Value : modifiedBy},
-    {Value : modifiedAt}
+        {Value : createdBy},
+        {Value : createdAt},
+        {Value : modifiedBy},
+        {Value : modifiedAt}
     ]}
 });
 

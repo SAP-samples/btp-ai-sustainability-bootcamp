@@ -8,13 +8,6 @@ const { maintenanceOrderApi } = maintenanceOrderService();
 const { buildMaintenanceOrderForCreate } = require("./helper");
 const sdkDest = { destinationName: "S4HC_D2V" };
 
-/** Hardcoded Variables for Testing Purposes
- * [To-Do] Automated auth of clientid + client secret to get from service key
- * 1. clientid
- * 2. clientsecret
- * 3. oauth token
- */
-
 const oauth_url =
   "https://iotdev.authentication.eu10.hana.ondemand.com/oauth/token?grant_type=client_credentials";
 const sound_inference_url = "/d4e89dce2e1567bc/v1/models/soundmodel:predict";
@@ -164,6 +157,7 @@ module.exports = async function () {
     await UPDATE(Anomalies, anomalyEntity.ID).with({
       status: "2",
       confidence: confidence,
+      detectedAt: new Date(),
     });
 
     req.notify(
@@ -211,16 +205,17 @@ module.exports = async function () {
 
     if (results.hasOwnProperty("Normal")) {
       // console.log("Normal");
-      confidence = results.Normal;
+      confidence = parseFloat(results.Normal).toFixed(2);
       label = "Y";
     } else {
       // console.log("Anomalous");
-      confidence = results.Anomalous;
+      confidence = parseFloat(results.Anomalous).toFixed(2);
       label = "N";
     }
     await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
       confidence: confidence,
       qualityLabel: label,
+      detectedAt: new Date(),
     });
 
     req.notify(
@@ -228,9 +223,26 @@ module.exports = async function () {
     );
   });
 
+  this.before("READ", "EquipmentConditions", calculateFaults);
   this.before("NEW", "CVQualityRecords", genid);
   this.before("NEW", "Anomalies", genid);
 };
+
+/** Calculate No. of Faults in each EQConditions */
+async function calculateFaults(req) {
+  const eqconds = await cds.tx(req).run(SELECT.from(req.target));
+  const db = await cds.connect.to("db");
+  const { Anomalies } = db.entities;
+  for (let i = 0; i < eqconds.length; i++) {
+    var eqcondId = eqconds[i].ID;
+    var faults = await cds
+      .tx(req)
+      .run(SELECT.from(Anomalies).where({ eqCond_ID: eqcondId }));
+    await UPDATE(req.target, eqcondId).with({
+      fault: faults.length,
+    });
+  }
+}
 
 /** Generate primary keys for target entity in request */
 async function genid(req) {
@@ -241,6 +253,7 @@ async function genid(req) {
   req.data.ID = ID + 1;
 }
 
+/** Generate OAuth Token using clientid & clientsecret */
 function generateToken(authUser) {
   var request = require("request");
   var options = {
