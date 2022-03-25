@@ -13,7 +13,13 @@ service AdminService {
     action inferenceImageCV();
   };
   entity PlantConditions as projection on pdm.PlantConditions;
-  entity EquipmentConditions as projection on pdm.EquipmentConditions actions {
+  entity EquipmentConditions as //projection on pdm.EquipmentConditions
+  select from pdm.EquipmentConditions{
+    *,
+    @Core.Computed
+	  count(anomalies.ID) as numberOfAnomalies: Integer,
+  } group by ID
+  actions {
     @sap.applicable.path : 'moCreated'
     @(
         cds.odata.bindingparameter.name : '_it',
