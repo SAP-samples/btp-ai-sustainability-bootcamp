@@ -489,8 +489,8 @@ annotate sf.AnomalyTypes with @(
 ) {
     ID @Common : {
         SemanticObject  : 'AnomalyTypes',
-        Text            : code,
-        TextArrangement : #TextOnly
+        Text            : name,
+        TextArrangement : #TextLast
     };
 //anomalyType @ValueList.entity      : 'AnomalyTypes';
 };
