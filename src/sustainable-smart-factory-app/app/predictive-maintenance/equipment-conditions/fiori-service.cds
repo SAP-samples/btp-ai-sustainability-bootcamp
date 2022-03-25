@@ -35,8 +35,6 @@ annotate AdminService.EquipmentConditions with @(
             {Value : recEndedAt}
         ]},
         FieldGroup #Details : {Data : [
-            {Value : faultProb},
-            {Value : breakDownProb},
             {Value : followUpDocType},
             {Value : followUpDocNum}
         ]},
