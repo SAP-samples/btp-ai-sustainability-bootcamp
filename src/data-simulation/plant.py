@@ -1,7 +1,7 @@
 import numpy as np
 import yaml
 
-class Machine:
+class Machine():
     def __init__(self, equipment_nr, cfg):
         self._equipment_nr = equipment_nr
         self._dict = self._createDict(cfg)
@@ -92,9 +92,21 @@ class Factory():
     def __init__(self, factory_nr):
         self._factory_nr = factory_nr
         self._plants_dict = {}
+        self._cyclicMaintClock={}
+        self._downtimesClock={}
+        self._faultClock={}
 
     def add_plants(self,  p  ):
         self._plants_dict[p._plant_nr]=p
+
+        self._cyclicMaintClock[p._plant_nr]={}
+        self._downtimesClock[p._plant_nr]={}
+        self._faultClock[p._plant_nr]={}
+
+        for m_name, m in p._machine_dict.items():
+            self._cyclicMaintClock[p._plant_nr][m_name]=0
+            self._downtimesClock[p._plant_nr][m_name]=0
+            self._faultClock[p._plant_nr][m_name]=0
         return
 
     def _turnOn(self):
@@ -112,4 +124,18 @@ class Factory():
     def _set_status(self):
         for p in self._plants_dict.values():
             p._set_status()
+        return
+
+    def _build_from_yaml(self,yaml_path):
+
+        with open(yaml_path) as file:
+            layout=yaml.load(file, Loader=yaml.FullLoader)
+
+            for p_name,pl in layout.items():
+                P = Plant(p_name.strip('PLANT_'))
+
+                for m_name, ml in pl.items():
+                    M = Machine( m_name.strip('EQ_'), ml['cfg'] )
+                    P.add_machine(M)
+                self.add_plants(P)
         return
