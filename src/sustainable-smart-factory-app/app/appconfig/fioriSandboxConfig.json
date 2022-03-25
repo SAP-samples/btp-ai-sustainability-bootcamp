@@ -22,6 +22,17 @@
                     "icon": "sap-icon://web-cam",
                     "targetURL": "#CVQualityRecords-manage"
                   }
+                },
+                {
+                  "id": "CVQualityRecordsALP",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Quality Records Insights by Computer Vison",
+                    "subtitle": "",
+                    "info": "Analytical List Page for Quality Records of Computer Vision",
+                    "icon": "sap-icon://manager-insight",
+                    "targetURL": "#CVQualityRecordsView-display"
+                  }
                 }
               ]
             },
@@ -146,6 +157,24 @@
                 "applicationType": "SAPUI5",
                 "additionalInformation": "SAPUI5.Component=cvqualityrecords",
                 "url": "/defeat-detection/cv-quality-records/webapp"
+              }
+            },
+            "CVQualityRecordsALP": {
+              "semanticObject": "CVQualityRecordsView",
+              "action": "display",
+              "title": "CV Quality Record Insights",
+              "signature": {
+                "parameters": {
+                  "CVQualityRecordsView.ID": {
+                    "renameTo": "ID"
+                  }
+                },
+                "additionalParameters": "ignored"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=sqi.cvqualityrecordsalp",
+                "url": "./defeat-detection/cv-quality-records-alp/webapp"
               }
             },
             "PlantConditionsVisualisation": {
