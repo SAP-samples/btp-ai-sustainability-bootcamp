@@ -1,11 +1,6 @@
 using {AdminService} from 'smartfactory';
 using from '../../common'; // to help UI linter get the complete annotations
 
-////////////////////////////////////////////////////////////////////////////
-//
-//	Books Object Page
-//
-
 annotate AdminService.EquipmentConditions with @(
     UI     : {
         Facets              : [
@@ -40,8 +35,6 @@ annotate AdminService.EquipmentConditions with @(
             {Value : recEndedAt}
         ]},
         FieldGroup #Details : {Data : [
-            {Value : faultProb},
-            {Value : breakDownProb},
             {Value : followUpDocType},
             {Value : followUpDocNum}
         ]},

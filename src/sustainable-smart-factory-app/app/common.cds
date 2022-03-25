@@ -86,16 +86,16 @@ annotate sf.CVQualityRecords with @(UI : {
     HeaderInfo        : {
         TypeName       : '{i18n>CVQualityRecord}',
         TypeNamePlural : '{i18n>CVQualityRecords}',
-        Title          : {Value : ID},
+        Title          : {Value : productName},
         Description    : {Value : productId},
-        ImageUrl       : image
+        // ImageUrl       : image
     },
-    HeaderFacets      : [{
-        $Type  : 'UI.ReferenceFacet',
-        Label  : '{i18n>Description}',
-        Target : '@UI.FieldGroup#Descr'
-    }],
-    FieldGroup #Descr : {Data : [{Value : productId}]},
+    // HeaderFacets      : [{
+    //     $Type  : 'UI.ReferenceFacet',
+    //     Label  : '{i18n>Description}',
+    //     Target : '@UI.FieldGroup#Descr'
+    // }],
+    // FieldGroup #Descr : {Data : [{Value : productId}]},
 });
 
 
@@ -273,9 +273,9 @@ annotate sf.EquipmentConditions with @(
 annotate sf.EquipmentConditions with @(UI : {HeaderInfo : {
     TypeName       : '{i18n>EquipmentCondition}',
     TypeNamePlural : '{i18n>EquipmentConditions}',
-    Title          : {Value : ID},
+    Title          : {Value : equipmentName},
     Description    : {Value : equipment},
-    ImageUrl       : '/media/pcb.png',
+    // ImageUrl       : '/media/pcb.png',
 }, });
 
 annotate sf.EquipmentConditions with @(UI.HeaderFacets : [
@@ -294,7 +294,7 @@ annotate sf.EquipmentConditions with @(UI.HeaderFacets : [
             //Search-Term: #HeaderFieldGroup
             $Type  : 'UI.ReferenceFacet',
             Target : '@UI.FieldGroup#HeaderData',
-            Label  : 'AI Recommendations',
+            Label  : 'Recommendations',
         }],
     },
 ]);
@@ -302,8 +302,8 @@ annotate sf.EquipmentConditions with @(UI.HeaderFacets : [
 annotate sf.EquipmentConditions with @(
     UI.DataPoint #progressIndicator : {
         //Search-Term: #ProgressIndicator
-        Value         : fault,
-        TargetValue   : 10,
+        Value         : numberOfAnomalies,
+        TargetValue   : 2,
         Visualization : #Progress,
         Title         : 'No. of Anomalies Detected',
         Criticality   : 1, //> optional criticality
@@ -323,13 +323,13 @@ annotate sf.EquipmentConditions with {
     ID              @title : '{i18n>ID}';
     plant           @title : '{i18n>Plant}';
     plantSection    @title : '{i18n>PlantSection}';
-    equipment       @title : '{i18n>Equipment}';
     funcLocation    @title : '{i18n>FuncLocation}';
+    equipment       @title : '{i18n>Equipment}';
     equipmentStatus @title : '{i18n>EquipmentStatus}';
     recStartedAt    @title : '{i18n>RecStartedAt}';
     recEndedAt      @title : '{i18n>RecEndedAt}';
-    faultProb       @title : '{i18n>FaultProb}';
-    breakDownProb   @title : '{i18n>BreakDownProb}';
+    //faultProb       @title : '{i18n>FaultProb}';
+    //breakDownProb   @title : '{i18n>BreakDownProb}';
     followUpDocType @title : '{i18n>FollowUpDocType}';
     followUpDocNum  @title : '{i18n>FollowUpDocNum}';
 }
@@ -410,8 +410,8 @@ annotate sf.Anomalies with @(
 annotate sf.Anomalies with @(UI : {HeaderInfo : {
     TypeName       : '{i18n>Anomaly}',
     TypeNamePlural : '{i18n>Anomalies}',
-    Title          : {Value : ID},
-    Description    : {Value : anomalyType.name}
+    Title          : {Value : anomalyType.name},
+    Description    : {Value : equipment}
 }, });
 
 
@@ -439,6 +439,9 @@ annotate sf.Anomalies with {
     detectedDate      @title : '{i18n>DetectedDate}';
     numberOfAnomalies @title : '{i18n>NumberOfAnomalies}';
     status            @title : '{i18n>AnomalyStatus}';
+    sourceType        @title : '{i18n>SourceType}';
+    rawValue          @title : '{i18n>RawValue}';
+    rawMeasureUnit    @title : '{i18n>RawMeasurementUnit}';
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -452,7 +455,9 @@ annotate sf.AnomalyTypes with @(
         SelectionFields : [
             code,
             name,
-            suggestedFollowUpAction
+            suggestedFollowUpAction,
+            autoTrigger,
+            triggerThreshold
         ],
         LineItem        : [
             {
@@ -470,14 +475,22 @@ annotate sf.AnomalyTypes with @(
             {
                 Value : suggestedFollowUpAction,
                 Label : '{i18n>SuggestedFollowUpAction}'
+            },
+            {
+                Value : autoTrigger,
+                Label : '{i18n>AutoTrigger}'
+            },
+            {
+                Value : triggerThreshold,
+                Label : '{i18n>TriggerThreshold}'
             }
         ]
     }
 ) {
     ID @Common : {
         SemanticObject  : 'AnomalyTypes',
-        Text            : code,
-        TextArrangement : #TextOnly
+        Text            : name,
+        TextArrangement : #TextLast
     };
 //anomalyType @ValueList.entity      : 'AnomalyTypes';
 };
@@ -493,7 +506,6 @@ annotate sf.AnomalyTypes with @(UI : {HeaderInfo : {
     Description    : {Value : name}
 }, });
 
-
 ////////////////////////////////////////////////////////////////////////////
 //
 //	AnomalyTypes Elements
@@ -503,4 +515,6 @@ annotate sf.AnomalyTypes with {
     name                    @title : '{i18n>AnomalyTypeName}';
     descr                   @title : '{i18n>AnomalyTypeDesc}'  @UI.MultiLineText;
     suggestedFollowUpAction @title : '{i18n>SuggestedFollowUpAction}';
+    autoTrigger @title : '{i18n>AutoTrigger}';
+    triggerThreshold @title : '{i18n>TriggerThreshold}';
 }
