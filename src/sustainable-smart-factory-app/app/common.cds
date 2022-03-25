@@ -302,8 +302,8 @@ annotate sf.EquipmentConditions with @(UI.HeaderFacets : [
 annotate sf.EquipmentConditions with @(
     UI.DataPoint #progressIndicator : {
         //Search-Term: #ProgressIndicator
-        Value         : fault,
-        TargetValue   : 10,
+        Value         : numberOfAnomalies,
+        TargetValue   : 2,
         Visualization : #Progress,
         Title         : 'No. of Anomalies Detected',
         Criticality   : 1, //> optional criticality
@@ -328,8 +328,8 @@ annotate sf.EquipmentConditions with {
     equipmentStatus @title : '{i18n>EquipmentStatus}';
     recStartedAt    @title : '{i18n>RecStartedAt}';
     recEndedAt      @title : '{i18n>RecEndedAt}';
-    faultProb       @title : '{i18n>FaultProb}';
-    breakDownProb   @title : '{i18n>BreakDownProb}';
+    //faultProb       @title : '{i18n>FaultProb}';
+    //breakDownProb   @title : '{i18n>BreakDownProb}';
     followUpDocType @title : '{i18n>FollowUpDocType}';
     followUpDocNum  @title : '{i18n>FollowUpDocNum}';
 }
