@@ -1,4 +1,5 @@
 using {sap.smartfactory as pdm} from '../db/pdm-analytics-model';
+using {sap.smartfactory as sqi} from '../db/sqi-analytics-model';
 
 service AnalyticsService @(path : '/analytics') {
 
@@ -6,6 +7,11 @@ service AnalyticsService @(path : '/analytics') {
   @readonly
   entity AnomaliesExtendedView as projection on
   pdm.AnomaliesExtendedView
+  { * };
+
+  @readonly
+  entity CVQualityRecordsView as projection on
+  sqi.CVQualityRecordsView
   { * };
   
   // Value Helps
