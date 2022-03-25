@@ -439,6 +439,9 @@ annotate sf.Anomalies with {
     detectedDate      @title : '{i18n>DetectedDate}';
     numberOfAnomalies @title : '{i18n>NumberOfAnomalies}';
     status            @title : '{i18n>AnomalyStatus}';
+    sourceType        @title : '{i18n>SourceType}';
+    rawValue          @title : '{i18n>RawValue}';
+    rawMeasureUnit    @title : '{i18n>RawMeasurementUnit}';
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -502,7 +505,6 @@ annotate sf.AnomalyTypes with @(UI : {HeaderInfo : {
     Title          : {Value : code},
     Description    : {Value : name}
 }, });
-
 
 ////////////////////////////////////////////////////////////////////////////
 //
