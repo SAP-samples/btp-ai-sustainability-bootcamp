@@ -323,8 +323,8 @@ annotate sf.EquipmentConditions with {
     ID              @title : '{i18n>ID}';
     plant           @title : '{i18n>Plant}';
     plantSection    @title : '{i18n>PlantSection}';
-    equipment       @title : '{i18n>Equipment}';
     funcLocation    @title : '{i18n>FuncLocation}';
+    equipment       @title : '{i18n>Equipment}';
     equipmentStatus @title : '{i18n>EquipmentStatus}';
     recStartedAt    @title : '{i18n>RecStartedAt}';
     recEndedAt      @title : '{i18n>RecEndedAt}';
@@ -452,7 +452,9 @@ annotate sf.AnomalyTypes with @(
         SelectionFields : [
             code,
             name,
-            suggestedFollowUpAction
+            suggestedFollowUpAction,
+            autoTrigger,
+            triggerThreshold
         ],
         LineItem        : [
             {
@@ -470,6 +472,14 @@ annotate sf.AnomalyTypes with @(
             {
                 Value : suggestedFollowUpAction,
                 Label : '{i18n>SuggestedFollowUpAction}'
+            },
+            {
+                Value : autoTrigger,
+                Label : '{i18n>AutoTrigger}'
+            },
+            {
+                Value : triggerThreshold,
+                Label : '{i18n>TriggerThreshold}'
             }
         ]
     }
@@ -503,4 +513,6 @@ annotate sf.AnomalyTypes with {
     name                    @title : '{i18n>AnomalyTypeName}';
     descr                   @title : '{i18n>AnomalyTypeDesc}'  @UI.MultiLineText;
     suggestedFollowUpAction @title : '{i18n>SuggestedFollowUpAction}';
+    autoTrigger @title : '{i18n>AutoTrigger}';
+    triggerThreshold @title : '{i18n>TriggerThreshold}';
 }
