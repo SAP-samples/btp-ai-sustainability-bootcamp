@@ -86,16 +86,16 @@ annotate sf.CVQualityRecords with @(UI : {
     HeaderInfo        : {
         TypeName       : '{i18n>CVQualityRecord}',
         TypeNamePlural : '{i18n>CVQualityRecords}',
-        Title          : {Value : ID},
+        Title          : {Value : productName},
         Description    : {Value : productId},
-        ImageUrl       : image
+        // ImageUrl       : image
     },
-    HeaderFacets      : [{
-        $Type  : 'UI.ReferenceFacet',
-        Label  : '{i18n>Description}',
-        Target : '@UI.FieldGroup#Descr'
-    }],
-    FieldGroup #Descr : {Data : [{Value : productId}]},
+    // HeaderFacets      : [{
+    //     $Type  : 'UI.ReferenceFacet',
+    //     Label  : '{i18n>Description}',
+    //     Target : '@UI.FieldGroup#Descr'
+    // }],
+    // FieldGroup #Descr : {Data : [{Value : productId}]},
 });
 
 
@@ -273,9 +273,9 @@ annotate sf.EquipmentConditions with @(
 annotate sf.EquipmentConditions with @(UI : {HeaderInfo : {
     TypeName       : '{i18n>EquipmentCondition}',
     TypeNamePlural : '{i18n>EquipmentConditions}',
-    Title          : {Value : ID},
+    Title          : {Value : equipmentName},
     Description    : {Value : equipment},
-    ImageUrl       : '/media/pcb.png',
+    // ImageUrl       : '/media/pcb.png',
 }, });
 
 annotate sf.EquipmentConditions with @(UI.HeaderFacets : [
@@ -294,7 +294,7 @@ annotate sf.EquipmentConditions with @(UI.HeaderFacets : [
             //Search-Term: #HeaderFieldGroup
             $Type  : 'UI.ReferenceFacet',
             Target : '@UI.FieldGroup#HeaderData',
-            Label  : 'AI Recommendations',
+            Label  : 'Recommendations',
         }],
     },
 ]);
@@ -410,8 +410,8 @@ annotate sf.Anomalies with @(
 annotate sf.Anomalies with @(UI : {HeaderInfo : {
     TypeName       : '{i18n>Anomaly}',
     TypeNamePlural : '{i18n>Anomalies}',
-    Title          : {Value : ID},
-    Description    : {Value : anomalyType.name}
+    Title          : {Value : anomalyType.name},
+    Description    : {Value : equipment}
 }, });
 
 
