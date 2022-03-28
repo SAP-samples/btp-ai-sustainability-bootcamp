@@ -43,14 +43,14 @@ annotate CVQualityRecordsView with {
     confidence;
   };
 
-// //Value Helpers
-// view EquipmentView as select distinct equipment from AnomaliesExtendedView;
+//Value Helpers
+view QualityLabelView as select distinct qualityLabel from CVQualityRecordsView;
 
-// @readonly
-// @cds.odata.valuelist
-// entity EquipmentVH {
-//   key equipment : AnomaliesExtendedView : equipment;
-// };
+@readonly
+@cds.odata.valuelist
+entity QualityLabelVH {
+  key qualityLabel : CVQualityRecordsView : qualityLabel;
+};
 
 // view AnomalyTypeNameView as select distinct anomalyType from AnomaliesExtendedView;
 

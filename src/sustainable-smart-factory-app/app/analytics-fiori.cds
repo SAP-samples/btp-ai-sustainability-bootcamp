@@ -60,7 +60,6 @@ annotate sf.AnomaliesExtendedView with @(UI : {
     detectedDate,
     anomalyType
   ],
-  PresentationVariant #equipment   : {Visualizations : ['@UI.Chart#equipment', ], },
   PresentationVariant #AnomaliesByFuncLocation   : {Visualizations : ['@UI.Chart#AnomaliesByFuncLocation', ], },
   PresentationVariant #AnomaliesByEquipment   : {Visualizations : ['@UI.Chart#AnomaliesByEquipment', ], },
   PresentationVariant #AnomaliesByType   : {Visualizations : ['@UI.Chart#AnomaliesByType', ], },  
@@ -175,3 +174,97 @@ annotate sf.AnomaliesExtendedView with {
 
 //     status          @title : '{i18n>AnomalyStatus}';
  }
+
+ annotate sf.CVQualityRecordsView with {
+  @Common : {
+    SemanticObject : 'CVQualityRecordsView',
+    Text           : {
+      $value              : qualityLabel,
+      @UI.TextArrangement : #TextOnly
+    }
+  }
+  qualityLabel;
+
+  //Visual Filter for equipment
+  @Common : {ValueList #QualityLabelVisualFilter : {
+    $Type                        : 'Common.ValueListType',
+    CollectionPath               : 'CVQualityRecordsView',
+    PresentationVariantQualifier : 'FilterByQualityLabel',
+    Parameters                   : [{
+      $Type             : 'Common.ValueListParameterInOut',
+      LocalDataProperty : 'qualityLabel',
+      ValueListProperty : 'qualityLabel'
+    }]
+  }}
+  @(ValueList.entity : 'QualityLabelVH', )
+  qualityLabel;
+}
+
+annotate sf.CVQualityRecordsView with @(UI : {
+  SelectionFields                  : [
+    plant,
+    productId,
+    detectedDate,
+    qualityLabel
+  ],
+  PresentationVariant #FilterByQualityLabel   : {Visualizations : ['@UI.Chart#FilterByQualityLabel', ], },
+  Chart                            : {
+    ChartType           : #Line,
+    Dimensions          : [detectedDate, productId, qualityLabel],
+    DimensionAttributes : [{
+      Dimension : qualityLabel,
+      Role      : #Category
+    }],
+    Measures            : [numberOfProducts],
+    MeasureAttributes   : [{
+      Measure : numberOfProducts,
+      Role    : #Axis1
+    }]
+  },
+  
+  Chart #FilterByQualityLabel               : {
+    ChartType           : #Donut,
+    Dimensions          : [qualityLabel],
+    DimensionAttributes : [{
+      Dimension : qualityLabel,
+      Role      : #Category
+    }],
+    Measures            : [numberOfProducts],
+    MeasureAttributes   : [{
+      Measure : numberOfProducts,
+      Role    : #Axis1
+    }]
+  },
+  LineItem                         : [
+    {
+      $Type          : 'UI.DataFieldForIntentBasedNavigation',
+      SemanticObject : 'CVQualityRecords',
+      Action         : 'manage'
+    },
+    {Value : ID},
+    {Value : plant},
+    {Value : productId},
+    {Value : productName},
+    {Value : detectedAt},
+    {Value : qualityLabel},
+    {Value : confidence}
+  ],
+  HeaderInfo                       : {
+    TypeName       : '{i18n>CVQualityRecord}',
+    TypeNamePlural : '{i18n>CVQualityRecords}',
+    Title          : {Value : productName},
+    Description    : {Value : ID}
+  },
+  Facets                           : [{
+    $Type  : 'UI.ReferenceFacet',
+    Label  : '{i18n>Details}',
+    Target : '@UI.FieldGroup#Details'
+  }, ],
+  FieldGroup #Details              : {Data : [
+    {Value : plant},
+    {Value : plantSection},
+    {Value : productId},
+    {Value : productName},
+    {Value : detectedAt}
+  ]}
+});
