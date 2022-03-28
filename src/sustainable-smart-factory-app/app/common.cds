@@ -109,9 +109,11 @@ annotate sf.CVQualityRecords with {
     plantSection @title : '{i18n>PlantSection}';
     productId    @title : '{i18n>ProductID}';
     productName  @title : '{i18n>ProductName}';
+    numberOfProducts  @title : '{i18n>NumberOfProducts}';
     qualityLabel @title : '{i18n>QualityLabel}';
     confidence   @title : '{i18n>Confidence}';
     detectedAt   @title : '{i18n>DetectedAt}';
+    detectedDate   @title : '{i18n>DetectedDate}';
     image        @(
         Common.Label  : 'Image',
         UI.IsImageURL : true
