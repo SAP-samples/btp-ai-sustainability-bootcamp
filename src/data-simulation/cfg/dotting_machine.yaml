@@ -5,21 +5,23 @@ OK:
   energy_consumption: 12.5
   defect_rate: 0.006
   yield: 160
-  fault_prob: 0.005
-  breakdown_prob: 0.0001
+  fault_prob: 0.001
+  breakdown_prob: 0.00001
   noise: 0
   maintenance_cost: 3000
+  maintenance_hours: 12
 NONOK:
-  nominal_energy_consumption: 13.7
+  nominal_energy_consumption: 15
   nominal_defect_rate: 0.0015
   nominal_yield: 160
-  energy_consumption: 13.7
-  defect_rate: 0.0015
+  energy_consumption: 15
+  defect_rate: 0.015
   yield: 160
   fault_prob: 0
-  breakdown_prob: 0.002
+  breakdown_prob: 0.0003
   noise: 1
   maintenance_cost: 3000
+  maintenance_hours: 12
 BROKEN:
   energy_consumption: 0
   defect_rate: 0
@@ -28,3 +30,4 @@ BROKEN:
   breakdown_prob: 0
   noise: 0
   maintenance_cost: 26000
+  maintenance_hours: 120

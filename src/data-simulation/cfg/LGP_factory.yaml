@@ -1,0 +1,17 @@
+PLANT_1010:
+  EQ_220300010:
+    cfg: "cfg/cutting_machine.yaml"
+  EQ_220300020:
+    cfg: "cfg/dotting_machine.yaml"
+  EQ_220300031:
+    cfg: "cfg/robotic_arm.yaml"
+  EQ_220300032:
+    cfg: "cfg/robotic_arm.yaml"
+  EQ_220300033:
+    cfg: "cfg/robotic_arm.yaml"
+  EQ_220300034:
+    cfg: "cfg/robotic_arm.yaml"
+  EQ_220300035:
+    cfg: "cfg/robotic_arm.yaml"
+  EQ_220300036:
+    cfg: "cfg/robotic_arm.yaml"
