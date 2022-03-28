@@ -12,15 +12,16 @@ class FactorySimulation():
         self._cyclicStartDate = datetime.strptime('2020-01-01','%Y-%m-%d')
         self._cyclicEndDate = datetime.strptime('2021-01-01','%Y-%m-%d')
         self._proactiveEndDate = datetime.now()
-        self._cyclicMaintFreq = 28 #in days
-        self._MaintDuration = 24 #in hours
+        self._cyclicMaintFreq = 30 #in days
+        self._cyclicMaintDuration = 24 #in hours
+        #self._proactiveMaintDuration = 4 #in hours
         self._cyclicMaintList=[]
-        self._RepairDuration = 5*24 #in hours
+        #self._RepairDuration = 5*24 #in hours
         self._corrective_nr = 1
         self._predictive_nr = 1
         self._cyclic_nr = 1
-        self._gaussian_sigma_perc = 0.10
-        self._proactivness = 24 # time to schedule a proactive maintenance ( in hours)
+        self._gaussian_sigma_perc = 0.01
+        self._proactivness = 4 # time to schedule a proactive maintenance ( in hours)
         self.cfg= 'cfg/machine1.yaml'
         self._outfile1 = 'sim_'+factory_nr+'.csv'
         self._outfile2 = 'maintenance_'+factory_nr+'.csv'
@@ -65,7 +66,7 @@ class FactorySimulation():
         radii = min(height_per_plant,width_per_machines) * 0.3
         for kp,p in self._factory._plants_dict.items():
             plants_titles_coordinates.append((fig_width*0.1, height_per_plant* 0.9  + height_per_plant * plant_counter))
-            plants_titles.append(kp)
+            plants_titles.append('Plant '+kp)
 
             machine_counter=0
             machines_coordinates=[]
@@ -73,7 +74,7 @@ class FactorySimulation():
 
             for km,m in p._machine_dict.items():
                 machines_coordinates.append( ( width_per_machines * 0.5 + width_per_machines * machine_counter , height_per_plant* 0.5  + height_per_plant * plant_counter))
-                machines_titles.append(km)
+                machines_titles.append('Equipment nr \n'+km)
                 machine_counter=machine_counter+1
 
             #Draw machines
@@ -91,6 +92,7 @@ class FactorySimulation():
                 horizontalalignment="center",
                 verticalalignment="center",
                 color="black",
+                fontsize=5
                 )
             for i in range(len(p._machine_dict.keys())-1):
                 ax.annotate(
@@ -98,7 +100,7 @@ class FactorySimulation():
                 (machines_coordinates[i+1][0] - radii, machines_coordinates[i+1][1]),
                 (machines_coordinates[i][0] + radii, machines_coordinates[i][1]),
                         arrowprops=dict(arrowstyle = "-|>"),
-                    )
+                )
 
             plant_counter=plant_counter -1
 
@@ -121,7 +123,7 @@ class FactorySimulation():
         s=self._cyclicStartDate
         e=self._cyclicEndDate
         Delta=timedelta(days=self._cyclicMaintFreq)
-        while s <= e:
+        while s + Delta <= e:
             s = s + Delta
             self._cyclicMaintList.append(s)
         return
@@ -175,7 +177,7 @@ class FactorySimulation():
             machine._set_status('BROKEN')
             plant._turnOff()
             plant._set_status()
-            self._factory._downtimesClock[plant._plant_nr][machine._equipment_nr]=self._RepairDuration
+            self._factory._downtimesClock[plant._plant_nr][machine._equipment_nr]=machine._statusParameters['maintenance_hours']
             return 1
         else:
             return 0
@@ -185,7 +187,7 @@ class FactorySimulation():
         if self._factory._downtimesClock[plant._plant_nr][machine._equipment_nr] == 1 :
 
             #Print maintenance
-            start_time=str(self.t-timedelta(hours=self._RepairDuration))
+            start_time=str(self.t-timedelta(hours=machine._statusParameters['maintenance_hours']))
             end_time=str(self.t)
             maintenance_nr='CORRECTIVE'+str(self._corrective_nr).zfill(5)
             maintenance_str=start_time + ',' + end_time + ',' +\
@@ -193,7 +195,7 @@ class FactorySimulation():
                             machine._equipment_nr + ',' +\
                             maintenance_nr + ',' +\
                             str(machine._statusParameters['maintenance_cost']) + ',' +\
-                            str(self._RepairDuration) + '\n'
+                            str(machine._statusParameters['maintenance_hours']) + '\n'
             print('status',machine._status,machine._statusParameters['maintenance_cost'])
             f2.write(maintenance_str)
 
@@ -217,13 +219,13 @@ class FactorySimulation():
         if self._factory._faultClock[plant._plant_nr][machine._equipment_nr] == -1 :
             plant._turnOff()
             plant._set_status()
-            self._factory._faultClock[plant._plant_nr][machine._equipment_nr] = self._MaintDuration
+            self._factory._faultClock[plant._plant_nr][machine._equipment_nr] = machine._statusParameters['maintenance_hours']
 
         # bring everything up if the proactive maintenance is done
         if self._factory._faultClock[plant._plant_nr][machine._equipment_nr] == 1 :
 
             #Print maintenance
-            start_time=str(self.t-timedelta(hours=self._MaintDuration))
+            start_time=str(self.t-timedelta(hours=machine._statusParameters['maintenance_hours']))
             end_time=str(self.t)
 
             maintenance_nr='PROACTIVE'+str(self._predictive_nr).zfill(5)
@@ -232,7 +234,7 @@ class FactorySimulation():
                             machine._equipment_nr + ',' +\
                             maintenance_nr + ',' +\
                             str(machine._statusParameters['maintenance_cost']) + ',' +\
-                            str(self._MaintDuration) + '\n'
+                            str(machine._statusParameters['maintenance_hours']) + '\n'
             f2.write(maintenance_str)
 
             #Turn machine up
@@ -250,7 +252,7 @@ class FactorySimulation():
 
         if self._factory._cyclicMaintClock[plant._plant_nr][machine._equipment_nr]==1:
             #Print maintenance
-            start_time=str(self.t-timedelta(hours=self._MaintDuration))
+            start_time=str(self.t-timedelta(hours=self._cyclicMaintDuration))
             end_time=str(self.t)
             maintenance_nr='CYCLIC'+str(self._cyclic_nr).zfill(5)
             maintenance_str=start_time + ',' + end_time + ',' +\
@@ -258,7 +260,7 @@ class FactorySimulation():
                             machine._equipment_nr + ',' +\
                             maintenance_nr + ',' +\
                             str(machine._statusParameters['maintenance_cost']) + ',' +\
-                            str(self._MaintDuration) + '\n'
+                            str(self._cyclicMaintDuration) + '\n'
             f2.write(maintenance_str)
 
             #Turn machine up
@@ -300,7 +302,7 @@ class FactorySimulation():
                         self._factory._cyclicMaintClock[kp][km]=vm-1
                     # Was a cyclic maintenance scheduled for today? if so, turn the factory off
                     elif vm == 0 and self.t.strftime('%Y-%m-%d') in [ d.strftime('%Y-%m-%d') for d in self._cyclicMaintList]:
-                        self._factory._cyclicMaintClock[kp][km] = self._MaintDuration
+                        self._factory._cyclicMaintClock[kp][km] = self._cyclicMaintDuration
                         self._factory._turnOff()
             # corrective maintenance
             for kp, vp in self._factory._downtimesClock.items():
@@ -329,7 +331,7 @@ class FactorySimulation():
                         self.breakdown_generator(p, m)
 
 
-                    #Execute maintenance, if needed
+                    # Execute maintenance, if needed
                     self.corrective_maintenance(p,m,f2)
                     self.predictive_maintenance(p,m,f2)
                     self.cyclic_maintenance(p,m,f2)
