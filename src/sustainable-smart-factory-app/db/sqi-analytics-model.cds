@@ -26,7 +26,7 @@ annotate CVQualityRecordsView with {
     @Analytics.Dimension : true
     plant;
     @Analytics.Dimension : true
-    plantStatus;
+    plantSection;
     @Analytics.Dimension : true
     productId;
     @Analytics.Dimension : true
@@ -43,27 +43,19 @@ annotate CVQualityRecordsView with {
     confidence;
   };
 
-// //Value Helpers
-// view EquipmentView as select distinct equipment from AnomaliesExtendedView;
+//Value Helpers
+view QualityLabelView as select distinct qualityLabel from CVQualityRecordsView;
 
-// @readonly
-// @cds.odata.valuelist
-// entity EquipmentVH {
-//   key equipment : AnomaliesExtendedView : equipment;
-// };
+@readonly
+@cds.odata.valuelist
+entity QualityLabelVH {
+  key qualityLabel : CVQualityRecordsView : qualityLabel;
+};
 
-// view AnomalyTypeNameView as select distinct anomalyType from AnomaliesExtendedView;
+view ProductIdView as select distinct productId from CVQualityRecordsView;
 
-// @readonly
-// @cds.odata.valuelist
-// entity AnomalyTypeNameVH {
-//   key anomalyType : AnomaliesExtendedView : anomalyType;
-// };
-
-// view FuncLocationView as select distinct funcLocation from AnomaliesExtendedView;
-
-// @readonly
-// @cds.odata.valuelist
-// entity FuncLocationVH {
-//   key funcLocation : AnomaliesExtendedView : funcLocation;
-// };
+@readonly
+@cds.odata.valuelist
+entity ProductIdVH {
+  key productId : CVQualityRecordsView : productId;
+};
