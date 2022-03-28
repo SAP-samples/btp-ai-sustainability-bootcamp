@@ -2,7 +2,12 @@ const cds = require("@sap/cds");
 
 module.exports = async function () {
   const db = await cds.connect.to("db");
-  const { EquipmentView, AnomalyTypeNameView, FuncLocationView, QualityLabelView } = db.entities;
+  const { 
+          EquipmentView, 
+          AnomalyTypeNameView, 
+          FuncLocationView, 
+          QualityLabelView,
+          ProductIdView } = db.entities;
 
   this.on("READ", "EquipmentVH", async (req) => {
     return SELECT.from(EquipmentView);
@@ -18,5 +23,9 @@ module.exports = async function () {
 
   this.on("READ", "QualityLabelVH", async (req) => {
     return SELECT.from(QualityLabelView);
+  });
+
+  this.on("READ", "ProductIdVH", async (req) => {
+    return SELECT.from(ProductIdView);
   });
 };

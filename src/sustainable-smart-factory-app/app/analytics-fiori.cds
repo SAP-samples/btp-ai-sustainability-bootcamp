@@ -163,29 +163,33 @@ annotate sf.AnomaliesExtendedView with @(UI : {
 
 annotate sf.AnomaliesExtendedView with {
   funcLocation   @title : '{i18n>FuncLocation}';
-//     ID              @title : '{i18n>ID}';
-//     equipment       @title : '{i18n>Equipment}';
-//     anomalyType @title : '{i18n>AnomalyTypeName}'  @Common : {
-//         Text            : anomalyType,
-//         TextArrangement : #TextOnly
-//     };
-//     confidence      @title : '{i18n>Confidence}';
-//     detectedAt      @title : '{i18n>DetectedAt}';
-
-//     status          @title : '{i18n>AnomalyStatus}';
  }
 
  annotate sf.CVQualityRecordsView with {
   @Common : {
     SemanticObject : 'CVQualityRecordsView',
     Text           : {
-      $value              : qualityLabel,
-      @UI.TextArrangement : #TextOnly
+      $value              : productName,
+      @UI.TextArrangement : #TextLast
     }
   }
-  qualityLabel;
+  productId;
 
-  //Visual Filter for equipment
+  //Visual Filter for productId
+  @Common : {ValueList #QualityLabelVisualFilter : {
+    $Type                        : 'Common.ValueListType',
+    CollectionPath               : 'CVQualityRecordsView',
+    PresentationVariantQualifier : 'FilterByProduct',
+    Parameters                   : [{
+      $Type             : 'Common.ValueListParameterInOut',
+      LocalDataProperty : 'productId',
+      ValueListProperty : 'productId'
+    }]
+  }}
+  @(ValueList.entity : 'ProductIdVH', )
+  productId;
+
+  //Visual Filter for qualityLabel
   @Common : {ValueList #QualityLabelVisualFilter : {
     $Type                        : 'Common.ValueListType',
     CollectionPath               : 'CVQualityRecordsView',
@@ -207,6 +211,7 @@ annotate sf.CVQualityRecordsView with @(UI : {
     detectedDate,
     qualityLabel
   ],
+  PresentationVariant #FilterByProduct   : {Visualizations : ['@UI.Chart#FilterByProduct', ], },
   PresentationVariant #FilterByQualityLabel   : {Visualizations : ['@UI.Chart#FilterByQualityLabel', ], },
   Chart                            : {
     ChartType           : #Line,
@@ -222,6 +227,19 @@ annotate sf.CVQualityRecordsView with @(UI : {
     }]
   },
   
+  Chart #FilterByProduct               : {
+    ChartType           : #Column,
+    Dimensions          : [productId],
+    DimensionAttributes : [{
+      Dimension : productId,
+      Role      : #Category
+    }],
+    Measures            : [numberOfProducts],
+    MeasureAttributes   : [{
+      Measure : numberOfProducts,
+      Role    : #Axis1
+    }]
+  },
   Chart #FilterByQualityLabel               : {
     ChartType           : #Donut,
     Dimensions          : [qualityLabel],
@@ -235,26 +253,26 @@ annotate sf.CVQualityRecordsView with @(UI : {
       Role    : #Axis1
     }]
   },
-  LineItem                         : [
-    {
-      $Type          : 'UI.DataFieldForIntentBasedNavigation',
-      SemanticObject : 'CVQualityRecords',
-      Action         : 'manage'
-    },
-    {Value : ID},
-    {Value : plant},
-    {Value : productId},
-    {Value : productName},
-    {Value : detectedAt},
-    {Value : qualityLabel},
-    {Value : confidence}
-  ],
-  HeaderInfo                       : {
-    TypeName       : '{i18n>CVQualityRecord}',
-    TypeNamePlural : '{i18n>CVQualityRecords}',
-    Title          : {Value : productName},
-    Description    : {Value : ID}
-  },
+  // LineItem                         : [
+  //   {
+  //     $Type          : 'UI.DataFieldForIntentBasedNavigation',
+  //     SemanticObject : 'CVQualityRecords',
+  //     Action         : 'manage'
+  //   },
+  //   {Value : ID},
+  //   {Value : plant},
+  //   {Value : productId},
+  //   {Value : productName},
+  //   {Value : detectedAt},
+  //   {Value : qualityLabel},
+  //   {Value : confidence}
+  // ],
+  // HeaderInfo                       : {
+  //   TypeName       : '{i18n>CVQualityRecord}',
+  //   TypeNamePlural : '{i18n>CVQualityRecords}',
+  //   Title          : {Value : productName},
+  //   Description    : {Value : ID}
+  // },
   Facets                           : [{
     $Type  : 'UI.ReferenceFacet',
     Label  : '{i18n>Details}',
@@ -265,6 +283,8 @@ annotate sf.CVQualityRecordsView with @(UI : {
     {Value : plantSection},
     {Value : productId},
     {Value : productName},
-    {Value : detectedAt}
+    {Value : detectedAt},
+    {Value : qualityLabel},
+    {Value : confidence},
   ]}
 });
