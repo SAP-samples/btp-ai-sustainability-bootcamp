@@ -133,18 +133,29 @@ annotate sf.AnomaliesExtendedView with @(UI : {
   LineItem                         : [
     {
       $Type          : 'UI.DataFieldForIntentBasedNavigation',
-      SemanticObject : 'AnomaliesExtendedView',
-      Action         : 'display'
+      SemanticObject : 'Anomalies',
+      Action         : 'manage'
     },
     {Value : ID},
     {Value : equipment},
+    {Value : equipmentName},
     {Value : anomalyType},
-    {Value : detectedAt}
+    {Value : detectedAt},
+    {Value : confidence},
+    {Value : anomalyStatus},
+    {Value : anomalyType},
+    {Value : confidence},
+    {Value : detectedAt},
+    {Value : suggestedAction},
+    {Value : followUpDocType},
+    {Value : followUpDocNum},
+    {Value : plant},
+    {Value : funcLocation}
   ],
   HeaderInfo                       : {
-    TypeName       : '{i18n>EquipmentCondition}',
-    TypeNamePlural : '{i18n>EquipmentConditions}',
-    Title          : {Value : equipment},
+    TypeName       : '{i18n>Anomaly}',
+    TypeNamePlural : '{i18n>Anomalies}',
+    Title          : {Value : anomalyType},
     Description    : {Value : equipmentName}
   },
   Facets                           : [{
@@ -152,12 +163,20 @@ annotate sf.AnomaliesExtendedView with @(UI : {
     Label  : '{i18n>Details}',
     Target : '@UI.FieldGroup#Details'
   }, ],
-  FieldGroup #Details              : {Data : [
+  FieldGroup #Details              : {
+    Data : [
+    {Value : ID},
     {Value : plant},
     {Value : funcLocation},
-    {Value : status},
+    {Value : equipment},
+    {Value : equipmentName},    
+    {Value : anomalyStatus},
     {Value : anomalyType},
-    {Value : suggestedAction}
+    {Value : confidence},
+    {Value : detectedAt},
+    {Value : suggestedAction},
+    {Value : followUpDocType},
+    {Value : followUpDocNum}
   ]}
 });
 
