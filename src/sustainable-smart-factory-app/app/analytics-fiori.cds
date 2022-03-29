@@ -130,17 +130,18 @@ annotate sf.AnomaliesExtendedView with @(UI : {
       Role    : #Axis1
     }]
   },
-  LineItem                         : [
-    {
-      $Type          : 'UI.DataFieldForIntentBasedNavigation',
-      SemanticObject : 'AnomaliesExtendedView',
-      Action         : 'display'
-    },
-    {Value : ID},
-    {Value : equipment},
-    {Value : anomalyType},
-    {Value : detectedAt}
-  ],
+  // LineItem                         : [
+  //   {
+  //     $Type          : 'UI.DataFieldForIntentBasedNavigation',
+  //     SemanticObject : 'Anomalies',
+  //     Action         : 'manage'
+  //   },
+  //   {Value : ID},
+  //   {Value : equipment},
+  //   {Value : anomalyType},
+  //   {Value : detectedAt},
+  //   {Value : confidence},
+  // ],
   HeaderInfo                       : {
     TypeName       : '{i18n>EquipmentCondition}',
     TypeNamePlural : '{i18n>EquipmentConditions}',
