@@ -28,7 +28,9 @@ as projection on pdm.Anomalies {
     eqCond.funcLocation as funcLocation, 
     eqCond.recStartedAt as recStartedAt, 
     eqCond.recEndedAt as recEndedAt, 
-    
+    eqCond.followUpDocType as followUpDocType,
+    eqCond.followUpDocNum as followUpDocNum,
+
     anomalyType.name as anomalyType, 
     anomalyType.suggestedFollowUpAction as suggestedAction,
 
@@ -61,6 +63,10 @@ annotate AnomaliesExtendedView with {
     recStartedAt;
     @Analytics.Dimension : true
     recEndedAt;
+    @Analytics.Dimension : true
+    followUpDocType;
+    @Analytics.Dimension : true
+    followUpDocNum;
     
     @Analytics.Dimension : true
     anomalyType;

@@ -150,8 +150,18 @@
               "action": "manage",
               "title": "Manage Quality Records via CV",
               "signature": {
-                "parameters": {},
-                "additionalParameters": "allowed"
+                "parameters": {
+                  "CVQualityRecords": {
+                    "renameTo": "CVQualityRecords.ID"
+                  },
+                  "CVQualityRecordsView": {
+                    "renameTo": "CVQualityRecords.ID"
+                  },
+                  "CVQualityRecordsView.ID": {
+                    "renameTo": "CVQualityRecords.ID"
+                  }
+                },
+                "additionalParameters": "ignored"
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
@@ -244,8 +254,18 @@
               "action": "manage",
               "title": "Manage Equipment Anomalies",
               "signature": {
-                "parameters": {},
-                "additionalParameters": "allowed"
+                "parameters": {
+                  "Anomalies": {
+                    "renameTo": "Anomalies.ID"
+                  },
+                  "AnomaliesExtendedView": {
+                    "renameTo": "Anomalies.ID"
+                  },
+                  "AnomaliesExtendedView.ID": {
+                    "renameTo": "Anomalies.ID"
+                  }
+                },
+                "additionalParameters": "ignored"
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
