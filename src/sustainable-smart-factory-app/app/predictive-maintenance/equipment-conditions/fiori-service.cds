@@ -27,9 +27,10 @@ annotate AdminService.EquipmentConditions with @(
         ],
         FieldGroup #General : {Data : [
             {Value : ID},
-            {Value : plant},
-            {Value : plantSection},
-            {Value : equipment},
+            {Value : equipment.plant},
+            {Value : equipment.plantSection},
+            {Value : equipment.funcLocation},
+            {Value : equipment.NR},
             {Value : equipmentStatus},
             {Value : recStartedAt},
             {Value : recEndedAt}
@@ -53,77 +54,10 @@ annotate AdminService.EquipmentConditions with @(
 //
 //  Draft for Localized Data
 //
-
 annotate sap.smartfactory.EquipmentConditions with @fiori.draft.enabled;
 annotate AdminService.EquipmentConditions with @odata.draft.enabled;
-
-// annotate AdminService.Books.texts with @(
-// 	UI: {
-// 		Identification: [{Value:title}],
-// 		SelectionFields: [ locale, title ],
-// 		LineItem: [
-// 			{Value: locale, Label: 'Locale'},
-// 			{Value: title, Label: 'Title'},
-// 			{Value: descr, Label: 'Description'},
-// 		]
-// 	}
-// );
-
-// // Add Value Help for Locales
-// annotate AdminService.Books.texts {
-// 	locale @(
-// 		ValueList.entity:'Languages', Common.ValueListWithFixedValues, //show as drop down, not a dialog
-// 	)
-// }
-// // In addition we need to expose Languages through AdminService as a target for ValueList
-// using { sap } from '@sap/cds/common';
-// extend service AdminService {
-// 	@readonly entity Languages as projection on sap.common.Languages;
-// }
 
 // // Workaround for Fiori popup for asking user to enter a new UUID on Create
 annotate AdminService.EquipmentConditions with {
     ID @Core.Computed;
 }
-
-annotate AdminService.EquipmentConditions.Anomalies with @(UI : {
-    LineItem       : [
-        {
-            Value : product_ID,
-            Label : 'Product ID'
-        },
-        {
-            Value : title,
-            Label : 'Product Title'
-        },
-        {
-            Value : price,
-            Label : 'Unit Price'
-        },
-        {
-            Value : quantity,
-            Label : 'Quantity'
-        },
-    ],
-    Identification : [ //Is the main field group
-        {
-            Value : quantity,
-            Label : 'Quantity'
-        },
-        {
-            Value : title,
-            Label : 'Product'
-        },
-        {
-            Value : price,
-            Label : 'Unit Price'
-        },
-    ],
-    Facets         : [{
-        $Type  : 'UI.ReferenceFacet',
-        Label  : '{i18n>OrderItems}',
-        Target : '@UI.Identification'
-    }, ],
-}, ) {
-    quantity @(Common.FieldControl : #Mandatory);
-};
