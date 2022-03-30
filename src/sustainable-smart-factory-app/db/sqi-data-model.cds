@@ -19,7 +19,7 @@ entity CVQualityRecords : managed {
       productName  : String(100) default 'LGP';
       image        : String;
       // image        : LargeBinary @Core.MediaType : 'image/png';
-      confidence   : Decimal;
+      confidence   : Decimal(9,2);
       qualityLabel : QualityLabel;
       numberOfProducts: Integer default 1;
 //todo: Object Detection with Bounding Box
