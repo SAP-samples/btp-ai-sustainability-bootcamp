@@ -18,7 +18,9 @@ service AnalyticsService @(path : '/analytics') {
   entity EquipmentVH as projection on pdm.EquipmentView;
   entity AnomalyTypeNameVH as projection on pdm.AnomalyTypeNameView;
   entity FuncLocationVH as projection on pdm.FuncLocationView;
-
+  
+  entity QualityLabelVH as projection on sqi.QualityLabelView;
+  entity ProductIdVH as projection on sqi.ProductIdView;
   // @sap.semantics : 'aggregate'
   // define view Scans as
   //   select from pdm.AnomaliesExtendedView {

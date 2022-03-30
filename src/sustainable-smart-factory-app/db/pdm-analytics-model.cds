@@ -22,13 +22,19 @@ as projection on pdm.Anomalies {
     status as anomalyStatus,
 
     eqCond.ID as eqCondId, 
-    eqCond.equipmentName as equipmentName, 
     eqCond.equipmentStatus as equipmentStatus, 
-    eqCond.plant as plant, 
-    eqCond.funcLocation as funcLocation, 
+    // eqCond.equipmentName as equipmentName, 
+    // eqCond.equipmentStatus as equipmentStatus, 
+    // eqCond.plant as plant, 
+    // eqCond.funcLocation as funcLocation, 
+    eqCond.equipment.name as equipmentName, 
+    eqCond.equipment.plant as plant, 
+    eqCond.equipment.funcLocation as funcLocation, 
     eqCond.recStartedAt as recStartedAt, 
     eqCond.recEndedAt as recEndedAt, 
-    
+    eqCond.followUpDocType as followUpDocType,
+    eqCond.followUpDocNum as followUpDocNum,
+
     anomalyType.name as anomalyType, 
     anomalyType.suggestedFollowUpAction as suggestedAction,
 
@@ -61,6 +67,10 @@ annotate AnomaliesExtendedView with {
     recStartedAt;
     @Analytics.Dimension : true
     recEndedAt;
+    @Analytics.Dimension : true
+    followUpDocType;
+    @Analytics.Dimension : true
+    followUpDocNum;
     
     @Analytics.Dimension : true
     anomalyType;

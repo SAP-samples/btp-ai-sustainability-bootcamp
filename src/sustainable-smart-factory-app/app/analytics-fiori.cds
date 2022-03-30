@@ -60,7 +60,6 @@ annotate sf.AnomaliesExtendedView with @(UI : {
     detectedDate,
     anomalyType
   ],
-  PresentationVariant #equipment   : {Visualizations : ['@UI.Chart#equipment', ], },
   PresentationVariant #AnomaliesByFuncLocation   : {Visualizations : ['@UI.Chart#AnomaliesByFuncLocation', ], },
   PresentationVariant #AnomaliesByEquipment   : {Visualizations : ['@UI.Chart#AnomaliesByEquipment', ], },
   PresentationVariant #AnomaliesByType   : {Visualizations : ['@UI.Chart#AnomaliesByType', ], },  
@@ -134,18 +133,29 @@ annotate sf.AnomaliesExtendedView with @(UI : {
   LineItem                         : [
     {
       $Type          : 'UI.DataFieldForIntentBasedNavigation',
-      SemanticObject : 'AnomaliesExtendedView',
-      Action         : 'display'
+      SemanticObject : 'Anomalies',
+      Action         : 'manage'
     },
     {Value : ID},
     {Value : equipment},
+    {Value : equipmentName},
     {Value : anomalyType},
-    {Value : detectedAt}
+    {Value : detectedAt},
+    {Value : confidence},
+    {Value : anomalyStatus},
+    {Value : anomalyType},
+    {Value : confidence},
+    {Value : detectedAt},
+    {Value : suggestedAction},
+    {Value : followUpDocType},
+    {Value : followUpDocNum},
+    {Value : plant},
+    {Value : funcLocation}
   ],
   HeaderInfo                       : {
-    TypeName       : '{i18n>EquipmentCondition}',
-    TypeNamePlural : '{i18n>EquipmentConditions}',
-    Title          : {Value : equipment},
+    TypeName       : '{i18n>Anomaly}',
+    TypeNamePlural : '{i18n>Anomalies}',
+    Title          : {Value : anomalyType},
     Description    : {Value : equipmentName}
   },
   Facets                           : [{
@@ -153,25 +163,147 @@ annotate sf.AnomaliesExtendedView with @(UI : {
     Label  : '{i18n>Details}',
     Target : '@UI.FieldGroup#Details'
   }, ],
-  FieldGroup #Details              : {Data : [
+  FieldGroup #Details              : {
+    Data : [
+    {Value : ID},
     {Value : plant},
     {Value : funcLocation},
-    {Value : status},
+    {Value : equipment},
+    {Value : equipmentName},    
+    {Value : anomalyStatus},
     {Value : anomalyType},
-    {Value : suggestedAction}
+    {Value : confidence},
+    {Value : detectedAt},
+    {Value : suggestedAction},
+    {Value : followUpDocType},
+    {Value : followUpDocNum}
   ]}
 });
 
 annotate sf.AnomaliesExtendedView with {
   funcLocation   @title : '{i18n>FuncLocation}';
-//     ID              @title : '{i18n>ID}';
-//     equipment       @title : '{i18n>Equipment}';
-//     anomalyType @title : '{i18n>AnomalyTypeName}'  @Common : {
-//         Text            : anomalyType,
-//         TextArrangement : #TextOnly
-//     };
-//     confidence      @title : '{i18n>Confidence}';
-//     detectedAt      @title : '{i18n>DetectedAt}';
-
-//     status          @title : '{i18n>AnomalyStatus}';
  }
+
+ annotate sf.CVQualityRecordsView with {
+  @Common : {
+    SemanticObject : 'CVQualityRecordsView',
+    Text           : {
+      $value              : productName,
+      @UI.TextArrangement : #TextLast
+    }
+  }
+  productId;
+
+  //Visual Filter for productId
+  @Common : {ValueList #QualityLabelVisualFilter : {
+    $Type                        : 'Common.ValueListType',
+    CollectionPath               : 'CVQualityRecordsView',
+    PresentationVariantQualifier : 'FilterByProduct',
+    Parameters                   : [{
+      $Type             : 'Common.ValueListParameterInOut',
+      LocalDataProperty : 'productId',
+      ValueListProperty : 'productId'
+    }]
+  }}
+  @(ValueList.entity : 'ProductIdVH', )
+  productId;
+
+  //Visual Filter for qualityLabel
+  @Common : {ValueList #QualityLabelVisualFilter : {
+    $Type                        : 'Common.ValueListType',
+    CollectionPath               : 'CVQualityRecordsView',
+    PresentationVariantQualifier : 'FilterByQualityLabel',
+    Parameters                   : [{
+      $Type             : 'Common.ValueListParameterInOut',
+      LocalDataProperty : 'qualityLabel',
+      ValueListProperty : 'qualityLabel'
+    }]
+  }}
+  @(ValueList.entity : 'QualityLabelVH', )
+  qualityLabel;
+}
+
+annotate sf.CVQualityRecordsView with @(UI : {
+  SelectionFields                  : [
+    plant,
+    productId,
+    detectedDate,
+    qualityLabel
+  ],
+  PresentationVariant #FilterByProduct   : {Visualizations : ['@UI.Chart#FilterByProduct', ], },
+  PresentationVariant #FilterByQualityLabel   : {Visualizations : ['@UI.Chart#FilterByQualityLabel', ], },
+  Chart                            : {
+    ChartType           : #Line,
+    Dimensions          : [detectedDate, productId, qualityLabel],
+    DimensionAttributes : [{
+      Dimension : qualityLabel,
+      Role      : #Category
+    }],
+    Measures            : [numberOfProducts],
+    MeasureAttributes   : [{
+      Measure : numberOfProducts,
+      Role    : #Axis1
+    }]
+  },
+  
+  Chart #FilterByProduct               : {
+    ChartType           : #Column,
+    Dimensions          : [productId],
+    DimensionAttributes : [{
+      Dimension : productId,
+      Role      : #Category
+    }],
+    Measures            : [numberOfProducts],
+    MeasureAttributes   : [{
+      Measure : numberOfProducts,
+      Role    : #Axis1
+    }]
+  },
+  Chart #FilterByQualityLabel               : {
+    ChartType           : #Donut,
+    Dimensions          : [qualityLabel],
+    DimensionAttributes : [{
+      Dimension : qualityLabel,
+      Role      : #Category
+    }],
+    Measures            : [numberOfProducts],
+    MeasureAttributes   : [{
+      Measure : numberOfProducts,
+      Role    : #Axis1
+    }]
+  },
+  // LineItem                         : [
+  //   {
+  //     $Type          : 'UI.DataFieldForIntentBasedNavigation',
+  //     SemanticObject : 'CVQualityRecords',
+  //     Action         : 'manage'
+  //   },
+  //   {Value : ID},
+  //   {Value : plant},
+  //   {Value : productId},
+  //   {Value : productName},
+  //   {Value : detectedAt},
+  //   {Value : qualityLabel},
+  //   {Value : confidence}
+  // ],
+  // HeaderInfo                       : {
+  //   TypeName       : '{i18n>CVQualityRecord}',
+  //   TypeNamePlural : '{i18n>CVQualityRecords}',
+  //   Title          : {Value : productName},
+  //   Description    : {Value : ID}
+  // },
+  Facets                           : [{
+    $Type  : 'UI.ReferenceFacet',
+    Label  : '{i18n>Details}',
+    Target : '@UI.FieldGroup#Details'
+  }, ],
+  FieldGroup #Details              : {Data : [
+    {Value : plant},
+    {Value : plantSection},
+    {Value : productId},
+    {Value : productName},
+    {Value : detectedAt},
+    {Value : qualityLabel},
+    {Value : confidence},
+  ]}
+});

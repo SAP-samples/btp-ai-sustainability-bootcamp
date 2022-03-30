@@ -19,21 +19,42 @@ entity PlantConditions : managed {
       plantStatus         : String(30);
       recStartedAt        : Timestamp;
       recEndedAt          : Timestamp;
-      yield               : Decimal;
-      defeatedProd        : Decimal;
-      energyCons          : Decimal;
+      date                : Date;
+      shift               : ShiftNo;
+      yield               : Decimal(9,2);
+      defectiveProd       : Decimal(9,2);
+      energyCons          : Decimal(9,2);
       equipmentConditions : Association to many EquipmentConditions
                               on equipmentConditions.plantCond = $self;
 }
 
+type ShiftNo : Integer enum {
+  MorningShift  = 0;
+  AfternoonShift = 1;
+  NightShift  = 2;
+}
+
+entity Equipments : managed {
+  key NR    : String(18);
+      name  : String(40);
+      desc  : String(100);
+      plant          : String(4);
+      plantSection   : String(3);
+      funcLocation   : String(30);
+      costCenter     : String(10);
+      conditions : Association to many EquipmentConditions
+                              on conditions.equipment = $self;
+}
+
 entity EquipmentConditions : managed {
   key ID                 : Integer;
-      plant              : String(4);
       plantCond          : Association to PlantConditions;
-      plantSection       : String(3);
-      funcLocation       : String(30);
-      equipment          : String(18);
-      equipmentName      : String(40);
+      // plant              : String(4);
+      // plantSection       : String(3);
+      // funcLocation       : String(30);
+      // equipment          : String(18);
+      // equipmentName      : String(40);
+      equipment          : Association to Equipments;
       equipmentStatus    : EquipmentStatus;
       recStartedAt       : Timestamp;
       recEndedAt         : Timestamp;
