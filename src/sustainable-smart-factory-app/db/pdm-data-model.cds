@@ -34,14 +34,27 @@ type ShiftNo : Integer enum {
   NightShift  = 2;
 }
 
+entity Equipments : managed {
+  key NR    : String(18);
+      name  : String(40);
+      desc  : String(100);
+      plant          : String(4);
+      plantSection   : String(3);
+      funcLocation   : String(30);
+      costCenter     : String(10);
+      conditions : Association to many EquipmentConditions
+                              on conditions.equipment = $self;
+}
+
 entity EquipmentConditions : managed {
   key ID                 : Integer;
-      plant              : String(4);
       plantCond          : Association to PlantConditions;
-      plantSection       : String(3);
-      funcLocation       : String(30);
-      equipment          : String(18);
-      equipmentName      : String(40);
+      // plant              : String(4);
+      // plantSection       : String(3);
+      // funcLocation       : String(30);
+      // equipment          : String(18);
+      // equipmentName      : String(40);
+      equipment          : Association to Equipments;
       equipmentStatus    : EquipmentStatus;
       recStartedAt       : Timestamp;
       recEndedAt         : Timestamp;

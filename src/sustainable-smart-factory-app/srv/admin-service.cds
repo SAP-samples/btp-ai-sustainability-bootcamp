@@ -15,6 +15,11 @@ service AdminService {
   entity PlantConditions as projection on pdm.PlantConditions;
   entity EquipmentConditions as select from pdm.EquipmentConditions{
     *,
+    equipment.NR as equipment,
+    equipment.name as equipmentName,
+    equipment.plant as plant,
+    equipment.plantSection as plantSection,
+    equipment.funcLocation as funcLocation,
     @Core.Computed
 	  count(anomalies.ID) as numberOfAnomalies: Integer,
   } group by ID
