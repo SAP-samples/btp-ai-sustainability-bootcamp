@@ -37,6 +37,26 @@
               ]
             },
             {
+              "id": "PlantMasterData",
+              "title": "Plant Master Data",
+              "isPreset": true,
+              "isVisible": true,
+              "isGroupLocked": false,
+              "tiles": [
+                {
+                  "id": "ManageEquipments",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Equipments",
+                    "subtitle": "",
+                    "info": "Equipments Master Data",
+                    "icon": "sap-icon://machine",
+                    "targetURL": "#Equipments-manage"
+                  }
+                }
+              ]
+            },
+            {
               "id": "PredictiveMaintenance",
               "title": "Predictive Maintenance",
               "isPreset": true,
@@ -185,6 +205,24 @@
                 "applicationType": "SAPUI5",
                 "additionalInformation": "SAPUI5.Component=sqi.cvqualityrecordsalp",
                 "url": "./defeat-detection/cv-quality-records-alp/webapp"
+              }
+            },
+            "ManageEquipments": {
+              "semanticObject": "Equipments",
+              "action": "manage",
+              "title": "Manage Equipments Master Data",
+              "signature": {
+                "parameters": {
+                  "NR": {
+                    "renameTo": "Equipments.NR"
+                  }
+                },
+                "additionalParameters": "ignored"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=equipments",
+                "url": "/plant-master-data/equipments/webapp"
               }
             },
             "PlantConditionsVisualisation": {

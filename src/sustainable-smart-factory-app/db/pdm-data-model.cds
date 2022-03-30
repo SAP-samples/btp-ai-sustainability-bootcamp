@@ -42,8 +42,8 @@ entity Equipments : managed {
       plantSection   : String(3);
       funcLocation   : String(30);
       costCenter     : String(10);
-      conditions : Association to many EquipmentConditions
-                              on conditions.equipment = $self;
+      conditions     : Association to many EquipmentConditions
+                       on conditions.equipment = $self;
 }
 
 entity EquipmentConditions : managed {
