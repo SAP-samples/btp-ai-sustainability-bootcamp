@@ -19,11 +19,19 @@ entity PlantConditions : managed {
       plantStatus         : String(30);
       recStartedAt        : Timestamp;
       recEndedAt          : Timestamp;
-      yield               : Decimal;
-      defeatedProd        : Decimal;
-      energyCons          : Decimal;
+      date                : Date;
+      shift               : ShiftNo;
+      yield               : Decimal(9,2);
+      defectiveProd       : Decimal(9,2);
+      energyCons          : Decimal(9,2);
       equipmentConditions : Association to many EquipmentConditions
                               on equipmentConditions.plantCond = $self;
+}
+
+type ShiftNo : Integer enum {
+  MorningShift  = 0;
+  AfternoonShift = 1;
+  NightShift  = 2;
 }
 
 entity EquipmentConditions : managed {
