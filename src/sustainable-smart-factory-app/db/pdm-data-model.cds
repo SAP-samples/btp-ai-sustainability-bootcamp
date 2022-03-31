@@ -55,7 +55,7 @@ entity EquipmentConditions : managed {
       // equipment          : String(18);
       // equipmentName      : String(40);
       equipment          : Association to Equipments;
-      equipmentStatus    : EquipmentStatus;
+      equipmentStatus    : EquipmentStatus default 'OK';
       recStartedAt       : Timestamp;
       recEndedAt         : Timestamp;
       // faultProb          : Decimal;
