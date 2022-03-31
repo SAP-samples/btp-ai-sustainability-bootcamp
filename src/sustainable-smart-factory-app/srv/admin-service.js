@@ -20,13 +20,14 @@ var token = generateToken(authUser);
 
 module.exports = async function () {
   const db = await cds.connect.to("db");
-  const { EquipmentConditions, CVQualityRecords, Anomalies } = db.entities;
+  const { EquipmentConditions, CVQualityRecords, Anomalies, Equipments } =
+    db.entities;
 
   /** Logic Flow on create a Maintenance Order in S4
    * 1. On specific equipment condition, either list or object page (preferably)
    * Check if conditions are met so to trigger a maintenance order txn.
    * 2. Retrieve EQ ID
-   * 3. Create Maintenance Order in S4
+   * 3. Create Maintenance Order in S4 with Maintenance Operation Item & Costs
    * 4. Update EquipmentConditions record with the Maintenance Order ID returned from S4 API
    *
    * Note: default-env.json is used for local project connecting to my btp trial landscape.
@@ -37,26 +38,31 @@ module.exports = async function () {
     //  Check if conditions are met so to trigger a maintenance order txn.
     //  2. Retrieve EQ ID
     const eqCondEntity = req.params[0];
-    const eq = await SELECT.from(EquipmentConditions, eqCondEntity).columns([
+    const eqCondition = await SELECT.from(EquipmentConditions, eqCondEntity).columns([
       "equipment_NR",
     ]);
+
+    //  Retrieve Equipment Entity for fields required on MO Operation
+    var equipment = await cds
+      .tx(req)
+      .run(SELECT.from(Equipments).where({ NR: eqCondition.equipment_NR }));
+
+    // console.log(equipment);
+    // console.log(equipment[0].name);
     // console.log("data: " + req.data);
     // console.log(eqCondEntity); //  { ID: 1, IsActiveEntity: 'true' }
-    // console.log(eq);
+    // console.log(eqCondition);
 
-    // 3. Create Maintenance Order in S4
-    // To be improved to include other data fields.
-    // {  "MaintenanceOrderType": "YA02",  "MaintenanceOrderDesc": "Predictie Maintenance for Pump",  "Equipment": "210100007",
-    // "MainWorkCenter": "RES-0100",  "MaintenancePlanningPlant": "1010",  "MaintenancePlant": "1010",  "MaintPriority": "1",
-    // "FunctionalLocation": "1010-SPA-SAC-PLAR1-CST1",  "MaintOrdBasicStartDateTime": "/Date(1633539206000+0000)/",
-    // "MaintOrdBasicEndDateTime": "/Date(1633539206000+0000)/",  "ResponsibleCostCenter": "10101701",  "CostCenter": "10101301",  "MaintenanceObjectList": "2401"  }
+    // 3. Create Maintenance Order in S4 with Maintenance Operation Item & Costs
+    //  Note: MO Operation logic are implemented in helper file.
     const datamo = {
       OrderType: "YA02",
-      Equipment: eq.equipment_NR,
+      Equipment: eqCondition.equipment_NR,
+      EquipmentName: equipment[0].name,
       MaintPriority: "1",
-      Desc: "Predictive Maintenance for Pump"
+      Desc: "Predictive Maintenance for Pump",
       //The cost center of the equipment will be automatically applied, no need to explicitly set here.
-      //CostCenter: "10101301",
+      // CostCenter: "10101301",
     };
 
     const mo = buildMaintenanceOrderForCreate(datamo);
@@ -87,7 +93,7 @@ module.exports = async function () {
         followUpDocNum: moId,
       });
       req.notify(
-        `Maintenance Order#${moId} created for Equipment#${eq.equipment_NR}.`
+        `Maintenance Order#${moId} created Successfully for Equipment#${eqCondition.equipment_NR}.`
       );
     } catch (e) {
       //> failed to acquire the lock, likely because of timeout
