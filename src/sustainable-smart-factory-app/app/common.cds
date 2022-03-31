@@ -327,12 +327,8 @@ annotate sf.EquipmentConditions with @(
                 Label : '{i18n>Equipment}'
             },
             {
-                Value : equipment.plant,
-                Label : '{i18n>Plant}'
-            },
-            {
-                Value : equipment.plantSection,
-                Label : '{i18n>PlantSection}'
+                Value : equipmentStatus,
+                Label : '{i18n>EquipmentStatus}'
             },
             {
                 Value : recStartedAt,
@@ -342,6 +338,22 @@ annotate sf.EquipmentConditions with @(
                 Value : recEndedAt,
                 Label : '{i18n>RecEndedAt}'
             },
+            {
+                Value : numberOfAnomalies,
+                Label : '{i18n>NumberOfAnomalies}'
+            },
+            {
+                Value : equipment.plant,
+                Label : '{i18n>Plant}'
+            },
+            {
+                Value : equipment.plantSection,
+                Label : '{i18n>PlantSection}'
+            },
+            {
+                Value : equipment.funcLocation,
+                Label : '{i18n>FuncLocation}'
+            }
         // {
         //     Value : followUpDocNum,
         //     Label : 'Doc ID'
