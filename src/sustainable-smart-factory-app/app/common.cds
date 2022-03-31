@@ -187,10 +187,108 @@ annotate sf.PlantConditions with {
     plant        @title : '{i18n>Plant}';
     plantStatus  @title : '{i18n>PlantStatus}';
     yield        @title : '{i18n>Yield}';
-    defeatedProd @title : '{i18n>DefeatedProd}';
+    defeatedProd @title : '{i18n>DefectiveProd}';
     energyCons   @title : '{i18n>EnergyCons}';
     recStartedAt @title : '{i18n>RecStartedAt}';
     recEndedAt   @title : '{i18n>RecEndedAt}';
+}
+
+////////////////////////////////////////////////////////////////////////////
+//
+//	Equipments Lists
+//
+annotate sf.Equipments with @(
+    Common.SemanticKey : [NR],
+    UI                 : {
+        Identification  : [
+            {Value : NR},
+            {
+                $Type             : 'UI.DataFieldForAction',
+                Action            : 'AdminService.createMO',
+                Label             : 'Create Maintenance Order',
+                IconUrl           : 'sap-icon://technical-object',
+                Inline            : true,
+                ![@UI.Emphasized] : true, //Button is highlighted
+            }
+        ],
+        SelectionFields : [
+            NR,
+            name,
+            plant,
+            plantSection,
+            funcLocation,
+            costCenter
+        ],
+        LineItem        : [
+            {
+                Value : NR,
+                Label : '{i18n>Equipment}'
+            },
+            {
+                Value : plant,
+                Label : '{i18n>Plant}'
+            },
+            {
+                Value : plantSection,
+                Label : '{i18n>PlantSection}'
+            },
+            {
+                Value : funcLocation,
+                Label : '{i18n>FuncLocation}'
+            }
+        ]
+    }
+) {
+    NR @Common : {
+        SemanticObject  : 'Equipments',
+        Text            : name,
+        TextArrangement : #TextLast
+    };
+};
+
+////////////////////////////////////////////////////////////////////////////
+//
+//	Equipments Details
+//
+annotate sf.Equipments with @(UI : {HeaderInfo : {
+    TypeName       : '{i18n>Equipment}',
+    TypeNamePlural : '{i18n>Equipments}',
+    Title          : {Value : name},
+    Description    : {Value : NR}
+}, });
+
+annotate sf.Equipments with @(UI.HeaderFacets : [
+    {
+        $Type  : 'UI.CollectionFacet',
+        Facets : [{
+            //Search-Term: #HeaderFieldGroup
+            $Type  : 'UI.ReferenceFacet',
+            Target : '@UI.FieldGroup#HeaderData',
+            Label  : 'Status',
+        }],
+    },
+]);
+
+annotate sf.Equipments with @(
+    UI.FieldGroup #HeaderData       : {Data : [{
+        Value       : 'Create Maintenance Order to fix it.',
+        Criticality : 2
+    }]}
+);
+
+
+////////////////////////////////////////////////////////////////////////////
+//
+//	Equipments Elements
+//
+annotate sf.Equipments with {
+    plant           @title : '{i18n>Plant}';
+    plantSection    @title : '{i18n>PlantSection}';
+    funcLocation    @title : '{i18n>FuncLocation}';
+    NR       @title : '{i18n>Equipment}';
+    name   @title : '{i18n>EquipmentName}';
+    desc   @title : '{i18n>EquipmentDesc}';
+    equipmentStatus @title : '{i18n>EquipmentStatus}';
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -213,9 +311,11 @@ annotate sf.EquipmentConditions with @(
         ],
         SelectionFields : [
             ID,
-            plant,
-            plantSection,
-            equipment
+            equipment.plant,
+            equipment.plantSection,
+            equipment.funcLocation,
+            equipment.NR,
+            equipment.name
         ],
         LineItem        : [
             {
@@ -223,16 +323,12 @@ annotate sf.EquipmentConditions with @(
                 Label : '{i18n>ID}'
             },
             {
-                Value : plant,
-                Label : '{i18n>Plant}'
-            },
-            {
-                Value : plantSection,
-                Label : '{i18n>PlantSection}'
-            },
-            {
-                Value : equipment,
+                Value : equipment.NR,
                 Label : '{i18n>Equipment}'
+            },
+            {
+                Value : equipmentStatus,
+                Label : '{i18n>EquipmentStatus}'
             },
             {
                 Value : recStartedAt,
@@ -242,6 +338,22 @@ annotate sf.EquipmentConditions with @(
                 Value : recEndedAt,
                 Label : '{i18n>RecEndedAt}'
             },
+            {
+                Value : numberOfAnomalies,
+                Label : '{i18n>NumberOfAnomalies}'
+            },
+            {
+                Value : equipment.plant,
+                Label : '{i18n>Plant}'
+            },
+            {
+                Value : equipment.plantSection,
+                Label : '{i18n>PlantSection}'
+            },
+            {
+                Value : equipment.funcLocation,
+                Label : '{i18n>FuncLocation}'
+            }
         // {
         //     Value : followUpDocNum,
         //     Label : 'Doc ID'
@@ -275,33 +387,48 @@ annotate sf.EquipmentConditions with @(
 annotate sf.EquipmentConditions with @(UI : {HeaderInfo : {
     TypeName       : '{i18n>EquipmentCondition}',
     TypeNamePlural : '{i18n>EquipmentConditions}',
-    Title          : {Value : equipmentName},
-    Description    : {Value : equipment},
+    Title          : {Value : equipment.name},
+    Description    : {Value : equipment.NR},
     // ImageUrl       : '/media/pcb.png',
 }, });
 
 annotate sf.EquipmentConditions with @(UI.HeaderFacets : [
-    {
-        $Type  : 'UI.CollectionFacet',
-        ID     : 'CollectionFacet1',
-        Facets : [{
-            //Search-Term: #DataPoint
-            $Type  : 'UI.ReferenceFacet',
-            Target : '@UI.DataPoint#progressIndicator',
-        }],
-    },
-    {
-        $Type  : 'UI.CollectionFacet',
-        Facets : [{
-            //Search-Term: #HeaderFieldGroup
-            $Type  : 'UI.ReferenceFacet',
-            Target : '@UI.FieldGroup#HeaderData',
-            Label  : 'Recommendations',
-        }],
-    },
+{
+    $Type  : 'UI.CollectionFacet',
+    ID     : 'CollectionFacet1',
+    Facets : [{
+        //Search-Term: #DataPoint
+        $Type  : 'UI.ReferenceFacet',
+        Target : '@UI.DataPoint#Status',
+    }]
+},
+{
+    $Type  : 'UI.CollectionFacet',
+    ID     : 'CollectionFacet2',
+    Facets : [{
+        $Type  : 'UI.ReferenceFacet',
+        Target : '@UI.DataPoint#progressIndicator',
+    }]
+},
+{
+    $Type  : 'UI.CollectionFacet',
+    ID     : 'CollectionFacet3',
+    Facets : [{
+        //Search-Term: #HeaderFieldGroup
+        $Type  : 'UI.ReferenceFacet',
+        Target : '@UI.FieldGroup#HeaderData',
+        Label  : 'Recommendations',
+    }]
+},
 ]);
 
 annotate sf.EquipmentConditions with @(
+    UI.DataPoint #Status : {
+        //Search-Term: #ProgressIndicator
+        Value         : equipmentStatus,
+        Title         : '{i18n>Status}',
+        Criticality   : 3, //> optional criticality
+    },
     UI.DataPoint #progressIndicator : {
         //Search-Term: #ProgressIndicator
         Value         : numberOfAnomalies,
@@ -323,11 +450,26 @@ annotate sf.EquipmentConditions with @(
 //
 annotate sf.EquipmentConditions with {
     ID              @title : '{i18n>ID}';
-    plant           @title : '{i18n>Plant}';
-    plantSection    @title : '{i18n>PlantSection}';
-    funcLocation    @title : '{i18n>FuncLocation}';
-    equipment       @title : '{i18n>Equipment}';
-    equipmentName   @title : '{i18n>EquipmentName}';
+    plant   @title : '{i18n>Plant}'  @Common : {
+        Text            : equipment.plant,
+        TextArrangement : #TextOnly
+    };
+    plantSection   @title : '{i18n>PlantSection}'  @Common : {
+        Text            : equipment.plantSection,
+        TextArrangement : #TextOnly
+    };
+    funcLocation   @title : '{i18n>FuncLocation}'  @Common : {
+        Text            : equipment.funcLocation,
+        TextArrangement : #TextOnly
+    };
+    equipmentNR   @title : '{i18n>Equipment}'  @Common : {
+        Text            : equipment.code,
+        TextArrangement : #TextOnly
+    };
+    equipmentName   @title : '{i18n>EquipmentName}'  @Common : {
+        Text            : equipment.name,
+        TextArrangement : #TextOnly
+    };
     equipmentStatus @title : '{i18n>EquipmentStatus}';
     recStartedAt    @title : '{i18n>RecStartedAt}';
     recEndedAt      @title : '{i18n>RecEndedAt}';
