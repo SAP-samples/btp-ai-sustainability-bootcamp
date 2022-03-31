@@ -38,7 +38,7 @@ module.exports = async function () {
     //  2. Retrieve EQ ID
     const eqCondEntity = req.params[0];
     const eq = await SELECT.from(EquipmentConditions, eqCondEntity).columns([
-      "equipment",
+      "equipment_NR",
     ]);
     // console.log("data: " + req.data);
     // console.log(eqCondEntity); //  { ID: 1, IsActiveEntity: 'true' }
@@ -52,10 +52,11 @@ module.exports = async function () {
     // "MaintOrdBasicEndDateTime": "/Date(1633539206000+0000)/",  "ResponsibleCostCenter": "10101701",  "CostCenter": "10101301",  "MaintenanceObjectList": "2401"  }
     const datamo = {
       OrderType: "YA02",
-      Equipment: eq.equipment,
+      Equipment: eq.equipment_NR,
       MaintPriority: "1",
-      Desc: "Predictive Maintenance for Pump",
-      CostCenter: "10101301",
+      Desc: "Predictive Maintenance for Pump"
+      //The cost center of the equipment will be automatically applied, no need to explicitly set here.
+      //CostCenter: "10101301",
     };
 
     const mo = buildMaintenanceOrderForCreate(datamo);
@@ -86,9 +87,7 @@ module.exports = async function () {
         followUpDocNum: moId,
       });
       req.notify(
-        `Maintenance Order created for Equipment (` +
-          eq.equipment +
-          `) successfully.`
+        `Maintenance Order#${moId} created for Equipment#${eq.equipment_NR}.`
       );
     } catch (e) {
       //> failed to acquire the lock, likely because of timeout
