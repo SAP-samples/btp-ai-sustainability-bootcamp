@@ -1,7 +1,7 @@
 using {AdminService} from 'smartfactory';
 using from '../../common'; // to help UI linter get the complete annotations
 
-annotate AdminService.EquipmentConditions with @(
+annotate AdminService.Equipments with @(
     UI     : {
         Facets              : [
             {
@@ -16,8 +16,8 @@ annotate AdminService.EquipmentConditions with @(
             },
             {
                 $Type  : 'UI.ReferenceFacet',
-                Label  : '{i18n>Anomalies}',
-                Target : 'anomalies/@UI.LineItem'
+                Label  : '{i18n>EquipmentConditions}',
+                Target : 'conditions/@UI.LineItem'
             },
             {
                 $Type  : 'UI.ReferenceFacet',
@@ -26,18 +26,15 @@ annotate AdminService.EquipmentConditions with @(
             }
         ],
         FieldGroup #General : {Data : [
-            {Value : ID},
-            {Value : equipment.plant},
-            {Value : equipment.plantSection},
-            {Value : equipment.funcLocation},
-            {Value : equipment.NR},
-            {Value : equipmentStatus},
-            {Value : recStartedAt},
-            {Value : recEndedAt}
+            {Value : NR},
+            {Value : name},
+            {Value : desc}
         ]},
         FieldGroup #Details : {Data : [
-            {Value : followUpDocType},
-            {Value : followUpDocNum}
+            {Value : plant},
+            {Value : plantSection},
+            {Value : funcLocation},
+            {Value : costCenter}
         ]},
         FieldGroup #Admin   : {Data : [
             {Value : createdBy},
@@ -54,10 +51,6 @@ annotate AdminService.EquipmentConditions with @(
 //
 //  Draft for Localized Data
 //
-annotate sap.smartfactory.EquipmentConditions with @fiori.draft.enabled;
-annotate AdminService.EquipmentConditions with @odata.draft.enabled;
 
-// // Workaround for Fiori popup for asking user to enter a new UUID on Create
-annotate AdminService.EquipmentConditions with {
-    ID @Core.Computed;
-}
+annotate sap.smartfactory.Equipments with @fiori.draft.enabled;
+annotate AdminService.Equipments with @odata.draft.enabled;
