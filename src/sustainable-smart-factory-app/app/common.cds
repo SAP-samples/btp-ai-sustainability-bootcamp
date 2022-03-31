@@ -393,27 +393,42 @@ annotate sf.EquipmentConditions with @(UI : {HeaderInfo : {
 }, });
 
 annotate sf.EquipmentConditions with @(UI.HeaderFacets : [
-    {
-        $Type  : 'UI.CollectionFacet',
-        ID     : 'CollectionFacet1',
-        Facets : [{
-            //Search-Term: #DataPoint
-            $Type  : 'UI.ReferenceFacet',
-            Target : '@UI.DataPoint#progressIndicator',
-        }],
-    },
-    {
-        $Type  : 'UI.CollectionFacet',
-        Facets : [{
-            //Search-Term: #HeaderFieldGroup
-            $Type  : 'UI.ReferenceFacet',
-            Target : '@UI.FieldGroup#HeaderData',
-            Label  : 'Recommendations',
-        }],
-    },
+{
+    $Type  : 'UI.CollectionFacet',
+    ID     : 'CollectionFacet1',
+    Facets : [{
+        //Search-Term: #DataPoint
+        $Type  : 'UI.ReferenceFacet',
+        Target : '@UI.DataPoint#Status',
+    }]
+},
+{
+    $Type  : 'UI.CollectionFacet',
+    ID     : 'CollectionFacet2',
+    Facets : [{
+        $Type  : 'UI.ReferenceFacet',
+        Target : '@UI.DataPoint#progressIndicator',
+    }]
+},
+{
+    $Type  : 'UI.CollectionFacet',
+    ID     : 'CollectionFacet3',
+    Facets : [{
+        //Search-Term: #HeaderFieldGroup
+        $Type  : 'UI.ReferenceFacet',
+        Target : '@UI.FieldGroup#HeaderData',
+        Label  : 'Recommendations',
+    }]
+},
 ]);
 
 annotate sf.EquipmentConditions with @(
+    UI.DataPoint #Status : {
+        //Search-Term: #ProgressIndicator
+        Value         : equipmentStatus,
+        Title         : '{i18n>Status}',
+        Criticality   : 3, //> optional criticality
+    },
     UI.DataPoint #progressIndicator : {
         //Search-Term: #ProgressIndicator
         Value         : numberOfAnomalies,
