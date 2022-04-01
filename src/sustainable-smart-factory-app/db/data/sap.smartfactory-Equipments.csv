@@ -1,9 +1,9 @@
-NR;name;desc;plant;plantSection;funcLocation;costCenter
-220300010;LGP-Cutting machine#1;A cutting machine cuts acrylic sheet to shape.Used in Sustainable Intelligent Factory storyline for AI&Sustainability Bootcamp;1010;YOH;1010-SSF-SAC-PLAR1-CMT1;10101301
-220300020;LGP-Dotting machine#1;A laser mounted on a mechanical head engraves holes on the acrylic sheet;1010;YOH;1010-SSF-SAC-PLAR1-DOT1;10101301
-220300031;LGP-LED assembling machine robotic arm 1;A set of robotic arms mount a LED frame around the Light Guide Plate;1010;YOH;1010-SSF-SAC-PLAR1-ROBT;10101301
-220300032;LGP-LED assembling machine robotic arm 2;A set of robotic arms mount a LED frame around the Light Guide Plate;1010;YOH;1010-SSF-SAC-PLAR1-ROBT;10101301
-220300033;LGP-LED assembling machine robotic arm 3;A set of robotic arms mount a LED frame around the Light Guide Plate;1010;YOH;1010-SSF-SAC-PLAR1-ROBT;10101301
-220300034;LGP-LED assembling machine robotic arm 4;A set of robotic arms mount a LED frame around the Light Guide Plate;1010;YOH;1010-SSF-SAC-PLAR1-ROBT;10101301
-220300035;LGP-LED assembling machine robotic arm 5;A set of robotic arms mount a LED frame around the Light Guide Plate;1010;YOH;1010-SSF-SAC-PLAR1-ROBT;10101301
-220300036;LGP-LED assembling machine robotic arm 6;A set of robotic arms mount a LED frame around the Light Guide Plate;1010;YOH;1010-SSF-SAC-PLAR1-ROBT;10101301
+NR;toEquipmentStatus_code;name;desc;compCode;plant;plantSection;funcLocation;costCenter
+220300010;BD;LGP-Cutting machine#1;A cutting machine cuts acrylic sheet to shape.Used in Sustainable Intelligent Factory storyline for AI&Sustainability Bootcamp;1010;1010;YOH;1010-SSF-SAC-PLAR1-CMT1;10101301
+220300020;FL;LGP-Dotting machine#1;A laser mounted on a mechanical head engraves holes on the acrylic sheet;1010;1010;YOH;1010-SSF-SAC-PLAR1-DOT1;10101301
+220300031;MT;LGP-LED assembling machine robotic arm 1;A set of robotic arms mount a LED frame around the Light Guide Plate;1010;1010;YOH;1010-SSF-SAC-PLAR1-ROBT;10101301
+220300032;OK;LGP-LED assembling machine robotic arm 2;A set of robotic arms mount a LED frame around the Light Guide Plate;1010;1010;YOH;1010-SSF-SAC-PLAR1-ROBT;10101301
+220300033;OK;LGP-LED assembling machine robotic arm 3;A set of robotic arms mount a LED frame around the Light Guide Plate;1010;1010;YOH;1010-SSF-SAC-PLAR1-ROBT;10101301
+220300034;OK;LGP-LED assembling machine robotic arm 4;A set of robotic arms mount a LED frame around the Light Guide Plate;1010;1010;YOH;1010-SSF-SAC-PLAR1-ROBT;10101301
+220300035;OK;LGP-LED assembling machine robotic arm 5;A set of robotic arms mount a LED frame around the Light Guide Plate;1010;1010;YOH;1010-SSF-SAC-PLAR1-ROBT;10101301
+220300036;OK;LGP-LED assembling machine robotic arm 6;A set of robotic arms mount a LED frame around the Light Guide Plate;1010;1010;YOH;1010-SSF-SAC-PLAR1-ROBT;10101301
