@@ -214,6 +214,7 @@ annotate sf.Equipments with @(
         SelectionFields : [
             NR,
             name,
+            toEquipmentStatus.name,
             compCode,
             plant,
             plantSection,
@@ -224,6 +225,10 @@ annotate sf.Equipments with @(
             {
                 Value : NR,
                 Label : '{i18n>Equipment}'
+            },
+            {
+                Value : toEquipmentStatus.name,
+                Label : '{i18n>Status}'
             },
             {
                 Value : compCode,
@@ -266,18 +271,17 @@ annotate sf.Equipments with @(UI.HeaderFacets : [
     {
         $Type  : 'UI.CollectionFacet',
         Facets : [{
-            //Search-Term: #HeaderFieldGroup
             $Type  : 'UI.ReferenceFacet',
             Target : '@UI.FieldGroup#HeaderData',
-            Label  : 'Status',
+            Label  : '{i18n>Status}',
         }],
     },
 ]);
 
 annotate sf.Equipments with @(
     UI.FieldGroup #HeaderData       : {Data : [{
-        Value       : 'Create Maintenance Order to fix it.',
-        Criticality : 2
+        Value       : toEquipmentStatus.name,
+        Criticality : toEquipmentStatus.criticality
     }]}
 );
 
@@ -294,7 +298,10 @@ annotate sf.Equipments with {
     NR              @title : '{i18n>Equipment}';
     name            @title : '{i18n>EquipmentName}';
     desc            @title : '{i18n>EquipmentDesc}';
-    equipmentStatus @title : '{i18n>EquipmentStatus}';
+    equipmentStatus   @title : '{i18n>Status}'  @Common : {
+        Text            : toEquipmentStatus.name,
+        TextArrangement : #TextOnly
+    };
     costCenter      @title : '{i18n>CostCenter}';
 }
 
@@ -334,7 +341,7 @@ annotate sf.EquipmentConditions with @(
                 Label : '{i18n>Equipment}'
             },
             {
-                Value : equipmentStatus,
+                Value : toEquipmentStatus.name,
                 Label : '{i18n>EquipmentStatus}'
             },
             {
@@ -432,21 +439,21 @@ annotate sf.EquipmentConditions with @(UI.HeaderFacets : [
 annotate sf.EquipmentConditions with @(
     UI.DataPoint #Status : {
         //Search-Term: #ProgressIndicator
-        Value         : equipmentStatus,
+        Value         : toEquipmentStatus.name,
         Title         : '{i18n>Status}',
-        Criticality   : 3, //> optional criticality
+        Criticality   : toEquipmentStatus.criticality, //> optional criticality
     },
     UI.DataPoint #progressIndicator : {
         //Search-Term: #ProgressIndicator
         Value         : numberOfAnomalies,
         TargetValue   : 2,
         Visualization : #Progress,
-        Title         : 'No. of Anomalies Detected',
+        Title         : '{i18n>DetectedAnomaliesNo}',
         Criticality   : 1, //> optional criticality
     },
     UI.FieldGroup #HeaderData       : {Data : [{
-        Value       : 'Create Maintenance Order to fix it.',
-        Criticality : 2
+        Value       : toEquipmentStatus.recommendation,
+        Criticality : toEquipmentStatus.criticality, //> optional criticality
     }]}
 );
 
@@ -477,7 +484,10 @@ annotate sf.EquipmentConditions with {
         Text            : equipment.name,
         TextArrangement : #TextOnly
     };
-    equipmentStatus @title : '{i18n>EquipmentStatus}';
+    equipmentStatus   @title : '{i18n>Status}'  @Common : {
+        Text            : toEquipmentStatus.name,
+        TextArrangement : #TextOnly
+    };
     recStartedAt    @title : '{i18n>RecStartedAt}';
     recEndedAt      @title : '{i18n>RecEndedAt}';
     //faultProb       @title : '{i18n>FaultProb}';

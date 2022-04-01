@@ -1,0 +1,5 @@
+code;name;criticality;recommendation
+OK;Normal;3;Normal Production
+FL;Fault;2;On-site Inspection
+BD;Break Down;1;Create Maintenance Order to fix it
+MT;Maintenance;2;Wait until the maintenance completed
