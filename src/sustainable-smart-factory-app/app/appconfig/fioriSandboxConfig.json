@@ -53,6 +53,17 @@
                     "icon": "sap-icon://machine",
                     "targetURL": "#Equipments-manage"
                   }
+                },
+                {
+                  "id": "ManagePlantEquipmentStatus",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Configure Plant Equipments Status",
+                    "subtitle": "",
+                    "info": "Plant Equipments Status",
+                    "icon": "sap-icon://settings",
+                    "targetURL": "#PlantEquipmentStatus-manage"
+                  }
                 }
               ]
             },
@@ -223,6 +234,24 @@
                 "applicationType": "SAPUI5",
                 "additionalInformation": "SAPUI5.Component=equipments",
                 "url": "/plant-master-data/equipments/webapp"
+              }
+            },
+            "PlantEquipmentStatus": {
+              "semanticObject": "PlantEquipmentStatus",
+              "action": "manage",
+              "title": "Manage PlantEquipmentStatus Master Data",
+              "signature": {
+                "parameters": {
+                  "code": {
+                    "renameTo": "PlantEquipmentStatus.code"
+                  }
+                },
+                "additionalParameters": "ignored"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=plantequipmentstatus",
+                "url": "/plant-master-data/plant-equipment-status/webapp"
               }
             },
             "PlantConditionsVisualisation": {
