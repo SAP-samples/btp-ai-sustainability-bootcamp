@@ -513,7 +513,7 @@ annotate sf.EquipmentConditions with @(UI.HeaderFacets : [
         //Search-Term: #HeaderFieldGroup
         $Type  : 'UI.ReferenceFacet',
         Target : '@UI.FieldGroup#HeaderData',
-        Label  : 'Recommendations',
+        Label  : '{i18n>Recommendation}',
     }]
 },
 ]);
@@ -535,6 +535,7 @@ annotate sf.EquipmentConditions with @(
     },
     UI.FieldGroup #HeaderData       : {Data : [{
         Value       : toEquipmentStatus.recommendation,
+        Label       : '',
         Criticality : toEquipmentStatus.criticality, //> optional criticality
     }]}
 );
