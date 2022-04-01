@@ -22,7 +22,7 @@ as projection on pdm.Anomalies {
     status as anomalyStatus,
 
     eqCond.ID as eqCondId, 
-    eqCond.equipmentStatus as equipmentStatus, 
+    eqCond.toEquipmentStatus.name as equipmentStatus, 
     // eqCond.equipmentName as equipmentName, 
     // eqCond.equipmentStatus as equipmentStatus, 
     // eqCond.plant as plant, 

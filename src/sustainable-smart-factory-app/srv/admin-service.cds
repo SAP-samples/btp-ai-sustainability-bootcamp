@@ -13,6 +13,7 @@ service AdminService {
     action inferenceImageCV();
   };
 
+  entity PlantEquipmentStatus as projection on pdm.PlantEquipmentStatus;
   entity PlantConditions as projection on pdm.PlantConditions;
   entity Equipments as projection on pdm.Equipments;
   entity EquipmentConditions as select from pdm.EquipmentConditions{

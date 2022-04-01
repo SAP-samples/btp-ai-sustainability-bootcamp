@@ -228,7 +228,7 @@ module.exports = async function () {
     );
   });
 
-  this.before("READ", "EquipmentConditions", calculateFaults);
+  //this.before("READ", "EquipmentConditions", calculateFaults);
   this.before("NEW", "CVQualityRecords", genid);
   this.before("NEW", "Anomalies", genid);
 };
