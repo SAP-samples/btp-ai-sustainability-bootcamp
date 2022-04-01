@@ -35,29 +35,32 @@ type ShiftNo : Integer enum {
 }
 
 entity Equipments : managed {
-  key NR    : String(18);
-      name  : String(40);
-      desc  : String(100);
-      plant          : String(4);
-      plantSection   : String(3);
-      funcLocation   : String(30);
-      costCenter     : String(10);
-      conditions : Association to many EquipmentConditions
-                              on conditions.equipment = $self;
+  key NR           : String(18);
+      name         : String(40);
+      desc         : String(100);
+      toEquipmentStatus : Association to PlantEquipmentStatus;
+      compCode     : String(4);
+      plant        : String(4);
+      plantSection : String(3);
+      funcLocation : String(30);
+      costCenter   : String(10);
+      conditions   : Association to many EquipmentConditions
+                       on conditions.equipment = $self;
 }
 
 entity EquipmentConditions : managed {
-  key ID                 : Integer;
-      plantCond          : Association to PlantConditions;
+  key ID                : Integer;
+      plantCond         : Association to PlantConditions;
       // plant              : String(4);
       // plantSection       : String(3);
       // funcLocation       : String(30);
       // equipment          : String(18);
       // equipmentName      : String(40);
-      equipment          : Association to Equipments;
-      equipmentStatus    : EquipmentStatus;
-      recStartedAt       : Timestamp;
-      recEndedAt         : Timestamp;
+      equipment         : Association to Equipments;
+      //equipmentStatus    : EquipmentStatus default 'OK';
+      toEquipmentStatus : Association to PlantEquipmentStatus;
+      recStartedAt      : Timestamp;
+      recEndedAt        : Timestamp;
       // faultProb          : Decimal;
       //fault              : Integer;
       // breakDownProb      : Decimal;
@@ -80,10 +83,24 @@ entity EquipmentConditions : managed {
 //   key code : String(4);
 // }
 
-type EquipmentStatus : String enum {
-  Normal    = 'OK';
-  Fault     = 'FL';
-  BreakDown = 'BD';
+// type EquipmentStatus : String enum {
+//   Normal    = 'OK';
+//   Fault     = 'FL';
+//   BreakDown = 'BD';
+// }
+
+//For UI Header Annotation Criticality
+type Criticality : Integer enum {
+  Red    = 1; //Negative
+  Yellow = 2; //Neutral
+  Green  = 3; //Positive
+}
+
+entity PlantEquipmentStatus {
+  key code           : String(2);
+      name           : String(20);
+      criticality    : Criticality;
+      recommendation : String(50);
 }
 
 entity Anomalies : managed {

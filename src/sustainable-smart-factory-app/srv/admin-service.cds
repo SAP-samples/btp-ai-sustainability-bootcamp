@@ -12,14 +12,17 @@ service AdminService {
     )
     action inferenceImageCV();
   };
+
+  entity PlantEquipmentStatus as projection on pdm.PlantEquipmentStatus;
   entity PlantConditions as projection on pdm.PlantConditions;
+  entity Equipments as projection on pdm.Equipments;
   entity EquipmentConditions as select from pdm.EquipmentConditions{
     *,
-    equipment.NR as equipment,
-    equipment.name as equipmentName,
-    equipment.plant as plant,
-    equipment.plantSection as plantSection,
-    equipment.funcLocation as funcLocation,
+    // equipment.NR as equipment,
+    // equipment.name as equipmentName,
+    // equipment.plant as plant,
+    // equipment.plantSection as plantSection,
+    // equipment.funcLocation as funcLocation,
     @Core.Computed
 	  count(anomalies.ID) as numberOfAnomalies: Integer,
   } group by ID
@@ -33,6 +36,7 @@ service AdminService {
     )
     action createMO();
   };
+
   entity Anomalies as projection on pdm.Anomalies actions {
     @sap.applicable.path : 'anomalyInference'
     @(
@@ -43,5 +47,6 @@ service AdminService {
     )
     action inferenceSoundAnomaly();
   };
+
   entity AnomalyTypes as projection on pdm.AnomalyTypes;
 }
