@@ -259,6 +259,7 @@ annotate sf.PlantEquipmentStatus with @(UI.HeaderFacets : [
 annotate sf.PlantEquipmentStatus with @(
     UI.FieldGroup #HeaderData       : {Data : [{
         Value       : criticality,
+        Label       : '',
         Criticality : criticality
     }]}
 );
