@@ -35,14 +35,15 @@ type ShiftNo : Integer enum {
 }
 
 entity Equipments : managed {
-  key NR    : String(18);
-      name  : String(40);
-      desc  : String(100);
-      plant          : String(4);
-      plantSection   : String(3);
-      funcLocation   : String(30);
-      costCenter     : String(10);
-      conditions     : Association to many EquipmentConditions
+  key NR           : String(18);
+      name         : String(40);
+      desc         : String(100);
+      compCode     : String(4);
+      plant        : String(4);
+      plantSection : String(3);
+      funcLocation : String(30);
+      costCenter   : String(10);
+      conditions   : Association to many EquipmentConditions
                        on conditions.equipment = $self;
 }
 
