@@ -31,7 +31,7 @@ annotate AdminService.EquipmentConditions with @(
             {Value : equipment.plantSection},
             {Value : equipment.funcLocation},
             {Value : equipment.NR},
-            {Value : equipmentStatus},
+            {Value : toEquipmentStatus.code},
             {Value : recStartedAt},
             {Value : recEndedAt}
         ]},
