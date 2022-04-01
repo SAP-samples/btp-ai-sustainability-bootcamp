@@ -195,6 +195,88 @@ annotate sf.PlantConditions with {
 
 ////////////////////////////////////////////////////////////////////////////
 //
+//	PlantEquipmentStatus Lists
+//
+annotate sf.PlantEquipmentStatus with @(
+    Common.SemanticKey : [code],
+    UI                 : {
+        Identification  : [
+            {Value : code},
+        ],
+        SelectionFields : [
+            code,
+            name
+        ],
+        LineItem        : [
+            {
+                Value : code,
+                Label : '{i18n>Code}'
+            },
+            {
+                Value : name,
+                Label : '{i18n>Name}'
+            },
+            {
+                Value : criticality,
+                Label : '{i18n>Criticality}'
+            },
+            {
+                Value : recommendation,
+                Label : '{i18n>Recommendation}'
+            }
+        ]
+    }
+) {
+    code @Common : {
+        SemanticObject  : 'PlantEquipmentStatus',
+        Text            : name,
+        TextArrangement : #TextLast
+    };
+};
+
+////////////////////////////////////////////////////////////////////////////
+//
+//	PlantEquipmentStatus Details
+//
+annotate sf.PlantEquipmentStatus with @(UI : {HeaderInfo : {
+    TypeName       : '{i18n>PlantEquipmentStatus}',
+    TypeNamePlural : '{i18n>PlantEquipmentStatus}',
+    Title          : {Value : code},
+    Description    : {Value : recommendation}
+}, });
+
+annotate sf.PlantEquipmentStatus with @(UI.HeaderFacets : [
+    {
+        $Type  : 'UI.CollectionFacet',
+        Facets : [{
+            $Type  : 'UI.ReferenceFacet',
+            Target : '@UI.FieldGroup#HeaderData',
+            Label  : '{i18n>Criticality}',
+        }],
+    },
+]);
+
+annotate sf.PlantEquipmentStatus with @(
+    UI.FieldGroup #HeaderData       : {Data : [{
+        Value       : criticality,
+        Criticality : criticality
+    }]}
+);
+
+
+////////////////////////////////////////////////////////////////////////////
+//
+//	PlantEquipmentStatus Elements
+//
+annotate sf.PlantEquipmentStatus with {
+    code           @title : '{i18n>Code}';
+    name           @title : '{i18n>Status}';
+    criticality    @title : '{i18n>Criticality}';
+    recommendation @title : '{i18n>Recommendation}';
+}
+
+////////////////////////////////////////////////////////////////////////////
+//
 //	Equipments Lists
 //
 annotate sf.Equipments with @(
