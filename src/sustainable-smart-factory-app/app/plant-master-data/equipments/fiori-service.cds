@@ -31,6 +31,7 @@ annotate AdminService.Equipments with @(
             {Value : desc}
         ]},
         FieldGroup #Details : {Data : [
+            {Value : compCode},
             {Value : plant},
             {Value : plantSection},
             {Value : funcLocation},
@@ -44,8 +45,6 @@ annotate AdminService.Equipments with @(
         ]}
     }
 );
-
-
 
 ////////////////////////////////////////////////////////////
 //

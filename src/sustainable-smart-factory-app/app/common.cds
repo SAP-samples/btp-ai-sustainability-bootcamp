@@ -214,6 +214,7 @@ annotate sf.Equipments with @(
         SelectionFields : [
             NR,
             name,
+            compCode,
             plant,
             plantSection,
             funcLocation,
@@ -223,6 +224,10 @@ annotate sf.Equipments with @(
             {
                 Value : NR,
                 Label : '{i18n>Equipment}'
+            },
+            {
+                Value : compCode,
+                Label : '{i18n>CompCode}'
             },
             {
                 Value : plant,
@@ -282,13 +287,15 @@ annotate sf.Equipments with @(
 //	Equipments Elements
 //
 annotate sf.Equipments with {
+    compCode        @title : '{i18n>CompCode}';
     plant           @title : '{i18n>Plant}';
     plantSection    @title : '{i18n>PlantSection}';
     funcLocation    @title : '{i18n>FuncLocation}';
-    NR       @title : '{i18n>Equipment}';
-    name   @title : '{i18n>EquipmentName}';
-    desc   @title : '{i18n>EquipmentDesc}';
+    NR              @title : '{i18n>Equipment}';
+    name            @title : '{i18n>EquipmentName}';
+    desc            @title : '{i18n>EquipmentDesc}';
     equipmentStatus @title : '{i18n>EquipmentStatus}';
+    costCenter      @title : '{i18n>CostCenter}';
 }
 
 ////////////////////////////////////////////////////////////////////////////
