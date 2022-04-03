@@ -25,7 +25,7 @@ service AdminService {
     // equipment.funcLocation as funcLocation,
     @Core.Computed
 	  count(anomalies.ID) as numberOfAnomalies: Integer,
-  } group by ID
+  } group by ID,createdAt,createdBy,modifiedAt,modifiedBy,plantCond.ID,equipment.NR,toEquipmentStatus.code,recStartedAt,recEndedAt,followUpDocType,followUpDocNum
     actions {
     @sap.applicable.path : 'moCreated'
     @(
