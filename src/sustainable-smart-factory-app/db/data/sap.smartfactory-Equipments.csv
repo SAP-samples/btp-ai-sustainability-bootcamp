@@ -1,5 +1,5 @@
 NR;toEquipmentStatus_code;name;desc;compCode;plant;plantSection;funcLocation;costCenter
-220300010;BD;LGP-Cutting machine#1;A cutting machine cuts acrylic sheet to shape.Used in Sustainable Intelligent Factory storyline for AI&Sustainability Bootcamp;1010;1010;YOH;1010-SSF-SAC-PLAR1-CMT1;10101301
+220300010;BD;LGP-Cutting machine#1;Cutting machine cuts acrylic sheet to shape. Use case for Sustainable Intelligent Factory Bootcamp;1010;1010;YOH;1010-SSF-SAC-PLAR1-CMT1;10101301
 220300020;FL;LGP-Dotting machine#1;A laser mounted on a mechanical head engraves holes on the acrylic sheet;1010;1010;YOH;1010-SSF-SAC-PLAR1-DOT1;10101301
 220300031;MT;LGP-LED assembling machine robotic arm 1;A set of robotic arms mount a LED frame around the Light Guide Plate;1010;1010;YOH;1010-SSF-SAC-PLAR1-ROBT;10101301
 220300032;OK;LGP-LED assembling machine robotic arm 2;A set of robotic arms mount a LED frame around the Light Guide Plate;1010;1010;YOH;1010-SSF-SAC-PLAR1-ROBT;10101301
