@@ -42,6 +42,8 @@ service CatalogService @(path : '/browse') {
     modifiedBy
   };
 
+  entity EqCondsQuery as projection on pdm.EquipmentConditions;
+
   // entity EquipmentConditions as projection on pdm.EquipmentConditions {
   //   *,
   //   plantCond.ID as plantCondId,
