@@ -1,0 +1,42 @@
+apiVersion: ai.sap.com/v1alpha1
+kind: ServingTemplate
+metadata:
+  name: image-seg-infer-tutorial
+  annotations:
+    scenarios.ai.sap.com/description: "SAP AI Core tutorial scenario"
+    scenarios.ai.sap.com/name: "image-seg-tutorial-scenario"
+    executables.ai.sap.com/description: "Inference executable for image segmentation"
+    executables.ai.sap.com/name: "image-seg-infer-tutorial-exec"
+  labels:
+    scenarios.ai.sap.com/id: "image-seg-tutorial"
+    executables.ai.sap.com/id: "image-seg-infer-tutorial"
+    ai.sap.com/version: "1.0.0"
+spec:
+  inputs:
+    parameters: []
+    artifacts:
+      - name: imagesegmodel
+  template:
+    apiVersion: "serving.kubeflow.org/v1beta1"
+    metadata:
+      annotations: |
+        autoscaling.knative.dev/metric: concurrency
+        autoscaling.knative.dev/target: 1
+        autoscaling.knative.dev/targetBurstCapacity: 0
+      labels: |
+        ai.sap.com/resourcePlan: starter
+    spec: |
+      predictor:
+        imagePullSecrets:
+          - name: docker-registry-secret
+        minReplicas: 1
+        maxReplicas: 5
+        containers:
+        - name: kfserving-container
+          image: "docker.io/yoshidj/image-seg-serve:0.0.1"
+          ports:
+            - containerPort: 9001
+              protocol: TCP
+          env:
+            - name: STORAGE_URI
+              value: "{{inputs.artifacts.imagesegmodel}}"

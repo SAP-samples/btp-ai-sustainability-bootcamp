@@ -1,0 +1,27 @@
+@server = http://localhost:4004
+
+
+### ------------------------------------------------------------------------
+### Equipment Conditions
+##  - Service exposure by AdminService is explicit SELECT instead of PROJECTION
+##  - Thus, another Query service has been created within CatalogService.
+##  - With default PROJECTION exposure, it brings native OData capabilities.
+
+###
+# GET EquipmentConditions
+GET {{server}}/browse/EqCondsQuery
+
+###
+# GET Specific EquipmentConditions
+# GET {{server}}/admin/EquipmentConditions?$filter=ID eq 1
+GET {{server}}/browse/EqCondsQuery(1)
+
+###
+# PATCH EquipmentConditions
+###
+PATCH {{server}}/browse/EqCondsQuery(1)
+Content-Type: application/json
+
+{
+    "followUpDocNum": "201920022"
+}

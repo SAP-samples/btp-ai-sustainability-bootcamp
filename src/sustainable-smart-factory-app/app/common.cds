@@ -364,6 +364,7 @@ annotate sf.Equipments with @(UI.HeaderFacets : [
 annotate sf.Equipments with @(
     UI.FieldGroup #HeaderData       : {Data : [{
         Value       : toEquipmentStatus.name,
+        Label       : '',
         Criticality : toEquipmentStatus.criticality
     }]}
 );
