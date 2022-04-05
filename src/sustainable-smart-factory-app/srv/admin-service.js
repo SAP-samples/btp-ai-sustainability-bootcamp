@@ -55,12 +55,16 @@ module.exports = async function () {
 
     // 3. Create Maintenance Order in S4 with Maintenance Operation Item & Costs
     //  Note: MO Operation logic are implemented in helper file.
+    //  Assumptions randomised:
+    //  - Priority: random in helper
+    //  - Duration: random in helper
     const datamo = {
       OrderType: "YA02",
       Equipment: eqCondition.equipment_NR,
       EquipmentName: equipment[0].name,
-      MaintPriority: "1",
-      Desc: "Predictive Maintenance for Pump",
+      Desc: "Noise detected from " + equipment[0].name,
+      OperationDesc: "Fix " + equipment[0].name
+      // Date: "" // [ToDo] add 7 days predictive
       //The cost center of the equipment will be automatically applied, no need to explicitly set here.
       // CostCenter: "10101301",
     };
