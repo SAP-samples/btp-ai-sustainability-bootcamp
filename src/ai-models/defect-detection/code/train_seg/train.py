@@ -148,8 +148,8 @@ class TrainSKInterface:
             raise Exception("Train or test data not set")
 
         #Change splitting proportions
-        self.train, self.val = train_test_split(self.dataset_all, test_size=0.99, random_state=25)
-        self.val, self.test = train_test_split(self.val, test_size=0.99, random_state=25)
+        self.train, self.val = train_test_split(self.dataset_all, test_size=0.4, random_state=25)
+        self.val, self.test = train_test_split(self.val, test_size=0.5, random_state=25)
 
         print(f"No. of training examples: {self.train.shape[0]}")
         print(f"No. of validation examples: {self.val.shape[0]}")
@@ -402,7 +402,7 @@ class TrainSKInterface:
             x=np.array(img_train, np.float32) 
             ,y=np.array(msk_train, np.float32)
             ,epochs=num_epochs
-            ,batch_size=batch_size
+            #,batch_size=batch_size
             #,steps_per_epoch=STEPS_PER_EPOCH
             #,validation_steps=VALIDATION_STEPS
             ,validation_data=(np.array(img_val, np.float32), np.array(msk_val, np.float32))
