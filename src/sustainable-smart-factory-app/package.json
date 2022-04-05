@@ -18,6 +18,7 @@
         "smartfactory": "./"
     },
     "devDependencies": {
+        "@sap/hdi-deploy": "^4.3.0",
         "sqlite3": "^5.0.2"
     },
     "scripts": {
@@ -50,15 +51,18 @@
         }
     },
     "cds": {
+        "build": {
+            "target": "."
+        },
         "requires": {
-            "aicore":{
+            "aicore": {
                 "kind": "rest",
                 "credentials": {
                     "url": "https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments"
                 }
             },
             "db": {
-                "kind": "sql"
+                "kind": "hana"
             }
         },
         "hana": {
