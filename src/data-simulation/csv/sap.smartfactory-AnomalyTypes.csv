@@ -1,0 +1,3 @@
+code;name;descr;suggestedFollowUpAction;autoTrigger;triggerThreshold
+A1;sound anomaly severity 1;sound anomaly severity 1;MO;true;3
+A2;sound anomaly severity 2;sound anomaly severity 2;MO;true;2
