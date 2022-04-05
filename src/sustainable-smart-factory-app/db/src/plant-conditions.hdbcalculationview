@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="plant-conditions" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="plant-conditions"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="SAP_SMARTFACTORY_PLANTCONDITIONS">
+    <resourceUri>SAP_SMARTFACTORY_PLANTCONDITIONS</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_PlantCondition_Table">
+    <viewAttributes>
+      <viewAttribute id="PLANT"/>
+      <viewAttribute id="DATE"/>
+      <viewAttribute id="YIELD"/>
+      <viewAttribute id="DEFECTIVE_PRODUCTS"/>
+      <viewAttribute id="ENERGY_CONSUMPTION"/>
+      <viewAttribute id="SHIFT"/>
+      <viewAttribute id="PLANT_STATUS"/>
+      <viewAttribute id="ID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="SAP_SMARTFACTORY_PLANTCONDITIONS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="DEFECTIVE_PRODUCTS" source="DEFECTIVEPROD"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENERGY_CONSUMPTION" source="ENERGYCONS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PLANT_STATUS" source="PLANTSTATUS"/>
+    </input>
+  </calculationView>
+</calculationViews>
+
+<logicalModel id="Projection_PlantCondition_Table">
+  <attributes>
+    <attribute id="PLANT" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Plant"/>
+      <keyMapping columnObjectName="Projection_PlantCondition_Table" columnName="PLANT"/>
+    </attribute>
+    <attribute id="DATE" order="3" semanticType="date" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Date"/>
+      <keyMapping columnObjectName="Projection_PlantCondition_Table" columnName="DATE"/>
+    </attribute>
+    <attribute id="SHIFT" order="7">
+      <descriptions defaultDescription="Shift"/>
+      <keyMapping columnObjectName="Projection_PlantCondition_Table" columnName="SHIFT"/>
+    </attribute>
+    <attribute id="PLANT_STATUS" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Plant Status"/>
+      <keyMapping columnObjectName="Projection_PlantCondition_Table" columnName="PLANT_STATUS"/>
+    </attribute>
+    <attribute id="ID" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ID"/>
+      <keyMapping columnObjectName="Projection_PlantCondition_Table" columnName="ID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="YIELD" order="4" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Yield"/>
+      <measureMapping columnObjectName="Projection_PlantCondition_Table" columnName="YIELD"/>
+    </measure>
+    <measure id="DEFECTIVE_PRODUCTS" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Defective Products"/>
+      <measureMapping columnObjectName="Projection_PlantCondition_Table" columnName="DEFECTIVE_PRODUCTS"/>
+    </measure>
+    <measure id="ENERGY_CONSUMPTION" order="6" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Energy Cons."/>
+      <measureMapping columnObjectName="Projection_PlantCondition_Table" columnName="ENERGY_CONSUMPTION"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures>
+    <measure id="DEFECTIVE_RATE" order="1" aggregationType="sum" measureType="simple" datatype="DECIMAL" length="9" scale="2" expressionLanguage="SQL">
+      <descriptions defaultDescription="Defective Rate"/>
+      <formula>&quot;DEFECTIVE_PRODUCTS&quot; / &quot;YIELD&quot;</formula>
+      </measure>
+  </calculatedMeasures>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  
+    <shape expanded="true" modelObjectName="Projection_PlantCondition_Table" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="237"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
