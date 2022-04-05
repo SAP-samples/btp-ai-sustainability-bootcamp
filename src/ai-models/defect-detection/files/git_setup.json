@@ -3,12 +3,18 @@
         "name": "aicore-test-calabria",
         "url": "https://github.com/calabria/aicore-test",
         "username": "calabria",
-        "password": "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"
+        "password": "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"
     },
     "app": {
         "applicationName": "defect-det-app-calabria",
         "repositoryUrl": "https://github.com/calabria/aicore-test",
         "revision": "HEAD",
         "path": "workflows_image"
+    },
+    "app_seg": {
+        "applicationName": "image-seg-app-calabria",
+        "repositoryUrl": "https://github.com/calabria/aicore-test",
+        "revision": "HEAD",
+        "path": "workflows_seg"
     }
 }
