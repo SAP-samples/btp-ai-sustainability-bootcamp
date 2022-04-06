@@ -6,6 +6,26 @@
           "catalogs": [],
           "groups": [
             {
+              "id": "Plant360SACStory",
+              "title": "Plant 360",
+              "isPreset": true,
+              "isVisible": true,
+              "isGroupLocked": false,
+              "tiles": [
+                {
+                  "id": "Plant360",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Plant 360 Analytics powered by SAC",
+                    "subtitle": "",
+                    "info": "Plant 360 Analytics powered by SAC",
+                    "icon": "sap-icon://manager-insight",
+                    "targetURL": "https://btp-sa-sac.eu10.hcs.cloud.sap/sap/fpa/ui/app.html#/story&/s/F6C0680451C50494EF3B1F2993C07844/?mode=view"
+                  }
+                }
+              ]
+            },
+            {
               "id": "SmartQualityInspection",
               "title": "Smart Quality Inspection",
               "isPreset": true,
