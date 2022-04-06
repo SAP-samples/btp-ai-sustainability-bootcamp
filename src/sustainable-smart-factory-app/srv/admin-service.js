@@ -38,9 +38,10 @@ module.exports = async function () {
     //  Check if conditions are met so to trigger a maintenance order txn.
     //  2. Retrieve EQ ID
     const eqCondEntity = req.params[0];
-    const eqCondition = await SELECT.from(EquipmentConditions, eqCondEntity).columns([
-      "equipment_NR",
-    ]);
+    const eqCondition = await SELECT.from(
+      EquipmentConditions,
+      eqCondEntity
+    ).columns(["equipment_NR"]);
 
     //  Retrieve Equipment Entity for fields required on MO Operation
     var equipment = await cds
@@ -63,7 +64,7 @@ module.exports = async function () {
       Equipment: eqCondition.equipment_NR,
       EquipmentName: equipment[0].name,
       Desc: "Noise detected from " + equipment[0].name,
-      OperationDesc: "Fix " + equipment[0].name
+      OperationDesc: "Fix " + equipment[0].name,
       // Date: "" // [ToDo] add 7 days predictive
       //The cost center of the equipment will be automatically applied, no need to explicitly set here.
       // CostCenter: "10101301",
@@ -132,9 +133,13 @@ module.exports = async function () {
     const aicoreAPI = await cds.connect.to("aicore");
     const anomalyEntity = req.params[0];
 
+    const anomaly = await SELECT.from(Anomalies, anomalyEntity).columns(
+      ["rawValue"]
+    );
+
     //  2. Prepare base64 format of file
     const fileBase64 = fs.readFileSync(
-      "app/media/sound/REC" + anomalyEntity.ID + ".wav",
+      "app" + anomaly.rawValue,
       {
         encoding: "base64",
       }
@@ -188,13 +193,15 @@ module.exports = async function () {
     const aicoreAPI = await cds.connect.to("aicore");
     const cvImageEntity = req.params[0];
 
-    //  2. Prepare base64 format of file
-    const fileBase64 = fs.readFileSync(
-      "app/media/cv/IMG" + cvImageEntity.ID + ".bmp",
-      {
-        encoding: "base64",
-      }
+    const cvEntity = await SELECT.from(CVQualityRecords, cvImageEntity).columns(
+      ["image"]
     );
+
+    console.log(cvEntity.image);
+    //  2. Prepare base64 format of file
+    const fileBase64 = fs.readFileSync("app" + cvEntity.image, {
+      encoding: "base64",
+    });
     var data = JSON.stringify({
       image: fileBase64,
     });
