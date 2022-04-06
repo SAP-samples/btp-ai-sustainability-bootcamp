@@ -59,6 +59,7 @@ entity EquipmentConditions : managed {
       equipment         : Association to Equipments;
       //equipmentStatus    : EquipmentStatus default 'OK';
       toEquipmentStatus : Association to PlantEquipmentStatus;
+      virtual noOfAnomaliesSinceLastMT : Integer;
       recStartedAt      : Timestamp;
       recEndedAt        : Timestamp;
       // faultProb          : Decimal;
