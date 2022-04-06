@@ -63,13 +63,13 @@
       <measureMapping columnObjectName="Projection_PlantCondition_Table" columnName="DEFECTIVE_PRODUCTS"/>
     </measure>
     <measure id="ENERGY_CONSUMPTION" order="6" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="Energy Cons."/>
+      <descriptions defaultDescription="Energy Cons.(KW)"/>
       <measureMapping columnObjectName="Projection_PlantCondition_Table" columnName="ENERGY_CONSUMPTION"/>
     </measure>
   </baseMeasures>
   <calculatedMeasures>
     <measure id="DEFECTIVE_RATE" order="1" aggregationType="sum" measureType="simple" datatype="DECIMAL" length="9" scale="2" expressionLanguage="SQL" presentationScale="2">
-      <descriptions defaultDescription="Defective Rate"/>
+      <descriptions defaultDescription="Defective Rate ‱"/>
       <formula>CASE &quot;YIELD&quot; 
 	 WHEN 0 then 0 
 	 ELSE &quot;DEFECTIVE_PRODUCTS&quot; * 1000 / &quot;YIELD&quot;
