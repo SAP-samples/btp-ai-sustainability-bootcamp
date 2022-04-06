@@ -39,7 +39,7 @@
       <descriptions defaultDescription="Date"/>
       <keyMapping columnObjectName="Projection_PlantCondition_Table" columnName="DATE"/>
     </attribute>
-    <attribute id="SHIFT" order="7">
+    <attribute id="SHIFT" order="7" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Shift"/>
       <keyMapping columnObjectName="Projection_PlantCondition_Table" columnName="SHIFT"/>
     </attribute>
@@ -68,9 +68,12 @@
     </measure>
   </baseMeasures>
   <calculatedMeasures>
-    <measure id="DEFECTIVE_RATE" order="1" aggregationType="sum" measureType="simple" datatype="DECIMAL" length="9" scale="2" expressionLanguage="SQL">
+    <measure id="DEFECTIVE_RATE" order="1" aggregationType="sum" measureType="simple" datatype="DECIMAL" length="9" scale="2" expressionLanguage="SQL" presentationScale="2">
       <descriptions defaultDescription="Defective Rate"/>
-      <formula>&quot;DEFECTIVE_PRODUCTS&quot; / &quot;YIELD&quot;</formula>
+      <formula>CASE &quot;YIELD&quot; 
+	 WHEN 0 then 0 
+	 ELSE &quot;DEFECTIVE_PRODUCTS&quot; * 1000 / &quot;YIELD&quot;
+END</formula>
       </measure>
   </calculatedMeasures>
   <restrictedMeasures/>
