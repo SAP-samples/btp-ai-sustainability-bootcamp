@@ -12,6 +12,7 @@ import joblib
 import os
 import keras
 import ast
+import random
 
 from sapai import tracking
 from os.path import exists
@@ -30,6 +31,7 @@ from tensorflow.keras.layers import Conv2D,\
     Concatenate, CenterCrop
 import tensorflow.keras.metrics as tfm
 from tensorflow.keras.callbacks import ReduceLROnPlateau
+import albumentations as A
 
 
 FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
@@ -93,6 +95,41 @@ class TrainSKInterface:
                     image = image.tobytes()
                 img_data_array.append(image)
         return img_data_array
+
+
+    def image_transform(self, img, msk):
+        transform = A.Compose([
+            A.RandomRotate90(),
+            A.Flip(),
+            A.Transpose(),
+            A.OneOf([
+                A.MotionBlur(p=.2),
+                A.MedianBlur(blur_limit=3, p=0.3),
+                A.Blur(blur_limit=3, p=0.1),
+            ], p=0.2),
+            #A.ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.2, rotate_limit=45, p=0.2),
+            A.OneOf([
+                A.OpticalDistortion(p=0.3),
+                A.GridDistortion(p=.1),
+            ], p=0.2),
+            A.OneOf([
+                #A.CLAHE(clip_limit=2),
+                A.RandomBrightnessContrast(),            
+            ], p=0.3),
+            #A.HueSaturationValue(p=0.3),
+        ])
+        transformed = transform(image=img, mask=msk)
+        return transformed['image'], transformed['mask']
+
+
+    def data_aug(self, img_list, msk_list):
+        img_newlist = []
+        msk_newlist = []
+        for i in range(len(img_list)):
+            img, msk = self.image_transform(img_list[i], msk_list[i])
+            img_newlist.append(img)
+            msk_newlist.append(msk)
+        return img_newlist, msk_newlist
     
 
     def read_dataset(self) -> None:
@@ -306,7 +343,12 @@ class TrainSKInterface:
         expanded_data = self.expansive_path(contracted_data, skip_inputs)
 
         # Define model
-        model = Model(input_data, expanded_data, name="U-Net")
+        model_unet = Model(input_data, expanded_data, name="U-Net")
+    
+        model = tf.keras.Sequential([
+            #data_augmentation,
+            model_unet
+        ])
 
         return model
     
@@ -324,7 +366,7 @@ class TrainSKInterface:
         num_epochs = config.get("num_epochs")
 
         # Init optimizer
-        optimizer_init = config.get("optimizer")(learning_rate = 1e-3)
+        optimizer_init = config.get("optimizer")(learning_rate = 5e-3)
 
         # Compile the model
         self.image_pipeline.compile(loss=loss_init, optimizer=optimizer_init, metrics=metrics)
@@ -358,7 +400,7 @@ class TrainSKInterface:
             optimizer = Adamax,
             loss = self.iou_loss,
             initializer = HeNormal(),
-            batch_size = 20,
+            batch_size = 50,
             num_epochs = 300,
             metrics = [IoUCustom(num_classes=2, target_class_ids=[1], name='iou')],
             dataset_path = os.path.join(os.getcwd(), 'data')
@@ -379,6 +421,16 @@ class TrainSKInterface:
         img_val = self.convert_back(self.val, 'image', 3, self.IMG_WIDTH, self.IMG_HEIGHT)
         msk_train = self.convert_back(self.train, 'mask', 1, self.MSK_WIDTH, self.MSK_HEIGHT)
         msk_val = self.convert_back(self.val, 'mask', 1, self.MSK_WIDTH, self.MSK_HEIGHT)
+
+        img_train_aug_1, msk_train_aug_1 = self.data_aug(img_train, msk_train)
+        img_train_aug_2, msk_train_aug_2 = self.data_aug(img_train, msk_train)
+        img_train_aug = img_train + img_train_aug_1 + img_train_aug_2
+        msk_train_aug = msk_train + msk_train_aug_1 + msk_train_aug_2
+
+        temp = list(zip(img_train_aug, msk_train_aug))
+        random.shuffle(temp)
+        img_train_shuffle = [i for i,j in temp]
+        msk_train_shuffle = [j for i,j in temp]
         
         # Load config
         config = self.configuration()
@@ -392,21 +444,21 @@ class TrainSKInterface:
         reduce_lr = ReduceLROnPlateau(
             monitor='val_loss', #Change to val_loss once in AICore
             factor=0.2,
-            patience=20,
+            patience=50,
             min_lr=1e-6,
             min_delta=0.0001,
             verbose=2
         )
 
         history = self.image_pipeline.fit(
-            x=np.array(img_train, np.float32) 
-            ,y=np.array(msk_train, np.float32)
+            x=np.array(img_train_shuffle, np.float32) 
+            ,y=np.array(msk_train_shuffle, np.float32)
             ,epochs=num_epochs
-            #,batch_size=batch_size
+            ,batch_size=batch_size
             #,steps_per_epoch=STEPS_PER_EPOCH
             #,validation_steps=VALIDATION_STEPS
             ,validation_data=(np.array(img_val, np.float32), np.array(msk_val, np.float32))
-            #,callbacks=[reduce_lr]
+            ,callbacks=[reduce_lr]
         )
         
         self.loss = history.history['loss']
