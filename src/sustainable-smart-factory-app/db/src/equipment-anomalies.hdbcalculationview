@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="equipment-anomalies" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="equipment-anomalies"/>
+<localVariables>
+  <variable id="IP_Equipment" parameter="true">
+    <descriptions defaultDescription="Equipment No."/>
+    <variableProperties datatype="NVARCHAR" length="18" scale="null" mandatory="false">
+      <valueDomain type="AttributeValue">
+        <attribute name="EQUIPMENT"/>
+      </valueDomain>
+      <selection multiLine="true" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings/>
+<dataSources>
+  <DataSource id="ANALYTICSSERVICE_ANOMALIESEXTENDEDVIEW">
+    <resourceUri>ANALYTICSSERVICE_ANOMALIESEXTENDEDVIEW</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="ID"/>
+      <viewAttribute id="DETECTED_DATE"/>
+      <viewAttribute id="EQUIPMENT"/>
+      <viewAttribute id="CONFIDENCE"/>
+      <viewAttribute id="ANOMALY_STATUS"/>
+      <viewAttribute id="EQCOND_ID"/>
+      <viewAttribute id="EQUIPMENT_STATUS"/>
+      <viewAttribute id="EQUIPMENT_NAME"/>
+      <viewAttribute id="PLANT"/>
+      <viewAttribute id="FUNC_LOCATION"/>
+      <viewAttribute id="FOLLOWUP_DOC_TYPE"/>
+      <viewAttribute id="FOLLOWUP_DOC_NUM"/>
+      <viewAttribute id="ANOMALY_TYPE"/>
+      <viewAttribute id="NUMBER_OF_ANOMALIES"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="ANALYTICSSERVICE_ANOMALIESEXTENDEDVIEW">
+      <mapping xsi:type="Calculation:AttributeMapping" target="DETECTED_DATE" source="DETECTEDDATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ANOMALY_STATUS" source="ANOMALYSTATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQCOND_ID" source="EQCONDID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT_STATUS" source="EQUIPMENTSTATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT_NAME" source="EQUIPMENTNAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FUNC_LOCATION" source="FUNCLOCATION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FOLLOWUP_DOC_TYPE" source="FOLLOWUPDOCTYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FOLLOWUP_DOC_NUM" source="FOLLOWUPDOCNUM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ANOMALY_TYPE" source="ANOMALYTYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUMBER_OF_ANOMALIES" source="NUMBEROFANOMALIES"/>
+    </input>
+  </calculationView>
+</calculationViews>
+
+<logicalModel id="Projection_1">
+  <attributes>
+    <attribute id="ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Anomaly ID"/>
+      <keyMapping columnObjectName="Projection_1" columnName="ID"/>
+    </attribute>
+    <attribute id="DETECTED_DATE" order="2" semanticType="date" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Deteced Date"/>
+      <keyMapping columnObjectName="Projection_1" columnName="DETECTED_DATE"/>
+    </attribute>
+    <attribute id="EQUIPMENT" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Equipment No."/>
+      <keyMapping columnObjectName="Projection_1" columnName="EQUIPMENT"/>
+    </attribute>
+    <attribute id="ANOMALY_STATUS" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Anomaly Status"/>
+      <keyMapping columnObjectName="Projection_1" columnName="ANOMALY_STATUS"/>
+    </attribute>
+    <attribute id="EQCOND_ID" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Equipment Condition ID"/>
+      <keyMapping columnObjectName="Projection_1" columnName="EQCOND_ID"/>
+    </attribute>
+    <attribute id="EQUIPMENT_STATUS" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Equipment Status"/>
+      <keyMapping columnObjectName="Projection_1" columnName="EQUIPMENT_STATUS"/>
+    </attribute>
+    <attribute id="EQUIPMENT_NAME" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Equipment Name"/>
+      <keyMapping columnObjectName="Projection_1" columnName="EQUIPMENT_NAME"/>
+    </attribute>
+    <attribute id="PLANT" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Plant"/>
+      <keyMapping columnObjectName="Projection_1" columnName="PLANT"/>
+    </attribute>
+    <attribute id="FUNC_LOCATION" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Func. Location"/>
+      <keyMapping columnObjectName="Projection_1" columnName="FUNC_LOCATION"/>
+    </attribute>
+    <attribute id="FOLLOWUP_DOC_TYPE" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Follow-up Doc. Type"/>
+      <keyMapping columnObjectName="Projection_1" columnName="FOLLOWUP_DOC_TYPE"/>
+    </attribute>
+    <attribute id="FOLLOWUP_DOC_NUM" order="12" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Follow-up Doc. Num."/>
+      <keyMapping columnObjectName="Projection_1" columnName="FOLLOWUP_DOC_NUM"/>
+    </attribute>
+    <attribute id="ANOMALY_TYPE" order="13" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Anomaly Type"/>
+      <keyMapping columnObjectName="Projection_1" columnName="ANOMALY_TYPE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="CONFIDENCE" order="4" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="Confidence"/>
+      <measureMapping columnObjectName="Projection_1" columnName="CONFIDENCE"/>
+    </measure>
+    <measure id="NUMBER_OF_ANOMALIES" order="14" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="No. of Anomalies"/>
+      <measureMapping columnObjectName="Projection_1" columnName="NUMBER_OF_ANOMALIES"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="105" y="185"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

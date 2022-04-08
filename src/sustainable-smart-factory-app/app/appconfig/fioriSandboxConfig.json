@@ -6,12 +6,54 @@
           "catalogs": [],
           "groups": [
             {
+              "id": "PlantSACStories",
+              "title": "Plant 360",
+              "isPreset": true,
+              "isVisible": true,
+              "isGroupLocked": false,
+              "tiles": [
+                {
+                  "id": "Plant360",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Plant 360 Analytics powered by SAC",
+                    "subtitle": "",
+                    "info": "Plant 360 Analytics powered by SAC",
+                    "icon": "sap-icon://kpi-corporate-performance",
+                    "targetURL": "https://btp-sa-sac.eu10.hcs.cloud.sap/sap/fpa/ui/app.html#/story&/s/F6C0680451C50494EF3B1F2993C07844/?mode=view"
+                  }
+                },
+                {
+                  "id": "MaintenanceCostBudgetting",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Maintenance Cost&Sustainability Planing powered by SAC",
+                    "subtitle": "",
+                    "info": "Maintenance Cost&Sustainability Planing powered by SAC",
+                    "icon": "sap-icon://performance",
+                    "targetURL": "https://btp-sa-sac.eu10.hcs.cloud.sap/sap/fpa/ui/tenants/b0060/app.html#/story&/s/8478700451C52DDBBB6FDD60C4A74880/?mode=view"
+                  }
+                }
+              ]
+            },
+            {
               "id": "SmartQualityInspection",
               "title": "Smart Quality Inspection",
               "isPreset": true,
               "isVisible": true,
               "isGroupLocked": false,
               "tiles": [
+                {
+                  "id": "CVQualityRecordsALP",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Quality Records Insights by Computer Vison",
+                    "subtitle": "",
+                    "info": "Analytical List Page for Quality Records of Computer Vision",
+                    "icon": "sap-icon://line-chart",
+                    "targetURL": "#CVQualityRecordsView-display"
+                  }
+                },
                 {
                   "id": "ManageCVQualityRecords",
                   "tileType": "sap.ushell.ui.tile.StaticTile",
@@ -21,17 +63,6 @@
                     "info": "Auto Quality Inspection via Computer Vision",
                     "icon": "sap-icon://web-cam",
                     "targetURL": "#CVQualityRecords-manage"
-                  }
-                },
-                {
-                  "id": "CVQualityRecordsALP",
-                  "tileType": "sap.ushell.ui.tile.StaticTile",
-                  "properties": {
-                    "title": "Quality Records Insights by Computer Vison",
-                    "subtitle": "",
-                    "info": "Analytical List Page for Quality Records of Computer Vision",
-                    "icon": "sap-icon://manager-insight",
-                    "targetURL": "#CVQualityRecordsView-display"
                   }
                 }
               ]
@@ -63,6 +94,17 @@
                     "info": "Plant Equipments Status",
                     "icon": "sap-icon://settings",
                     "targetURL": "#PlantEquipmentStatus-manage"
+                  }
+                },
+                {
+                  "id": "ManageAnomalyTypes",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Configure Anomaly Types",
+                    "subtitle": "",
+                    "info": "Config. Anomaly Types of Equipment",
+                    "icon": "sap-icon://settings",
+                    "targetURL": "#AnomalyTypes-manage"
                   }
                 }
               ]
@@ -127,17 +169,6 @@
                     "info": "Anomalies Detected for Equipment by AI",
                     "icon": "sap-icon://alert",
                     "targetURL": "#Anomalies-manage"
-                  }
-                },
-                {
-                  "id": "ManageAnomalyTypes",
-                  "tileType": "sap.ushell.ui.tile.StaticTile",
-                  "properties": {
-                    "title": "Configure Anomaly Types",
-                    "subtitle": "",
-                    "info": "Config. Anomaly Types of Equipment",
-                    "icon": "sap-icon://settings",
-                    "targetURL": "#AnomalyTypes-manage"
                   }
                 }
               ]

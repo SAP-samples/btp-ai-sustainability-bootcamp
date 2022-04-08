@@ -7,6 +7,9 @@
   <DataSource id="SAP_SMARTFACTORY_PLANTCONDITIONS">
     <resourceUri>SAP_SMARTFACTORY_PLANTCONDITIONS</resourceUri>
   </DataSource>
+  <DataSource id="M_TIME_DIMENSION">
+    <resourceUri>M_TIME_DIMENSION</resourceUri>
+  </DataSource>
 </dataSources>
 <calculationViews>
   <calculationView xsi:type="Calculation:ProjectionView" id="Projection_PlantCondition_Table">
@@ -27,50 +30,152 @@
       <mapping xsi:type="Calculation:AttributeMapping" target="PLANT_STATUS" source="PLANTSTATUS"/>
     </input>
   </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="YEAR"/>
+      <viewAttribute id="QUARTER"/>
+      <viewAttribute id="MONTH"/>
+      <viewAttribute id="WEEK"/>
+      <viewAttribute id="WEEK_YEAR"/>
+      <viewAttribute id="CALQUARTER"/>
+      <viewAttribute id="CALMONTH"/>
+      <viewAttribute id="CALWEEK"/>
+      <viewAttribute id="PLANT"/>
+      <viewAttribute id="DATE"/>
+      <viewAttribute id="YIELD" aggregationType="sum"/>
+      <viewAttribute id="DEFECTIVE_PRODUCTS" aggregationType="sum"/>
+      <viewAttribute id="ENERGY_CONSUMPTION" aggregationType="sum"/>
+      <viewAttribute id="SHIFT" aggregationType="sum"/>
+      <viewAttribute id="PLANT_STATUS"/>
+      <viewAttribute id="ID" aggregationType="sum"/>
+      <viewAttribute hidden="true" id="JOIN$DATE_SQL$DATE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Projection_Time_Dim">
+      <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QUARTER" source="QUARTER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WEEK" source="WEEK"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WEEK_YEAR" source="WEEK_YEAR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CALQUARTER" source="CALQUARTER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CALWEEK" source="CALWEEK"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$DATE_SQL$DATE" source="DATE_SQL"/>
+    </input>
+    <input node="Projection_PlantCondition_Table">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PLANT" source="PLANT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATE" source="DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="YIELD" source="YIELD"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DEFECTIVE_PRODUCTS" source="DEFECTIVE_PRODUCTS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENERGY_CONSUMPTION" source="ENERGY_CONSUMPTION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SHIFT" source="SHIFT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PLANT_STATUS" source="PLANT_STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$DATE_SQL$DATE" source="DATE"/>
+    </input>
+    <joinAttribute name="JOIN$DATE_SQL$DATE"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_Time_Dim">
+    <viewAttributes>
+      <viewAttribute id="DATE_SQL"/>
+      <viewAttribute id="YEAR"/>
+      <viewAttribute id="QUARTER"/>
+      <viewAttribute id="MONTH"/>
+      <viewAttribute id="WEEK"/>
+      <viewAttribute id="WEEK_YEAR"/>
+      <viewAttribute id="CALQUARTER"/>
+      <viewAttribute id="CALMONTH"/>
+      <viewAttribute id="CALWEEK"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="M_TIME_DIMENSION"/>
+  </calculationView>
 </calculationViews>
 
-<logicalModel id="Projection_PlantCondition_Table">
+<logicalModel id="Join_1">
   <attributes>
     <attribute id="PLANT" order="2" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Plant"/>
-      <keyMapping columnObjectName="Projection_PlantCondition_Table" columnName="PLANT"/>
+      <keyMapping columnObjectName="Join_1" columnName="PLANT"/>
     </attribute>
     <attribute id="DATE" order="3" semanticType="date" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Date"/>
-      <keyMapping columnObjectName="Projection_PlantCondition_Table" columnName="DATE"/>
+      <keyMapping columnObjectName="Join_1" columnName="DATE"/>
     </attribute>
-    <attribute id="SHIFT" order="7">
+    <attribute id="SHIFT" order="7" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Shift"/>
-      <keyMapping columnObjectName="Projection_PlantCondition_Table" columnName="SHIFT"/>
+      <keyMapping columnObjectName="Join_1" columnName="SHIFT"/>
     </attribute>
     <attribute id="PLANT_STATUS" order="8" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Plant Status"/>
-      <keyMapping columnObjectName="Projection_PlantCondition_Table" columnName="PLANT_STATUS"/>
+      <keyMapping columnObjectName="Join_1" columnName="PLANT_STATUS"/>
     </attribute>
     <attribute id="ID" order="9" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="ID"/>
-      <keyMapping columnObjectName="Projection_PlantCondition_Table" columnName="ID"/>
+      <keyMapping columnObjectName="Join_1" columnName="ID"/>
+    </attribute>
+  
+    <attribute id="YEAR" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Year"/>
+      <keyMapping columnObjectName="Join_1" columnName="YEAR"/>
+    </attribute>
+    <attribute id="QUARTER" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Quarter"/>
+      <keyMapping columnObjectName="Join_1" columnName="QUARTER"/>
+    </attribute>
+    <attribute id="MONTH" order="12" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Month"/>
+      <keyMapping columnObjectName="Join_1" columnName="MONTH"/>
+    </attribute>
+    <attribute id="WEEK" order="13" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Week"/>
+      <keyMapping columnObjectName="Join_1" columnName="WEEK"/>
+    </attribute>
+    <attribute id="WEEK_YEAR" order="14" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Week in Year"/>
+      <keyMapping columnObjectName="Join_1" columnName="WEEK_YEAR"/>
+    </attribute>
+    <attribute id="CALQUARTER" order="15" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Cal. Quarter"/>
+      <keyMapping columnObjectName="Join_1" columnName="CALQUARTER"/>
+    </attribute>
+    <attribute id="CALMONTH" order="16" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Cal. Month"/>
+      <keyMapping columnObjectName="Join_1" columnName="CALMONTH"/>
+    </attribute>
+    <attribute id="CALWEEK" order="17" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Cal. Week"/>
+      <keyMapping columnObjectName="Join_1" columnName="CALWEEK"/>
     </attribute>
   </attributes>
   <calculatedAttributes/>
   <baseMeasures>
     <measure id="YIELD" order="4" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="Yield"/>
-      <measureMapping columnObjectName="Projection_PlantCondition_Table" columnName="YIELD"/>
+      <measureMapping columnObjectName="Join_1" columnName="YIELD"/>
     </measure>
     <measure id="DEFECTIVE_PRODUCTS" order="5" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="Defective Products"/>
-      <measureMapping columnObjectName="Projection_PlantCondition_Table" columnName="DEFECTIVE_PRODUCTS"/>
+      <measureMapping columnObjectName="Join_1" columnName="DEFECTIVE_PRODUCTS"/>
     </measure>
     <measure id="ENERGY_CONSUMPTION" order="6" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="Energy Cons."/>
-      <measureMapping columnObjectName="Projection_PlantCondition_Table" columnName="ENERGY_CONSUMPTION"/>
+      <descriptions defaultDescription="Energy Cons.(KW)"/>
+      <measureMapping columnObjectName="Join_1" columnName="ENERGY_CONSUMPTION"/>
     </measure>
   </baseMeasures>
   <calculatedMeasures>
-    <measure id="DEFECTIVE_RATE" order="1" aggregationType="sum" measureType="simple" datatype="DECIMAL" length="9" scale="2" expressionLanguage="SQL">
-      <descriptions defaultDescription="Defective Rate"/>
-      <formula>&quot;DEFECTIVE_PRODUCTS&quot; / &quot;YIELD&quot;</formula>
+    <measure id="DEFECTIVE_RATE" order="1" aggregationType="avg" measureType="simple" datatype="DECIMAL" length="9" scale="2" expressionLanguage="SQL" presentationScale="2" engineAggregation="sum" aggregatable="true">
+      <descriptions defaultDescription="Defective Rate ‱"/>
+      <formula>CASE &quot;YIELD&quot; 
+	 WHEN 0 then 0 
+	 ELSE &quot;DEFECTIVE_PRODUCTS&quot; * 1000 / &quot;YIELD&quot; 
+ END</formula>
+      
+      </measure>
+  
+    <measure id="CO2_EMISSION" order="18" aggregationType="sum" measureType="simple" aggregatable="true" datatype="DECIMAL" length="9" scale="2" expressionLanguage="SQL">
+      <descriptions defaultDescription="CO2 Emission in KG"/>
+      <formula>&quot;ENERGY_CONSUMPTION&quot; * 0.0301</formula>
       </measure>
   </calculatedMeasures>
   <restrictedMeasures/>
@@ -79,13 +184,31 @@
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="40" y="85"/>
+      <upperLeftCorner x="92" y="105"/>
+    
+      <rectangleSize width="160"/>
     </shape>
     
   
     <shape expanded="true" modelObjectName="Projection_PlantCondition_Table" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="100" y="237"/>
+      <upperLeftCorner x="208.0000000000001" y="301.9999988079071"/>
+      <rectangleSize height="30" width="323"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="97" y="189"/>
       <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Projection_Time_Dim" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="-346" y="-29"/>
+      <rectangleSize width="186.43333435058594"/>
+    </shape>
+    <shape modelObjectName="Projection_PlantCondition_Table" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="39.43333435058594" y="-26"/>
+      <rectangleSize width="251.76666259765625"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_Time_Dim" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="-67" y="302"/>
+      <rectangleSize height="30" width="176"/>
     </shape>
   </shapes>
 </layout>
