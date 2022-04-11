@@ -190,7 +190,8 @@ class TrainSKInterface:
             raise Exception("Train or test data not set")
 
         #Change splitting proportions
-        self.train, self.val = train_test_split(self.dataset_all, test_size=0.4, random_state=25)
+        self.train=self.dataset_all.copy()
+        self.train2, self.val = train_test_split(self.dataset_all, test_size=0.4, random_state=25)
         self.val, self.test = train_test_split(self.val, test_size=0.5, random_state=25)
 
         print(f"No. of training examples: {self.train.shape[0]}")
@@ -402,7 +403,7 @@ class TrainSKInterface:
             optimizer = Adamax,
             loss = self.iou_loss,
             initializer = HeNormal(),
-            batch_size = 50,
+            batch_size = 32,
             num_epochs = 200,
             metrics = [IoUCustom(num_classes=2, target_class_ids=[1], name='iou')]
         )
@@ -420,6 +421,7 @@ class TrainSKInterface:
         
         img_train = self.convert_back(self.train, 'image', 1, self.IMG_WIDTH, self.IMG_HEIGHT)
         img_val = self.convert_back(self.val, 'image', 1, self.IMG_WIDTH, self.IMG_HEIGHT)
+
         msk_train = self.convert_back(self.train, 'mask', 1, self.MSK_WIDTH, self.MSK_HEIGHT)
         msk_val = self.convert_back(self.val, 'mask', 1, self.MSK_WIDTH, self.MSK_HEIGHT)
 
@@ -508,7 +510,7 @@ class TrainSKInterface:
         if self.image_pipeline is None:
             self.get_model()
 
-        infer_data = np.array(self.convert_back(self.val, 'image', 3, self.IMG_WIDTH, self.IMG_HEIGHT), 
+        infer_data = np.array(self.convert_back(self.val, 'image', 1, self.IMG_WIDTH, self.IMG_HEIGHT), 
                               np.float32) #Change to test sample
         infer_masks = np.array(self.convert_back(self.val, 'mask', 1, self.MSK_WIDTH, self.MSK_HEIGHT),
                                np.float32) #Change to test sample
