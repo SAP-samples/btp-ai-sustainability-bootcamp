@@ -214,13 +214,7 @@
               "signature": {
                 "parameters": {
                   "CVQualityRecords": {
-                    "renameTo": "CVQualityRecords.ID"
-                  },
-                  "CVQualityRecordsView": {
-                    "renameTo": "CVQualityRecords.ID"
-                  },
-                  "CVQualityRecordsView.ID": {
-                    "renameTo": "CVQualityRecords.ID"
+                    "renameTo": "ID"
                   }
                 },
                 "additionalParameters": "ignored"
@@ -237,11 +231,8 @@
               "title": "CV Quality Record Insights",
               "signature": {
                 "parameters": {
-                  "CVQualityRecordsView.ID": {
-                    "renameTo": "ID"
-                  }
                 },
-                "additionalParameters": "ignored"
+                "additionalParameters": "allowed"
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
@@ -255,11 +246,12 @@
               "title": "Manage Equipments Master Data",
               "signature": {
                 "parameters": {
-                  "NR": {
-                    "renameTo": "Equipments.NR"
+                  
+                  "Equipments": {
+                    "renameTo": "NR"
                   }
                 },
-                "additionalParameters": "ignored"
+                "additionalParameters": "allowed"
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
@@ -335,7 +327,7 @@
               "signature": {
                 "parameters": {
                   "EquipmentConditions": {
-                    "renameTo": "EquipmentConditions.ID"
+                    "renameTo": "ID"
                   }
                 },
                 "additionalParameters": "allowed"
@@ -353,7 +345,7 @@
               "signature": {
                 "parameters": {
                   "Anomalies": {
-                    "renameTo": "Anomalies.ID"
+                    "renameTo": "ID"
                   }
                 },
                 "additionalParameters": "allowed"
