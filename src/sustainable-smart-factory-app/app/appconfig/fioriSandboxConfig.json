@@ -246,8 +246,13 @@
               "title": "Manage Equipments Master Data",
               "signature": {
                 "parameters": {
-                  
                   "Equipments": {
+                    "renameTo": "NR"
+                  },
+                  "Anomalies.equipment": {
+                    "renameTo": "NR"
+                  },
+                  "equipment": {
                     "renameTo": "NR"
                   }
                 },

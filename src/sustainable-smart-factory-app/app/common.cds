@@ -647,6 +647,11 @@ annotate sf.Anomalies with @(
         Text            : ID,
         TextArrangement : #TextOnly
     };
+    equipment @Common : {
+        SemanticObject  : 'Equipments',
+        Text            : equipment,
+        TextArrangement : #TextOnly
+    };
 //anomalyType @ValueList.entity      : 'AnomalyTypes';
 };
 
