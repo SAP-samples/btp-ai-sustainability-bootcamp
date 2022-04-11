@@ -13,7 +13,7 @@ import base64
 import io
 from json import dumps
 import cv2
-import tensorflow.keras.metrics as tfm
+import tensorflow.keras import models
 import logging
 
 FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
