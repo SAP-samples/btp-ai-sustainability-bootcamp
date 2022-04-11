@@ -28,7 +28,7 @@ from tensorflow.keras.optimizers import schedules, Adamax
 from tensorflow.keras.initializers import HeNormal
 from tensorflow.keras.layers import Conv2D,\
     MaxPool2D, Conv2DTranspose, Input, Activation,\
-    Concatenate, CenterCrop
+    Concatenate, CenterCrop, BatchNormalization
 import tensorflow.keras.metrics as tfm
 from tensorflow.keras.callbacks import ReduceLROnPlateau
 import albumentations as A
@@ -76,8 +76,8 @@ class TrainSKInterface:
     
     def create_dataset(self, img_folder, bnw, binary, width, height):
         img_data_array = []
-        color_str = cv2.IMREAD_COLOR
-        color_int = 3
+        color_str = cv2.COLOR_BGR2GRAY
+        color_int = 1
         if(bnw):
             color_str = cv2.cv2.IMREAD_GRAYSCALE
             color_int = 1
@@ -85,6 +85,11 @@ class TrainSKInterface:
                 image_path = os.path.join(img_folder, file)
                 image = cv2.imread(image_path, color_str)
                 image = cv2.resize(image, (height, width), interpolation = cv2.INTER_AREA)
+                if(not(bnw)):
+                    clahe = cv2.createCLAHE(clipLimit=5.0, tileGridSize=(8,8))
+                    image = clahe.apply(image)
+                    kernel = np.ones((3,3),np.uint8)
+                    image = cv2.dilate(image,kernel,iterations = 1)
                 image = np.array(image)
                 image = image.astype('float32')
                 image /= 255
@@ -99,19 +104,19 @@ class TrainSKInterface:
 
     def image_transform(self, img, msk):
         transform = A.Compose([
-            A.RandomRotate90(),
+            #A.RandomRotate90(),
             A.Flip(),
-            A.Transpose(),
-            A.OneOf([
-                A.MotionBlur(p=.2),
-                A.MedianBlur(blur_limit=3, p=0.3),
-                A.Blur(blur_limit=3, p=0.1),
-            ], p=0.2),
+            #A.Transpose(),
+            #A.OneOf([
+            #    A.MotionBlur(p=.2),
+            #    A.MedianBlur(blur_limit=3, p=0.3),
+            #    A.Blur(blur_limit=3, p=0.1),
+            #], p=0.2),
             #A.ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.2, rotate_limit=45, p=0.2),
-            A.OneOf([
-                A.OpticalDistortion(p=0.3),
-                A.GridDistortion(p=.1),
-            ], p=0.2),
+            #A.OneOf([
+            #    A.OpticalDistortion(p=0.3),
+            #    A.GridDistortion(p=.1),
+            #], p=0.2),
             A.OneOf([
                 #A.CLAHE(clip_limit=2),
                 A.RandomBrightnessContrast(),            
@@ -215,11 +220,13 @@ class TrainSKInterface:
         # First Conv segment
         x = Conv2D(filters, (3, 3),\
             kernel_initializer=config.get("initializer"))(x)
+        x = BatchNormalization()(x)
         x = Activation("relu")(x)
 
         # Second Conv segment
         x = Conv2D(filters, (3, 3),\
             kernel_initializer=config.get("initializer"))(x)
+        x = BatchNormalization()(x)
         x = Activation("relu")(x)
 
         # Keep Conv output for skip input
@@ -279,6 +286,7 @@ class TrainSKInterface:
         # Perform upsampling
         x = Conv2DTranspose(filters//2, (2, 2), strides=(2, 2),\
             kernel_initializer=config.get("initializer"))(x)
+        x = BatchNormalization()(x)
         shp = x.shape
 
         # Crop the skip input, keep the center
@@ -291,11 +299,13 @@ class TrainSKInterface:
         # First Conv segment
         x = Conv2D(filters//2, (3, 3),
             kernel_initializer=config.get("initializer"))(concat_input)
+        x = BatchNormalization()(x)
         x = Activation("relu")(x)
 
         # Second Conv segment
         x = Conv2D(filters//2, (3, 3),
             kernel_initializer=config.get("initializer"))(x)
+        x = BatchNormalization()(x)
         x = Activation("relu")(x)
 
         # Prepare output if last block
@@ -343,12 +353,7 @@ class TrainSKInterface:
         expanded_data = self.expansive_path(contracted_data, skip_inputs)
 
         # Define model
-        model_unet = Model(input_data, expanded_data, name="U-Net")
-    
-        model = tf.keras.Sequential([
-            #data_augmentation,
-            model_unet
-        ])
+        model = Model(input_data, expanded_data, name="U-Net")
 
         return model
     
@@ -386,9 +391,6 @@ class TrainSKInterface:
         ''' Get configuration. '''
 
         return dict(
-            data_train_prc = 80,
-            data_val_prc = 90,
-            data_test_prc = 100,
             num_filters_start = 64,
             num_unet_blocks = 3,
             num_filters_end = 2,
@@ -396,14 +398,13 @@ class TrainSKInterface:
             input_height = 224,
             mask_width = 184,
             mask_height = 184,
-            input_dim = 3,
+            input_dim = 1,
             optimizer = Adamax,
             loss = self.iou_loss,
             initializer = HeNormal(),
             batch_size = 50,
-            num_epochs = 300,
-            metrics = [IoUCustom(num_classes=2, target_class_ids=[1], name='iou')],
-            dataset_path = os.path.join(os.getcwd(), 'data')
+            num_epochs = 200,
+            metrics = [IoUCustom(num_classes=2, target_class_ids=[1], name='iou')]
         )
 
 
@@ -417,8 +418,8 @@ class TrainSKInterface:
         #sess = tf.compat.v1.Session(config=config) 
         #keras.backend.set_session(sess)
         
-        img_train = self.convert_back(self.train, 'image', 3, self.IMG_WIDTH, self.IMG_HEIGHT)
-        img_val = self.convert_back(self.val, 'image', 3, self.IMG_WIDTH, self.IMG_HEIGHT)
+        img_train = self.convert_back(self.train, 'image', 1, self.IMG_WIDTH, self.IMG_HEIGHT)
+        img_val = self.convert_back(self.val, 'image', 1, self.IMG_WIDTH, self.IMG_HEIGHT)
         msk_train = self.convert_back(self.train, 'mask', 1, self.MSK_WIDTH, self.MSK_HEIGHT)
         msk_val = self.convert_back(self.val, 'mask', 1, self.MSK_WIDTH, self.MSK_HEIGHT)
 
@@ -443,16 +444,18 @@ class TrainSKInterface:
         
         reduce_lr = ReduceLROnPlateau(
             monitor='val_loss', #Change to val_loss once in AICore
-            factor=0.2,
-            patience=50,
+            factor=0.8,
+            patience=20,
             min_lr=1e-6,
             min_delta=0.0001,
             verbose=2
         )
 
         history = self.image_pipeline.fit(
-            x=np.array(img_train_shuffle, np.float32) 
-            ,y=np.array(msk_train_shuffle, np.float32)
+            x=np.array(img_train, np.float32) 
+            ,y=np.array(msk_train, np.float32)
+            #x=np.array(img_train_shuffle, np.float32) 
+            #,y=np.array(msk_train_shuffle, np.float32)
             ,epochs=num_epochs
             ,batch_size=batch_size
             #,steps_per_epoch=STEPS_PER_EPOCH
