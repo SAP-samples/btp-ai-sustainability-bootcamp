@@ -77,10 +77,12 @@ def predict():
 
     prediction = sound_pipeline.predict(b)
     prediction = prediction[0]
-    predicted_label = "Normal" if prediction[0] > 0.5 else "Anomalous" #To be tuned
-    predicted_prob = prediction[0] if prediction[0] > 0.5 else prediction[1]
-    #predicted_label = target_classes[prediction[0]]
-    output = {predicted_label:str(predicted_prob)}
+    
+    pred_class =  np.where(prediction == np.amax(prediction))[0][0] 
+    predicted_label = target_classes[pred_class]  
+    pred_confidence = np.max(prediction) 
+    
+    output = { predicted_label: str(pred_confidence)}
 
     return output
 

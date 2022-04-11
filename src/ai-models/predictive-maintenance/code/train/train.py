@@ -47,6 +47,8 @@ class TrainInterface:
         self.val_loss = None
         self.accuracy = None
         self.val_accuracy = None
+        self.class_dict={}
+        self.classes={}
 
     def acoustic_feature_computation( self, clip ):
         scale, sr = librosa.load(clip)
@@ -73,12 +75,18 @@ class TrainInterface:
         
         clips=glob(path)
         self.dataset=pd.DataFrame(data={'path':clips,
-                            'label':[0 if c.split('/')[-2]=='normal' else 1 for c in clips]} )
+                            'label':[ c.split('/')[-2]  for c in clips]} )
         
         self.dataset = self.dataset.sample(frac=1).reset_index(drop=True)
         self.target_classes = self.dataset["label"].unique()
-
+        TC='LABELS: '+' '.join(self.target_classes)
+        logging.info(TC)
         
+        self.class_dict=dict(enumerate(self.target_classes ))
+        self.classes = {v: k for k, v in self.class_dict.items()}
+        self.dataset['class']=self.dataset['label'].apply(lambda x : self.classes[x])
+        TC='CLASSES: '+' '.join([str(c) for c in self.dataset['class'].unique()])
+        logging.info(TC)
         return None
 
 
@@ -102,15 +110,15 @@ class TrainInterface:
  
         for i,r in self.train.iterrows():
             self.X_train.append(self.acoustic_feature_computation(r['path']))
-            self.y_train.append(r['label'])
+            self.y_train.append(r['class'])
             
         for i,r in self.test.iterrows():
             self.X_test.append(self.acoustic_feature_computation(r['path']))
-            self.y_test.append(r['label'])
+            self.y_test.append(r['class'])
  
         for i,r in self.val.iterrows():
             self.X_validation.append(self.acoustic_feature_computation(r['path']))
-            self.y_validation.append(r['label'])
+            self.y_validation.append(r['class'])
         
         return None 
     
@@ -136,7 +144,7 @@ class TrainInterface:
         self.tf_model.add(layers.Dropout(0.5))
         
         # Output
-        self.tf_model.add(layers.Dense(2, activation='softmax'))
+        self.tf_model.add(layers.Dense(3, activation='softmax'))
         
         
         return None
@@ -165,7 +173,7 @@ class TrainInterface:
             validation_data = ( np.array(self.X_validation, np.float32),
                                 np.array(self.y_validation, np.float32),
                                            ),        
-            epochs = 100 #To be changed
+            epochs = 50 #To be changed
         )
 
         self.loss = history.history['loss']
@@ -233,24 +241,35 @@ class TrainInterface:
                     {'accuracy': str(self.accuracy)},
                     {'val_accuracy': str(self.val_accuracy)}
                 ]
-        custom_info_1 = [{"name": "Metrics", "value": str(training_metrics)}]
+        custom_info_1 = [{"name": "Metrics", 
+                          "value": str(training_metrics)}]
+        logstr=custom_info_1[0]['name']+custom_info_1[0]['value']
+        logging.info(logstr)
 
         #print(custom_info_1)
         tracking.set_custom_info(custom_info_1)
-        
+        logging.info(f"custom_info_1")
+
         #confusion matrix
-        y_pred = np.round(self.tf_model.predict(infer_data), 0)
-        x,y = zip(*y_pred)
-        cnf_matrix = confusion_matrix(infer_data_labels, y)
-        cf_matrix = [
-                        {'actual label - 0': str(cnf_matrix[0])},
-                        {'actual label - 1': str(cnf_matrix[1])}
-                    ]
-        custom_info_2 = [{"name": "Confusion Matrix (columns: predicted-class, rows: actual-class)",
-                    "value": str(cf_matrix)}]
+        pred=self.tf_model(np.array(self.X_test, np.float32) , training=False)
+        pred_class = [ np.where(arr == np.amax(arr))[0][0] for arr in np.array(pred) ]
+        pred_label = [ self.class_dict[i]  for i in pred_class]
+        pred_confidence = [ np.max(arr) for arr in np.array(pred)]
+        
+        cf_matrix = confusion_matrix(self.y_test, pred_class)
+        custom_info_2 = [{'name': "confusion_matrix", 
+                          "value": str({ 
+                              'cf_matrix':  cf_matrix.tolist() ,\
+                              'classes': [ k for k in self.classes.keys()]
+                          })
+                         } ]
+        logstr=custom_info_2[0]['name']+custom_info_2[0]['value']
+        logging.info(logstr)
 
         #print(custom_info_2)
         tracking.set_custom_info(custom_info_2)
+        logging.info(f"custom_info_2")
+
 
         return None
 
