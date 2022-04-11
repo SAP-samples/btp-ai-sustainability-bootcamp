@@ -20,7 +20,6 @@ as projection on pdm.Anomalies {
     equipment,
     confidence,
     status as anomalyStatus,
-
     eqCond.ID as eqCondId, 
     eqCond.toEquipmentStatus.name as equipmentStatus, 
     // eqCond.equipmentName as equipmentName, 
@@ -54,6 +53,8 @@ annotate AnomaliesExtendedView with {
     confidence;
     @Analytics.Dimension : true
     anomalyStatus;
+    @Analytics.Dimension : true
+    eqCondId;
 
     @Analytics.Dimension : true
     plant;
