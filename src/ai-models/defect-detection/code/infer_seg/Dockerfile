@@ -1,6 +1,9 @@
-FROM python:3.7.11
+FROM python:3.7-buster
+FROM tensorflow/tensorflow:latest-gpu
+RUN export LD_LIBRARY_PATH=/usr/local/nvidia/lib:$LD_LIBRARY_PATH
 ENV LANG C.UTF-8
 
+RUN pip3 install --upgrade pip
 COPY requirements.txt ./requirements.txt
 RUN pip3 install -r requirements.txt
 
