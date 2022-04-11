@@ -286,16 +286,14 @@
               }
             },
             "PlantConditionsVisualisation": {
-              "semanticObject": "PlantConditions",
+              "semanticObject": "PlantConditionsView",
               "action": "display",
               "title": "Plant Conditions Visualisation",
               "signature": {
                 "parameters": {
-                  "PlantConditions.ID": {
-                    "renameTo": "ID"
-                  }
+                  
                 },
-                "additionalParameters": "ignored"
+                "additionalParameters": "allowed"
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
@@ -309,11 +307,8 @@
               "title": "Equipment Condition Insights",
               "signature": {
                 "parameters": {
-                  "AnomaliesExtendedView.ID": {
-                    "renameTo": "ID"
-                  }
-                },
-                "additionalParameters": "ignored"
+                  },
+                "additionalParameters": "allowed"
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
@@ -338,7 +333,11 @@
               "semanticObject": "EquipmentConditions",
               "action": "manage",
               "signature": {
-                "parameters": {},
+                "parameters": {
+                  "EquipmentConditions": {
+                    "renameTo": "EquipmentConditions.ID"
+                  }
+                },
                 "additionalParameters": "allowed"
               },
               "resolutionResult": {
@@ -355,15 +354,9 @@
                 "parameters": {
                   "Anomalies": {
                     "renameTo": "Anomalies.ID"
-                  },
-                  "AnomaliesExtendedView": {
-                    "renameTo": "Anomalies.ID"
-                  },
-                  "AnomaliesExtendedView.ID": {
-                    "renameTo": "Anomalies.ID"
                   }
                 },
-                "additionalParameters": "ignored"
+                "additionalParameters": "allowed"
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
