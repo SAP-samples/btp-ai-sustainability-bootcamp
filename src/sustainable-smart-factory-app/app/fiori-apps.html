@@ -13,9 +13,9 @@
 			applications: {}
 		};
 	</script>
-
-	<script id="sap-ushell-bootstrap" src="https://sapui5.hana.ondemand.com/test-resources/sap/ushell/bootstrap/sandbox.js"></script>
-	<script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+	<!-- Best Practice: Define specific ui5 version. Latest 1.100.0 has some issues with CORS library dependencies. UI5 team should be fixing. -->
+	<script id="sap-ushell-bootstrap" src="https://sapui5.hana.ondemand.com/1.99.0/test-resources/sap/ushell/bootstrap/sandbox.js"></script>
+	<script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/1.99.0/resources/sap-ui-core.js"
 			data-sap-ui-libs="sap.m, sap.ushell, sap.collaboration, sap.ui.layout"
 			data-sap-ui-compatVersion="edge"
 			data-sap-ui-theme="sap_horizon"
