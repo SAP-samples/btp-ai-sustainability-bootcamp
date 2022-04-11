@@ -14,6 +14,11 @@ import io
 from json import dumps
 import cv2
 import tensorflow.keras.metrics as tfm
+import logging
+
+FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
+# Use filename="file.log" as a param to logging to log to a file
+logging.basicConfig(format=FORMAT, level=logging.INFO)
 
 app = Flask(__name__)
 
