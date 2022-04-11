@@ -13,6 +13,7 @@ import base64
 import io
 from json import dumps
 import cv2
+import tensorflow as tf
 from tensorflow.keras import models
 import tensorflow.keras.metrics as tfm
 import logging
