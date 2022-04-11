@@ -1,7 +1,25 @@
 using {sap.smartfactory as sf} from 'smartfactory';
 annotate sf.AnomaliesExtendedView with {
+  //Navigation to Anomalies Object Details
   @Common : {
-    SemanticObject : 'AnomaliesExtendedView',
+    SemanticObject  : 'Anomalies',
+    Text            : ID,
+    TextArrangement : #TextOnly
+  } ID;
+
+  //Navigation to EquipmentConditions Object Details
+  @Common : {
+    SemanticObject : 'EquipmentConditions',
+    Text           : {
+      $value              : eqCondId,
+      @UI.TextArrangement : #TextOnly
+    }
+  }
+  eqCondId;
+
+  ////Navigation to Equipments Object Details
+  @Common : {
+    SemanticObject : 'Equipments',
     Text           : {
       $value              : equipmentName,
       @UI.TextArrangement : #TextLast
@@ -131,16 +149,12 @@ annotate sf.AnomaliesExtendedView with @(UI : {
     }]
   },
   LineItem                         : [
-    {
-      $Type          : 'UI.DataFieldForIntentBasedNavigation',
-      SemanticObject : 'Anomalies',
-      Action         : 'manage'
-    },
     {Value : ID},
+    {Value : eqCondId},
     {Value : equipment},
-    {Value : equipmentName},
     {Value : anomalyType},
     {Value : detectedAt},
+    {Value : equipmentName},
     {Value : confidence},
     {Value : anomalyStatus},
     {Value : anomalyType},
@@ -156,7 +170,7 @@ annotate sf.AnomaliesExtendedView with @(UI : {
     TypeName       : '{i18n>Anomaly}',
     TypeNamePlural : '{i18n>Anomalies}',
     Title          : {Value : anomalyType},
-    Description    : {Value : equipmentName}
+    Description    : {Value : equipment}
   },
   Facets                           : [{
     $Type  : 'UI.ReferenceFacet',
@@ -166,10 +180,11 @@ annotate sf.AnomaliesExtendedView with @(UI : {
   FieldGroup #Details              : {
     Data : [
     {Value : ID},
+    {Value : eqCondId},
     {Value : plant},
     {Value : funcLocation},
     {Value : equipment},
-    {Value : equipmentName},    
+//    {Value : equipmentName},    
     {Value : anomalyStatus},
     {Value : anomalyType},
     {Value : confidence},
@@ -182,11 +197,21 @@ annotate sf.AnomaliesExtendedView with @(UI : {
 
 annotate sf.AnomaliesExtendedView with {
   funcLocation   @title : '{i18n>FuncLocation}';
+  eqCondId       @title : '{i18n>EquipmentCondID}';
  }
 
  annotate sf.CVQualityRecordsView with {
   @Common : {
-    SemanticObject : 'CVQualityRecordsView',
+    SemanticObject : 'CVQualityRecords',
+    Text           : {
+      $value              : ID,
+      @UI.TextArrangement : #TextOnly
+    }
+  }
+  ID;
+
+  @Common : {
+    //SemanticObject : 'Products',
     Text           : {
       $value              : productName,
       @UI.TextArrangement : #TextLast
@@ -202,7 +227,7 @@ annotate sf.AnomaliesExtendedView with {
     Parameters                   : [{
       $Type             : 'Common.ValueListParameterInOut',
       LocalDataProperty : 'productId',
-      ValueListProperty : 'productId'
+      ValueListProperty : 'productName'
     }]
   }}
   @(ValueList.entity : 'ProductIdVH', )
