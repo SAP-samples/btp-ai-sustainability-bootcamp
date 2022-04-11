@@ -14,6 +14,7 @@ import io
 from json import dumps
 import cv2
 from tensorflow.keras import models
+import tensorflow.keras.metrics as tfm
 import logging
 
 FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
@@ -136,7 +137,8 @@ def predict():
     area = defected_area(pred)
     encoded_image = encode_image(bmp_image)
 
-    output = {str(area): encoded_image}
+    output = { 'defected area': str(area),
+               'segmented_image' : encoded_image}
 
     return output
 
