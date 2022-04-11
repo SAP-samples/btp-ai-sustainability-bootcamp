@@ -51,7 +51,7 @@ def init():
 
     if exists(f"{path}/{model_name}"):
             logging.info(f"Loading segmentation pipeline from {path}")
-            image_pipeline = models.load_model(path+'/'model_name, 
+            image_pipeline = models.load_model(path+'/'+model_name, 
                 custom_objects = {"iou_loss": iou_loss, "IoUCustom": IoUCustom})
     else:
         raise FileNotFoundError(f"{path}/{model_name}")
