@@ -91,7 +91,7 @@ def predict():
        'anomaly2':'Damage Noise',
        'ok':'ok'}
     
-    output = { L['predicted_label']: str(pred_confidence)}
+    output = { L[predicted_label]: str(pred_confidence)}
 
     return output
 
