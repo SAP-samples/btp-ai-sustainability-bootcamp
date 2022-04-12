@@ -75,6 +75,16 @@ def load_image(data, IMG_WIDTH, IMG_HEIGHT):
     return image
 
 
+def defected_area2(img):
+    img = img / 255
+    num = np.sum(img)
+    #print(num)
+    dims = img.shape
+    den = dims[0]*dims[1]
+    #print(den)
+    #print(num/den if den else 0)
+    return (num/den if den else 0)
+
 def defected_area(img):
     imgf = tf.argmax(img, axis=-1)
     num = tf.reduce_sum(imgf)
@@ -135,7 +145,7 @@ def predict():
     success, encoded_image = cv2.imencode('.bmp', pred)
     bmp_image = encoded_image.tobytes()
 
-    area = defected_area(pred)
+    area = defected_area2(pred)
     encoded_image = encode_image(bmp_image)
 
     output = { 'defected area': str(area),
