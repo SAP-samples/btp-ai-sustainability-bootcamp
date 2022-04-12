@@ -24,8 +24,24 @@
     "sap.ui5": {
         "dependencies": {
             "libs": {
-                "sap.fe.templates": {}
+                "sap.fe.templates": {},
+                "sap.ui.layout": {},
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.suite.ui.microchart": {}
             }
+        },
+        "rootView": {
+            "viewName": "plantconditionsvisual.V",
+            "type": "XML",
+            "async": true
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "style.css"
+                }
+            ]
         },
         "models": {
             "i18n": {
@@ -37,7 +53,7 @@
                 "settings": {
                     "synchronizationMode": "None",
                     "operationMode": "Server",
-                    "autoExpandSelect" : true,
+                    "autoExpandSelect": true,
                     "earlyRequests": true,
                     "groupProperties": {
                         "default": {
@@ -49,48 +65,9 @@
         },
         "routing": {
             "routes": [
-                {
-                    "pattern": ":?query:",
-                    "name": "sonsList",
-                    "target": "PlantConditionsList"
-                },
-                {
-                    "pattern": "PlantConditions({key}):?query:",
-                    "name": "PlantConditionsDetails",
-                    "target": "PlantConditionsDetails"
-                }
+                
             ],
             "targets": {
-                "PlantConditionsList": {
-                    "type": "Component",
-                    "id": "PlantConditionsList",
-                    "name": "sap.fe.templates.ListReport",
-                    "options": {
-                        "settings" : {
-                            "entitySet" : "PlantConditions",
-                            "initialLoad": true,
-                            "navigation" : {
-                                "PlantConditions" : {
-                                    "detail" : {
-                                        "route" : "PlantConditionsDetails"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "PlantConditionsDetails": {
-                    "type": "Component",
-                    "id": "PlantConditionsDetailsList",
-                    "name": "sap.fe.templates.AnalyticalListPage",
-                    "options": {
-                        "settings" : {
-                            "entitySet" : "PlantConditions",
-                            "navigation" : {
-                            }
-                        }
-                    }
-                }
             }
         },
         "contentDensities": {

@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" xml:space="preserve" viewBox="0 20.11 100 67.39">
+	<desc>Copyright Opto 22</desc>
+	<g>
+		<g id="shape">
+			<g>
+				<path fill="#B3B3B3" d="M97.351,67.599c-0.553,0-1.066,0.17-1.49,0.46l-2.663-0.552h-1.239v-5.776h1.239l2.663-0.552    c0.425,0.29,0.937,0.46,1.49,0.46c1.463,0,2.649-1.186,2.649-2.649s-1.186-2.649-2.649-2.649c-0.553,0-1.066,0.17-1.49,0.46    l-2.663-0.552h-1.239v-8.896H71.523v-4.541h14.002h1.892h2.649V25.215h-4.541v1.135H84.39v-1.135h-3.595v2.46h-9.271v-7.569    H37.275v27.247H0v33.302h4.588v3.406h1.892v-3.406h18.401v3.406h1.892v-3.406h18.401v3.406h1.892v-3.406h18.401v3.406h1.892    v-3.406h18.401v3.406h1.892v-3.406h4.305V72.99h1.239l2.663-0.552c0.425,0.29,0.938,0.46,1.49,0.46    c1.463,0,2.649-1.186,2.649-2.649S98.814,67.599,97.351,67.599z M71.523,36.568H84.39v-0.946H71.523v-0.189h9.461v-2.838h3.406    v-2.271h1.135v6.622H71.523V36.568z"></path>
+				<rect x="0.335" y="84.437" fill="#B3B3B3" width="92.656" height="3.063"></rect>
+			</g>
+		</g>
+		<g id="dark">
+			<rect x="73.93" y="52.342" fill="#999999" width="14.433" height="22.946"></rect>
+			<rect x="55.971" y="52.342" fill="#999999" width="14.433" height="22.946"></rect>
+			<rect x="38.011" y="52.342" fill="#999999" width="14.433" height="22.946"></rect>
+			<rect x="20.051" y="52.342" fill="#999999" width="14.433" height="22.946"></rect>
+			<rect x="2.092" y="52.342" fill="#999999" width="14.433" height="22.946"></rect>
+			<rect x="0.335" y="84.437" fill="#999999" width="92.656" height="3.063"></rect>
+			<rect x="4.588" y="80.655" fill="#999999" width="1.892" height="3.406"></rect>
+			<rect x="24.882" y="80.655" fill="#999999" width="1.892" height="3.406"></rect>
+			<rect x="45.175" y="80.655" fill="#999999" width="1.892" height="3.406"></rect>
+			<rect x="65.468" y="80.655" fill="#999999" width="1.892" height="3.406"></rect>
+			<rect x="85.762" y="80.655" fill="#999999" width="1.892" height="3.406"></rect>
+			<rect x="70.956" y="35.622" fill="#999999" width="13.434" height="0.946"></rect>
+			<rect x="71.334" y="27.675" fill="#999999" width="9.65" height="7.758"></rect>
+			<rect x="80.795" y="25.215" fill="#999999" width="3.595" height="7.379"></rect>
+			<rect x="84.201" y="26.351" fill="#999999" width="1.325" height="3.974"></rect>
+			<rect x="85.525" y="25.215" fill="#999999" width="4.541" height="17.597"></rect>
+			<rect x="71.334" y="36.947" fill="#999999" width="16.083" height="5.866"></rect>
+			<rect x="38.411" y="21.242" fill="#999999" width="5.298" height="8.704"></rect>
+			<circle fill="#999999" cx="97.351" cy="58.99" r="1.892"></circle>
+			<circle fill="#999999" cx="97.351" cy="70.249" r="1.892"></circle>
+		</g>
+		<g id="light">
+			<rect x="72.848" y="53.913" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="74.361" y="53.913" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="86.597" y="62.081" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="72.848" y="71.068" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="74.361" y="71.068" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<g>
+				<polygon fill="#E6E6E6" points="88.677,53.945 88.677,54.655 89.194,54.655 89.194,55.946 88.677,55.946 88.677,56.657     90.098,56.657 90.098,53.945   "></polygon>
+				<rect x="87.386" y="54.849" fill="#E6E6E6" width="1.808" height="0.904"></rect>
+			</g>
+			<g>
+				<polygon fill="#E6E6E6" points="88.677,71.079 88.677,71.789 89.194,71.789 89.194,73.081 88.677,73.081 88.677,73.791     90.098,73.791 90.098,71.079   "></polygon>
+				<rect x="87.386" y="71.983" fill="#E6E6E6" width="1.808" height="0.904"></rect>
+			</g>
+			<rect x="54.888" y="53.913" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="56.402" y="53.913" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="68.638" y="62.081" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="54.888" y="71.068" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="56.402" y="71.068" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<g>
+				<polygon fill="#E6E6E6" points="70.718,53.945 70.718,54.655 71.234,54.655 71.234,55.946 70.718,55.946 70.718,56.657     72.138,56.657 72.138,53.945   "></polygon>
+				<rect x="69.426" y="54.849" fill="#E6E6E6" width="1.808" height="0.904"></rect>
+			</g>
+			<g>
+				<polygon fill="#E6E6E6" points="70.718,71.079 70.718,71.789 71.234,71.789 71.234,73.081 70.718,73.081 70.718,73.791     72.138,73.791 72.138,71.079   "></polygon>
+				<rect x="69.426" y="71.983" fill="#E6E6E6" width="1.808" height="0.904"></rect>
+			</g>
+			<rect x="36.928" y="53.913" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="38.442" y="53.913" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="50.678" y="62.081" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="36.928" y="71.068" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="38.442" y="71.068" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<g>
+				<polygon fill="#E6E6E6" points="52.758,53.945 52.758,54.655 53.274,54.655 53.274,55.946 52.758,55.946 52.758,56.657     54.178,56.657 54.178,53.945   "></polygon>
+				<rect x="51.466" y="54.849" fill="#E6E6E6" width="1.808" height="0.904"></rect>
+			</g>
+			<g>
+				<polygon fill="#E6E6E6" points="52.758,71.079 52.758,71.789 53.274,71.789 53.274,73.081 52.758,73.081 52.758,73.791     54.178,73.791 54.178,71.079   "></polygon>
+				<rect x="51.466" y="71.983" fill="#E6E6E6" width="1.808" height="0.904"></rect>
+			</g>
+			<rect x="18.969" y="53.913" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="20.483" y="53.913" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="32.718" y="62.081" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="18.969" y="71.068" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="20.483" y="71.068" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<g>
+				<polygon fill="#E6E6E6" points="34.798,53.945 34.798,54.655 35.315,54.655 35.315,55.946 34.798,55.946 34.798,56.657     36.219,56.657 36.219,53.945   "></polygon>
+				<rect x="33.507" y="54.849" fill="#E6E6E6" width="1.808" height="0.904"></rect>
+			</g>
+			<g>
+				<polygon fill="#E6E6E6" points="34.798,71.079 34.798,71.789 35.315,71.789 35.315,73.081 34.798,73.081 34.798,73.791     36.219,73.791 36.219,71.079   "></polygon>
+				<rect x="33.507" y="71.983" fill="#E6E6E6" width="1.808" height="0.904"></rect>
+			</g>
+			<rect x="1.009" y="53.913" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="2.523" y="53.913" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="14.759" y="62.081" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="1.009" y="71.068" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<rect x="2.523" y="71.068" fill="#E6E6E6" width="1.135" height="2.901"></rect>
+			<g>
+				<polygon fill="#E6E6E6" points="16.839,53.945 16.839,54.655 17.355,54.655 17.355,55.946 16.839,55.946 16.839,56.657     18.259,56.657 18.259,53.945   "></polygon>
+				<rect x="15.547" y="54.849" fill="#E6E6E6" width="1.808" height="0.904"></rect>
+			</g>
+			<g>
+				<polygon fill="#E6E6E6" points="16.839,71.079 16.839,71.789 17.355,71.789 17.355,73.081 16.839,73.081 16.839,73.791     18.259,73.791 18.259,71.079   "></polygon>
+				<rect x="15.547" y="71.983" fill="#E6E6E6" width="1.808" height="0.904"></rect>
+			</g>
+		</g>
+		<g id="shadow">
+			<rect x="73.931" y="75.038" width="14.433" height="0.5"></rect>
+			<rect x="55.971" y="75.038" width="14.433" height="0.5"></rect>
+			<rect x="38.011" y="75.038" width="14.433" height="0.5"></rect>
+			<rect x="20.052" y="75.038" width="14.433" height="0.5"></rect>
+			<rect x="2.092" y="75.038" width="14.433" height="0.5"></rect>
+			<polygon points="36.374,49.212 1.186,49.212 0.167,47.581 0.59,47.315 1.463,48.712 36.096,48.712 36.969,47.315 37.393,47.581     "></polygon>
+			<polygon points="90.867,49.212 72.52,49.212 71.5,47.581 71.924,47.315 72.797,48.712 90.59,48.712 91.463,47.315 91.887,47.581     "></polygon>
+			<rect x="69.4" y="46.063" transform="matrix(0.8479 0.5301 -0.5301 0.8479 35.2394 -30.2196)" width="1.785" height="0.5"></rect>
+			<rect x="4.838" y="85.254" width="1.392" height="1.496"></rect>
+			<rect x="25.132" y="85.254" width="1.392" height="1.496"></rect>
+			<rect x="45.425" y="85.254" width="1.392" height="1.496"></rect>
+			<rect x="65.718" y="85.254" width="1.392" height="1.496"></rect>
+			<rect x="86.012" y="85.254" width="1.392" height="1.496"></rect>
+		</g>
+		<g id="hlight">
+			<rect x="73.931" y="52.092" fill="#FFFFFF" width="14.433" height="0.5"></rect>
+			<rect x="55.971" y="52.092" fill="#FFFFFF" width="14.433" height="0.5"></rect>
+			<rect x="38.011" y="52.092" fill="#FFFFFF" width="14.433" height="0.5"></rect>
+			<rect x="20.052" y="52.092" fill="#FFFFFF" width="14.433" height="0.5"></rect>
+			<rect x="2.092" y="52.092" fill="#FFFFFF" width="14.433" height="0.5"></rect>
+			<polygon fill="#FFFFFF" points="69.786,45.84 69.286,45.84 69.286,21.671 70.917,20.651 71.183,21.075 69.786,21.948  "></polygon>
+		</g>
+	</g>
+</svg>
