@@ -404,7 +404,7 @@ class TrainSKInterface:
             loss = self.iou_loss,
             initializer = HeNormal(),
             batch_size = 32,
-            num_epochs = 200,
+            num_epochs = 500,
             metrics = [IoUCustom(num_classes=2, target_class_ids=[1], name='iou')]
         )
 
