@@ -137,7 +137,13 @@ def predict():
     nparr = np.frombuffer(image_file_as_binary, np.uint8)
     x_inference = load_image(nparr, 224, 224)
     b = np.array([np.array(x_inference)])
-
+    
+    #preprocessing
+    clahe = cv2.createCLAHE(clipLimit=5.0, tileGridSize=(8,8))
+    b = clahe.apply(b)
+    kernel = np.ones((3,3),np.uint8)
+    b = cv2.dilate(b,kernel,iterations = 1)
+    
     prediction = image_pipeline.predict(b)
     predicted_output = prediction[0]
     pred = create_mask(predicted_output, 184, 184)
