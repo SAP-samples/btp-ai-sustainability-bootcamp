@@ -2,6 +2,7 @@ namespace sap.smartfactory;
 
 using {
   managed,
+  Currency,
   sap
 } from '@sap/cds/common';
 
@@ -74,7 +75,9 @@ entity EquipmentConditions : managed {
       //which could be a maintenance request or order in SAP S/4HANA Cloud
       followUpDocType   : AnomalyFollowUpActionType;
       followUpDocNum    : String(12);
-
+      maintenanceCost   : Decimal(9,2);
+      currency          : Currency;
+      
       //or explicit maintenance order linkage
       //maintenanceOrder   : String(12);
       //maintOrderType     : Association to MaintenanceOrderTypes;
