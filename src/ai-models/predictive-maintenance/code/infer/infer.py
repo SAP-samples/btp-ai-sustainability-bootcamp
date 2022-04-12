@@ -87,8 +87,8 @@ def predict():
     predicted_label = target_classes[pred_class]  
     pred_confidence = np.max(prediction) 
     
-    L={'anomaly1':'Slow Sound',
-       'anomaly2':'Damage Noise',
+    L={'anomaly1':'Slow_Sound',
+       'anomaly2':'Damage_Noise',
        'ok':'ok'}
     
     output = { L[predicted_label]: str(pred_confidence)}

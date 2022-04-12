@@ -148,7 +148,7 @@ def predict():
     area = defected_area2(pred)
     encoded_image = encode_image(bmp_image)
 
-    output = { 'defected area': str(area),
+    output = { 'defected_area': str(area),
                'segmented_image' : encoded_image}
 
     return output
