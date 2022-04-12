@@ -1,0 +1,62 @@
+{
+	"lines": [
+	  {
+		"points": [
+		  {"x": 0, "y": 35},
+		  {"x": 20, "y": 53},
+		  {"x": 40, "y": 10},
+		  {"x": 60, "y": 30},
+		  {"x": 80, "y": 52},
+		  {"x": 100, "y": 73}
+		]
+	  }
+	],
+	"size": "Responsive",
+	"threshold": 40,
+	"chartTwoColors": {
+		"showPoints": true,
+		"color": {"above": "Good", "below": "Error"}
+	},
+	"chartNoThreshold": {
+		"threshold": null,
+		"showPoints": true,
+		"color": {"above": "Good", "below": "Critical"}
+	},
+	"chartSemanticColor": {
+		"threshold": null,
+		"showPoints": false,
+		"color": "Error"
+	},
+	"chartEmphasizedPointsNoThreshold": {
+		"lines": [
+		  {
+			"points": [
+			  {"x": 0, "y": 35, "show": true, "color": "Good"},
+			  {"x": 8, "y": 53},
+			  {"x": 20, "y": 10},
+			  {"x": 40, "y": 52},
+			  {"x": 100, "y": 73, "show": true, "color": "Error"}
+			]
+		  }
+		],
+		"threshold": null,
+		"leftTopLabel": "20 M",
+		"rightTopLabel": "120 M",
+		"leftBottomLabel": "May 2016",
+		"rightBottomLabel": "Oct 2016"
+	},
+	"chartOneEmphasizedPoint": {
+		"lines": [
+		  {
+			"points": [
+			  {"x": 0, "y": 35},
+			  {"x": 8, "y": 53},
+			  {"x": 20, "y": 10},
+			  {"x": 30, "y": 30},
+			  {"x": 40, "y": 52},
+			  {"x": 100, "y": 73, "color": "Error", "show": true}
+			]
+		  }
+		]
+	}
+}
