@@ -5,14 +5,17 @@ const { maintenanceOrderApi } = maintenanceOrderService();
 
 const _prepareMoBody = (mo) => {
   const opsDuration = randomIntFromInterval(1, 8);
-  var tPriority = randomIntFromInterval(1,4);
+  var tPriority = randomIntFromInterval(1, 4);
   var priority = tPriority.toString();
+
+  var moment = require("moment"); // require
+
   return {
     maintenanceOrderType: mo.OrderType,
     equipment: mo.Equipment,
     maintPriority: priority,
     maintenanceOrderDesc: limit(mo.Desc, 40),
-    responsibleCostCenter: mo.CostCenter,
+    maintOrdBasicStartDateTime: moment().add(7, 'days'),
     toMaintenanceOrderOperation: [
       {
         maintenanceOrderOperation: "0010",

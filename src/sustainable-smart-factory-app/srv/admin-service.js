@@ -48,6 +48,8 @@ module.exports = async function () {
       .tx(req)
       .run(SELECT.from(Equipments).where({ NR: eqCondition.equipment_NR }));
 
+    //  Date logic: To add 7 days to the MO: Logic implemented in helper as moment object required.
+
     // console.log(equipment);
     // console.log(equipment[0].name);
     // console.log("data: " + req.data);
@@ -64,10 +66,7 @@ module.exports = async function () {
       Equipment: eqCondition.equipment_NR,
       EquipmentName: equipment[0].name,
       Desc: "Noise detected from " + equipment[0].name,
-      OperationDesc: "Fix " + equipment[0].name,
-      // Date: "" // [ToDo] add 7 days predictive
-      //The cost center of the equipment will be automatically applied, no need to explicitly set here.
-      // CostCenter: "10101301",
+      OperationDesc: "Fix " + equipment[0].name
     };
 
     const mo = buildMaintenanceOrderForCreate(datamo);
@@ -133,17 +132,14 @@ module.exports = async function () {
     const aicoreAPI = await cds.connect.to("aicore");
     const anomalyEntity = req.params[0];
 
-    const anomaly = await SELECT.from(Anomalies, anomalyEntity).columns(
-      ["rawValue"]
-    );
+    const anomaly = await SELECT.from(Anomalies, anomalyEntity).columns([
+      "rawValue",
+    ]);
 
     //  2. Prepare base64 format of file
-    const fileBase64 = fs.readFileSync(
-      "app" + anomaly.rawValue,
-      {
-        encoding: "base64",
-      }
-    );
+    const fileBase64 = fs.readFileSync("app" + anomaly.rawValue, {
+      encoding: "base64",
+    });
     var data = JSON.stringify({
       sound: fileBase64,
     });
