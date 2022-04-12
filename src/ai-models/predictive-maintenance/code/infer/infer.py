@@ -15,6 +15,11 @@ import base64
 import io
 from json import dumps
 
+import tensorflow as tf
+from tensorflow.keras import models
+
+
+
 FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
 # Use filename="file.log" as a param to logging to log to a file
 logging.basicConfig(format=FORMAT, level=logging.INFO)
@@ -82,7 +87,11 @@ def predict():
     predicted_label = target_classes[pred_class]  
     pred_confidence = np.max(prediction) 
     
-    output = { predicted_label: str(pred_confidence)}
+    L={'anomaly1':'Slow Sound',
+       'anomaly2':'Damage Noise',
+       'ok':'ok'}
+    
+    output = { L['predicted_label']: str(pred_confidence)}
 
     return output
 
