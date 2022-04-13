@@ -37,8 +37,8 @@ type ShiftNo : Integer enum {
 
 entity Equipments : managed {
   key NR           : String(18);
-      name         : String(40);
-      desc         : String(100);
+      name         : localized String(40);
+      desc         : localized String(100);
       toEquipmentStatus : Association to PlantEquipmentStatus;
       compCode     : String(4);
       plant        : String(4);
@@ -63,6 +63,7 @@ entity EquipmentConditions : managed {
       virtual noOfAnomaliesSinceLastMT : Integer;
       recStartedAt      : Timestamp;
       recEndedAt        : Timestamp;
+      date                : Date;
       // faultProb          : Decimal;
       //fault              : Integer;
       // breakDownProb      : Decimal;
@@ -77,7 +78,7 @@ entity EquipmentConditions : managed {
       followUpDocNum    : String(12);
       maintenanceCost   : Decimal(9,2);
       currency          : Currency;
-      
+
       //or explicit maintenance order linkage
       //maintenanceOrder   : String(12);
       //maintOrderType     : Association to MaintenanceOrderTypes;
@@ -102,9 +103,9 @@ type Criticality : Integer enum {
 
 entity PlantEquipmentStatus {
   key code           : String(2);
-      name           : String(20);
+      name           : localized String(20);
       criticality    : Criticality;
-      recommendation : String(50);
+      recommendation : localized String(50);
 }
 
 entity Anomalies : managed {
