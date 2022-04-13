@@ -31,6 +31,7 @@ service AdminService {
       // equipment.plant as plant,
       // equipment.plantSection as plantSection,
       // equipment.funcLocation as funcLocation,
+      
       @Core.Computed
       count(
         anomalies.ID
@@ -48,7 +49,9 @@ service AdminService {
       recStartedAt,
       recEndedAt,
       followUpDocType,
-      followUpDocNum
+      followUpDocNum,
+      maintenanceCost,
+      currency.code
     actions {
       @sap.applicable.path : 'moCreated'
       @(
