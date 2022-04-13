@@ -63,6 +63,7 @@ entity EquipmentConditions : managed {
       virtual noOfAnomaliesSinceLastMT : Integer;
       recStartedAt      : Timestamp;
       recEndedAt        : Timestamp;
+      date                : Date;
       // faultProb          : Decimal;
       //fault              : Integer;
       // breakDownProb      : Decimal;
