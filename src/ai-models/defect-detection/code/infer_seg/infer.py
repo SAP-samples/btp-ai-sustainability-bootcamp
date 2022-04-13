@@ -66,8 +66,13 @@ def init():
     return None
 
 
-def load_image(data, IMG_WIDTH, IMG_HEIGHT):
-    image = cv2.imdecode(data, cv2.COLOR_BGR2GRAY)
+def load_image(data, IMG_WIDTH, IMG_HEIGHT, preproc):
+    image = cv2.imdecode(data, 0)
+    if preproc:
+        clahe = cv2.createCLAHE(clipLimit=5.0, tileGridSize=(8,8))
+        image = clahe.apply(image)
+        kernel = np.ones((3,3),np.uint8)
+        image = cv2.dilate(image,kernel,iterations = 1)
     image = cv2.resize(image, (IMG_HEIGHT, IMG_WIDTH),interpolation = cv2.INTER_AREA)
     image = np.array(image)
     image = image.astype('float32')
@@ -135,15 +140,11 @@ def predict():
 
     image_file_as_binary = base64.b64decode(input_data['image'])
     nparr = np.frombuffer(image_file_as_binary, np.uint8)
-    x_inference = load_image(nparr, 224, 224)
+    
+    preproc=1
+    x_inference = load_image(nparr, 224, 224,preproc)
+    
     b = np.array([np.array(x_inference)])
-    
-    #preprocessing
-    clahe = cv2.createCLAHE(clipLimit=5.0, tileGridSize=(8,8))
-    b = clahe.apply(b)
-    kernel = np.ones((3,3),np.uint8)
-    b = cv2.dilate(b,kernel,iterations = 1)
-    
     prediction = image_pipeline.predict(b)
     predicted_output = prediction[0]
     pred = create_mask(predicted_output, 184, 184)
