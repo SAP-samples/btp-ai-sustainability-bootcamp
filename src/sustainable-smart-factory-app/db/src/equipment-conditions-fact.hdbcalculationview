@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="equipment-conditions-fact" applyPrivilegeType="NONE" dataCategory="DIMENSION" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="equipment-conditions-fact"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="SAP_SMARTFACTORY_EQUIPMENTCONDITIONS">
+    <resourceUri>SAP_SMARTFACTORY_EQUIPMENTCONDITIONS</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews/>
+
+<logicalModel id="SAP_SMARTFACTORY_EQUIPMENTCONDITIONS">
+  <attributes>
+    <attribute id="ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ID"/>
+      <keyMapping columnObjectName="SAP_SMARTFACTORY_EQUIPMENTCONDITIONS" columnName="ID"/>
+    </attribute>
+    <attribute id="PLANT_COND_ID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Plant Cond. ID"/>
+      <keyMapping columnObjectName="SAP_SMARTFACTORY_EQUIPMENTCONDITIONS" columnName="PLANTCOND_ID"/>
+    </attribute>
+    <attribute id="EQUIPMENT_NR" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Equipment No."/>
+      <keyMapping columnObjectName="SAP_SMARTFACTORY_EQUIPMENTCONDITIONS" columnName="EQUIPMENT_NR"/>
+    </attribute>
+    <attribute id="TO_EQUIPMENT_STATUS_CODE" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="To Equipment Status Code"/>
+      <keyMapping columnObjectName="SAP_SMARTFACTORY_EQUIPMENTCONDITIONS" columnName="TOEQUIPMENTSTATUS_CODE"/>
+    </attribute>
+    <attribute id="REC_STARTED_AT" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Rec. Started At"/>
+      <keyMapping columnObjectName="SAP_SMARTFACTORY_EQUIPMENTCONDITIONS" columnName="RECSTARTEDAT"/>
+    </attribute>
+    <attribute id="REC_ENDED_AT" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Rec. Ended At"/>
+      <keyMapping columnObjectName="SAP_SMARTFACTORY_EQUIPMENTCONDITIONS" columnName="RECENDEDAT"/>
+    </attribute>
+    <attribute id="FOLLOWUPDOCTYPE" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FollowUp Doc. Type"/>
+      <keyMapping columnObjectName="SAP_SMARTFACTORY_EQUIPMENTCONDITIONS" columnName="FOLLOWUPDOCTYPE"/>
+    </attribute>
+    <attribute id="FOLLOWUP_DOC_NUM" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FollowUp Doc. Num."/>
+      <keyMapping columnObjectName="SAP_SMARTFACTORY_EQUIPMENTCONDITIONS" columnName="FOLLOWUPDOCNUM"/>
+    </attribute>
+    <attribute id="MAINTENANCE_COST" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Maintenance Cost"/>
+      <keyMapping columnObjectName="SAP_SMARTFACTORY_EQUIPMENTCONDITIONS" columnName="MAINTENANCECOST"/>
+    </attribute>
+    <attribute id="CURRENCY_CODE" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Currency Code"/>
+      <keyMapping columnObjectName="SAP_SMARTFACTORY_EQUIPMENTCONDITIONS" columnName="CURRENCY_CODE"/>
+    </attribute>
+  
+    <attribute id="DATE" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Date"/>
+  
+      <keyMapping columnObjectName="SAP_SMARTFACTORY_EQUIPMENTCONDITIONS" columnName="DATE"/>
+  
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/></logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  </shapes>
+</layout>
+</Calculation:scenario>
