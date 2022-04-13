@@ -48,6 +48,7 @@ service AdminService {
       toEquipmentStatus.code,
       recStartedAt,
       recEndedAt,
+      date,
       followUpDocType,
       followUpDocNum,
       maintenanceCost,
