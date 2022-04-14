@@ -78,6 +78,7 @@ def load_image(data, IMG_WIDTH, IMG_HEIGHT, preproc):
         kernel = np.ones((3,3),np.uint8)
         image = cv2.dilate(image,kernel,iterations = 1)
         # go back to 3 channels
+        image=np.expand_dims(image, axis=-1)
         image = image.repeat(3,axis=-1)
 
     image = cv2.resize(image, (IMG_HEIGHT, IMG_WIDTH),interpolation = cv2.INTER_AREA)
@@ -141,6 +142,8 @@ def predict():
     x_inference = load_image(nparr, 224, 224,preproc)
     
     b = np.array([np.array(x_inference)])
+    logging.info(str(b.shape))
+
     prediction = image_pipeline.predict(b)
     predicted_output = prediction[0]
     pred = create_mask(predicted_output, 224, 224)
