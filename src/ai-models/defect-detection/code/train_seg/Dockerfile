@@ -2,10 +2,14 @@ FROM python:3.7-buster
 FROM tensorflow/tensorflow:latest-gpu
 RUN export LD_LIBRARY_PATH=/usr/local/nvidia/lib:$LD_LIBRARY_PATH
 
+RUN apt-get -y update
+RUN apt-get -y install git
+
 RUN pip3 install --upgrade pip
 COPY requirements.txt ./requirements.txt
 RUN pip3 install ai-tracking-sdk --index-url http://nexus.wdf.sap.corp:8081/nexus/content/groups/build.snapshots.pypi/simple/ --trusted-host nexus.wdf.sap.corp
 RUN pip3 install -r requirements.txt
+RUN pip3 install -q git+https://github.com/tensorflow/examples.git
 
 RUN mkdir -p /app/src/ && \
     mkdir -p /app/model && \
