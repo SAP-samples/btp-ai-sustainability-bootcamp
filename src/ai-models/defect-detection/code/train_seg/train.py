@@ -32,9 +32,9 @@ from tensorflow.keras.layers import Conv2D,\
 import tensorflow.keras.metrics as tfm
 from tensorflow.keras.callbacks import ReduceLROnPlateau
 import albumentations as A
-from tensorflow_examples.models.pix2pix import pix2pix
 import sys
 sys.path.append('/usr/lib/python3.8/site-packages/')
+from tensorflow_examples.models.pix2pix import pix2pix
 
 
 FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
@@ -218,7 +218,7 @@ class TrainSKInterface:
         return temp_arr
 
     
-    def unet_model(output_channels:int):
+    def unet_model(self, num_classes):
         
         '''MobileNetV2 backbone'''
         base_model = tf.keras.applications.MobileNetV2(input_shape=[224, 224, 3], include_top=False)
@@ -259,7 +259,7 @@ class TrainSKInterface:
     
         # This is the last layer of the model
         last = tf.keras.layers.Conv2DTranspose(
-              filters=output_channels, kernel_size=3, strides=2,
+              filters=num_classes, kernel_size=3, strides=2,
               padding='same')  #64x64 -> 128x128
     
         x = last(x)
@@ -275,7 +275,7 @@ class TrainSKInterface:
         '''
         
           
-        self.image_pipeline = self.unet_model(2)
+        self.image_pipeline = self.unet_model(num_classes=2)
         
         # Retrieve compilation input
         optimizer_init = Adam(learning_rate = 0.002)
