@@ -24,7 +24,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 
-from tensorflow.keras.optimizers import schedules, Adamax
+from tensorflow.keras.optimizers import schedules, Adamax, Adam
 from tensorflow.keras.initializers import HeNormal
 from tensorflow.keras.layers import Conv2D,\
     MaxPool2D, Conv2DTranspose, Input, Activation,\
@@ -32,6 +32,9 @@ from tensorflow.keras.layers import Conv2D,\
 import tensorflow.keras.metrics as tfm
 from tensorflow.keras.callbacks import ReduceLROnPlateau
 import albumentations as A
+import sys
+sys.path.append('/usr/lib/python3.8/site-packages/')
+from tensorflow_examples.models.pix2pix import pix2pix
 
 
 FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
@@ -68,8 +71,8 @@ class TrainSKInterface:
         self.val_accuracy = None
         self.IMG_WIDTH = 224
         self.IMG_HEIGHT = 224
-        self.MSK_WIDTH = 184
-        self.MSK_HEIGHT = 184
+        self.MSK_WIDTH = 224
+        self.MSK_HEIGHT = 224
         self.target_classes = None
         self.training_metrics = None
 
@@ -94,6 +97,10 @@ class TrainSKInterface:
                 image = image.astype('float32')
                 image /= 255
                 image = np.reshape(image, (width, height, color_int))
+                
+                 # go back to 3 channels
+                if not bnw:
+                    image = image.repeat(3,axis=-1)
                 if(bnw):
                     image = cv2.threshold(image, 0, 1, cv2.THRESH_BINARY)[1]
                 if(binary):
@@ -190,8 +197,8 @@ class TrainSKInterface:
             raise Exception("Train or test data not set")
 
         #Change splitting proportions
-        self.train=self.dataset_all.copy()
-        self.train2, self.val = train_test_split(self.dataset_all, test_size=0.4, random_state=25)
+        #self.train=self.dataset_all.copy()
+        self.train, self.val = train_test_split(self.dataset_all, test_size=0.3, random_state=25)
         self.val, self.test = train_test_split(self.val, test_size=0.5, random_state=25)
 
         print(f"No. of training examples: {self.train.shape[0]}")
@@ -211,171 +218,71 @@ class TrainSKInterface:
         return temp_arr
 
     
-    def conv_block(self, x, filters, last_block):
-        '''
-            U-Net convolutional block.
-            Used for downsampling in the contracting path.
-        '''
-        config = self.configuration()
+    def unet_model(self, num_classes):
+        
+        '''MobileNetV2 backbone'''
+        base_model = tf.keras.applications.MobileNetV2(input_shape=[224, 224, 3], include_top=False)
 
-        # First Conv segment
-        x = Conv2D(filters, (3, 3),\
-            kernel_initializer=config.get("initializer"))(x)
-        x = BatchNormalization()(x)
-        x = Activation("relu")(x)
+        # Use the activations of these layers
+        layer_names = [
+            'block_1_expand_relu',   # 112x112   filters
+            'block_3_expand_relu',   # 56x56
+            'block_6_expand_relu',   # 28x28
+            'block_13_expand_relu',  # 14x14
+            'block_16_project',      # 7x7
+        ]
+        base_model_outputs = [base_model.get_layer(name).output for name in layer_names]
 
-        # Second Conv segment
-        x = Conv2D(filters, (3, 3),\
-            kernel_initializer=config.get("initializer"))(x)
-        x = BatchNormalization()(x)
-        x = Activation("relu")(x)
-
-        # Keep Conv output for skip input
-        skip_input = x
-
-        # Apply pooling if not last block
-        if not last_block:
-            x = MaxPool2D((2, 2), strides=(2,2))(x)
-
-        return x, skip_input
+        # Create the feature extraction model
+        down_stack = tf.keras.Model(inputs=base_model.input, outputs=base_model_outputs)
+        
+        #Upsampling layers
+        up_stack = [
+            pix2pix.upsample(576, 3),  # 7x7 -> 14x14
+            pix2pix.upsample(192, 3),  # 8x8 -> 16x16
+            pix2pix.upsample(144, 3),  # 16x16 -> 32x32
+            pix2pix.upsample(96, 3),   # 32x32 -> 64x64
+        ]
+            
+        inputs = tf.keras.layers.Input(shape=[224, 224, 3])
     
+        # Downsampling through the model
+        skips = down_stack(inputs)
+        x = skips[-1]
+        skips = reversed(skips[:-1])
     
-    def compute_number_of_filters(self, block_number):
-        '''
-        Compute the number of filters for a specific
-        U-Net block given its position in the contracting path.
-        '''
-        return self.configuration().get("num_filters_start") * (2 ** block_number)
+        # Upsampling and establishing the skip connections
+        for up, skip in zip(up_stack, skips):
+            x = up(x)
+            concat = tf.keras.layers.Concatenate()
+            x = concat([x, skip])
     
+        # This is the last layer of the model
+        last = tf.keras.layers.Conv2DTranspose(
+              filters=num_classes, kernel_size=3, strides=2,
+              padding='same')  #64x64 -> 128x128
     
-    def contracting_path(self, x):
-        '''
-            U-Net contracting path.
-            Initializes multiple convolutional blocks for 
-            downsampling.
-        '''
-        config = self.configuration()
-
-        # Compute the number of feature map filters per block
-        num_filters = [self.compute_number_of_filters(index)\
-                for index in range(config.get("num_unet_blocks"))]
-
-        # Create container for the skip input Tensors
-        skip_inputs = []
-
-        # Pass input x through all convolutional blocks and
-        # add skip input Tensor to skip_inputs if not last block
-        for index, block_num_filters in enumerate(num_filters):
-
-            last_block = index == len(num_filters)-1
-            x, skip_input = self.conv_block(x, block_num_filters,\
-                last_block)
-
-            if not last_block:
-                skip_inputs.append(skip_input)
-
-        return x, skip_inputs
+        x = last(x)
+        x = Activation("softmax")(x)
     
+        return tf.keras.Model(inputs=inputs, outputs=x)    
     
-    def upconv_block(self, x, filters, skip_input, last_block = False):
-        '''
-            U-Net upsampling block.
-            Used for upsampling in the expansive path.
-        '''
-        config = self.configuration()
-
-        # Perform upsampling
-        x = Conv2DTranspose(filters//2, (2, 2), strides=(2, 2),\
-            kernel_initializer=config.get("initializer"))(x)
-        x = BatchNormalization()(x)
-        shp = x.shape
-
-        # Crop the skip input, keep the center
-        cropped_skip_input = CenterCrop(height = x.shape[1],\
-            width = x.shape[2])(skip_input)
-
-        # Concatenate skip input with x
-        concat_input = Concatenate(axis=-1)([cropped_skip_input, x])
-
-        # First Conv segment
-        x = Conv2D(filters//2, (3, 3),
-            kernel_initializer=config.get("initializer"))(concat_input)
-        x = BatchNormalization()(x)
-        x = Activation("relu")(x)
-
-        # Second Conv segment
-        x = Conv2D(filters//2, (3, 3),
-            kernel_initializer=config.get("initializer"))(x)
-        x = BatchNormalization()(x)
-        x = Activation("relu")(x)
-
-        # Prepare output if last block
-        if last_block:
-            x = Conv2D(config.get("num_filters_end"), (1, 1),
-                kernel_initializer=config.get("initializer"))(x)
-            x = Activation("softmax")(x)
-
-        return x
-    
-    
-    def expansive_path(self, x, skip_inputs):
-        '''
-            U-Net expansive path.
-            Initializes multiple upsampling blocks for upsampling.
-        '''
-        num_filters = [self.compute_number_of_filters(index)\
-                for index in range(self.configuration()\
-                    .get("num_unet_blocks")-1, 0, -1)]
-
-        skip_max_index = len(skip_inputs) - 1
-
-        for index, block_num_filters in enumerate(num_filters):
-            skip_index = skip_max_index - index
-            last_block = index == len(num_filters)-1
-            x = self.upconv_block(x, block_num_filters,\
-                skip_inputs[skip_index], last_block)
-
-        return x
-
-
-    def build_unet(self):
-        ''' Construct U-Net. '''
-        config = self.configuration()
-        input_shape = (config.get("input_height"),\
-            config.get("input_width"), config.get("input_dim"))
-
-        # Construct input layer
-        input_data = Input(shape=input_shape)
-
-        # Construct Contracting path
-        contracted_data, skip_inputs = self.contracting_path(input_data)
-
-        # Construct Expansive path
-        expanded_data = self.expansive_path(contracted_data, skip_inputs)
-
-        # Define model
-        model = Model(input_data, expanded_data, name="U-Net")
-
-        return model
     
     
     def init_model(self):
         '''
             Initialize a U-Net model.
         '''
-        config = self.configuration()
-        self.image_pipeline = self.build_unet()
-
+        
+          
+        self.image_pipeline = self.unet_model(num_classes=2)
+        
         # Retrieve compilation input
-        loss_init = config.get("loss")
-        metrics = config.get("metrics")
-        num_epochs = config.get("num_epochs")
-
-        # Init optimizer
-        optimizer_init = config.get("optimizer")(learning_rate = 5e-3)
-
-        # Compile the model
-        self.image_pipeline.compile(loss=loss_init, optimizer=optimizer_init, metrics=metrics)
+        optimizer_init = Adam(learning_rate = 0.002)
+        self.image_pipeline.compile(optimizer=optimizer_init,
+                                      loss=self.iou_loss,
+                                      metrics=[IoUCustom(num_classes=2, target_class_ids=[1], name='iou')],
+                                     )
 
         return None
 
@@ -388,26 +295,6 @@ class TrainSKInterface:
         return (1-tf.math.divide_no_nan(num,den))
     
 
-    def configuration(self):
-        ''' Get configuration. '''
-
-        return dict(
-            num_filters_start = 64,
-            num_unet_blocks = 3,
-            num_filters_end = 2,
-            input_width = 224,
-            input_height = 224,
-            mask_width = 184,
-            mask_height = 184,
-            input_dim = 1,
-            optimizer = Adamax,
-            loss = self.iou_loss,
-            initializer = HeNormal(),
-            batch_size = 32,
-            num_epochs = 500,
-            metrics = [IoUCustom(num_classes=2, target_class_ids=[1], name='iou')]
-        )
-
 
     def train_model(self) -> None:
         """
@@ -419,8 +306,8 @@ class TrainSKInterface:
         #sess = tf.compat.v1.Session(config=config) 
         #keras.backend.set_session(sess)
         
-        img_train = self.convert_back(self.train, 'image', 1, self.IMG_WIDTH, self.IMG_HEIGHT)
-        img_val = self.convert_back(self.val, 'image', 1, self.IMG_WIDTH, self.IMG_HEIGHT)
+        img_train = self.convert_back(self.train, 'image', 3, self.IMG_WIDTH, self.IMG_HEIGHT)
+        img_val = self.convert_back(self.val, 'image', 3, self.IMG_WIDTH, self.IMG_HEIGHT)
 
         msk_train = self.convert_back(self.train, 'mask', 1, self.MSK_WIDTH, self.MSK_HEIGHT)
         msk_val = self.convert_back(self.val, 'mask', 1, self.MSK_WIDTH, self.MSK_HEIGHT)
@@ -436,18 +323,16 @@ class TrainSKInterface:
         msk_train_shuffle = [j for i,j in temp]
         
         # Load config
-        config = self.configuration()
-        batch_size = config.get("batch_size")
-        validation_sub_splits = config.get("validation_sub_splits")
-        num_epochs = config.get("num_epochs")
+        batch_size = 32
+        num_epochs = 500
 
         # Initialize model
         self.init_model()
         
         reduce_lr = ReduceLROnPlateau(
-            monitor='val_loss', #Change to val_loss once in AICore
+            monitor='loss', #Change to val_loss once in AICore
             factor=0.8,
-            patience=20,
+            patience=5,
             min_lr=1e-6,
             min_delta=0.0001,
             verbose=2
@@ -510,7 +395,7 @@ class TrainSKInterface:
         if self.image_pipeline is None:
             self.get_model()
 
-        infer_data = np.array(self.convert_back(self.val, 'image', 1, self.IMG_WIDTH, self.IMG_HEIGHT), 
+        infer_data = np.array(self.convert_back(self.val, 'image', 3, self.IMG_WIDTH, self.IMG_HEIGHT), 
                               np.float32) #Change to test sample
         infer_masks = np.array(self.convert_back(self.val, 'mask', 1, self.MSK_WIDTH, self.MSK_HEIGHT),
                                np.float32) #Change to test sample

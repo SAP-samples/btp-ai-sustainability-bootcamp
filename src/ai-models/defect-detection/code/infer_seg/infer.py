@@ -17,6 +17,10 @@ import tensorflow as tf
 from tensorflow.keras import models
 import tensorflow.keras.metrics as tfm
 import logging
+import sys
+sys.path.append('/usr/lib/python3.8/site-packages/')
+from tensorflow_examples.models.pix2pix import pix2pix
+
 
 FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
 # Use filename="file.log" as a param to logging to log to a file
@@ -73,6 +77,10 @@ def load_image(data, IMG_WIDTH, IMG_HEIGHT, preproc):
         image = clahe.apply(image)
         kernel = np.ones((3,3),np.uint8)
         image = cv2.dilate(image,kernel,iterations = 1)
+        # go back to 3 channels
+        image=np.expand_dims(image, axis=-1)
+        image = image.repeat(3,axis=-1)
+
     image = cv2.resize(image, (IMG_HEIGHT, IMG_WIDTH),interpolation = cv2.INTER_AREA)
     image = np.array(image)
     image = image.astype('float32')
@@ -80,20 +88,9 @@ def load_image(data, IMG_WIDTH, IMG_HEIGHT, preproc):
     return image
 
 
-def defected_area2(img):
+def defected_area(img):
     img = img / 255
     num = np.sum(img)
-    #print(num)
-    dims = img.shape
-    den = dims[0]*dims[1]
-    #print(den)
-    #print(num/den if den else 0)
-    return (num/den if den else 0)
-
-def defected_area(img):
-    imgf = tf.argmax(img, axis=-1)
-    num = tf.reduce_sum(imgf)
-    num = num.numpy()
     #print(num)
     dims = img.shape
     den = dims[0]*dims[1]
@@ -145,14 +142,16 @@ def predict():
     x_inference = load_image(nparr, 224, 224,preproc)
     
     b = np.array([np.array(x_inference)])
+    logging.info(str(b.shape))
+
     prediction = image_pipeline.predict(b)
     predicted_output = prediction[0]
-    pred = create_mask(predicted_output, 184, 184)
+    pred = create_mask(predicted_output, 224, 224)
 
     success, encoded_image = cv2.imencode('.bmp', pred)
     bmp_image = encoded_image.tobytes()
 
-    area = defected_area2(pred)
+    area = defected_area(pred)
     encoded_image = encode_image(bmp_image)
 
     output = { 'defected_area': str(area),
