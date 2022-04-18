@@ -283,7 +283,7 @@
               }
             },
             "PlantConditionsVisualisation": {
-              "semanticObject": "PlantConditionsView",
+              "semanticObject": "PlantConditions",
               "action": "display",
               "title": "Plant Conditions Visualisation",
               "signature": {
