@@ -10,7 +10,9 @@ service AdminService {
       Common.SideEffects              : {TargetProperties : [
         '_it/confidence',
         '_it/qualityLabel',
-        '_it/detectedAt'
+        '_it/detectedAt',
+        '_it/segmentedImage',
+        '_it/successInference'
       ]}
     )
     action inferenceImageCV();
@@ -68,7 +70,8 @@ service AdminService {
       Common.SideEffects              : {TargetProperties : [
         '_it/confidence',
         '_it/status',
-        '_it/detectedAt'
+        '_it/detectedAt',
+        '_it/anomalyType_code'
       ]}
     )
     action inferenceSoundAnomaly();

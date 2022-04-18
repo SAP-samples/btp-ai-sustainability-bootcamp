@@ -1,5 +1,4 @@
 const cds = require("@sap/cds");
-const request = require("request");
 const fs = require("fs");
 const {
   maintenanceOrderService,
@@ -8,12 +7,35 @@ const { maintenanceOrderApi } = maintenanceOrderService();
 const { buildMaintenanceOrderForCreate } = require("./helper");
 const sdkDest = { destinationName: "S4HC_D2V" };
 
-const oauth_url =
-  "https://iotdev.authentication.eu10.hana.ondemand.com/oauth/token?grant_type=client_credentials";
-const sound_inference_url = "/d4e89dce2e1567bc/v1/models/soundmodel:predict";
-const cv_inference_url = "/dfccff3697592a4a/v1/models/imagemodel:predict";
-const clientid = "sb-a21dc034-456f-4378-a9f3-e9924fdd859f!b11737|aicore!b540";
-const clientsecret = "your-password";
+/** [CONFIG]
+ * Best practice is to have it defined in User Defined variables in the NodeJS app deployed in CF.
+ * OR, using cds.env that supports both Node config & CDS config.
+ * - Local approach: define config variables via package.json, under cds requires.
+ * - Full Cloud approach: retrieve service parameters via service key bindings to app through mta.
+ * e.g. Binding SAP BTP ai core service to this CAP app.
+ *
+ * For simplicity & dev purposes, our current deployment will use the local approach.
+ * Where config params are store in package.json cds config payload.
+ * Please DO NOT use it for productive.
+ * - aicore
+ * > oauth
+ * > credentials
+ * >> clientid
+ * >> client secret
+ * > inferences
+ * >> imageclass
+ * >> imageseg
+ * >> soundclass
+ *
+ */
+
+const oauth_url = cds.env.aicore.oauth;
+const sound_inference_url = cds.env.aicore.inferences.soundclass;
+const cv_inference_url = cds.env.aicore.inferences.imageclass;
+const cv_inference_seg_url = cds.env.aicore.inferences.imageseg;
+const clientid = cds.env.aicore.credentials.clientid;
+const clientsecret = cds.env.aicore.credentials.secret;
+
 const authUser =
   "Basic " + Buffer.from(clientid + ":" + clientsecret).toString("base64");
 var token = generateToken(authUser);
@@ -66,7 +88,7 @@ module.exports = async function () {
       Equipment: eqCondition.equipment_NR,
       EquipmentName: equipment[0].name,
       Desc: "Noise detected from " + equipment[0].name,
-      OperationDesc: "Fix " + equipment[0].name
+      OperationDesc: "Fix " + equipment[0].name,
     };
 
     const mo = buildMaintenanceOrderForCreate(datamo);
@@ -155,19 +177,24 @@ module.exports = async function () {
       .tx(req)
       .send("POST", sound_inference_url, data, headers);
 
-    var confidence;
+    var confidence, type;
 
-    if (results.hasOwnProperty("Normal")) {
-      // console.log("Normal");
-      confidence = results.Normal;
+    if (results.hasOwnProperty("Slow_Sound")) {
+      // console.log("Slow");
+      // confidence = results.Normal;
+      confidence = results.Slow_Sound;
+      type = "A1";
     } else {
-      // console.log("Anomalous");
-      confidence = results.Anomalous;
+      // console.log("Damage");
+      // confidence = results.Anomalous;
+      confidence = results.Damage_Noise;
+      type = "A2";
     }
     await UPDATE(Anomalies, anomalyEntity.ID).with({
       status: "2",
       confidence: confidence,
       detectedAt: new Date(),
+      anomalyType_code: type,
     });
 
     req.notify(
@@ -193,7 +220,7 @@ module.exports = async function () {
       ["image"]
     );
 
-    console.log(cvEntity.image);
+    // console.log(cvEntity.image);
     //  2. Prepare base64 format of file
     const fileBase64 = fs.readFileSync("app" + cvEntity.image, {
       encoding: "base64",
@@ -213,26 +240,42 @@ module.exports = async function () {
       .tx(req)
       .send("POST", cv_inference_url, data, headers);
 
-    var confidence, label;
+    var confidence, label, defected, bin, message;
 
     if (results.hasOwnProperty("Normal")) {
       // console.log("Normal");
-      confidence = parseFloat(results.Normal).toFixed(2);
+      confidence = parseFloat(results.Normal).toFixed(5);
       label = "Y";
+      defected = false;
+      message =
+        "CV Image (ID: " +
+        cvImageEntity.ID +
+        ") entity processed successfully with NO DEFECTS.";
     } else {
       // console.log("Anomalous");
+      //  Anomaly detected, find defected segment
+      const segResults = await aicoreAPI
+        .tx(req)
+        .send("POST", cv_inference_seg_url, data, headers);
+      // console.log(segResults);
+      bin = "data:image/bmp;base64," + segResults.segmented_image;
       confidence = parseFloat(results.Anomalous).toFixed(2);
       label = "N";
+      defected = true;
+      message =
+        "CV Image (ID: " +
+        cvImageEntity.ID +
+        ") entity processed successfully with DEFECT detected.";
     }
     await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
       confidence: confidence,
       qualityLabel: label,
       detectedAt: new Date(),
+      segmentedImage: bin,
+      successInference: defected,
     });
 
-    req.notify(
-      `CV Image (ID: ` + cvImageEntity.ID + `) entity processed successfully.`
-    );
+    req.notify(message);
   });
 
   //this.before("READ", "EquipmentConditions", calculateFaults);
