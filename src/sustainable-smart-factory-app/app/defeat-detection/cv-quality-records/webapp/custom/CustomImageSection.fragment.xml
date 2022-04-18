@@ -1,7 +1,22 @@
-<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout">
-	<l:VerticalLayout>
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout">
+	<l:HorizontalLayout>
 		<l:content>
-			<Image src="{image}" width="100%" />
+			<l:VerticalLayout class="sapUiSmallMargin">
+				<l:content>
+					<Title level="H2" titleStyle="H2" text="Original Image" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin"/>
+					<Image src="{image}" width="100%" />
+				</l:content>
+			</l:VerticalLayout>
+			<l:VerticalLayout class="sapUiSmallMargin" visible="{successInference}">
+				<l:content>
+					<Title level="H2" visible="{successInference}" titleStyle="H2" text="Defect Segment" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin"/>
+					<Image id="inSegment" alt="Preview not available yet due to no inference action taken." src="{segmentedImage}" width="100%" />
+					<MessageStrip class="sapUiSmallMargin" width="250px" visible="{successInference}" text="Success inferenced with original image. Defected area segmented in preview above." type="Success" showIcon="true" showCloseButton="false"></MessageStrip>
+				</l:content>
+			</l:VerticalLayout>
 		</l:content>
-	</l:VerticalLayout>
+	</l:HorizontalLayout>
+
 </core:FragmentDefinition>
