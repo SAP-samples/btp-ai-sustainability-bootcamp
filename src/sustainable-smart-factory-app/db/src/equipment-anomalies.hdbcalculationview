@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="equipment-anomalies" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
-<descriptions defaultDescription="equipment-anomalies"/>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" id="equipment-anomalies" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="Equipment Anomalies Query"/>
 <localVariables>
   <variable id="IP_Equipment" parameter="true">
-    <descriptions defaultDescription="Equipment No."/>
-    <variableProperties datatype="NVARCHAR" length="18" scale="null" mandatory="false">
+    <descriptions defaultDescription="Input Parameter for Equipment"/>
+    <variableProperties datatype="NVARCHAR" length="59" scale="null" mandatory="false">
       <valueDomain type="AttributeValue">
-        <attribute name="EQUIPMENT"/>
+        <attribute name="EQUIPMENT_FULL_NAME"/>
       </valueDomain>
       <selection multiLine="true" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+
+  <variable id="IP_FuncLocation" parameter="true">
+    <descriptions defaultDescription="Input Parameter for Func. Location"/>
+    <variableProperties datatype="NVARCHAR" length="30" scale="null" mandatory="false">
+      <valueDomain type="AttributeValue">
+        <attribute name="FUNC_LOCATION"/>
+      </valueDomain>
+      <selection multiLine="false" type="SingleValue"/>
     </variableProperties>
   </variable>
 </localVariables>
@@ -17,9 +27,15 @@
   <DataSource id="ANALYTICSSERVICE_ANOMALIESEXTENDEDVIEW">
     <resourceUri>ANALYTICSSERVICE_ANOMALIESEXTENDEDVIEW</resourceUri>
   </DataSource>
+  <DataSource id="equipments">
+    <resourceUri>equipments</resourceUri>
+  </DataSource>
+  <DataSource id="date-dimension">
+    <resourceUri>date-dimension</resourceUri>
+  </DataSource>
 </dataSources>
 <calculationViews>
-  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_AnomaliesExtendedView">
     <viewAttributes>
       <viewAttribute id="ID"/>
       <viewAttribute id="DETECTED_DATE"/>
@@ -50,84 +66,283 @@
       <mapping xsi:type="Calculation:AttributeMapping" target="NUMBER_OF_ANOMALIES" source="NUMBEROFANOMALIES"/>
     </input>
   </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1_1" cardinality="CN_N" joinType="inner" multiJoinNode="Join_1" multiJoinCentralTable="Projection_AnomaliesExtendedView" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="ID" aggregationType="sum"/>
+      <viewAttribute id="DETECTED_DATE"/>
+      <viewAttribute id="EQUIPMENT"/>
+      <viewAttribute id="CONFIDENCE" aggregationType="sum"/>
+      <viewAttribute id="ANOMALY_STATUS" aggregationType="sum"/>
+      <viewAttribute id="EQCOND_ID" aggregationType="sum"/>
+      <viewAttribute id="EQUIPMENT_STATUS"/>
+      <viewAttribute id="EQUIPMENT_NAME"/>
+      <viewAttribute id="PLANT"/>
+      <viewAttribute id="FUNC_LOCATION"/>
+      <viewAttribute id="FOLLOWUP_DOC_TYPE"/>
+      <viewAttribute id="FOLLOWUP_DOC_NUM"/>
+      <viewAttribute id="ANOMALY_TYPE"/>
+      <viewAttribute id="NUMBER_OF_ANOMALIES" aggregationType="sum"/>
+      <viewAttribute id="COMPANY_CODE"/>
+      <viewAttribute id="PLANT_SECTION"/>
+      <viewAttribute id="COST_CENTER"/>
+      <viewAttribute id="EQUIPMENT_FULL_NAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Projection_AnomaliesExtendedView">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DETECTED_DATE" source="DETECTED_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT" source="EQUIPMENT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CONFIDENCE" source="CONFIDENCE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ANOMALY_STATUS" source="ANOMALY_STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQCOND_ID" source="EQCOND_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT_STATUS" source="EQUIPMENT_STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT_NAME" source="EQUIPMENT_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PLANT" source="PLANT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FUNC_LOCATION" source="FUNC_LOCATION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FOLLOWUP_DOC_TYPE" source="FOLLOWUP_DOC_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FOLLOWUP_DOC_NUM" source="FOLLOWUP_DOC_NUM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ANOMALY_TYPE" source="ANOMALY_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUMBER_OF_ANOMALIES" source="NUMBER_OF_ANOMALIES"/>
+    </input>
+    <input node="equipments">
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPANY_CODE" source="COMPANY_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PLANT_SECTION" source="PLANT_SECTION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COST_CENTER" source="COST_CENTER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT_FULL_NAME" source="EQUIPMENT_FULL_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT" source="EQUIPMENT_NR"/>
+    </input>
+    <joinAttribute name="EQUIPMENT"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1_2" cardinality="CN_N" joinType="inner" multiJoinNode="Join_1" multiJoinCentralTable="Projection_AnomaliesExtendedView" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="ID" aggregationType="sum"/>
+      <viewAttribute id="DETECTED_DATE"/>
+      <viewAttribute id="EQUIPMENT"/>
+      <viewAttribute id="CONFIDENCE" aggregationType="sum"/>
+      <viewAttribute id="ANOMALY_STATUS" aggregationType="sum"/>
+      <viewAttribute id="EQCOND_ID" aggregationType="sum"/>
+      <viewAttribute id="EQUIPMENT_STATUS"/>
+      <viewAttribute id="EQUIPMENT_NAME"/>
+      <viewAttribute id="PLANT"/>
+      <viewAttribute id="FUNC_LOCATION"/>
+      <viewAttribute id="FOLLOWUP_DOC_TYPE"/>
+      <viewAttribute id="FOLLOWUP_DOC_NUM"/>
+      <viewAttribute id="ANOMALY_TYPE"/>
+      <viewAttribute id="NUMBER_OF_ANOMALIES" aggregationType="sum"/>
+      <viewAttribute id="YEAR"/>
+      <viewAttribute id="QUARTER"/>
+      <viewAttribute id="MONTH"/>
+      <viewAttribute id="WEEK"/>
+      <viewAttribute id="WEEK_YEAR"/>
+      <viewAttribute id="CALQUARTER"/>
+      <viewAttribute id="CALMONTH"/>
+      <viewAttribute id="CALWEEK"/>
+      <viewAttribute id="COMPANY_CODE"/>
+      <viewAttribute id="PLANT_SECTION"/>
+      <viewAttribute id="COST_CENTER"/>
+      <viewAttribute id="EQUIPMENT_FULL_NAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Join_1_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DETECTED_DATE" source="DETECTED_DATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT" source="EQUIPMENT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CONFIDENCE" source="CONFIDENCE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ANOMALY_STATUS" source="ANOMALY_STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQCOND_ID" source="EQCOND_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT_STATUS" source="EQUIPMENT_STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT_NAME" source="EQUIPMENT_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PLANT" source="PLANT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FUNC_LOCATION" source="FUNC_LOCATION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FOLLOWUP_DOC_TYPE" source="FOLLOWUP_DOC_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FOLLOWUP_DOC_NUM" source="FOLLOWUP_DOC_NUM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ANOMALY_TYPE" source="ANOMALY_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUMBER_OF_ANOMALIES" source="NUMBER_OF_ANOMALIES"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPANY_CODE" source="COMPANY_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PLANT_SECTION" source="PLANT_SECTION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COST_CENTER" source="COST_CENTER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT_FULL_NAME" source="EQUIPMENT_FULL_NAME"/>
+    </input>
+    <input node="date-dimension">
+      <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QUARTER" source="QUARTER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MONTH" source="MONTH"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WEEK" source="WEEK"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="WEEK_YEAR" source="WEEK_YEAR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CALQUARTER" source="CALQUARTER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CALWEEK" source="CALWEEK"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DETECTED_DATE" source="DATE_SQL"/>
+    </input>
+    <joinAttribute name="DETECTED_DATE"/>
+  </calculationView>
 </calculationViews>
 
-<logicalModel id="Projection_1">
+<logicalModel id="Join_1_2">
   <attributes>
     <attribute id="ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="Anomaly ID"/>
-      <keyMapping columnObjectName="Projection_1" columnName="ID"/>
+      <descriptions defaultDescription="ID"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="ID"/>
     </attribute>
-    <attribute id="DETECTED_DATE" order="2" semanticType="date" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="Deteced Date"/>
-      <keyMapping columnObjectName="Projection_1" columnName="DETECTED_DATE"/>
+    <attribute id="DETECTED_DATE" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Detected Date"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="DETECTED_DATE"/>
     </attribute>
     <attribute id="EQUIPMENT" order="3" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Equipment No."/>
-      <keyMapping columnObjectName="Projection_1" columnName="EQUIPMENT"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="EQUIPMENT"/>
     </attribute>
     <attribute id="ANOMALY_STATUS" order="5" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Anomaly Status"/>
-      <keyMapping columnObjectName="Projection_1" columnName="ANOMALY_STATUS"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="ANOMALY_STATUS"/>
     </attribute>
     <attribute id="EQCOND_ID" order="6" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="Equipment Condition ID"/>
-      <keyMapping columnObjectName="Projection_1" columnName="EQCOND_ID"/>
+      <descriptions defaultDescription="Eq. Cond. ID"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="EQCOND_ID"/>
     </attribute>
     <attribute id="EQUIPMENT_STATUS" order="7" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Equipment Status"/>
-      <keyMapping columnObjectName="Projection_1" columnName="EQUIPMENT_STATUS"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="EQUIPMENT_STATUS"/>
     </attribute>
     <attribute id="EQUIPMENT_NAME" order="8" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Equipment Name"/>
-      <keyMapping columnObjectName="Projection_1" columnName="EQUIPMENT_NAME"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="EQUIPMENT_NAME"/>
     </attribute>
     <attribute id="PLANT" order="9" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Plant"/>
-      <keyMapping columnObjectName="Projection_1" columnName="PLANT"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="PLANT"/>
     </attribute>
     <attribute id="FUNC_LOCATION" order="10" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Func. Location"/>
-      <keyMapping columnObjectName="Projection_1" columnName="FUNC_LOCATION"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="FUNC_LOCATION"/>
     </attribute>
     <attribute id="FOLLOWUP_DOC_TYPE" order="11" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="Follow-up Doc. Type"/>
-      <keyMapping columnObjectName="Projection_1" columnName="FOLLOWUP_DOC_TYPE"/>
+      <descriptions defaultDescription="FollowUp Doc. Type"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="FOLLOWUP_DOC_TYPE"/>
     </attribute>
     <attribute id="FOLLOWUP_DOC_NUM" order="12" displayAttribute="false" attributeHierarchyActive="false">
-      <descriptions defaultDescription="Follow-up Doc. Num."/>
-      <keyMapping columnObjectName="Projection_1" columnName="FOLLOWUP_DOC_NUM"/>
+      <descriptions defaultDescription="FollowUp Doc. Num."/>
+      <keyMapping columnObjectName="Join_1_2" columnName="FOLLOWUP_DOC_NUM"/>
     </attribute>
     <attribute id="ANOMALY_TYPE" order="13" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Anomaly Type"/>
-      <keyMapping columnObjectName="Projection_1" columnName="ANOMALY_TYPE"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="ANOMALY_TYPE"/>
+    </attribute>
+    <attribute id="YEAR" order="15" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="YEAR"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="YEAR"/>
+    </attribute>
+    <attribute id="QUARTER" order="16" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="QUARTER"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="QUARTER"/>
+    </attribute>
+    <attribute id="MONTH" order="17" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MONTH"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="MONTH"/>
+    </attribute>
+    <attribute id="WEEK" order="18" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="WEEK"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="WEEK"/>
+    </attribute>
+    <attribute id="WEEK_YEAR" order="19" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="WEEK_YEAR"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="WEEK_YEAR"/>
+    </attribute>
+    <attribute id="CALQUARTER" order="20" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CALQUARTER"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="CALQUARTER"/>
+    </attribute>
+    <attribute id="CALMONTH" order="21" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CALMONTH"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="CALMONTH"/>
+    </attribute>
+    <attribute id="CALWEEK" order="22" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CALWEEK"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="CALWEEK"/>
+    </attribute>
+  
+    <attribute id="COMPANY_CODE" order="23" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Company Code"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="COMPANY_CODE"/>
+    </attribute>
+    <attribute id="PLANT_SECTION" order="24" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Plant Section"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="PLANT_SECTION"/>
+    </attribute>
+    <attribute id="COST_CENTER" order="25" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Cost Center"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="COST_CENTER"/>
+    </attribute>
+    <attribute id="EQUIPMENT_FULL_NAME" order="26" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Equipment Full Name"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="EQUIPMENT_FULL_NAME"/>
     </attribute>
   </attributes>
   <calculatedAttributes/>
   <baseMeasures>
     <measure id="CONFIDENCE" order="4" aggregationType="avg" measureType="simple">
       <descriptions defaultDescription="Confidence"/>
-      <measureMapping columnObjectName="Projection_1" columnName="CONFIDENCE"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="CONFIDENCE"/>
     </measure>
     <measure id="NUMBER_OF_ANOMALIES" order="14" aggregationType="sum" measureType="simple">
-      <descriptions defaultDescription="No. of Anomalies"/>
-      <measureMapping columnObjectName="Projection_1" columnName="NUMBER_OF_ANOMALIES"/>
+      <descriptions defaultDescription="Number of Anomalies"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="NUMBER_OF_ANOMALIES"/>
     </measure>
   </baseMeasures>
   <calculatedMeasures/>
   <restrictedMeasures/>
-  <localDimensions/>
+  <localDimensions>
+    <localDimension id="Equipment_Hierarchies">
+      <attributeRef xsi:type="DataFoundation:Attribute">PLANT</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">COST_CENTER</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">FUNC_LOCATION</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">EQUIPMENT_FULL_NAME</attributeRef>
+      <hierarchies>
+        <hierarchy xsi:type="Dimension:LeveledHierarchy" id="Equipment_Hierarchies" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+          <descriptions defaultDescription="Plant/Cost Center/Func.Location/Equipments Hierarchies"/>
+          <unassignedMemberProperties mode="FALSE"/>
+          <levels>
+            <level levelAttribute="PLANT" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="PLANT" sortDirection="ASC"/>
+            <level levelAttribute="COST_CENTER" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="COST_CENTER" sortDirection="ASC"/>
+            <level levelAttribute="FUNC_LOCATION" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="FUNC_LOCATION" sortDirection="ASC"/>
+            <level levelAttribute="EQUIPMENT_FULL_NAME" levelType="MDLEVEL_TYPE_REGULAR" order="4" orderAttribute="EQUIPMENT_FULL_NAME" sortDirection="ASC"/>
+          </levels>
+        </hierarchy>
+      </hierarchies>
+    </localDimension>
+  </localDimensions>
 </logicalModel>
 <layout>
   <shapes>
     <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
-      <upperLeftCorner x="40" y="85"/>
+      <upperLeftCorner x="162" y="112"/>
+    
+      <rectangleSize width="160"/>
     </shape>
     
   
-    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="105" y="185"/>
+    <shape expanded="true" modelObjectName="Projection_AnomaliesExtendedView" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="156" y="356"/>
       <rectangleSize height="30" width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="236"/>
+      <rectangleSize height="30" width="290"/>
+    </shape>
+    <shape modelObjectName="Projection_AnomaliesExtendedView" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+      <upperLeftCorner x="184.96666717529297" y="61.5"/>
+      <rectangleSize width="271.1333312988281"/>
+    </shape>
+  
+    <shape modelObjectName="date-dimension" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+      <upperLeftCorner x="594.3666687011719" y="-6"/>
+      <rectangleSize width="191.5999984741211"/>
+    </shape>
+  
+    <shape modelObjectName="equipments" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+      <upperLeftCorner x="567" y="23"/>
+      <rectangleSize width="222.36666870117188"/>
     </shape>
   </shapes>
 </layout>
