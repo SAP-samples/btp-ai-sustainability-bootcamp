@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" id="equipments" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="Equipments"/>
+<localVariables>
+  <variable id="IP_FUNC_LOCATION" parameter="true">
+    <descriptions defaultDescription="Input Func. Location"/>
+    <variableProperties datatype="NVARCHAR" length="30" scale="null" mandatory="false">
+      <valueDomain type="AttributeValue">
+        <attribute name="FUNC_LOCATION"/>
+      </valueDomain>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings/>
+<dataSources>
+  <DataSource id="SAP_SMARTFACTORY_EQUIPMENTS">
+    <resourceUri>SAP_SMARTFACTORY_EQUIPMENTS</resourceUri>
+  </DataSource>
+  <DataSource id="plant-equipment-status">
+    <resourceUri>plant-equipment-status</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="EQUIPMENT_NR"/>
+      <viewAttribute id="EQUIPMENT_NAME"/>
+      <viewAttribute id="EQUIPMENT_DESC"/>
+      <viewAttribute id="COMPANY_CODE"/>
+      <viewAttribute id="PLANT"/>
+      <viewAttribute id="PLANT_SECTION"/>
+      <viewAttribute id="FUNC_LOCATION"/>
+      <viewAttribute id="COST_CENTER"/>
+      <viewAttribute id="EQ_STATUS_CODE"/>
+      <viewAttribute id="EQ_STATUS_NAME"/>
+      <viewAttribute hidden="true" id="JOIN$TOEQUIPMENTSTATUS_CODE$EQ_STATUS_CODE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="SAP_SMARTFACTORY_EQUIPMENTS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT_NR" source="NR"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT_NAME" source="NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT_DESC" source="DESC"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPANY_CODE" source="COMPCODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PLANT" source="PLANT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PLANT_SECTION" source="PLANTSECTION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FUNC_LOCATION" source="FUNCLOCATION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COST_CENTER" source="COSTCENTER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$TOEQUIPMENTSTATUS_CODE$EQ_STATUS_CODE" source="TOEQUIPMENTSTATUS_CODE"/>
+    </input>
+    <input node="plant-equipment-status">
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQ_STATUS_CODE" source="EQ_STATUS_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQ_STATUS_NAME" source="EQ_STATUS_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$TOEQUIPMENTSTATUS_CODE$EQ_STATUS_CODE" source="EQ_STATUS_CODE"/>
+    </input>
+    <joinAttribute name="JOIN$TOEQUIPMENTSTATUS_CODE$EQ_STATUS_CODE"/>
+  </calculationView>
+</calculationViews>
+<inlineHierarchy xsi:type="Dimension:LeveledHierarchy" id="Plant_CC_FuncL" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+  <descriptions defaultDescription="Plant/CC./Func. Location"/>
+  <unassignedMemberProperties mode="FALSE"/>
+  <levels>
+    <level levelAttribute="PLANT" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="PLANT" sortDirection="ASC"/>
+    <level levelAttribute="COST_CENTER" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="COST_CENTER" sortDirection="ASC"/>
+    <level levelAttribute="FUNC_LOCATION" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="FUNC_LOCATION" sortDirection="ASC"/>
+    <level levelAttribute="EQUIPMENT_FULL_NAME" levelType="MDLEVEL_TYPE_REGULAR" order="4" orderAttribute="EQUIPMENT_NAME" sortDirection="ASC"/>
+  </levels>
+</inlineHierarchy>
+
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="EQUIPMENT_NR" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Equipment No."/>
+      <keyMapping columnObjectName="Join_1" columnName="EQUIPMENT_NR"/>
+    </attribute>
+    <attribute id="EQUIPMENT_NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Equipment Name"/>
+      <keyMapping columnObjectName="Join_1" columnName="EQUIPMENT_NAME"/>
+    </attribute>
+    <attribute id="EQUIPMENT_DESC" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Equipment Desc."/>
+      <keyMapping columnObjectName="Join_1" columnName="EQUIPMENT_DESC"/>
+    </attribute>
+    <attribute id="COMPANY_CODE" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Company Code"/>
+      <keyMapping columnObjectName="Join_1" columnName="COMPANY_CODE"/>
+    </attribute>
+    <attribute id="PLANT" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Plant"/>
+      <keyMapping columnObjectName="Join_1" columnName="PLANT"/>
+    </attribute>
+    <attribute id="PLANT_SECTION" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Plant Section"/>
+      <keyMapping columnObjectName="Join_1" columnName="PLANT_SECTION"/>
+    </attribute>
+    <attribute id="FUNC_LOCATION" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Func. Location"/>
+      <keyMapping columnObjectName="Join_1" columnName="FUNC_LOCATION"/>
+    </attribute>
+    <attribute id="COST_CENTER" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Cost Center"/>
+      <keyMapping columnObjectName="Join_1" columnName="COST_CENTER"/>
+    </attribute>
+    <attribute id="EQ_STATUS_CODE" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Eq. Status Code"/>
+      <keyMapping columnObjectName="Join_1" columnName="EQ_STATUS_CODE"/>
+    </attribute>
+    <attribute id="EQ_STATUS_NAME" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Eq. Status Name"/>
+      <keyMapping columnObjectName="Join_1" columnName="EQ_STATUS_NAME"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes>
+    <calculatedAttribute id="EQUIPMENT_FULL_NAME" order="11" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Equipment Full Name"/>
+      <keyCalculation datatype="NVARCHAR" expressionLanguage="SQL" length="59">
+        <formula>CONCAT(CONCAT(&quot;EQUIPMENT_NR&quot;, '-'), &quot;EQUIPMENT_NAME&quot;)</formula>
+      </keyCalculation>
+      </calculatedAttribute>
+  </calculatedAttributes>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="182"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="SAP_SMARTFACTORY_EQUIPMENTS" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="280.6666717529297"/>
+    </shape>
+    <shape modelObjectName="plant-equipment-status" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="566" y="30"/>
+      <rectangleSize width="196.6666717529297"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

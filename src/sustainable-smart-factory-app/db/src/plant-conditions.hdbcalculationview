@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="plant-conditions" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" id="plant-conditions" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
 <descriptions defaultDescription="plant-conditions"/>
-<localVariables/>
+<localVariables>
+  <variable id="IP_Year" parameter="true">
+    <descriptions defaultDescription="Input Parameter for Year"/>
+    <variableProperties datatype="NVARCHAR" length="4" scale="null" mandatory="false">
+      <valueDomain type="AttributeValue">
+        <attribute name="YEAR"/>
+      </valueDomain>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+</localVariables>
 <variableMappings/>
 <dataSources>
   <DataSource id="SAP_SMARTFACTORY_PLANTCONDITIONS">
@@ -77,7 +87,6 @@
   </calculationView>
   <calculationView xsi:type="Calculation:ProjectionView" id="Projection_Time_Dim">
     <viewAttributes>
-      <viewAttribute id="DATE_SQL"/>
       <viewAttribute id="YEAR"/>
       <viewAttribute id="QUARTER"/>
       <viewAttribute id="MONTH"/>
@@ -86,7 +95,8 @@
       <viewAttribute id="CALQUARTER"/>
       <viewAttribute id="CALMONTH"/>
       <viewAttribute id="CALWEEK"/>
-    </viewAttributes>
+    
+      <viewAttribute id="DATE_SQL"/></viewAttributes>
     <calculatedViewAttributes/>
     <input node="M_TIME_DIMENSION"/>
   </calculationView>
@@ -94,92 +104,132 @@
 
 <logicalModel id="Join_1">
   <attributes>
-    <attribute id="PLANT" order="2" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="PLANT" order="4" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Plant"/>
       <keyMapping columnObjectName="Join_1" columnName="PLANT"/>
     </attribute>
-    <attribute id="DATE" order="3" semanticType="date" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="DATE" order="5" semanticType="date" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Date"/>
       <keyMapping columnObjectName="Join_1" columnName="DATE"/>
     </attribute>
-    <attribute id="SHIFT" order="7" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="SHIFT" order="9" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Shift"/>
       <keyMapping columnObjectName="Join_1" columnName="SHIFT"/>
     </attribute>
-    <attribute id="PLANT_STATUS" order="8" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="PLANT_STATUS" order="10" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Plant Status"/>
       <keyMapping columnObjectName="Join_1" columnName="PLANT_STATUS"/>
     </attribute>
-    <attribute id="ID" order="9" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="ID" order="11" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="ID"/>
       <keyMapping columnObjectName="Join_1" columnName="ID"/>
     </attribute>
   
-    <attribute id="YEAR" order="10" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="YEAR" order="12" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Year"/>
+  
       <keyMapping columnObjectName="Join_1" columnName="YEAR"/>
+  
     </attribute>
-    <attribute id="QUARTER" order="11" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="QUARTER" order="13" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Quarter"/>
       <keyMapping columnObjectName="Join_1" columnName="QUARTER"/>
     </attribute>
-    <attribute id="MONTH" order="12" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="MONTH" order="14" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Month"/>
       <keyMapping columnObjectName="Join_1" columnName="MONTH"/>
     </attribute>
-    <attribute id="WEEK" order="13" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="WEEK" order="15" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Week"/>
       <keyMapping columnObjectName="Join_1" columnName="WEEK"/>
     </attribute>
-    <attribute id="WEEK_YEAR" order="14" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="WEEK_YEAR" order="16" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Week in Year"/>
       <keyMapping columnObjectName="Join_1" columnName="WEEK_YEAR"/>
     </attribute>
-    <attribute id="CALQUARTER" order="15" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="CALQUARTER" order="17" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Cal. Quarter"/>
       <keyMapping columnObjectName="Join_1" columnName="CALQUARTER"/>
     </attribute>
-    <attribute id="CALMONTH" order="16" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="CALMONTH" order="18" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Cal. Month"/>
       <keyMapping columnObjectName="Join_1" columnName="CALMONTH"/>
     </attribute>
-    <attribute id="CALWEEK" order="17" displayAttribute="false" attributeHierarchyActive="false">
+    <attribute id="CALWEEK" order="19" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Cal. Week"/>
       <keyMapping columnObjectName="Join_1" columnName="CALWEEK"/>
     </attribute>
   </attributes>
   <calculatedAttributes/>
   <baseMeasures>
-    <measure id="YIELD" order="4" aggregationType="sum" measureType="simple">
+    <measure id="YIELD" order="6" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="Yield"/>
       <measureMapping columnObjectName="Join_1" columnName="YIELD"/>
     </measure>
-    <measure id="DEFECTIVE_PRODUCTS" order="5" aggregationType="sum" measureType="simple">
+    <measure id="DEFECTIVE_PRODUCTS" order="7" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="Defective Products"/>
       <measureMapping columnObjectName="Join_1" columnName="DEFECTIVE_PRODUCTS"/>
     </measure>
-    <measure id="ENERGY_CONSUMPTION" order="6" aggregationType="sum" measureType="simple">
+    <measure id="ENERGY_CONSUMPTION" order="8" aggregationType="sum" measureType="simple">
       <descriptions defaultDescription="Energy Cons.(KW)"/>
       <measureMapping columnObjectName="Join_1" columnName="ENERGY_CONSUMPTION"/>
     </measure>
   </baseMeasures>
   <calculatedMeasures>
-    <measure id="DEFECTIVE_RATE" order="1" aggregationType="avg" measureType="simple" datatype="DECIMAL" length="9" scale="2" expressionLanguage="SQL" presentationScale="2" engineAggregation="sum" aggregatable="true">
+    <measure id="DEFECTIVE_RATE" order="1" aggregationType="sum" measureType="simple" datatype="DECIMAL" length="9" scale="2" expressionLanguage="SQL" presentationScale="2">
       <descriptions defaultDescription="Defective Rate ‱"/>
       <formula>CASE &quot;YIELD&quot; 
 	 WHEN 0 then 0 
 	 ELSE &quot;DEFECTIVE_PRODUCTS&quot; * 1000 / &quot;YIELD&quot; 
  END</formula>
       
+      
+      
+      </measure>
+    <measure id="ENERGY_CONS_PER_PRODUCT" order="2" aggregationType="sum" measureType="simple" datatype="DECIMAL" length="9" scale="5" presentationScale="5" expressionLanguage="SQL">
+      <descriptions defaultDescription="Energy Cons.(W) per Product"/>
+      <formula>CASE &quot;YIELD&quot; 
+	 WHEN 0 then 0 
+	 ELSE &quot;ENERGY_CONSUMPTION&quot; * 1000 / &quot;YIELD&quot; 
+ END</formula>
+      
+      </measure>
+    <measure id="CO2_EMISSION_PER_PRODUCT" order="3" aggregationType="sum" measureType="simple" datatype="DECIMAL" length="9" scale="5" presentationScale="5" expressionLanguage="SQL">
+      <descriptions defaultDescription="CO2 Emission(Gram) per Product"/>
+      <formula>CASE &quot;YIELD&quot; 
+	 WHEN 0 then 0 
+	 ELSE &quot;CO2_EMISSION&quot; * 1000 / &quot;YIELD&quot; 
+ END</formula>
       </measure>
   
-    <measure id="CO2_EMISSION" order="18" aggregationType="sum" measureType="simple" aggregatable="true" datatype="DECIMAL" length="9" scale="2" expressionLanguage="SQL">
-      <descriptions defaultDescription="CO2 Emission in KG"/>
+    <measure id="CO2_EMISSION" order="20" aggregationType="sum" measureType="simple" aggregatable="true" datatype="DECIMAL" length="9" scale="2" expressionLanguage="SQL">
+      <descriptions defaultDescription="CO2 Emission(KG)"/>
       <formula>&quot;ENERGY_CONSUMPTION&quot; * 0.0301</formula>
+      
+      
       </measure>
   </calculatedMeasures>
   <restrictedMeasures/>
-  <localDimensions/>
+  <localDimensions>
+    <localDimension id="Year_Quarter_Month_Week_Hierchies">
+      <attributeRef xsi:type="DataFoundation:Attribute">YEAR</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">QUARTER</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">MONTH</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">WEEK</attributeRef>
+      <hierarchies>
+        <hierarchy xsi:type="Dimension:LeveledHierarchy" id="Year_Quarter_Month_Week_Hierchies" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+          <descriptions defaultDescription="Year_Quarter_Month_Week_Hierchies"/>
+          <unassignedMemberProperties mode="FALSE"/>
+          <levels>
+            <level levelAttribute="YEAR" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="YEAR" sortDirection="ASC"/>
+            <level levelAttribute="QUARTER" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="QUARTER" sortDirection="ASC"/>
+            <level levelAttribute="MONTH" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="MONTH" sortDirection="ASC"/>
+            <level levelAttribute="WEEK" levelType="MDLEVEL_TYPE_REGULAR" order="4" orderAttribute="WEEK" sortDirection="ASC"/>
+          </levels>
+        </hierarchy>
+      </hierarchies>
+    </localDimension>
+  </localDimensions>
 </logicalModel>
 <layout>
   <shapes>
@@ -191,7 +241,7 @@
     
   
     <shape expanded="true" modelObjectName="Projection_PlantCondition_Table" modelObjectNameSpace="CalculationView">
-      <upperLeftCorner x="208.0000000000001" y="301.9999988079071"/>
+      <upperLeftCorner x="208" y="301"/>
       <rectangleSize height="30" width="323"/>
     </shape>
     <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
@@ -200,11 +250,11 @@
     </shape>
     <shape modelObjectName="Projection_Time_Dim" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="-346" y="-29"/>
-      <rectangleSize width="186.43333435058594"/>
+      <rectangleSize width="186"/>
     </shape>
     <shape modelObjectName="Projection_PlantCondition_Table" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
-      <upperLeftCorner x="39.43333435058594" y="-26"/>
-      <rectangleSize width="251.76666259765625"/>
+      <upperLeftCorner x="39" y="-26"/>
+      <rectangleSize width="251"/>
     </shape>
     <shape expanded="true" modelObjectName="Projection_Time_Dim" modelObjectNameSpace="CalculationView">
       <upperLeftCorner x="-67" y="302"/>
