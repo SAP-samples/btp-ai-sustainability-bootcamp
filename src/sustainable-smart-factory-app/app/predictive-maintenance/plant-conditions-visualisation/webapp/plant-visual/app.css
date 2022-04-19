@@ -119,7 +119,7 @@ body {
   box-shadow: 10px 0 10px -10px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   align-content: center;
   animation: fadein 4s;
@@ -234,7 +234,7 @@ body {
   position: relative;
   justify-content: center;
   align-items: center;
-  top: 20px;
+  top: 50px;
 }
 @keyframes fadein {
   from { opacity: 0}
@@ -1031,10 +1031,12 @@ body {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
+  align-content: flex-start;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  flex-wrap: wrap;
   overflow: scroll;
 }
 .modal__container {
@@ -1079,7 +1081,7 @@ body {
   -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
   justify-content: flex-end;
-  padding: 30px 0 0;
+  padding: 10px 0 0;
 }
 .modal__button {
   border-radius: 3px;
@@ -1245,7 +1247,7 @@ body {
 }
 .editarea {
   border-bottom: 1px solid #ccc;
-  padding: 20px 0;
+  padding: 10px 0;
 }
 .editarea,
 .editarea__addbutton {
@@ -1337,6 +1339,7 @@ body {
   box-shadow: -10px 0 10px -10px rgba(0, 0, 0, 0.2);
   width: 500px;
   padding: 0 0 0 30px;
+  display: none;
 }
 .editarea__list__list {
   list-style-type: none;

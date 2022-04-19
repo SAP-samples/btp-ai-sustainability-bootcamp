@@ -11387,6 +11387,7 @@
       n = i(s);
     t["default"] = {
       init: function () {
+        console.log("init");
         (n["default"].state.currentSegment = "convenience"),
           (n["default"].state.marketingMessage = {
             save: function () {
@@ -25513,6 +25514,9 @@
         modalSave: function () {
           this.state.editArea.save();
           console.log("save here");
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Anomaly");
+        localStorage.setItem("AICORE-OBJECTID", "1662");
 
 		  // var requestOptions = {
 			// method: 'GET',
@@ -25546,6 +25550,7 @@
         },
         modalCancel: function () {
           this.state.editArea = !1;
+          console.log("cancel here.");
         },
       },
       methods: {
@@ -26567,10 +26572,14 @@
       return r["default"].assign({}, e, {
         area: parseFloat(e.area),
         active: parseFloat(e.active),
-        currentSalesRate: parseFloat(e.currentSalesRate),
+        currentSalesRate: parseFloat(99),
         lastSalesRate: parseFloat(e.lastSalesRate),
         currentRevenue: parseFloat(e.currentRevenue),
         lastRevenue: parseFloat(e.lastRevenue),
+        // currentSalesRate: "Damage noise with cracking",
+        // lastSalesRate: "LGP-LED assembling machine robotic arm 4",
+        // currentRevenue: "0.9962",
+        // lastRevenue: "April 20, 2022, 6:00:00 AM",
         stock: parseFloat(e.stock),
         sales: parseFloat(e.sales),
       });
@@ -28468,7 +28477,7 @@
   function (e, t, a) {
     // headers area
     e.exports =
-      '<div id=app :class="{hidecursor: this.state.hidecursor}"><div class=content><div class=heatmaparea><heatmap></heatmap></div><segments></segments></div><editarea></editarea><message></message><marketingmessage></marketingmessage></div>';
+      '<div id=app :class="{hidecursor: this.state.hidecursor}"><div class=content><segments></segments><div class=heatmaparea><heatmap></heatmap></div></div><editarea></editarea><message></message><marketingmessage></marketingmessage></div>';
   },
   function (e, t, a) {
     e.exports =
@@ -28513,9 +28522,7 @@
   },
   function (e, t, a) {
     e.exports =
-      '<modal :show="state.editArea != false"><h2 slot=header class=modal__heading>{{ state.lang.editArea.edit }} {{ state.lang.segments[this.state.editArea.segment] }}</h2><div slot=body><div class=editarea><div class=editarea__details><div class=editarea__details__meta><div class=editarea__details__meta__info><p class=editarea__details__name>{{ state.lang.products[selectedProduct.name]}}</p><p>{{ selectedProduct.amount }}<br>{{ selectedProduct.info }}</p><div class=editarea__addbutton :class="{\'editarea__addbutton--active\': selectedProduct.active}" @click="selectedProduct.active = !selectedProduct.active"><div class=editarea__addbutton__checkbox><img src=' +
-      a(185) +
-      ' alt="" v-if="selectedProduct.active"></div><div v-if=!selectedProduct.active>{{ state.lang.editArea.addButton }}</div><div v-if=selectedProduct.active>{{ state.lang.editArea.removeButton }}</div></div></div><div class=editarea__details__meta__image><img :src=selectedProduct.image alt="" width="100"></div></div><table class="editarea__details__table"> <tbody> <tr class="editarea__details__table__row"> <td class="editarea__details__table__row__col"> {{ state.lang.editArea.currentSalesRate }} <div class="editarea__value" :class="{\'editarea__value--alert\': selectedProduct.currentSalesRate < 0.1}" > {{ selectedProduct.currentSalesRate * 100 | twoDecimals }} % </div> </td> <td class="editarea__details__table__row__col"> {{ state.lang.editArea.lastSalesRate }} <div class="editarea__value"> {{ selectedProduct.lastSalesRate * 100 | twoDecimals }} % </div> <tr class="editarea__details__table__row"> <td class="editarea__details__table__row__col"> {{ state.lang.editArea.currentRevenue }} <div class="editarea__value" :class="{\'editarea__value--alert\': selectedProduct.currentRevenue < 500}" > {{ selectedProduct.currentRevenue | int }} € </div> </td> <td class="editarea__details__table__row__col"> {{ state.lang.editArea.lastRevenue }} <div class="editarea__value"> {{ selectedProduct.lastRevenue | int }} € </div> </td> </tr> </td> </tr> </tbody> </table></div><div class=editarea__list><ul class=editarea__list__list><li class=editarea__list__list__item v-for="product in products"><div class=editarea__list__list__item__product :class="{\'editarea__list__list__item__product--active\': product.active, \'editarea__list__list__item__product--selected\': product.selected}" @click=select(product)><img :src=product.image alt="" width=100 class="editarea__list__list__item__product__image"><div class=editarea__list__list__item__product__name>{{ state.lang.products[product.name] }}</div><img src=' +
+      '<modal :show="state.editArea != false"><h2 slot=header class=modal__heading>{{ state.lang.editArea.edit }} LED Assem Robot Arm 4</h2><div slot=body><div class=editarea><div class=editarea__details><div class=editarea__details__meta><div class=editarea__details__meta__info><p class=editarea__details__name>{{ state.lang.products[selectedProduct.name]}}</p><p>{{ selectedProduct.amount }}<br>{{ selectedProduct.info }}</p><audio controls> <source src="/media/sound/a1-slow-sound/clip0008.wav" type="audio/wav"> </audio></div><div class=editarea__details__meta__image><img :src=selectedProduct.image alt="" width="100"></div></div><table class="editarea__details__table"> <tbody> <tr class="editarea__details__table__row"> <td class="editarea__details__table__row__col"> Anomaly Type <div class="editarea__value"> Damage noise with cracking </div> </td> <td class="editarea__details__table__row__col"> Equipment Name <div class="editarea__value"> LGP-LED assembling machine robotic arm 4 </div> </td> </tr> <tr class="editarea__details__table__row"> <td class="editarea__details__table__row__col"> Anomaly Detection Confidence <div class="editarea__value editarea__value--alert"> 0.9962 </div> </td> <td class="editarea__details__table__row__col"> Anomaly Detection Date <div class="editarea__value"> April 20, 2022, 6:00:00 AM </div> </td> </tr> </tbody> </table></div><div class=editarea__list><ul class=editarea__list__list><li class=editarea__list__list__item v-for="product in products"><div class=editarea__list__list__item__product :class="{\'editarea__list__list__item__product--active\': product.active, \'editarea__list__list__item__product--selected\': product.selected}" @click=select(product)><img :src=product.image alt="" width=100 class="editarea__list__list__item__product__image"><div class=editarea__list__list__item__product__name>{{ state.lang.products[product.name] }}</div><img src=' +
       a(184) +
       ' alt="" class="editarea__list__list__item__product__check"></div></li></ul></div></div></div></modal>';
   },
@@ -28559,7 +28566,7 @@
   },
   function (e, t) {
     e.exports =
-      '<div class=modal v-if=show transition=modal @click.self=cancel()><div class=modal__container><div class=modal__header><slot name=header>default header</slot><button type=button class=modal__close @click=cancel()><svg xmlns=http://www.w3.org/2000/svg xmlns:xlink=http://www.w3.org/1999/xlink xmlns:sketch=http://www.bohemiancoding.com/sketch/ns width=18 height=18 viewBox="0 0 18 18" version=1.1><g stroke=none stroke-width=1 fill=none fill-rule=evenodd sketch:type=MSPage><g sketch:type=MSArtboardGroup transform="translate(-1471.000000, -231.000000)" fill=#999999><g sketch:type=MSLayerGroup transform="translate(1471.000000, 231.000000)"><path d="M17.09 18C16.91 18 16.73 17.93 16.59 17.79L0.4 1.42C0.13 1.14 0.13 0.69 0.4 0.41 0.68 0.13 1.13 0.13 1.41 0.41L17.6 16.77C17.87 17.05 17.87 17.51 17.6 17.79 17.46 17.93 17.28 18 17.09 18L17.09 18Z" sketch:type="MSShapeGroup"/><path d="M0.91 18C0.72 18 0.54 17.93 0.4 17.79 0.13 17.51 0.13 17.05 0.4 16.77L16.59 0.41C16.87 0.13 17.32 0.13 17.6 0.41 17.87 0.69 17.87 1.14 17.6 1.42L1.41 17.79C1.27 17.93 1.09 18 0.91 18L0.91 18Z" sketch:type="MSShapeGroup"/></g></g></g></svg></button></div><div class=modal__body><slot name=body>default body</slot></div><div class=modal__footer><slot name=footer><button type=button class="modal__button modal__button--cancel" @click=cancel()>{{ state.lang.buttons.cancel }}</button> <button type=button class="modal__button modal__button--save" @click=save()>{{ state.lang.buttons.save }}</button></slot></div></div></div>';
+      '<div class=modal v-if=show transition=modal @click.self=cancel()><div class=modal__container><div class=modal__header><slot name=header>default header</slot><button type=button class=modal__close @click=cancel()><svg xmlns=http://www.w3.org/2000/svg xmlns:xlink=http://www.w3.org/1999/xlink xmlns:sketch=http://www.bohemiancoding.com/sketch/ns width=18 height=18 viewBox="0 0 18 18" version=1.1><g stroke=none stroke-width=1 fill=none fill-rule=evenodd sketch:type=MSPage><g sketch:type=MSArtboardGroup transform="translate(-1471.000000, -231.000000)" fill=#999999><g sketch:type=MSLayerGroup transform="translate(1471.000000, 231.000000)"><path d="M17.09 18C16.91 18 16.73 17.93 16.59 17.79L0.4 1.42C0.13 1.14 0.13 0.69 0.4 0.41 0.68 0.13 1.13 0.13 1.41 0.41L17.6 16.77C17.87 17.05 17.87 17.51 17.6 17.79 17.46 17.93 17.28 18 17.09 18L17.09 18Z" sketch:type="MSShapeGroup"/><path d="M0.91 18C0.72 18 0.54 17.93 0.4 17.79 0.13 17.51 0.13 17.05 0.4 16.77L16.59 0.41C16.87 0.13 17.32 0.13 17.6 0.41 17.87 0.69 17.87 1.14 17.6 1.42L1.41 17.79C1.27 17.93 1.09 18 0.91 18L0.91 18Z" sketch:type="MSShapeGroup"/></g></g></g></svg></button></div><div class=modal__body><slot name=body>default body</slot></div><div class=modal__footer><slot name=footer><button type=button class="modal__button modal__button--cancel" @click=cancel()>{{ state.lang.buttons.cancel }}</button> <button type=button class="modal__button modal__button--save" @click=save()>{{ state.lang.buttons.save }}</button><button type=button class="modal__button modal__button--save" @click=cancel() onclick="navigateToEq()">Navigate to Equipment Info</button></slot></div></div></div>';
   },
   function (e, t, a) {
     e.exports =

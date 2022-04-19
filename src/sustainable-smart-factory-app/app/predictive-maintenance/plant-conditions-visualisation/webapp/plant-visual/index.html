@@ -15,10 +15,16 @@
       var url = new URL(window.location.href);
       var searchParams = new URLSearchParams(url.search);
       var firstlang = searchParams.get("firstlang");
-      
+
       document.first_lang = document.lang_english;
       document.loc_firstlang = document.loc_english;
       firstlang = "en";
+
+      function navigateToEq() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300034");
+      }
     </script>
 
     <script src="app.js"></script>
