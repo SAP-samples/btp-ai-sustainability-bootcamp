@@ -7,13 +7,13 @@ document.lang_english = {
 	segments: {
 		all: "All Equipments",
 		dry: "LGP Cutting Mach 1",
-		drugs: "LGP Cutting Mach 2",
+		drugs: "LGP Dotting Mach 1",
 		milk: "LED Assem Mac Robot 1",
-		frozen: "LED Assem Mac Robot 2",
-		meat: "LED Assem Mac Robot 3",
-		veg: "LED Assem Mac Robot 4",
-		magazines: "LED Assem Mac Robot 5",
-		convenience: "LED Assem Mac Robot 6"
+		frozen: "LED Assem Robot Arm 2",
+		meat: "LED Assem Robot Arm 3",
+		veg: "LED Assem Robot Arm 4",
+		magazines: "LED Assem Robot Arm 5",
+		convenience: "LED Assem Robot Arm 6"
 	},
 	sections: {
 		overview: "Plant overview",
@@ -77,13 +77,13 @@ document.lang_english = {
 		bowl250: "250g bowls"
 	},
 	buttons: {
-		save: "Trigger Support",
-		cancel: "Cancel"
+		save: "Navigate to Anomaly Status",
+		cancel: "Close"
 	},
 	heatmap: {
 		customers: "Customers per hour",
 		annotations: {
-			dry: "Anomaly#1 LGP Prod Line#1. Abnormal sound detected",
+			dry: "Anomaly#1662 LED Assem Arm#4. Abnormal sound detected. Exceed Threshold.",
 			veg: "Shopfloor productivity declining in promotion area"
 		}
 	},
@@ -120,7 +120,7 @@ document.lang_english = {
 		sauce: "EQ 7",
 		tea: "EQ 8",
 		smoothiestand: "Smoothie booth",
-		pickles: "Cracks",
+		pickles: "Detected Sound Anomaly",
 		lime: "Limes",
 		redcabbage: "Beetroot",
 		oranges: "Oranges"
@@ -129,10 +129,10 @@ document.lang_english = {
 		edit: "Alert:",
 		addButton: "Not detected visually",
 		removeButton: "Detected visually",
-		currentSalesRate: "Yield rate during current production",
-		lastSalesRate: "Yield rate during last production",
-		currentRevenue: "Costs, current production",
-		lastRevenue: "Costs, previous production",
+		currentSalesRate: "Anomaly Type",
+		lastSalesRate: "Equipment Name",
+		currentRevenue: "Anomaly Detection Confidence",
+		lastRevenue: "Anomaly Detection Date",
 		stock: "Production level",
 		pieces: "No. units",
 		sales: "No. units produced",
