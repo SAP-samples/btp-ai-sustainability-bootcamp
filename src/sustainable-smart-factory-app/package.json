@@ -63,7 +63,7 @@
                 "secret": "NtnTn+lF63ffBF64YvA1BhqPdRA="
             },
             "inferences": {
-                "imageseg": "/df97e68496460d0d/v1/models/imagesegmodel:predict",
+                "imageseg": "/df7df2f1cb85aff0/v1/models/imagesegmodel:predict",
                 "imageclass": "/dfccff3697592a4a/v1/models/imagemodel:predict",
                 "soundclass": "/dc17f655b2de9ccd/v1/models/soundmodel:predict"
             }
