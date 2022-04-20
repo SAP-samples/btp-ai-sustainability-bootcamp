@@ -4,9 +4,9 @@
 <localVariables>
   <variable id="IP_Equipment" parameter="true">
     <descriptions defaultDescription="Input Parameter for Equipment"/>
-    <variableProperties datatype="NVARCHAR" length="59" scale="null" mandatory="false">
+    <variableProperties datatype="NVARCHAR" length="18" scale="null" mandatory="false">
       <valueDomain type="AttributeValue">
-        <attribute name="EQUIPMENT_FULL_NAME"/>
+        <attribute name="EQUIPMENT"/>
       </valueDomain>
       <selection multiLine="true" type="SingleValue"/>
     </variableProperties>
@@ -14,7 +14,7 @@
 
   <variable id="IP_FuncLocation" parameter="true">
     <descriptions defaultDescription="Input Parameter for Func. Location"/>
-    <variableProperties datatype="NVARCHAR" length="30" scale="null" mandatory="false">
+    <variableProperties datatype="NVARCHAR" length="30" scale="NaN" mandatory="false">
       <valueDomain type="AttributeValue">
         <attribute name="FUNC_LOCATION"/>
       </valueDomain>
@@ -66,10 +66,9 @@
       <mapping xsi:type="Calculation:AttributeMapping" target="NUMBER_OF_ANOMALIES" source="NUMBEROFANOMALIES"/>
     </input>
   </calculationView>
-  <calculationView xsi:type="Calculation:JoinView" id="Join_1_1" cardinality="CN_N" joinType="inner" multiJoinNode="Join_1" multiJoinCentralTable="Projection_AnomaliesExtendedView" multiJoinOrder="Outside In">
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1_1" cardinality="CN_N" joinType="inner" multiJoinNode="Join_1" multiJoinCentralTable="date-dimension" multiJoinOrder="Outside In">
     <viewAttributes>
       <viewAttribute id="ID" aggregationType="sum"/>
-      <viewAttribute id="DETECTED_DATE"/>
       <viewAttribute id="EQUIPMENT"/>
       <viewAttribute id="CONFIDENCE" aggregationType="sum"/>
       <viewAttribute id="ANOMALY_STATUS" aggregationType="sum"/>
@@ -86,11 +85,13 @@
       <viewAttribute id="PLANT_SECTION"/>
       <viewAttribute id="COST_CENTER"/>
       <viewAttribute id="EQUIPMENT_FULL_NAME"/>
+      <viewAttribute id="EQ_STATUS_CODE"/>
+      <viewAttribute id="EQ_STATUS_NAME"/>
+      <viewAttribute id="DETECTED_DATE"/>
     </viewAttributes>
     <calculatedViewAttributes/>
     <input node="Projection_AnomaliesExtendedView">
       <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="DETECTED_DATE" source="DETECTED_DATE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT" source="EQUIPMENT"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="CONFIDENCE" source="CONFIDENCE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="ANOMALY_STATUS" source="ANOMALY_STATUS"/>
@@ -103,20 +104,22 @@
       <mapping xsi:type="Calculation:AttributeMapping" target="FOLLOWUP_DOC_NUM" source="FOLLOWUP_DOC_NUM"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="ANOMALY_TYPE" source="ANOMALY_TYPE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="NUMBER_OF_ANOMALIES" source="NUMBER_OF_ANOMALIES"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DETECTED_DATE" source="DETECTED_DATE"/>
     </input>
     <input node="equipments">
       <mapping xsi:type="Calculation:AttributeMapping" target="COMPANY_CODE" source="COMPANY_CODE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="PLANT_SECTION" source="PLANT_SECTION"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="COST_CENTER" source="COST_CENTER"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT_FULL_NAME" source="EQUIPMENT_FULL_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQ_STATUS_CODE" source="EQ_STATUS_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQ_STATUS_NAME" source="EQ_STATUS_NAME"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT" source="EQUIPMENT_NR"/>
     </input>
     <joinAttribute name="EQUIPMENT"/>
   </calculationView>
-  <calculationView xsi:type="Calculation:JoinView" id="Join_1_2" cardinality="CN_N" joinType="inner" multiJoinNode="Join_1" multiJoinCentralTable="Projection_AnomaliesExtendedView" multiJoinOrder="Outside In">
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1_2" cardinality="CN_N" joinType="inner" multiJoinNode="Join_1" multiJoinCentralTable="date-dimension" multiJoinOrder="Outside In">
     <viewAttributes>
       <viewAttribute id="ID" aggregationType="sum"/>
-      <viewAttribute id="DETECTED_DATE"/>
       <viewAttribute id="EQUIPMENT"/>
       <viewAttribute id="CONFIDENCE" aggregationType="sum"/>
       <viewAttribute id="ANOMALY_STATUS" aggregationType="sum"/>
@@ -129,6 +132,13 @@
       <viewAttribute id="FOLLOWUP_DOC_NUM"/>
       <viewAttribute id="ANOMALY_TYPE"/>
       <viewAttribute id="NUMBER_OF_ANOMALIES" aggregationType="sum"/>
+      <viewAttribute id="COMPANY_CODE"/>
+      <viewAttribute id="PLANT_SECTION"/>
+      <viewAttribute id="COST_CENTER"/>
+      <viewAttribute id="EQUIPMENT_FULL_NAME"/>
+      <viewAttribute id="EQ_STATUS_CODE"/>
+      <viewAttribute id="EQ_STATUS_NAME"/>
+      <viewAttribute id="DETECTED_DATE"/>
       <viewAttribute id="YEAR"/>
       <viewAttribute id="QUARTER"/>
       <viewAttribute id="MONTH"/>
@@ -137,15 +147,11 @@
       <viewAttribute id="CALQUARTER"/>
       <viewAttribute id="CALMONTH"/>
       <viewAttribute id="CALWEEK"/>
-      <viewAttribute id="COMPANY_CODE"/>
-      <viewAttribute id="PLANT_SECTION"/>
-      <viewAttribute id="COST_CENTER"/>
-      <viewAttribute id="EQUIPMENT_FULL_NAME"/>
+      <viewAttribute hidden="true" id="JOIN$DETECTED_DATE$DATE_SQL"/>
     </viewAttributes>
     <calculatedViewAttributes/>
     <input node="Join_1_1">
       <mapping xsi:type="Calculation:AttributeMapping" target="ID" source="ID"/>
-      <mapping xsi:type="Calculation:AttributeMapping" target="DETECTED_DATE" source="DETECTED_DATE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT" source="EQUIPMENT"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="CONFIDENCE" source="CONFIDENCE"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="ANOMALY_STATUS" source="ANOMALY_STATUS"/>
@@ -162,6 +168,9 @@
       <mapping xsi:type="Calculation:AttributeMapping" target="PLANT_SECTION" source="PLANT_SECTION"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="COST_CENTER" source="COST_CENTER"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="EQUIPMENT_FULL_NAME" source="EQUIPMENT_FULL_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQ_STATUS_CODE" source="EQ_STATUS_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EQ_STATUS_NAME" source="EQ_STATUS_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$DETECTED_DATE$DATE_SQL" source="DETECTED_DATE"/>
     </input>
     <input node="date-dimension">
       <mapping xsi:type="Calculation:AttributeMapping" target="YEAR" source="YEAR"/>
@@ -173,8 +182,9 @@
       <mapping xsi:type="Calculation:AttributeMapping" target="CALMONTH" source="CALMONTH"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="CALWEEK" source="CALWEEK"/>
       <mapping xsi:type="Calculation:AttributeMapping" target="DETECTED_DATE" source="DATE_SQL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$DETECTED_DATE$DATE_SQL" source="DATE_SQL"/>
     </input>
-    <joinAttribute name="DETECTED_DATE"/>
+    <joinAttribute name="JOIN$DETECTED_DATE$DATE_SQL"/>
   </calculationView>
 </calculationViews>
 
@@ -260,7 +270,6 @@
       <descriptions defaultDescription="CALWEEK"/>
       <keyMapping columnObjectName="Join_1_2" columnName="CALWEEK"/>
     </attribute>
-  
     <attribute id="COMPANY_CODE" order="23" displayAttribute="false" attributeHierarchyActive="false">
       <descriptions defaultDescription="Company Code"/>
       <keyMapping columnObjectName="Join_1_2" columnName="COMPANY_CODE"/>
@@ -277,6 +286,14 @@
       <descriptions defaultDescription="Equipment Full Name"/>
       <keyMapping columnObjectName="Join_1_2" columnName="EQUIPMENT_FULL_NAME"/>
     </attribute>
+    <attribute id="EQ_STATUS_CODE" order="27" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Eq. Status Code"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="EQ_STATUS_CODE"/>
+    </attribute>
+    <attribute id="EQ_STATUS_NAME" order="28" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Eq. Status Name"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="EQ_STATUS_NAME"/>
+    </attribute>
   </attributes>
   <calculatedAttributes/>
   <baseMeasures>
@@ -292,20 +309,52 @@
   <calculatedMeasures/>
   <restrictedMeasures/>
   <localDimensions>
-    <localDimension id="Equipment_Hierarchies">
+    <localDimension id="Equipment_Full_Hierarchy">
       <attributeRef xsi:type="DataFoundation:Attribute">PLANT</attributeRef>
       <attributeRef xsi:type="DataFoundation:Attribute">COST_CENTER</attributeRef>
       <attributeRef xsi:type="DataFoundation:Attribute">FUNC_LOCATION</attributeRef>
       <attributeRef xsi:type="DataFoundation:Attribute">EQUIPMENT_FULL_NAME</attributeRef>
       <hierarchies>
-        <hierarchy xsi:type="Dimension:LeveledHierarchy" id="Equipment_Hierarchies" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
-          <descriptions defaultDescription="Plant/Cost Center/Func.Location/Equipments Hierarchies"/>
+        <hierarchy xsi:type="Dimension:LeveledHierarchy" id="Equipment_Full_Hierarchy" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+          <descriptions defaultDescription="Plant/Cost Center/Func.Location/Equipments Hierarchy"/>
           <unassignedMemberProperties mode="FALSE"/>
           <levels>
             <level levelAttribute="PLANT" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="PLANT" sortDirection="ASC"/>
             <level levelAttribute="COST_CENTER" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="COST_CENTER" sortDirection="ASC"/>
             <level levelAttribute="FUNC_LOCATION" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="FUNC_LOCATION" sortDirection="ASC"/>
             <level levelAttribute="EQUIPMENT_FULL_NAME" levelType="MDLEVEL_TYPE_REGULAR" order="4" orderAttribute="EQUIPMENT_FULL_NAME" sortDirection="ASC"/>
+          </levels>
+        </hierarchy>
+      </hierarchies>
+    </localDimension>
+    <localDimension id="Time_Hierarchy">
+      <attributeRef xsi:type="DataFoundation:Attribute">YEAR</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">QUARTER</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">MONTH</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">WEEK</attributeRef>
+      <hierarchies>
+        <hierarchy xsi:type="Dimension:LeveledHierarchy" id="Time_Hierarchy" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="false">
+          <descriptions defaultDescription="Year/Quater/Month/Week Hierachy"/>
+          <unassignedMemberProperties mode="FALSE"/>
+          <levels>
+            <level levelAttribute="YEAR" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="YEAR" sortDirection="ASC"/>
+            <level levelAttribute="QUARTER" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="QUARTER" sortDirection="ASC"/>
+            <level levelAttribute="MONTH" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="MONTH" sortDirection="ASC"/>
+            <level levelAttribute="WEEK" levelType="MDLEVEL_TYPE_REGULAR" order="4" orderAttribute="WEEK" sortDirection="ASC"/>
+          </levels>
+        </hierarchy>
+      </hierarchies>
+    </localDimension>
+    <localDimension id="FuncLocation_Equipment_Hierarchy">
+      <attributeRef xsi:type="DataFoundation:Attribute">FUNC_LOCATION</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">EQUIPMENT_FULL_NAME</attributeRef>
+      <hierarchies>
+        <hierarchy xsi:type="Dimension:LeveledHierarchy" id="FuncLocation_Equipment_Hierarchy" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+          <descriptions defaultDescription="Func.Location/Equipments Hierarchy"/>
+          <unassignedMemberProperties mode="FALSE"/>
+          <levels>
+            <level levelAttribute="FUNC_LOCATION" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="FUNC_LOCATION" sortDirection="ASC"/>
+            <level levelAttribute="EQUIPMENT_FULL_NAME" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="EQUIPMENT" sortDirection="ASC"/>
           </levels>
         </hierarchy>
       </hierarchies>
@@ -330,19 +379,18 @@
       <upperLeftCorner x="92" y="236"/>
       <rectangleSize height="30" width="290"/>
     </shape>
-    <shape modelObjectName="Projection_AnomaliesExtendedView" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
-      <upperLeftCorner x="184.96666717529297" y="61.5"/>
-      <rectangleSize width="271.1333312988281"/>
-    </shape>
   
     <shape modelObjectName="date-dimension" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
-      <upperLeftCorner x="594.3666687011719" y="-6"/>
-      <rectangleSize width="191.5999984741211"/>
+      <upperLeftCorner x="-63" y="-22"/>
+      <rectangleSize width="191"/>
     </shape>
-  
+    <shape modelObjectName="Projection_AnomaliesExtendedView" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+      <upperLeftCorner x="184" y="61"/>
+      <rectangleSize width="271"/>
+    </shape>
     <shape modelObjectName="equipments" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
-      <upperLeftCorner x="567" y="23"/>
-      <rectangleSize width="222.36666870117188"/>
+      <upperLeftCorner x="867" y="30"/>
+      <rectangleSize width="222"/>
     </shape>
   </shapes>
 </layout>

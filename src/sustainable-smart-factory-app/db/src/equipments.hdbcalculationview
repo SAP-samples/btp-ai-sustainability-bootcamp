@@ -4,7 +4,7 @@
 <localVariables>
   <variable id="IP_FUNC_LOCATION" parameter="true">
     <descriptions defaultDescription="Input Func. Location"/>
-    <variableProperties datatype="NVARCHAR" length="30" scale="null" mandatory="false">
+    <variableProperties datatype="NVARCHAR" length="30" scale="NaN" mandatory="false">
       <valueDomain type="AttributeValue">
         <attribute name="FUNC_LOCATION"/>
       </valueDomain>
@@ -116,7 +116,7 @@
       <keyCalculation datatype="NVARCHAR" expressionLanguage="SQL" length="59">
         <formula>CONCAT(CONCAT(&quot;EQUIPMENT_NR&quot;, '-'), &quot;EQUIPMENT_NAME&quot;)</formula>
       </keyCalculation>
-      </calculatedAttribute>
+    </calculatedAttribute>
   </calculatedAttributes>
   <baseMeasures/>
   <calculatedMeasures/>
@@ -135,11 +135,11 @@
     </shape>
     <shape modelObjectName="SAP_SMARTFACTORY_EQUIPMENTS" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="20" y="30"/>
-      <rectangleSize width="280.6666717529297"/>
+      <rectangleSize width="280"/>
     </shape>
     <shape modelObjectName="plant-equipment-status" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
       <upperLeftCorner x="566" y="30"/>
-      <rectangleSize width="196.6666717529297"/>
+      <rectangleSize width="196"/>
     </shape>
   </shapes>
 </layout>
