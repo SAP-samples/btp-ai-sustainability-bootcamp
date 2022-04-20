@@ -18,7 +18,7 @@ entity CVQualityRecords : managed {
       productId    : String(18) default 'SG23';
       productName  : String(100) default 'LGP';
       image        : String;
-      segmentedImage: String;
+      segmentedImage: LargeString;
       successInference: Boolean default false;
       // image        : LargeBinary @Core.MediaType : 'image/png';
       confidence   : Decimal(9,2);
