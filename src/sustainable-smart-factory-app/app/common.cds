@@ -130,6 +130,80 @@ annotate sf.CVQualityRecords with {
 
 ////////////////////////////////////////////////////////////////////////////
 //
+//	DefectiveProductPrices Lists
+//
+annotate sf.DefectiveProductPrices with @(
+    Common.SemanticKey : [productId],
+    UI                 : {
+        Identification  : [
+            {Value : productId},
+        ],
+        SelectionFields : [
+            productId,
+            productName,
+            basePrice
+        ],
+        LineItem        : [
+            {
+                Value : productId,
+                Label : '{i18n>ProductID}'
+            },
+            {
+                Value : productName,
+                Label : '{i18n>ProductName}'
+            },
+            {
+                Value : basePrice,
+                Label : '{i18n>BasePrice}'
+            },
+            {
+                Value : currency_code,
+                Label : '{i18n>Currency}'
+            }
+        ]
+    }
+) {
+    productId @Common : {
+        SemanticObject  : 'DefectiveProductPrices',
+        Text            : productName,
+        TextArrangement : #TextLast
+    };
+};
+
+////////////////////////////////////////////////////////////////////////////
+//
+//	DefectiveProductPrices Details
+//
+annotate sf.DefectiveProductPrices with @(UI : {
+    HeaderInfo        : {
+        TypeName       : '{i18n>DefectiveProductPrice}',
+        TypeNamePlural : '{i18n>DefectiveProductPrices}',
+        Title          : {Value : productName},
+        Description    : {Value : productId},
+        // ImageUrl       : image
+    },
+    // HeaderFacets      : [{
+    //     $Type  : 'UI.ReferenceFacet',
+    //     Label  : '{i18n>Description}',
+    //     Target : '@UI.FieldGroup#Descr'
+    // }],
+    // FieldGroup #Descr : {Data : [{Value : productId}]},
+});
+
+
+////////////////////////////////////////////////////////////////////////////
+//
+//	DefectiveProductPrices Elements
+//
+annotate sf.DefectiveProductPrices with {
+    productId    @title : '{i18n>ProductID}';
+    productName  @title : '{i18n>ProductName}';
+    currency_code  @title : '{i18n>Currency}';
+    basePrice @title : '{i18n>BasePrice}';
+}
+
+////////////////////////////////////////////////////////////////////////////
+//
 //	PlantConditions Lists
 //
 annotate sf.PlantConditions with @(
