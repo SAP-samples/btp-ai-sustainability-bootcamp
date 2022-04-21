@@ -7,8 +7,9 @@ using {
 } from '@sap/cds/common';
 
 ////////////////////////////////////////////////////////////
-//Data Model for Smart Quality Inspection(sqi) module
+//Data Model for Auto. Defeat Detection module
 //CVQualityRecords - Auto Quality Records via Computer Vision
+//DefectiveProductPrices - Pricing Rules for Defective Products
 ////////////////////////////////////////////////////////////
 entity CVQualityRecords : managed {
   key ID               : Integer;
@@ -26,14 +27,6 @@ entity CVQualityRecords : managed {
       confidence       : Decimal(9, 2);
       qualityLabel     : QualityLabel;
       numberOfProducts : Integer default 1;
-//todo: Object Detection with Bounding Box
-// Items       : Composition of many {
-//                 confidence : Decimal;
-//                 topLeft    : Decimal;
-//                 topRight   : Decimal;
-//                 width      : Decimal;
-//                 height     : Decimal;
-//               };
 }
 
 type QualityLabel : String enum {
@@ -46,17 +39,14 @@ entity DefectiveProductPrices : managed {
       productName : String(100);
       basePrice   : Decimal(9, 2);
       currency    : Currency;
-      items       : Composition of many DefectiveProductPrice_Items
-                      on items.parent = $self;
-}
 
-entity DefectiveProductPrice_Items {
-  key parent            : Association to DefectiveProductPrices;
-  key item              : String(2);
-      desc              : localized String(40);
-      fromDefectedPerc  : Decimal(9, 2); //inclusive: <=
-      toDefectedPerc    : Decimal(9, 2); //exclusive <
-      defectiveDiscount : Decimal(9, 2);
-      validFrom         : Date; //inclusive: <= 
-      validTo           : Date default '9999-12-31';//exclusive <
+      Items       : Composition of many {
+                      key item              : String(2);
+                          desc              : localized String(40);
+                          fromDefectedPerc  : Decimal(9, 2); //inclusive: <=
+                          toDefectedPerc    : Decimal(9, 2); //exclusive <
+                          defectiveDiscount : Decimal(9, 2);
+                          validFrom         : Date; //inclusive: <=
+                          validTo           : Date default '9999-12-31'; //exclusive <
+                    };
 }

@@ -64,6 +64,17 @@
                     "icon": "sap-icon://web-cam",
                     "targetURL": "#CVQualityRecords-manage"
                   }
+                },
+                {
+                  "id": "ManageDefectiveProductPrices",
+                  "tileType": "sap.ushell.ui.tile.StaticTile",
+                  "properties": {
+                    "title": "Manage Defective Product Prices",
+                    "subtitle": "",
+                    "info": "Manage Defective Product Prices",
+                    "icon": "sap-icon://measure",
+                    "targetURL": "#DefectiveProductPrices-manage"
+                  }
                 }
               ]
             },
@@ -207,6 +218,21 @@
                 "url": "/browse/webapp"
               }
             },
+            "CVQualityRecordsALP": {
+              "semanticObject": "CVQualityRecordsView",
+              "action": "display",
+              "title": "CV Quality Record Insights",
+              "signature": {
+                "parameters": {
+                },
+                "additionalParameters": "allowed"
+              },
+              "resolutionResult": {
+                "applicationType": "SAPUI5",
+                "additionalInformation": "SAPUI5.Component=sqi.cvqualityrecordsalp",
+                "url": "./defeat-detection/cv-quality-records-alp/webapp"
+              }
+            },
             "ManageCVQualityRecords": {
               "semanticObject": "CVQualityRecords",
               "action": "manage",
@@ -225,19 +251,22 @@
                 "url": "/defeat-detection/cv-quality-records/webapp"
               }
             },
-            "CVQualityRecordsALP": {
-              "semanticObject": "CVQualityRecordsView",
-              "action": "display",
-              "title": "CV Quality Record Insights",
+            "ManageDefectiveProductPrices": {
+              "semanticObject": "DefectiveProductPrices",
+              "action": "manage",
+              "title": "Manage Defective Product Prices",
               "signature": {
                 "parameters": {
+                  "DefectiveProductPrices": {
+                    "renameTo": "ID"
+                  }
                 },
-                "additionalParameters": "allowed"
+                "additionalParameters": "ignored"
               },
               "resolutionResult": {
                 "applicationType": "SAPUI5",
-                "additionalInformation": "SAPUI5.Component=sqi.cvqualityrecordsalp",
-                "url": "./defeat-detection/cv-quality-records-alp/webapp"
+                "additionalInformation": "SAPUI5.Component=defective-product-prices",
+                "url": "/defeat-detection/defective-product-prices/webapp"
               }
             },
             "ManageEquipments": {

@@ -3,6 +3,7 @@
 */
 
 using from './defeat-detection/cv-quality-records/fiori-service';
+using from './defeat-detection/defective-product-prices/fiori-service';
 using from './predictive-maintenance/plant-conditions/fiori-service';
 using from './plant-master-data/plant-equipment-status/fiori-service';
 using from './plant-master-data/equipments/fiori-service';
