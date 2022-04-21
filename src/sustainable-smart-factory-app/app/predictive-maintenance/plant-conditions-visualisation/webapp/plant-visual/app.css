@@ -419,6 +419,7 @@ body {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  width: 500px;
 }
 .heatmap__legend_container__item {
   -webkit-box-flex: 0;

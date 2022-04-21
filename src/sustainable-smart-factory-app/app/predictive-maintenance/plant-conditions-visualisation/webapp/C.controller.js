@@ -3,13 +3,172 @@ sap.ui.define(
     "sap/ui/Device",
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
+    "sap/ui/model/odata/v2/ODataModel",
+    "sap/m/MessageToast",
+    "sap/base/util/UriParameters",
+    "sap/suite/ui/commons/TimelineItem",
     "require",
   ],
-  function (Device, Controller, JSONModel, require) {
+  function (
+    Device,
+    Controller,
+    JSONModel,
+    ODataModel,
+    MessageToast,
+    UriParameters,
+    TimelineItem,
+    require
+  ) {
     "use strict";
 
     return Controller.extend("plantconditionsvisual.C", {
       onInit: function () {
+        /** [LOGIC FLOW]
+         * 1. URL Parameters coming from Plant Condtions
+         * 2. Navigation Properties from LocalStorage - PlantVisual app in iFrame to navigate main app
+         * 3. Bind Model for Timeline of Events
+         *
+         */
+
+        /** 1. URL Parameters coming from Plant Condtions
+         * -  Hide Visual Simulation Panel
+         * -  Read URL Params to Get more details to Populate KPI Tiles
+         *
+         */
+
+        var sParam = UriParameters.fromQuery(window.location.href).get("ID");
+        // console.log(sParam);
+        var self = this;
+
+        var queryPath, latestMsg;
+
+        //  Breadcrumbs
+        if (sParam != null) {
+          self
+            .getView()
+            .byId("xBreadCrumbs")
+            .setCurrentLocationText(
+              "Insights to Plant Condition (" + sParam + ")"
+            );
+          // using filter so to have response in array to not replicate logic in code
+          queryPath = "/browse/PlantConditions?$filter=ID eq " + sParam;
+          latestMsg = "";
+        } else {
+          self
+            .getView()
+            .byId("xBreadCrumbs")
+            .setCurrentLocationText(
+              "Insights to Plant Condition (Latest Update)"
+            );
+          queryPath = "/browse/PlantConditions?$orderby=ID desc&$top=1";
+          latestMsg = "[Latest Update] ";
+        }
+
+        //  [ToDo] Take Params above to retrieve latest info about the plant condition then update into the tiles
+
+        var plant,
+          ID,
+          plantStatus,
+          recStartDate,
+          recEndDate,
+          shift,
+          msg,
+          currentYield,
+          currentDefects,
+          currentEnergy,
+          currentEmissions;
+        var zhr = new XMLHttpRequest();
+        zhr.withCredentials = true;
+
+        zhr.addEventListener("readystatechange", function () {
+          if (this.readyState === 4) {
+            var attnObj = JSON.parse(this.responseText);
+            plant = attnObj.value[0].plant;
+            ID = attnObj.value[0].ID;
+            plantStatus = attnObj.value[0].plantStatus;
+            recStartDate = attnObj.value[0].recStartedAt;
+            recEndDate = attnObj.value[0].recEndedAt;
+            shift = attnObj.value[0].shift;
+            currentYield = attnObj.value[0].yield;
+            currentDefects = attnObj.value[0].defectiveProd;
+            currentEnergy = attnObj.value[0].energyCons;
+            //  [ToDo] where do i get emissions
+            currentEmissions = "22";
+
+            self.getView().byId("xYield").setValue(currentYield);
+            self.getView().byId("xDefectiveProduct").setValue(currentDefects);
+            self.getView().byId("xEnergyConsumption").setValue(currentEnergy);
+            self.getView().byId("xCarbonEmission").setValue(currentEmissions);
+
+            if (plantStatus == "Normal") {
+              //  Success
+              msg =
+                latestMsg +
+                "Plant Condition (" +
+                ID +
+                "): Plant " +
+                plant +
+                " is Functioning with Full Capacity. Checks done starting from Shift: (" +
+                shift +
+                "), " +
+                recStartDate +
+                " to " +
+                recEndDate +
+                ".";
+              self.getView().byId("xPlantCondition").setVisible(true);
+              self.getView().byId("xPlantCondition").setText(msg);
+              self.getView().byId("xPlantCondition").setType("Success");
+              self.getView().byId("xPlant").setValue("Norm");
+              self.getView().byId("xPlant").setValueColor("Good");
+            } else if (plantStatus == "Break Down") {
+              //  Warning
+              msg =
+                latestMsg +
+                "Plant Condition (" +
+                ID +
+                "): Plant " +
+                plant +
+                " has Broken Down. Checks done starting from Shift: (" +
+                shift +
+                "), " +
+                recStartDate +
+                " to " +
+                recEndDate +
+                ".";
+              self.getView().byId("xPlantCondition").setVisible(true);
+              self.getView().byId("xPlantCondition").setText(msg);
+              self.getView().byId("xPlantCondition").setType("Error");
+              self.getView().byId("xPlant").setValue("Down");
+              self.getView().byId("xPlant").setValueColor("Critical");
+            } else if (plantStatus == "Maintenance") {
+              //  Error
+              msg =
+                latestMsg +
+                "Plant Condition (" +
+                ID +
+                "): Plant " +
+                plant +
+                " is under going Maintenance Works. Checks done starting from Shift: (" +
+                shift +
+                "), " +
+                recStartDate +
+                " to " +
+                recEndDate +
+                ".";
+              self.getView().byId("xPlantCondition").setVisible(true);
+              self.getView().byId("xPlantCondition").setText(msg);
+              self.getView().byId("xPlantCondition").setType("Warning");
+              self.getView().byId("xPlant").setValue("Main");
+              self.getView().byId("xPlant").setValueColor("Critical");
+            }
+          }
+        });
+
+        // zhr.open("GET", "/admin/PlantConditions?$orderby=ID desc&$top=1");
+        zhr.open("GET", queryPath);
+
+        zhr.send();
+
         /** Navigation Properties from LocalStorage
          *
          */
@@ -26,9 +185,35 @@ sap.ui.define(
           })
         );
 
-        var sPath = require.toUrl("./SampleData.json");
-        var oModel = new JSONModel(sPath);
-        this.getView().setModel(oModel);
+        // this._timeline = this.byId("idTimeline");
+        // console.log(this._timeline);
+
+        // var oODModel = new ODataModel("/v2/admin/", true);
+        // // console.log(oODModel);
+
+        // var oTimeline = this._timeline;
+
+        // var oItem = new TimelineItem({
+        //   dateTime: "{recStartedAt}",
+        //   title: "{ID}",
+        //   userPicture: "sap-icon://factory",
+        //   text: "Production yield rate: {yield}. Defective products: {defectiveProd}. Energy Consumption (KWh): {energyCons}.",
+        //   userName: "{plantStatus}",
+        //   filterValue: "{plantStatus}"
+        // });
+
+        // console.log(oTimeline.getContent());
+
+        // oTimeline.bindAggregation("content", {
+        //   path: "/PlantConditions",
+        //   template: oTimeline.getContent(),
+        // });
+        // oTimeline.setModel(oODModel);
+
+        // var sPath = require.toUrl("./SampleData.json");
+        // var oModel = new JSONModel(sPath);
+        // oModel.setSizeLimit(500);
+        // this.getView().setModel(oModel);
 
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
@@ -63,14 +248,64 @@ sap.ui.define(
 
         // set mock data
         // var sPath = require.toUrl("./SampleData.json");
-        // var oModel = new JSONModel(sPath);
-        // this.getView().setModel(oModel);
+        var oDModel = new ODataModel("/v2/admin/", true);
+        var oModel = new JSONModel(
+          "/admin/PlantConditions?$top=3000&$orderby=ID%20desc&$select=ID,plantStatus,recStartedAt,recEndedAt,date,shift,yield,defectiveProd,energyCons"
+        );
+        // console.log(oModel);
+        // console.log(oDModel);
+        oModel.setSizeLimit(3000);
+        this.getView().setModel(oModel);
+        // this.getView().getModel().setSizeLimit(1000);
 
         this.onTileRefresh();
         // this.onAutoRefresh();
       },
+      onBreadCrumbsToHome: function (oEvent) {
+        // MessageToast.show(oEvent.getSource().getText() + " has been activated");
+        window.location.href = "/fiori-apps.html";
+      },
+      onBreadCrumbsToPlantConditions: function (oEvent) {
+        window.location.href = "/fiori-apps.html#PlantConditions-manage";
+      },
+      onBreadCrumbsToPlantCondition: function (oEvent) {
+        var sParam = UriParameters.fromQuery(window.location.href).get("ID");
+        if (sParam != null) {
+          window.location.href =
+            "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
+            sParam +
+            ")";
+        } else {
+          window.location.href = "/fiori-apps.html#PlantConditions-manage";
+        }
+      },
+      plantConditionStatusIcon: function (sStatus) {
+        switch (sStatus) {
+          case "Normal":
+            return "sap-icon://message-success";
+          case "Fault":
+            return "sap-icon://alert";
+          case "Maintenance":
+            return "sap-icon://error";
+          default:
+            return "sap-icon://machine";
+        }
+      },
+      onUserNameClick: function (oEvent) {
+        // MessageToast.show(oEvent.getSource().getUserName() + " is pressed.");
+        // console.log(oEvent.getSource().getTitle());
+        var plantCondId = oEvent.getSource().getTitle();
+        window.location.href =
+          "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
+          plantCondId +
+          ")";
+      },
+      onPressItems: function (oEvent) {
+        // MessageToast.show("The TimelineItem is pressed.");
+        MessageToast.show(oEvent.getSource().getUserName() + " is pressed.");
+      },
       onToolbarPress: function () {
-        console.log("onToolbarPress");
+        // console.log("onToolbarPress");
         var self = this;
         var oPanel = self.getView().byId("expandablePanel");
         oPanel.setExpanded(!oPanel.getExpanded());
@@ -83,6 +318,7 @@ sap.ui.define(
         //    [TO-IMPROVE] Quick fix: Navigate to main app on EqConditions Overview
         window.location.href = "/fiori-apps.html#PlantConditions-manage";
       },
+      //  Method is call every 3 seconds to update tile + simulation of real-time monitoring
       onTileRefresh: function () {
         /** Mock up values on KPI Tile Management
          * 1. Energy Consumption: Plant perspective on energy consumption
@@ -267,161 +503,151 @@ sap.ui.define(
                 selfie.getView().byId("xYield").setState("Loaded");
               }, 1500);
             }
+
+            //  Can be moved to Outside Auto Refresh. So to Check always.
+            //   3. Attention
+            var attentionCount;
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+
+            xhr.addEventListener("readystatechange", function () {
+              if (this.readyState === 4) {
+                //   console.log(this.responseText);
+                var attnObj = JSON.parse(this.responseText);
+                //   console.log(attnObj);
+                //   console.log(attnObj.@odata.count);
+                //   console.log(attnObj.length);
+                //   console.log(attnObj.value.length);
+                attentionCount = attnObj.value.length;
+                if (attentionCount == 0) {
+                  self.getView().byId("xAttention").setValueColor("Good");
+                  self.getView().byId("xAttention").setIndicator("None");
+                  self.getView().byId("xAttention").setState("Loading");
+                } else {
+                  self.getView().byId("xAttention").setValueColor("Critical");
+                  self.getView().byId("xAttention").setIndicator("Up");
+                  self.getView().byId("xAttention").setState("Loaded");
+                }
+
+                self.getView().byId("xAttention").setValue(attentionCount);
+              }
+            });
+
+            //  [To-Improve] Requires Attention tile to improve logic.
+            xhr.open(
+              "GET",
+              "/browse/EqCondsQuery?$filter=followUpDocNum%20ne%20null&$count=true"
+            );
+
+            xhr.send();
+
+            //  6. Plant Status
+            //  [NOTE]: There is a catch to this logic.
+            //  - Every 3 seconds, Plant Status will be retrieved in real time to check if the latest condition is fine or not.
+            //  - Even refresh button is off.
+            //  - BUT, this will check on the Attention Tile if the KPI is > 0, then it will simulate downtime.
+            var plant,
+              plantStatus,
+              recStartDate,
+              recEndDate,
+              shift,
+              msg,
+              attnCount;
+            var zhr = new XMLHttpRequest();
+            zhr.withCredentials = true;
+
+            zhr.addEventListener("readystatechange", function () {
+              if (this.readyState === 4) {
+                //   console.log(this.responseText);
+                var attnObj = JSON.parse(this.responseText);
+                // console.log(attnObj);
+                // console.log(attnObj.value[0].plantStatus);
+                plant = attnObj.value[0].plant;
+                plantStatus = attnObj.value[0].plantStatus;
+                recStartDate = attnObj.value[0].recStartedAt;
+                recEndDate = attnObj.value[0].recEndedAt;
+                shift = attnObj.value[0].shift;
+                attnCount = self.getView().byId("xAttention").getValue();
+                // console.log(attnCount);
+
+                if (plantStatus == "Normal" && attnCount > 0) {
+                  //  Normal BUT with Anom
+                  msg =
+                    "Simulation: Plant " +
+                    plant +
+                    " is Functioning with Anomalies Detected. Checks done starting from Shift: (" +
+                    shift +
+                    "), " +
+                    recStartDate +
+                    " to " +
+                    recEndDate +
+                    ".";
+                  self.getView().byId("xPlantCondition").setVisible(true);
+                  self.getView().byId("xPlantCondition").setText(msg);
+                  self.getView().byId("xPlantCondition").setType("Warning");
+                  self.getView().byId("xPlant").setValue("Anom");
+                  self.getView().byId("xPlant").setValueColor("Critical");
+                } else if (plantStatus == "Normal") {
+                  //  Success
+                  msg =
+                    "Simulation: Plant " +
+                    plant +
+                    " is Functioning with Full Capacity. Checks done starting from Shift: (" +
+                    shift +
+                    "), " +
+                    recStartDate +
+                    " to " +
+                    recEndDate +
+                    ".";
+                  self.getView().byId("xPlantCondition").setVisible(true);
+                  self.getView().byId("xPlantCondition").setText(msg);
+                  self.getView().byId("xPlantCondition").setType("Success");
+                  self.getView().byId("xPlant").setValue("Norm");
+                  self.getView().byId("xPlant").setValueColor("Good");
+                } else if (plantStatus == "Break Down") {
+                  //  Warning
+                  msg =
+                    "Simulation: Plant " +
+                    plant +
+                    " has Broken Down. Checks done starting from Shift: (" +
+                    shift +
+                    "), " +
+                    recStartDate +
+                    " to " +
+                    recEndDate +
+                    ".";
+                  self.getView().byId("xPlantCondition").setVisible(true);
+                  self.getView().byId("xPlantCondition").setText(msg);
+                  self.getView().byId("xPlantCondition").setType("Error");
+                  self.getView().byId("xPlant").setValue("Down");
+                  self.getView().byId("xPlant").setValueColor("Critical");
+                } else if (plantStatus == "Maintenance") {
+                  //  Error
+                  msg =
+                    "Simulation: Plant " +
+                    plant +
+                    " is under going Maintenance Works. Checks done starting from Shift: (" +
+                    shift +
+                    "), " +
+                    recStartDate +
+                    " to " +
+                    recEndDate +
+                    ".";
+                  self.getView().byId("xPlantCondition").setVisible(true);
+                  self.getView().byId("xPlantCondition").setText(msg);
+                  self.getView().byId("xPlantCondition").setType("Warning");
+                  self.getView().byId("xPlant").setValue("Main");
+                  self.getView().byId("xPlant").setValueColor("Critical");
+                }
+              }
+            });
+
+            zhr.open("GET", "/admin/PlantConditions?$orderby=ID desc&$top=1");
+
+            zhr.send();
           } else {
             //  Auto Refresh switch is off - stop all loading & loaded
           }
-
-          //  Outside Auto Refresh. Check always.
-          //   3. Attention
-          var attentionCount;
-          var xhr = new XMLHttpRequest();
-          xhr.withCredentials = true;
-
-          xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-              //   console.log(this.responseText);
-              var attnObj = JSON.parse(this.responseText);
-              //   console.log(attnObj);
-              //   console.log(attnObj.@odata.count);
-              //   console.log(attnObj.length);
-              //   console.log(attnObj.value.length);
-              attentionCount = attnObj.value.length;
-              if (attentionCount == 0) {
-                self.getView().byId("xAttention").setValueColor("Good");
-                self.getView().byId("xAttention").setIndicator("None");
-                self.getView().byId("xAttention").setState("Loading");
-              } else {
-                self.getView().byId("xAttention").setValueColor("Critical");
-                self.getView().byId("xAttention").setIndicator("Up");
-                self.getView().byId("xAttention").setState("Loaded");
-              }
-
-              self.getView().byId("xAttention").setValue(attentionCount);
-            }
-          });
-
-          xhr.open(
-            "GET",
-            "/browse/EqCondsQuery?$filter=followUpDocNum%20ne%20null&$count=true"
-          );
-
-          xhr.send();
-
-          //  6. Plant Status
-          var plant,
-            plantStatus,
-            recStartDate,
-            recEndDate,
-            shift,
-            msg,
-            attnCount;
-          var zhr = new XMLHttpRequest();
-          zhr.withCredentials = true;
-
-          zhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-              //   console.log(this.responseText);
-              var attnObj = JSON.parse(this.responseText);
-              // console.log(attnObj);
-              // console.log(attnObj.value[0].plantStatus);
-              plant = attnObj.value[0].plant;
-              plantStatus = attnObj.value[0].plantStatus;
-              recStartDate = attnObj.value[0].recStartedAt;
-              recEndDate = attnObj.value[0].recEndedAt;
-              shift = attnObj.value[0].shift;
-              attnCount = self.getView().byId("xAttention").getValue();
-              // console.log(attnCount);
-
-              if (plantStatus == "Normal" && attnCount > 0) {
-                //  Normal BUT with Anom
-                msg =
-                  "Manufacturing Plan " +
-                  plant +
-                  " is Functioning with Anomalies Detected. Checks done starting from Shift: (" +
-                  shift +
-                  "), " +
-                  recStartDate +
-                  " to " +
-                  recEndDate +
-                  ".";
-                self.getView().byId("xPlantCondition").setVisible(true);
-                self.getView().byId("xPlantCondition").setText(msg);
-                self.getView().byId("xPlantCondition").setType("Warning");
-                self.getView().byId("xPlant").setValue("Anom");
-                self.getView().byId("xPlant").setValueColor("Critical");
-              } else if (plantStatus == "Normal") {
-                //  Success
-                msg =
-                  "Manufacturing Plan " +
-                  plant +
-                  " is Fully Functioning with Full Capacity. Checks done starting from Shift: (" +
-                  shift +
-                  "), " +
-                  recStartDate +
-                  " to " +
-                  recEndDate +
-                  ".";
-                self.getView().byId("xPlantCondition").setVisible(true);
-                self.getView().byId("xPlantCondition").setText(msg);
-                self.getView().byId("xPlantCondition").setType("Success");
-                self.getView().byId("xPlant").setValue("Norm");
-                self.getView().byId("xPlant").setValueColor("Good");
-              } else if (plantStatus == "Break Down") {
-                //  Warning
-                msg =
-                  "Manufacturing Plan " +
-                  plant +
-                  " has Broken Down. Checks done starting from Shift: (" +
-                  shift +
-                  "), " +
-                  recStartDate +
-                  " to " +
-                  recEndDate +
-                  ".";
-                self.getView().byId("xPlantCondition").setVisible(true);
-                self.getView().byId("xPlantCondition").setText(msg);
-                self.getView().byId("xPlantCondition").setType("Error");
-                self.getView().byId("xPlant").setValue("Down");
-                self.getView().byId("xPlant").setValueColor("Critical");
-              } else if (plantStatus == "Maintenance") {
-                //  Error
-                msg =
-                  "Manufacturing Plan " +
-                  plant +
-                  " is under going Maintenance Works. Checks done starting from Shift: (" +
-                  shift +
-                  "), " +
-                  recStartDate +
-                  " to " +
-                  recEndDate +
-                  ".";
-                self.getView().byId("xPlantCondition").setVisible(true);
-                self.getView().byId("xPlantCondition").setText(msg);
-                self.getView().byId("xPlantCondition").setType("Maintenance");
-                self.getView().byId("xPlant").setValue("Main");
-                self.getView().byId("xPlant").setValueColor("Critical");
-              }
-              //   console.log(attnObj.@odata.count);
-              //   console.log(attnObj.length);
-              //   console.log(attnObj.value.length);
-              // attentionCount = attnObj.value.length;
-              // if (attentionCount == 0) {
-              //   self.getView().byId("xAttention").setValueColor("Good");
-              //   self.getView().byId("xAttention").setIndicator("None");
-              //   self.getView().byId("xAttention").setState("Loading");
-              // } else {
-              //   self.getView().byId("xAttention").setValueColor("Critical");
-              //   self.getView().byId("xAttention").setIndicator("Up");
-              //   self.getView().byId("xAttention").setState("Loaded");
-              // }
-
-              // self.getView().byId("xAttention").setValue(attentionCount);
-            }
-          });
-
-          zhr.open("GET", "/admin/PlantConditions?$orderby=ID desc&$top=1");
-
-          zhr.send();
         }, 5000);
       },
 

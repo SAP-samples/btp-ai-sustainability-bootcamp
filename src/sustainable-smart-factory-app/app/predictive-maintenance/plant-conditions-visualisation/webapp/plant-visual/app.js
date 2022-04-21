@@ -28534,7 +28534,7 @@
       a(4) +
       ' alt=""></div><div class=heatmap__annotations__item__text>{{ state.lang.heatmap.annotations[state.heatmapAnnotations.dry] }}</div></div><div v-if="state.heatmapAnnotations.veg !== false" class="heatmap__annotations__item heatmap__annotations__item--right" style="top: 5px; left: 230px" @click=vegClick><div class=heatmap__annotations__item__image><img src=' +
       a(4) +
-      ' alt=""></div><div class=heatmap__annotations__item__text>{{ state.lang.heatmap.annotations[state.heatmapAnnotations.veg] }}</div></div></div></div>';
+      ' alt=""></div><div class=heatmap__annotations__item__text>{{ state.lang.heatmap.annotations[state.heatmapAnnotations.veg] }}</div></div></div><div class=heatmap__legend_container><div class=heatmap__legend_container__item><ul class=heatmap__legend><li class=heatmap__legend__item><span class=heatmap__legend__item__color style="background: #f20c12"></span> &gt; 8 kHz {{ state.lang.heatmap.customers }}</li><li class=heatmap__legend__item><span class=heatmap__legend__item__color style="background: #9e76b6"></span> 6 kHz - 8 kHz {{ state.lang.heatmap.customers }}</li><li class=heatmap__legend__item><span class=heatmap__legend__item__color style="background: #a6c8df"></span> 4 kHz - 6 kHz {{ state.lang.heatmap.customers }}</li><li class=heatmap__legend__item><span class=heatmap__legend__item__color style="background: #e8f5fb"></span> &lt; 4 kHz {{ state.lang.heatmap.customers }}</li></ul></div></div></div>';
   },
   function (e, t) {
     e.exports =

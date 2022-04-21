@@ -3,25 +3,15 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:mc="sap.suite.ui.microchart"
+    xmlns:commons="sap.suite.ui.commons"
     xmlns:html="http://www.w3.org/1999/xhtml">
-    <!-- <FlexBox class="">
-        <items> -->
+    <Breadcrumbs id="xBreadCrumbs" currentLocationText="Plant Condition Insights" separatorStyle="GreaterThan" class="sapUiSmallMargin">
+        <Link press="onBreadCrumbsToHome" text="Home"/>
+        <Link press="onBreadCrumbsToPlantConditions" text="Manage Plant Conditions"/>
+        <Link press="onBreadCrumbsToPlantCondition" text="Plant Condition"/>
+    </Breadcrumbs>
     <FlexBox alignItems="Start" justifyContent="Start" class="sapUiSmallMargin" wrap="Wrap">
         <items>
-            <!-- <SlideTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout">
-                <tiles>
-                    <GenericTile backgroundImage="images/d9.jpg" frameType="TwoByOne" state="Loaded" press="onCashflow">
-                        <tileContent>
-                            <TileContent unit="" footer="Assist Decision Making">
-                                <content>
-                                    <NewsContent contentText="Financial Dashboards" subheader="Gain better financial visibility">
-                                    </NewsContent>
-                                </content>
-                            </TileContent>
-                        </tileContent>
-                    </GenericTile>
-                </tiles>
-            </SlideTile> -->
             <GenericTile id="xPlantTile" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Plant Status" subheader="Overall Function" press="toPlantCond" sizeBehavior="Small">
                 <TileContent footer="Since Day Start">
                     <NumericContent animateTextChange="true" icon="sap-icon://factory" id="xPlant" withMargin="false" value="Normal" valueColor="Good" />
@@ -47,132 +37,83 @@
                     <NumericContent animateTextChange="true" icon="sap-icon://e-care" id="xCarbonEmission" withMargin="false" value="22" valueColor="Good" indicator="Up" scale="Kg"/>
                 </TileContent>
             </GenericTile>
-            <!-- <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Jessica Danielle Johnson" subheader="Senior Consultant, Department Sales Distribution" state="{=${state} || 'Loaded'}" scope="Display" press="press" sizeBehavior="Small">
-                <TileContent unit="EUR" footer="Quarter">
-                    <NumericContent withMargin="false" value="12" valueColor="Good" indicator="Up" scale="k"/>
-                </TileContent>
-            </GenericTile> -->
-            <!-- <GenericTile header="Consumption Comparison" frameType="OneByOne" press="press" class="sapUiTinyMargin">
-                <TileContent footer="vs industry standard">
-                    <mc:LineMicroChart threshold="{/threshold}" press="onChartPress" size="{/size}" showPoints="{/chartTwoColors/showPoints}" color="{/chartTwoColors/color}" lines="{
-                            path: '/lines',
-                            templateShareable: 'true'
-                        }">
-                        <mc:lines>
-                            <mc:LineMicroChartLine points="{
-                                        path: 'points',
-                                        templateShareable: true
-                                    }">
-                                <mc:LineMicroChartPoint x="{x}" y="{y}"/>
-                            </mc:LineMicroChartLine>
-                        </mc:lines>
-                    </mc:LineMicroChart>
-                </TileContent>
-            </GenericTile> -->
             <GenericTile id="xAttentionTile" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Requires Attention" subheader="Anomaly Detection" press="toEqCond" sizeBehavior="Small">
                 <TileContent footer="Equipment Conditions">
                     <NumericContent animateTextChange="true" icon="sap-icon://alert" id="xAttention" state="Loading" withMargin="false" value="0" valueColor="Good"/>
                 </TileContent>
             </GenericTile>
-            <!-- <GenericTile header="Total Costs" subheader="Incurred due to Anomaly and Defects" sizeBehavior="Small" frameType="TwoByOne" press="press" class="sapUiTinyMargin">
-                <TileContent footer="Unit, Notification" unit="EUR">
-                    <NumericContent scale="M" value="1.96" valueColor="Error" indicator="Up" />
-                </TileContent>
-                <TileContent footer="Energy Consumption" unit="By Shifts">
-                    <mc:LineMicroChart threshold="{/threshold}" size="{/size}" lines="{
-                        path: '/chartOneEmphasizedPoint/lines',
-                        templateShareable: 'true'
-                    }">
-                        <mc:lines>
-                            <mc:LineMicroChartLine points="{
-                                        path: 'points',
-                                        templateShareable: true
-                                    }">
-                                <mc:LineMicroChartEmphasizedPoint x="{x}" y="{y}" />
-                            </mc:LineMicroChartLine>
-                        </mc:lines>
-                    </mc:LineMicroChart>
-                </TileContent>
-            </GenericTile> -->
-            <!-- <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Product Costs Plan" subheader="Defects" press="onSBOLearningHub" sizeBehavior="Small">
-                <tileContent>
-                    <TileContent unit="EUR" footer="Monthly">
-                        <NumericContent id="xFollowUpCond" withMargin="false" value="500" valueColor="Critical" indicator="up" scale=""/>
-                    </TileContent>
-                </tileContent>
-            </GenericTile> -->
-            <!-- <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Conditions Monitoring" subheader="Production Line" press="" sizeBehavior="Small">
-                <tileContent>
-                    <TileContent>
-                        <content>
-                            <ImageContent src="sap-icon://dishwasher"></ImageContent>
-                        </content>
-                    </TileContent>
-                </tileContent>
-            </GenericTile>
-            <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Maintenance Plan" subheader="Defects" press="" sizeBehavior="Small">
-                <tileContent>
-                    <TileContent>
-                        <content>
-                            <ImageContent src="sap-icon://factory"></ImageContent>
-                        </content>
-                    </TileContent>
-                </tileContent>
-            </GenericTile> -->
         </items>
     </FlexBox>
-    <!-- <FlexBox alignItems="Start" width="100%" justifyContent="Start" class="sapUiSmallMargin" wrap="Wrap">
-        <items> -->
     <MessageStrip id="xPlantCondition" visible="false" text="" type="Success" enableFormattedText="true" showIcon="true" showCloseButton="false" class="sapUiTinyMarginBegin sapUiTinyMarginTop">
         <link>
             <Link text="View Plant Condition" href="/fiori-apps.html#PlantConditions-manage" />
         </link>
-    </MessageStrip>
-    <!-- </items>
-    </FlexBox> -->
-    <!-- <FlexBox alignItems="Start" justifyContent="Center" class="sapVbdemoTileBox" wrap="Wrap">
-                <items>
-                    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" mode="LineMode" header="Open Equipment Conditions for Monitoring" subheader="Planning Manager" press="">
-                    </GenericTile>
-                    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" mode="LineMode" header="Report Plant Status" subheader="Take Action" press="">
-                    </GenericTile>
-                    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" mode="LineMode" header="Trigger Maintenance Order" subheader="Defects Detected" press="">
-                    </GenericTile>
-                </items>
-            </FlexBox> -->
-    <!-- <FlexBox alignItems="Start" justifyContent="Start" class="sapVbdemoTileBox" wrap="Wrap" height="100%" width="100%">
-        <items>
-            <Image src="predictive-maintenance/plant-conditions-visualisation/webapp/layout.svg" height="100%" width="100%"/>
-        </items>
-    </FlexBox> -->
-    <!-- <l:VerticalLayout id="containerLayout" width="100%">
-        <l:BlockLayout id="BlockLayout" background="Light">
-            <l:BlockLayoutRow class="sapUiSmallMargin" accentCells="Accent1">
-                <l:BlockLayoutCell id="Accent1" width="2" title="Manufacturing Plant 2D Visualisation">
-                    <Text class="sapUiSmallMargin" text="A preliminary data analysis soon reveals that the primary cause of low first pass yields is 'open' defects. The operators performing the rework validated this conclusion when they met with quality team members. Furthermore, these operators stated that 'open' defects occurred more frequently in core items. Based on results of the quality teams data analysis and real-time observations, you have decided to focus your efforts on investigating the causes of 'open' defects." />
-                    
-                </l:BlockLayoutCell>
-            </l:BlockLayoutRow>
-        </l:BlockLayout>
-    </l:VerticalLayout> -->
+    </MessageStrip>    
+    <Panel expandable="true" expanded="true" class="sapUiTinyMargin" width="auto">
+        <headerToolbar>
+            <OverflowToolbar active="true">
+                <Title text="Timeline of Events" />
+                <ToolbarSpacer />
+            </OverflowToolbar>
+        </headerToolbar>
+        <content>
+            <commons:Timeline id="idTimeline" textHeight="2" height="" axisOrientation="Horizontal" enableDoubleSided="true" groupByType="Year" groupBy="recStartedAt" growingThreshold="10" lazyLoading="false" enableScroll="true" filterTitle="Plant Status" sortOldestFirst="false" content="{/value}">
+                <commons:content>
+                    <commons:TimelineItem id="idTemplateItem" dateTime="{recStartedAt}" title="{ID}" userNameClickable="true" userNameClicked="onUserNameClick" select="onPressItems" userPicture="sap-icon://factory" text="Production yield rate: {yield}. Defective products: {defectiveProd}. Energy Consumption (KWh): {energyCons}." userName="{plantStatus}" filterValue="{plantStatus}" icon="{path: 'plantStatus', formatter: '.plantConditionStatusIcon'}">
+                    </commons:TimelineItem>
+                </commons:content>
+            </commons:Timeline>
+        </content>
+    </Panel>
+
+
     <Panel id="expandablePanel" expandable="true" expanded="true" expand="onExpand" height="1000px" width="auto" class="sapUiTinyMargin">
         <headerToolbar>
             <OverflowToolbar active="true">
-                <Title text="Manufacturing Plant 2D Visualisation" />
+                <Title text="Manufacturing Floor Plan Layout" />
                 <ToolbarSpacer />
-                <Text text="Auto Refresh"/>
-                <Switch id="refreshSwitch" type="AcceptReject" state="true"></Switch>
+                <Text text="Simulate Real-time Monitoring"/>
+                <Switch id="refreshSwitch" type="AcceptReject" state="false"></Switch>
             </OverflowToolbar>
         </headerToolbar>
         <content>
             <html:iframe id="plantVisual" src="predictive-maintenance/plant-conditions-visualisation/webapp/plant-visual/index.html" style="-webkit-transform: scale(1.5); transform: scale(1.5); -webkit-transform-origin: 0 0; transform-origin: 0 0;" frameBorder="0" height="600px" width="750px" scrolling="yes"/>
         </content>
     </Panel>
+
+    <!-- <Panel id="expandablePanel" expandable="true" expanded="true" expand="onExpand" height="1000px" width="auto" class="sapUiTinyMargin">
+            <headerToolbar>
+                <OverflowToolbar active="true">
+                    <Title text="2D Floor Plan LGP-LED Manufacturing Plant" />
+                    <ToolbarSpacer />
+                    <Text text="Simulate Real-time Monitoring of Floor Plan"/>
+                    <Switch id="refreshSwitch" type="AcceptReject" state="false"></Switch>
+                </OverflowToolbar>
+            </headerToolbar>
+            <content>
+                <l:HorizontalLayout>
+                <FlexBox alignItems="Start" class="sapUiSmallMargin" height="500px">
+                    <html:iframe id="plantVisual" src="predictive-maintenance/plant-conditions-visualisation/webapp/plant-visual/index.html" style="-webkit-transform: scale(1.0); transform: scale(1.0); -webkit-transform-origin: 0 0; transform-origin: 0 0;" frameBorder="0" height="600px" width="750px" scrolling="yes"/>
+                </FlexBox>
+                <FlexBox height="500px" width="200px">
+                    <items>
+                        <commons:Timeline id="idTimeline" textHeight="2" height="100%" axisOrientation="Vertical" enableDoubleSided="true" groupByType="" groupBy="" growingThreshold="10" lazyLoading="false" enableScroll="true" filterTitle="Plant Status" sortOldestFirst="false" content="{/Conditions}">
+                        <commons:content>
+                            <commons:TimelineItem id="idTemplateItem" dateTime="{recStartedAt}" title="{ID}" userNameClickable="true" userNameClicked="onUserNameClick" select="onPressItems" userPicture="sap-icon://factory" text="Production yield rate: {yield}. Defective products: {defectiveProd}. Energy Consumption (KWh): {energyCons}." userName="{plantStatus}" filterValue="{plantStatus}" icon="{path: 'plantStatus', formatter: '.plantConditionStatusIcon'}">
+                            </commons:TimelineItem>
+                        </commons:content>
+                    </commons:Timeline>
+                    </items>
+                </FlexBox>
+            </l:HorizontalLayout>
+            </content>
+        </Panel> -->
+
+
+
     <!-- <FlexBox alignItems="Start" justifyContent="Start" class="sapUiSmallMargin" wrap="Wrap">
         <items>
 
         </items>
-    </FlexBox> -->
-    <!-- </items>
     </FlexBox> -->
 </mvc:View>

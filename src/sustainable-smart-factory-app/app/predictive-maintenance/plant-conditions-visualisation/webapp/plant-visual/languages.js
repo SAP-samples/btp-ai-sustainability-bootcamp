@@ -81,7 +81,7 @@ document.lang_english = {
 		cancel: "Close"
 	},
 	heatmap: {
-		customers: "Customers per hour",
+		customers: "Noise Pressure Frequency",
 		annotations: {
 			dry: "Anomaly#1662 LED Assem Arm#4. Abnormal sound detected. Exceed Threshold.",
 			veg: "Shopfloor productivity declining in promotion area"
