@@ -22,6 +22,10 @@ entity CVQualityRecords : managed {
       image            : String;
       segmentedImage   : LargeString;
       defectedPerc     : Decimal(9, 2) default 0.0;
+      //defectiveDiscount and defectiveDesc taken from DefectiveProductPrices based defeatedPerc
+      defectiveDiscount : Decimal(9, 2); 
+      defectiveDesc    : String(40);
+
       successInference : Boolean default false;
       // image        : LargeBinary @Core.MediaType : 'image/png';
       confidence       : Decimal(9, 2);
