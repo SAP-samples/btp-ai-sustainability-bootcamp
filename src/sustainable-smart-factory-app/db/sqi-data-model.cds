@@ -21,14 +21,14 @@ entity CVQualityRecords : managed {
       productName      : String(100) default 'LGP';
       image            : String;
       segmentedImage   : LargeString;
-      defectedPerc     : Decimal(9, 2) default 0.0;
+      defectedPerc     : Decimal(9, 5) default 0.00000;
       //defectiveDiscount and defectiveDesc taken from DefectiveProductPrices based defeatedPerc
       defectiveDiscount : Decimal(9, 2); 
       defectiveDesc    : String(40);
 
       successInference : Boolean default false;
       // image        : LargeBinary @Core.MediaType : 'image/png';
-      confidence       : Decimal(9, 2);
+      confidence       : Decimal(9, 3);
       qualityLabel     : QualityLabel;
       numberOfProducts : Integer default 1;
 }
