@@ -29,7 +29,8 @@ annotate sf.CVQualityRecords with @(
             productId,
             productName,
             detectedAt,
-            qualityLabel
+            qualityLabel,
+            defectedPerc
         ],
         LineItem        : [
             {
@@ -56,10 +57,6 @@ annotate sf.CVQualityRecords with @(
                 Value : confidence,
                 Label : '{i18n>Confidence}'
             },
-            // {
-            //     Value : detectedAt,
-            //     Label : '{i18n>DetectedAt}'
-            // },
             {
                 $Type             : 'UI.DataFieldForAction',
                 Action            : 'AdminService.inferenceImageCV',
@@ -67,7 +64,17 @@ annotate sf.CVQualityRecords with @(
                 Inline            : true,
                 ![@UI.Emphasized] : true, //Button is highlighted
             },
-            {Value : image, }
+            {   
+                Value : image 
+            },
+            {
+                Value : detectedAt,
+                Label : '{i18n>DetectedAt}'
+            },
+            {
+                Value : detectedPerc,
+                Label : '{i18n>DetectedPerc}'
+            }
         ]
     }
 ) {
@@ -112,6 +119,7 @@ annotate sf.CVQualityRecords with {
     numberOfProducts  @title : '{i18n>NumberOfProducts}';
     qualityLabel @title : '{i18n>QualityLabel}';
     confidence   @title : '{i18n>Confidence}';
+    defectedPerc @title : '{i18n>DefectedPerc}';
     detectedAt   @title : '{i18n>DetectedAt}';
     detectedDate   @title : '{i18n>DetectedDate}';
     image        @(

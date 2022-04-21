@@ -10,20 +10,21 @@ using {
 //CVQualityRecords - Auto Quality Records via Computer Vision
 ////////////////////////////////////////////////////////////
 entity CVQualityRecords : managed {
-  key ID           : Integer;
-      detectedAt   : Timestamp @cds.on.update : $now;
-      detectedDate : Date;
-      plant        : String(4);
-      plantSection : String(3) default 'YOH';
-      productId    : String(18) default 'SG23';
-      productName  : String(100) default 'LGP';
-      image        : String;
-      segmentedImage: LargeString;
-      successInference: Boolean default false;
+  key ID               : Integer;
+      detectedAt       : Timestamp @cds.on.update : $now;
+      detectedDate     : Date;
+      plant            : String(4);
+      plantSection     : String(3) default 'YOH';
+      productId        : String(18) default 'SG23';
+      productName      : String(100) default 'LGP';
+      image            : String;
+      segmentedImage   : LargeString;
+      defectedPerc     : Decimal(9, 2) default 0.0;
+      successInference : Boolean default false;
       // image        : LargeBinary @Core.MediaType : 'image/png';
-      confidence   : Decimal(9,2);
-      qualityLabel : QualityLabel;
-      numberOfProducts: Integer default 1;
+      confidence       : Decimal(9, 2);
+      qualityLabel     : QualityLabel;
+      numberOfProducts : Integer default 1;
 //todo: Object Detection with Bounding Box
 // Items       : Composition of many {
 //                 confidence : Decimal;
