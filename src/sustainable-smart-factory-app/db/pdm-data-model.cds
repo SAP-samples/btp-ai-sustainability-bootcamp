@@ -122,7 +122,7 @@ entity Anomalies : managed {
       rawMeasureUnit: String(10) default 'File Path';
 
       anomalyType  : Association to AnomalyTypes;
-      confidence   : Decimal;
+      confidence   : Decimal(9, 2) default 0.0;
       status       : AnomalyStatus;
       eqCond       : Association to EquipmentConditions; //> the backlink
       numberOfAnomalies : Integer default 1; //for aggregation

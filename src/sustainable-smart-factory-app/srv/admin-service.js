@@ -182,12 +182,14 @@ module.exports = async function () {
     if (results.hasOwnProperty("Slow_Sound")) {
       // console.log("Slow");
       // confidence = results.Normal;
-      confidence = results.Slow_Sound;
+      // parseFloat(results.Normal).toFixed(3);
+      // confidence = results.Slow_Sound;
+      confidence = parseFloat(results.Slow_Sound).toFixed(3);
       type = "A1";
     } else {
       // console.log("Damage");
-      // confidence = results.Anomalous;
-      confidence = results.Damage_Noise;
+      // confidence = results.Damage_Noise;
+      confidence = parseFloat(results.Damage_Noise).toFixed(3);
       type = "A2";
     }
     await UPDATE(Anomalies, anomalyEntity.ID).with({
@@ -240,11 +242,11 @@ module.exports = async function () {
       .tx(req)
       .send("POST", cv_inference_url, data, headers);
 
-    var confidence, label, defected, bin, message;
+    var confidence, label, defected, bin, message, areaPercDefect;
 
     if (results.hasOwnProperty("Normal")) {
       // console.log("Normal");
-      confidence = parseFloat(results.Normal).toFixed(5);
+      confidence = parseFloat(results.Normal).toFixed(3);
       label = "Y";
       defected = false;
       message =
@@ -259,13 +261,14 @@ module.exports = async function () {
         .send("POST", cv_inference_seg_url, data, headers);
       // console.log(segResults);
       bin = "data:image/bmp;base64," + segResults.segmented_image;
-      confidence = parseFloat(results.Anomalous).toFixed(2);
+      confidence = parseFloat(results.Anomalous).toFixed(3);
       label = "N";
       defected = true;
       message =
         "CV Image (ID: " +
         cvImageEntity.ID +
         ") entity processed successfully with DEFECT detected.";
+      areaPercDefect = parseFloat(segResults.defected_area).toFixed(3);
     }
     await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
       confidence: confidence,
@@ -273,6 +276,7 @@ module.exports = async function () {
       detectedAt: new Date(),
       segmentedImage: bin,
       successInference: defected,
+      defectedPerc: areaPercDefect
     });
 
     req.notify(message);
