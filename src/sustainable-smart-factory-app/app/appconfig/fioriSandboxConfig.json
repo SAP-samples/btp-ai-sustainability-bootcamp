@@ -37,8 +37,8 @@
               ]
             },
             {
-              "id": "SmartQualityInspection",
-              "title": "Smart Quality Inspection",
+              "id": "AutoDefeatDetection",
+              "title": "Auto. Defeat Detection",
               "isPreset": true,
               "isVisible": true,
               "isGroupLocked": false,
