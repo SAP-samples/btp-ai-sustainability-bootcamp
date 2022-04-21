@@ -1,0 +1,6 @@
+parent_productId;item;desc;fromDefectedPerc;toDefectedPerc;defectiveDiscount;validFrom;validTo
+SG23;10;Waste;0.01;1.00;1.0;2020-01-01;9999-12-31
+SG23;20;Major Defeat;0.005;0.01;0.50;2020-01-01;9999-12-31
+SG23;30;Mild Defeat;0.001;0.005;0.20;2020-01-01;9999-12-31
+SG23;40;Minor Defeat;0.0001;0.001;0.10;2020-01-01;9999-12-31
+SG23;50;No Defeat;0.000;0.0001;0.10;2020-01-01;9999-12-31

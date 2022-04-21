@@ -2,6 +2,7 @@ namespace sap.smartfactory;
 
 using {
   managed,
+  Currency,
   sap
 } from '@sap/cds/common';
 
@@ -38,4 +39,24 @@ entity CVQualityRecords : managed {
 type QualityLabel : String enum {
   OK    = 'Y';
   NotOk = 'N';
+}
+
+entity DefectiveProductPrices : managed {
+  key productId   : String(18);
+      productName : String(100);
+      basePrice   : Decimal(9, 2);
+      currency    : Currency;
+      items       : Composition of many DefectiveProductPrice_Items
+                      on items.parent = $self;
+}
+
+entity DefectiveProductPrice_Items {
+  key parent            : Association to DefectiveProductPrices;
+  key item              : String(2);
+      desc              : localized String(40);
+      fromDefectedPerc  : Decimal(9, 2); //inclusive: <=
+      toDefectedPerc    : Decimal(9, 2); //exclusive <
+      defectiveDiscount : Decimal(9, 2);
+      validFrom         : Date; //inclusive: <= 
+      validTo           : Date default '9999-12-31';//exclusive <
 }
