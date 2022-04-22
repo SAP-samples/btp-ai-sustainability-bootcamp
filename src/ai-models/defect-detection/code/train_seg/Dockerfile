@@ -1,4 +1,3 @@
-FROM python:3.7-buster
 FROM tensorflow/tensorflow:latest-gpu
 RUN export LD_LIBRARY_PATH=/usr/local/nvidia/lib:$LD_LIBRARY_PATH
 
