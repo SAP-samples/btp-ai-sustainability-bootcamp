@@ -1,72 +1,72 @@
 {
-    "VCAP_SERVICES": {
-        "destination": [
-            {
-                "name": "sa-destinations",
-                "label": "destination",
-                "tags": [
-                    "destination"
-                ],
-                "credentials": {
-                    "uaadomain": "authentication.eu10.hana.ondemand.com",
-                    "tenantmode": "dedicated",
-                    "clientid": "sb-clone9014af4ac2cf4786927ce568c465b895!b11737|destination-xsappname!b404",
-                    "instanceid": "9014af4a-c2cf-4786-927c-e568c465b895",
-                    "verificationkey": "-----BEGIN PUBLIC KEY-----MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwThn6OO9kj0bchkOGkqYBnV1dQ3zU/xtj7Kj7nDd8nyRMcEWCtVzrzjzhiisRhlrzlRIEY82wRAZNGKMnw7cvCwNixcfcDJnjzgr2pJ+5/yDZUc0IXXyIWPZD+XdL+0EogC3d4+fqyvg/BF/F0t2hKHWr/UTXE6zrGhBKaL0d8rKfYd6olGWigFd+3+24CKI14zWVxUBtC+P9Fhngc9DRzkXqhxOK/EKn0HzSgotf5duq6Tmk9DCNM4sLW4+ERc6xzrgbeEexakabvax/Az9WZ4qhwgw+fwIhKIC7WLwCEJaRsW4m7NKkv+eJR2LKYesuQ9SVAJ3EXV86RwdnH4uAv7lQHsKURPVAQBlranSqyQu0EXs2N9OlWTxe+FyNkIvyZvoLrZl/CdlYc8AKxRm5rn2/88nkrYQ0XZSrnICM5FRWgVF2hn5KfZGwtBN85/D4Yck6B3ocMfyX7e4URUm9lRPQFUJGTXaZnEIge0R159HUwhTN1HvyXrs6uT1ZZmW+c3p47dw1+LmUf/hIf8zd+uvHQjIeHEJqxjqfyA8yqAFKRHKVFrwnwdMHIsRap2EKBhHMfeVf0P2th5C9MggYoGCvdIaIUgMBX3TtCdvGrcWML7hnyS2zkrlA8SoKJnRcRF2KxWKs355FhpHpzqyZflO5l98+O8wOsFjGpL9d0ECAwEAAQ==-----END PUBLIC KEY-----",
-                    "xsappname": "clone9014af4ac2cf4786927ce568c465b895!b11737|destination-xsappname!b404",
-                    "identityzone": "iotdev",
-                    "clientsecret": "1442ba8d-da7e-4746-9d45-f1c619604fb2$9R_iZH9smTBvMUo5OlA1BMB5p_B9Zbn18riaPoIBRok=",
-                    "tenantid": "df5fe658-4415-4a70-9aa9-6916c4c40810",
-                    "uri": "https://destination-configuration.cfapps.eu10.hana.ondemand.com",
-                    "url": "https://iotdev.authentication.eu10.hana.ondemand.com"
-                }
-            }
+  "VCAP_SERVICES": {
+    "destination": [
+      {
+        "name": "sa-destinations",
+        "label": "destination",
+        "tags": [
+          "destination"
         ],
-        "xsuaa": [
-            {
-                "name": "sa-xsuaa",
-                "label": "xsuaa",
-                "tags": [
-                    "xsuaa"
-                ],
-                "credentials": {
-                    "tenantmode": "shared",
-                    "sburl": "https://internal-xsuaa.authentication.eu10.hana.ondemand.com",
-                    "subaccountid": "df5fe658-4415-4a70-9aa9-6916c4c40810",
-                    "credential-type": "instance-secret",
-                    "clientid": "sb-na-eb6a7705-d6ba-47d4-a618-7f409c387afc!t11737",
-                    "xsappname": "na-eb6a7705-d6ba-47d4-a618-7f409c387afc!t11737",
-                    "clientsecret": "4pXcraTXvZPXxR0I7tw8J85w4J8=",
-                    "url": "https://iotdev.authentication.eu10.hana.ondemand.com",
-                    "uaadomain": "authentication.eu10.hana.ondemand.com",
-                    "verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv2bvVtVO4tq17FclGkbTnmjSAHxQDQMHfc5KWBbZlIVSQsBVuone+ReGE8isvnGoeuTh8kYtATprgSopUUAPnEYPD2/xYRVo0M9AVlWlm3I08fLMW1Y87kI7d7YdWM9bfIM0wnhfgwLVk58T9F+u3GK4dmcwVsJiU8SM1vNHssSf70R1DSBI2hE3Cug6xsGXebvvgVl6A4Asn1C3FnYyFNWo+GLPyVrNhhNlBtfydvWTTbJbMoxvdpYQ87odDNEywO1ZgvQ2Y/JdXYrSVzBFbfqqVXs5ixL57pvvajKVPTfVBYeP/As+hTvr0R95vqWA8+81XVCevMc5tJ8X2QQVYwIDAQAB-----END PUBLIC KEY-----",
-                    "apiurl": "https://api.authentication.eu10.hana.ondemand.com",
-                    "identityzone": "iotdev",
-                    "identityzoneid": "df5fe658-4415-4a70-9aa9-6916c4c40810",
-                    "tenantid": "df5fe658-4415-4a70-9aa9-6916c4c40810",
-                    "zoneid": "df5fe658-4415-4a70-9aa9-6916c4c40810"
-                }
-            }
+        "credentials": {
+          "uaadomain": "authentication.eu10.hana.ondemand.com",
+          "tenantmode": "dedicated",
+          "clientid": "sb-clone9014af4ac2cf4786927ce568c465b895!b11737|destination-xsappname!b404",
+          "instanceid": "9014af4a-c2cf-4786-927c-e568c465b895",
+          "verificationkey": "-----BEGIN PUBLIC KEY-----MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwThn6OO9kj0bchkOGkqYBnV1dQ3zU/xtj7Kj7nDd8nyRMcEWCtVzrzjzhiisRhlrzlRIEY82wRAZNGKMnw7cvCwNixcfcDJnjzgr2pJ+5/yDZUc0IXXyIWPZD+XdL+0EogC3d4+fqyvg/BF/F0t2hKHWr/UTXE6zrGhBKaL0d8rKfYd6olGWigFd+3+24CKI14zWVxUBtC+P9Fhngc9DRzkXqhxOK/EKn0HzSgotf5duq6Tmk9DCNM4sLW4+ERc6xzrgbeEexakabvax/Az9WZ4qhwgw+fwIhKIC7WLwCEJaRsW4m7NKkv+eJR2LKYesuQ9SVAJ3EXV86RwdnH4uAv7lQHsKURPVAQBlranSqyQu0EXs2N9OlWTxe+FyNkIvyZvoLrZl/CdlYc8AKxRm5rn2/88nkrYQ0XZSrnICM5FRWgVF2hn5KfZGwtBN85/D4Yck6B3ocMfyX7e4URUm9lRPQFUJGTXaZnEIge0R159HUwhTN1HvyXrs6uT1ZZmW+c3p47dw1+LmUf/hIf8zd+uvHQjIeHEJqxjqfyA8yqAFKRHKVFrwnwdMHIsRap2EKBhHMfeVf0P2th5C9MggYoGCvdIaIUgMBX3TtCdvGrcWML7hnyS2zkrlA8SoKJnRcRF2KxWKs355FhpHpzqyZflO5l98+O8wOsFjGpL9d0ECAwEAAQ==-----END PUBLIC KEY-----",
+          "xsappname": "clone9014af4ac2cf4786927ce568c465b895!b11737|destination-xsappname!b404",
+          "identityzone": "iotdev",
+          "clientsecret": "1442ba8d-da7e-4746-9d45-f1c619604fb2$9R_iZH9smTBvMUo5OlA1BMB5p_B9Zbn18riaPoIBRok=",
+          "tenantid": "df5fe658-4415-4a70-9aa9-6916c4c40810",
+          "uri": "https://destination-configuration.cfapps.eu10.hana.ondemand.com",
+          "url": "https://iotdev.authentication.eu10.hana.ondemand.com"
+        }
+      }
+    ],
+    "xsuaa": [
+      {
+        "name": "sa-xsuaa",
+        "label": "xsuaa",
+        "tags": [
+          "xsuaa"
         ],
-        "hana": [
-            {
-                "name": "sustainable-smart-factory-app-db",
-                "tags": [
-                    "hana"
-                ],
-                "credentials": {
-                    "host": "4d044586-ad7a-4b07-8a8a-cd4558fb9b37.hana.prod-eu10.hanacloud.ondemand.com",
-                    "port": "443",
-                    "driver": "com.sap.db.jdbc.Driver",
-                    "url": "jdbc:sap://4d044586-ad7a-4b07-8a8a-cd4558fb9b37.hana.prod-eu10.hanacloud.ondemand.com:443?encrypt=true&validateCertificate=true&currentschema=D6F287118F9F4AC88218E7006C25227C",
-                    "schema": "D6F287118F9F4AC88218E7006C25227C",
-                    "hdi_user": "D6F287118F9F4AC88218E7006C25227C_D0ZQ29I82IEEYXB0POZGVSESD_DT",
-                    "hdi_password": "Dt33Y-jzVCYHb2x86f.uA5EJqkImB_ZECY26GLE-I7j5wvcxpPEE2RFS6KaiBW_YoayAeMKqLpou5AE8MbEiz6PkbVWQoNkTRBMQA-BTFVHFloFvpvM68trb3JG1-0f1",
-                    "user": "D6F287118F9F4AC88218E7006C25227C_D0ZQ29I82IEEYXB0POZGVSESD_RT",
-                    "password": "Dm2ZrFN0ZfvgGVvONEwqd.96OSSOxdvDArJ.XKdaWF53jYljTFxJAD2AWErc02iR-ORA2iqnt.o--Q9E0oFwKm0JQ8cKVlzqnynSJV-N4OiPSIv5uX5xqaU8LZnFO3.y",
-                    "certificate": "-----BEGIN CERTIFICATE-----\nMIIDrzCCApegAwIBAgIQCDvgVpBCRrGhdWrJWZHHSjANBgkqhkiG9w0BAQUFADBh\nMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3\nd3cuZGlnaWNlcnQuY29tMSAwHgYDVQQDExdEaWdpQ2VydCBHbG9iYWwgUm9vdCBD\nQTAeFw0wNjExMTAwMDAwMDBaFw0zMTExMTAwMDAwMDBaMGExCzAJBgNVBAYTAlVT\nMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5j\nb20xIDAeBgNVBAMTF0RpZ2lDZXJ0IEdsb2JhbCBSb290IENBMIIBIjANBgkqhkiG\n9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4jvhEXLeqKTTo1eqUKKPC3eQyaKl7hLOllsB\nCSDMAZOnTjC3U/dDxGkAV53ijSLdhwZAAIEJzs4bg7/fzTtxRuLWZscFs3YnFo97\nnh6Vfe63SKMI2tavegw5BmV/Sl0fvBf4q77uKNd0f3p4mVmFaG5cIzJLv07A6Fpt\n43C/dxC//AH2hdmoRBBYMql1GNXRor5H4idq9Joz+EkIYIvUX7Q6hL+hqkpMfT7P\nT19sdl6gSzeRntwi5m3OFBqOasv+zbMUZBfHWymeMr/y7vrTC0LUq7dBMtoM1O/4\ngdW7jVg/tRvoSSiicNoxBN33shbyTApOB6jtSj1etX+jkMOvJwIDAQABo2MwYTAO\nBgNVHQ8BAf8EBAMCAYYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUA95QNVbR\nTLtm8KPiGxvDl7I90VUwHwYDVR0jBBgwFoAUA95QNVbRTLtm8KPiGxvDl7I90VUw\nDQYJKoZIhvcNAQEFBQADggEBAMucN6pIExIK+t1EnE9SsPTfrgT1eXkIoyQY/Esr\nhMAtudXH/vTBH1jLuG2cenTnmCmrEbXjcKChzUyImZOMkXDiqw8cvpOp/2PV5Adg\n06O/nVsJ8dWO41P0jmP6P6fbtGbfYmbW0W5BjfIttep3Sp+dWOIrWcBAI+0tKIJF\nPnlUkiaY4IBIqDfv8NZ5YBberOgOzW6sRBc4L0na4UU+Krk2U886UAb3LujEV0ls\nYSEY1QSteDwsOoBrp+uvFRTp2InBuThs4pFsiv9kuXclVzDAGySj4dzp30d8tbQk\nCAUw7C29C79Fv1C5qfPrmAESrciIxpg0X40KPMbp1ZWVbd4=\n-----END CERTIFICATE-----"
-                }
-            }
-        ]
-    }
+        "credentials": {
+          "tenantmode": "shared",
+          "sburl": "https://internal-xsuaa.authentication.eu10.hana.ondemand.com",
+          "subaccountid": "df5fe658-4415-4a70-9aa9-6916c4c40810",
+          "credential-type": "instance-secret",
+          "clientid": "sb-na-eb6a7705-d6ba-47d4-a618-7f409c387afc!t11737",
+          "xsappname": "na-eb6a7705-d6ba-47d4-a618-7f409c387afc!t11737",
+          "clientsecret": "4pXcraTXvZPXxR0I7tw8J85w4J8=",
+          "url": "https://iotdev.authentication.eu10.hana.ondemand.com",
+          "uaadomain": "authentication.eu10.hana.ondemand.com",
+          "verificationkey": "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv2bvVtVO4tq17FclGkbTnmjSAHxQDQMHfc5KWBbZlIVSQsBVuone+ReGE8isvnGoeuTh8kYtATprgSopUUAPnEYPD2/xYRVo0M9AVlWlm3I08fLMW1Y87kI7d7YdWM9bfIM0wnhfgwLVk58T9F+u3GK4dmcwVsJiU8SM1vNHssSf70R1DSBI2hE3Cug6xsGXebvvgVl6A4Asn1C3FnYyFNWo+GLPyVrNhhNlBtfydvWTTbJbMoxvdpYQ87odDNEywO1ZgvQ2Y/JdXYrSVzBFbfqqVXs5ixL57pvvajKVPTfVBYeP/As+hTvr0R95vqWA8+81XVCevMc5tJ8X2QQVYwIDAQAB-----END PUBLIC KEY-----",
+          "apiurl": "https://api.authentication.eu10.hana.ondemand.com",
+          "identityzone": "iotdev",
+          "identityzoneid": "df5fe658-4415-4a70-9aa9-6916c4c40810",
+          "tenantid": "df5fe658-4415-4a70-9aa9-6916c4c40810",
+          "zoneid": "df5fe658-4415-4a70-9aa9-6916c4c40810"
+        }
+      }
+    ],
+    "hana": [
+      {
+        "name": "sustainable-smart-factory-app-db",
+        "tags": [
+          "hana"
+        ],
+        "credentials": {
+          "host": "4d044586-ad7a-4b07-8a8a-cd4558fb9b37.hana.prod-eu10.hanacloud.ondemand.com",
+          "port": "443",
+          "driver": "com.sap.db.jdbc.Driver",
+          "url": "jdbc:sap://4d044586-ad7a-4b07-8a8a-cd4558fb9b37.hana.prod-eu10.hanacloud.ondemand.com:443?encrypt=true&validateCertificate=true&currentschema=043A0851B9F44996A341284F837515F4",
+          "schema": "043A0851B9F44996A341284F837515F4",
+          "hdi_user": "043A0851B9F44996A341284F837515F4_0MG62IKV64CVA52K44ID9OQVZ_DT",
+          "hdi_password": "Ys92BAuHKCo51LhFaAh2VRm.JIDnoslBzLNrw25nPGwg0ARNlhomJbA_BK0Wz2.km.J2NCpKrBBv1E8uJ0vG.5gJI.cFgFdyg3okNcWqz6CeKuqGijPKWNCIGN5Fx97F",
+          "user": "043A0851B9F44996A341284F837515F4_0MG62IKV64CVA52K44ID9OQVZ_RT",
+          "password": "Km6qmDVU7BUJRygLTAZH-IiMyNkofwizTPr5WUAnJ9NYtFTl4DK49PqZE1iu3W.5bS3jaHQwvzhv4n2r6t1vOba4zOR3yTV2Aw4DgFwyL.s_V.FYGH3kG-S7CJ8VXsdG",
+          "certificate": "-----BEGIN CERTIFICATE-----\nMIIDrzCCApegAwIBAgIQCDvgVpBCRrGhdWrJWZHHSjANBgkqhkiG9w0BAQUFADBh\nMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3\nd3cuZGlnaWNlcnQuY29tMSAwHgYDVQQDExdEaWdpQ2VydCBHbG9iYWwgUm9vdCBD\nQTAeFw0wNjExMTAwMDAwMDBaFw0zMTExMTAwMDAwMDBaMGExCzAJBgNVBAYTAlVT\nMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5j\nb20xIDAeBgNVBAMTF0RpZ2lDZXJ0IEdsb2JhbCBSb290IENBMIIBIjANBgkqhkiG\n9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4jvhEXLeqKTTo1eqUKKPC3eQyaKl7hLOllsB\nCSDMAZOnTjC3U/dDxGkAV53ijSLdhwZAAIEJzs4bg7/fzTtxRuLWZscFs3YnFo97\nnh6Vfe63SKMI2tavegw5BmV/Sl0fvBf4q77uKNd0f3p4mVmFaG5cIzJLv07A6Fpt\n43C/dxC//AH2hdmoRBBYMql1GNXRor5H4idq9Joz+EkIYIvUX7Q6hL+hqkpMfT7P\nT19sdl6gSzeRntwi5m3OFBqOasv+zbMUZBfHWymeMr/y7vrTC0LUq7dBMtoM1O/4\ngdW7jVg/tRvoSSiicNoxBN33shbyTApOB6jtSj1etX+jkMOvJwIDAQABo2MwYTAO\nBgNVHQ8BAf8EBAMCAYYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUA95QNVbR\nTLtm8KPiGxvDl7I90VUwHwYDVR0jBBgwFoAUA95QNVbRTLtm8KPiGxvDl7I90VUw\nDQYJKoZIhvcNAQEFBQADggEBAMucN6pIExIK+t1EnE9SsPTfrgT1eXkIoyQY/Esr\nhMAtudXH/vTBH1jLuG2cenTnmCmrEbXjcKChzUyImZOMkXDiqw8cvpOp/2PV5Adg\n06O/nVsJ8dWO41P0jmP6P6fbtGbfYmbW0W5BjfIttep3Sp+dWOIrWcBAI+0tKIJF\nPnlUkiaY4IBIqDfv8NZ5YBberOgOzW6sRBc4L0na4UU+Krk2U886UAb3LujEV0ls\nYSEY1QSteDwsOoBrp+uvFRTp2InBuThs4pFsiv9kuXclVzDAGySj4dzp30d8tbQk\nCAUw7C29C79Fv1C5qfPrmAESrciIxpg0X40KPMbp1ZWVbd4=\n-----END CERTIFICATE-----"
+        }
+      }
+    ]
+  }
 }
