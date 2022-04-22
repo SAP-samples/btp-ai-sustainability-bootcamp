@@ -3,7 +3,9 @@ sap.ui.define([], function () {
 
   return {
     formatDecToPercentage: function (val) {
-      return val * 100;
+      //  return val * 100;
+      //  removed this as value is as per percentage
+      return val;
     },
   };
 });

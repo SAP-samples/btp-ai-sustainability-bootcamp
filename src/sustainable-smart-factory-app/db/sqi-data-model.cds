@@ -21,7 +21,7 @@ entity CVQualityRecords : managed {
       productName      : String(100) default 'LGP';
       image            : String;
       segmentedImage   : LargeString;
-      defectedPerc     : Decimal(9, 5) default 0.00000;
+      defectedPerc     : Decimal(9, 2) default 0.00;
       //defectiveDiscount and defectiveDesc taken from DefectiveProductPrices based defeatedPerc
       defectiveDiscount : Decimal(9, 2); 
       defectiveDesc    : String(40);
