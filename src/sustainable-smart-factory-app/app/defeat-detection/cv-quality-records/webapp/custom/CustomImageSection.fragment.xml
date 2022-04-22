@@ -13,16 +13,21 @@
 					</l:VerticalLayout>
 					<l:VerticalLayout class="sapUiSmallMargin" visible="{successInference}" width="320px">
 						<l:content>
-							<Title level="H3" visible="{successInference}" titleStyle="H3" text="Defected Segment" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin"/>
+							<Title level="H3" visible="{successInference}" titleStyle="H3" text="Defective Area" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin"/>
 							<Image id="inSegment" alt="Preview not available yet due to no inference action taken." src="{segmentedImage}" width="300px" />
 						</l:content>
 					</l:VerticalLayout>
 					<l:VerticalLayout class="sapUiSmallMargin" width="320px" core:require="{handler: 'cvqualityrecords/custom/CustomFormatter'}">
 						<l:content>
 							<Title level="H3" visible="{successInference}" titleStyle="H3" text="Defect Insights" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin"/>
-							<GenericTile id="xDefectArea" visible="{successInference}" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Area of Defect" subheader="Defected Pixels" sizeBehavior="Responsive">
+							<GenericTile id="xDefectArea" visible="{successInference}" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Area of Defect" subheader="Defected Pixels" sizeBehavior="Small" frameType="TwoByOne">
 								<TileContent footer="Of the Surface Area">
-									<NumericContent animateTextChange="true" icon="sap-icon://crop" id="xDefect" withMargin="false" truncateValueTo="6" value="{path: 'defectedPerc', formatter:'handler.formatDecToPercentage'}" valueColor="Critical" scale="%"/>
+									<NumericContent animateTextChange="true" icon="sap-icon://cancel-share" id="xDefect" withMargin="false" truncateValueTo="6" value="{path: 'defectedPerc', formatter:'handler.formatDecToPercentage'}" valueColor="Critical" scale="%"/>
+								</TileContent>
+							</GenericTile>
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="xDefectDiscountTile" visible="{successInference}" header="Discount to Fix {defectiveDesc}" sizeBehavior="Small" valueColor="Good" frameType="TwoByHalf">
+								<TileContent unit="EUR" footer="Current Quarter">
+									<NumericContent scale="%" icon="sap-icon://waiver" value="{path: 'defectiveDiscount', formatter: 'handler.formatDecToPercentageDiscount'}" withMargin="false" />
 								</TileContent>
 							</GenericTile>
 						</l:content>

@@ -13,7 +13,9 @@ service AdminService {
         '_it/detectedAt',
         '_it/segmentedImage',
         '_it/successInference',
-        '_it/defectedPerc'
+        '_it/defectedPerc',
+        '_it/defectiveDesc',
+        '_it/defectiveDiscount'
       ]}
     )
     action inferenceImageCV();

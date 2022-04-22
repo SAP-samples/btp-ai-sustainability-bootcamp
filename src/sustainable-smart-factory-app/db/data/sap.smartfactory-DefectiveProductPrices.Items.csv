@@ -1,6 +1,6 @@
 up__productId;item;desc;fromDefectedPerc;toDefectedPerc;defectiveDiscount;validFrom;validTo
-SG23;10;Waste;1.00;100.00;1.0;2020-01-01;9999-12-31
-SG23;20;Major Defect;0.50;1.00;0.50;2020-01-01;9999-12-31
-SG23;30;Mild Defect;0.10;0.50;0.20;2020-01-01;9999-12-31
-SG23;40;Minor Defect;0.01;0.10;0.10;2020-01-01;9999-12-31
+SG23;10;Waste;1.01;100.00;1.0;2020-01-01;9999-12-31
+SG23;20;Major Defect;0.51;1.00;0.50;2020-01-01;9999-12-31
+SG23;30;Mild Defect;0.11;0.50;0.20;2020-01-01;9999-12-31
+SG23;40;Minor Defect;0.02;0.10;0.10;2020-01-01;9999-12-31
 SG23;50;No Defect;0.00;0.01;0.00;2020-01-01;9999-12-31

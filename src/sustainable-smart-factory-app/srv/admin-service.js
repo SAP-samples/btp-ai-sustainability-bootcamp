@@ -42,8 +42,13 @@ var token = generateToken(authUser);
 
 module.exports = async function () {
   const db = await cds.connect.to("db");
-  const { EquipmentConditions, CVQualityRecords, Anomalies, Equipments } =
-    db.entities;
+  const {
+    EquipmentConditions,
+    CVQualityRecords,
+    Anomalies,
+    Equipments,
+    DefectiveProductPrices,
+  } = db.entities;
 
   /** Logic Flow on create a Maintenance Order in S4
    * 1. On specific equipment condition, either list or object page (preferably)
@@ -214,13 +219,69 @@ module.exports = async function () {
    * 4. Return results
    */
   this.on("inferenceImageCV", async (req) => {
+    //  0. Check Defect Percentage falls between Price Points
+
+    // console.log(req.getContextPath());
+
+    // var defectprice = await cds
+    //   .tx(req)
+    //   .run(SELECT(Items).from(DefectiveProductPrices).where({ productId: "SG23" }));
+    // console.log(defectprice);
+
+    // var query = "SELECT.from ('DefectiveProductPrices', o => o.`*`, o.Items)";
+    // var query = SELECT.from ('DefectiveProductPrices'); // works
+    // var query = SELECT.from ('DefectiveProductPrices', (o) => o`.*`, o.Items);
+    // const xx = await cds.run(query);
+
+    // var defectprice = await cds
+    //   .tx(req)
+    //   .run(SELECT.from('DefectiveProductPrices', d => d.`*`, d.Items).where({ productId: "SG23" }));
+    // console.log(defectprice);
+
+    // var xx = await db.get("/admin/DefectiveProductPrices(productId='SG23',IsActiveEntity=true)/Items");
+    // console.log(xx);
+
+    // const eqCondition = await SELECT.from(
+    //   EquipmentConditions,
+    //   eqCondEntity
+    // ).columns(["equipment_NR"]);
+
+    // console.log(req.headers.origin);
+    var base_url = req.headers.origin;
+    // var base_url = window.location.origin;
+    // console.log(base_url);
+
+    var pricesArray;
+    var request = require("request");
+    var options = {
+      method: "GET",
+      url:
+        base_url +
+        "/admin/DefectiveProductPrices(productId='SG23',IsActiveEntity=true)/Items",
+      headers: {},
+    };
+
+    request(options, function (error, response) {
+      if (error) {
+        throw new Error(error);
+      } else {
+        var resBody = JSON.parse(response.body);
+        pricesArray = resBody.value;
+        // pricesArray = JSON.parse(response.body.value);
+        // console.log(pricesArray);
+      }
+    });
+
     //  1. Connect to AICORE Remote Service (defined in package.json)
     const aicoreAPI = await cds.connect.to("aicore");
     const cvImageEntity = req.params[0];
 
     const cvEntity = await SELECT.from(CVQualityRecords, cvImageEntity).columns(
-      ["image"]
+      ["image", "productId"]
     );
+
+    // console.log("cvEntity");
+    // console.log(cvEntity);
 
     // console.log(cvEntity.image);
     //  2. Prepare base64 format of file
@@ -242,7 +303,16 @@ module.exports = async function () {
       .tx(req)
       .send("POST", cv_inference_url, data, headers);
 
-    var confidence, label, defected, bin, message, areaPercDefect;
+    var confidence,
+      label,
+      defected,
+      bin,
+      message,
+      areaPercDefect,
+      defectDesc,
+      defectDiscount;
+    defectDesc = "Defect";
+    defectDiscount = 0.45;
 
     if (results.hasOwnProperty("Normal")) {
       // console.log("Normal");
@@ -269,14 +339,32 @@ module.exports = async function () {
         cvImageEntity.ID +
         ") entity processed successfully with DEFECT detected.";
       areaPercDefect = parseFloat(segResults.defected_area).toFixed(3) * 100;
+      // console.log("area perc " + areaPercDefect);
+      var rangeMax, rangeMin;
+      for (let i = 0; i < pricesArray.length; i++) {
+        rangeMin = parseFloat(pricesArray[i].fromDefectedPerc);
+        rangeMax = parseFloat(pricesArray[i].toDefectedPerc);
+        // console.log("from: " + rangeMin);
+        // console.log("in between " + areaPercDefect);
+        // console.log("to: " + rangeMax);
+        if (areaPercDefect >= rangeMin && areaPercDefect <= rangeMax) {
+          // console.log("inside here");
+          // console.log(pricesArray[i].desc);
+          defectDesc = pricesArray[i].desc;
+          defectDiscount = pricesArray[i].defectiveDiscount;
+        }
+      }
     }
+
     await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
       confidence: confidence,
       qualityLabel: label,
       detectedAt: new Date(),
       segmentedImage: bin,
       successInference: defected,
-      defectedPerc: areaPercDefect
+      defectedPerc: areaPercDefect,
+      defectiveDesc: defectDesc,
+      defectiveDiscount: defectDiscount,
     });
 
     req.notify(message);
