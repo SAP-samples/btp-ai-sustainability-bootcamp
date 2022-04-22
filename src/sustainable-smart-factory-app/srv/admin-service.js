@@ -268,7 +268,7 @@ module.exports = async function () {
         "CV Image (ID: " +
         cvImageEntity.ID +
         ") entity processed successfully with DEFECT detected.";
-      areaPercDefect = parseFloat(segResults.defected_area).toFixed(3);
+      areaPercDefect = parseFloat(segResults.defected_area).toFixed(3) * 100;
     }
     await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
       confidence: confidence,
