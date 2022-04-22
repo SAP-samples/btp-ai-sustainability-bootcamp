@@ -8,7 +8,7 @@ sap.ui.define([], function () {
       return val;
     },
     formatDecToPercentageDiscount: function (val) {
-       return val * 100;
+       return -val * 100;
     }
   };
 });
