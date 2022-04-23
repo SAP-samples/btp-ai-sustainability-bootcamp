@@ -19,24 +19,14 @@
 					</l:VerticalLayout>
 					<l:VerticalLayout class="sapUiSmallMargin" width="320px" core:require="{handler: 'cvqualityrecords/custom/CustomFormatter'}">
 						<l:content>
-<<<<<<< HEAD
-							<Title level="H3" visible="{successInference}" titleStyle="H3" text="Insights on Defect" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin"/>
-							<GenericTile id="xDefectArea" visible="{successInference}" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Area of Defect" subheader="Defective Pixels" sizeBehavior="Responsive" frameType="TwoByOne">
-								<TileContent footer="Of the Entire Product Surface Area">
-									<NumericContent animateTextChange="true" icon="sap-icon://cancel-share" id="xDefect" withMargin="false" truncateValueTo="6" value="{path: 'defectedPerc', formatter:'handler.formatDecToPercentage'}" valueColor="Critical" scale="%"/>
-								</TileContent>
-							</GenericTile>
-							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="xDefectDiscountTile" visible="{successInference}" header="Discount to Fix {defectiveDesc}" sizeBehavior="Responsive" valueColor="Good" frameType="TwoByHalf">
-=======
 							<Title level="H3" visible="{successInference}" titleStyle="H3" text="Defect Insights" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin"/>
-							<GenericTile id="xDefectArea" visible="{successInference}" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Defected Area %" subheader="Of the Surface Area" sizeBehavior="Small" frameType="TwoByOne">
+							<GenericTile id="xDefectArea" visible="{successInference}" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Defected Area %" subheader="Of the Surface Area" sizeBehavior="Responsive" frameType="TwoByOne">
 								<TileContent footer="Classified as {defectiveDesc}">
 									<NumericContent animateTextChange="true" icon="sap-icon://cancel-share" id="xDefect" withMargin="false" truncateValueTo="6" value="{path: 'defectedPerc', formatter:'handler.formatDecToPercentage'}" valueColor="Critical" scale="%"/>
 								</TileContent>
 							</GenericTile>
-							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="xDefectDiscountTile" visible="{successInference}" header="Price Discount" sizeBehavior="Small" valueColor="Good" frameType="TwoByHalf">
->>>>>>> c666a9a417f6ad8b1348f3080447868ca30ca00c
-								<TileContent unit="EUR" footer="Current Quarter">
+							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="xDefectDiscountTile" visible="{successInference}" header="Price Discount" sizeBehavior="Responsive" valueColor="Good" frameType="TwoByHalf">
+								<TileContent>
 									<NumericContent scale="%" icon="sap-icon://waiver" value="{path: 'defectiveDiscount', formatter: 'handler.formatDecToPercentageDiscount'}" withMargin="false" />
 								</TileContent>
 							</GenericTile>
