@@ -1,3 +1,7 @@
 .sapUShellApplicationContainer {
     overflow: scroll;
 }
+
+.sapUiBlockLayoutRow sapUiBlockHorizontalCellsRow sapUiBlockLayoutBackgroundColorSet1 {
+    height: 55px;
+}
