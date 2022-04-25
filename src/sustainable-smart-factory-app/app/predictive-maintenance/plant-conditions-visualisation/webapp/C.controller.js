@@ -1,5 +1,6 @@
 sap.ui.define(
   [
+    "sap/ui/core/BusyIndicator",
     "sap/ui/Device",
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
@@ -10,6 +11,7 @@ sap.ui.define(
     "require",
   ],
   function (
+    BusyIndicator,
     Device,
     Controller,
     JSONModel,
@@ -21,7 +23,35 @@ sap.ui.define(
   ) {
     "use strict";
 
+    /** Toggle Simulation & Real Model
+     *  - Real model is the latest Plant Conditions visualisation
+     *  - Simulation model refers to a specific simulation that can be variable or hardcoded
+     *  1. ...
+     */
+    var latestPlantCondObj;
+
     return Controller.extend("plantconditionsvisual.C", {
+      hideBusyIndicator: function () {
+        BusyIndicator.hide();
+      },
+
+      showBusyIndicator: function (iDuration, iDelay) {
+        BusyIndicator.show(iDelay);
+
+        if (iDuration && iDuration > 0) {
+          if (this._sTimeoutId) {
+            clearTimeout(this._sTimeoutId);
+            this._sTimeoutId = null;
+          }
+
+          this._sTimeoutId = setTimeout(
+            function () {
+              this.hideBusyIndicator();
+            }.bind(this),
+            iDuration
+          );
+        }
+      },
       onInit: function () {
         /** [LOGIC FLOW]
          * 1. URL Parameters coming from Plant Condtions
@@ -39,6 +69,10 @@ sap.ui.define(
         var sParam = UriParameters.fromQuery(window.location.href).get("ID");
         // console.log(sParam);
         var self = this;
+
+        localStorage.setItem("AICORE-ANOMALY-PLANTCONDITIONID", sParam);
+
+        // http://localhost:4004/analytics/AnomaliesExtendedView?$filter=eqCondId%20eq%209076&orderby=detectedAt%20desc&$top=1
 
         var queryPath, latestMsg;
 
@@ -64,8 +98,6 @@ sap.ui.define(
           latestMsg = "[Latest Update] ";
         }
 
-        //  [ToDo] Take Params above to retrieve latest info about the plant condition then update into the tiles
-
         var plant,
           ID,
           plantStatus,
@@ -82,18 +114,88 @@ sap.ui.define(
 
         zhr.addEventListener("readystatechange", function () {
           if (this.readyState === 4) {
-            var attnObj = JSON.parse(this.responseText);
-            plant = attnObj.value[0].plant;
-            ID = attnObj.value[0].ID;
-            plantStatus = attnObj.value[0].plantStatus;
-            recStartDate = attnObj.value[0].recStartedAt;
-            recEndDate = attnObj.value[0].recEndedAt;
-            shift = attnObj.value[0].shift;
-            currentYield = attnObj.value[0].yield;
-            currentDefects = attnObj.value[0].defectiveProd;
-            currentEnergy = attnObj.value[0].energyCons;
+            // console.log("listening to get latest plantid");
+            latestPlantCondObj = JSON.parse(this.responseText);
+            plant = latestPlantCondObj.value[0].plant;
+            ID = latestPlantCondObj.value[0].ID;
+            plantStatus = latestPlantCondObj.value[0].plantStatus;
+            recStartDate = latestPlantCondObj.value[0].recStartedAt;
+            recEndDate = latestPlantCondObj.value[0].recEndedAt;
+            shift = latestPlantCondObj.value[0].shift;
+            currentYield = latestPlantCondObj.value[0].yield;
+            currentDefects = latestPlantCondObj.value[0].defectiveProd;
+            currentEnergy = latestPlantCondObj.value[0].energyCons;
             //  [ToDo] where do i get emissions
-            currentEmissions = "22";
+            currentEmissions = randomIntFromInterval(20, 100);
+
+            /**
+             * [START]
+             */
+            var ahr = new XMLHttpRequest();
+            ahr.withCredentials = true;
+
+            ahr.addEventListener("readystatechange", function () {
+              if (this.readyState === 4) {
+                // console.log("listening to local storage setting");
+                // console.log(this.responseText);
+                var eqConds = JSON.parse(this.responseText);
+                for (let i = 0; i < eqConds.value.length; i++) {
+                  var cond = setEqStatus(
+                    eqConds.value[i].toEquipmentStatus_code
+                  );
+                  if (eqConds.value[i].equipment_NR == "220300010") {
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENTA-STATUS",
+                      cond
+                    );
+                  } else if (eqConds.value[i].equipment_NR == "220300020") {
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENTB-STATUS",
+                      cond
+                    );
+                  } else if (eqConds.value[i].equipment_NR == "220300031") {
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT1-STATUS",
+                      cond
+                    );
+                  } else if (eqConds.value[i].equipment_NR == "220300032") {
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT2-STATUS",
+                      cond
+                    );
+                  } else if (eqConds.value[i].equipment_NR == "220300033") {
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT3-STATUS",
+                      cond
+                    );
+                  } else if (eqConds.value[i].equipment_NR == "220300034") {
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT4-STATUS",
+                      cond
+                    );
+                  } else if (eqConds.value[i].equipment_NR == "220300035") {
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT5-STATUS",
+                      cond
+                    );
+                  } else if (eqConds.value[i].equipment_NR == "220300036") {
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT6-STATUS",
+                      cond
+                    );
+                  }
+                }
+              }
+            });
+
+            ahr.open(
+              "GET",
+              "/browse/PlantConditions(" + ID + ")/equipmentConditions"
+            );
+
+            ahr.send();
+
+            /** [END] */
 
             self.getView().byId("xYield").setValue(currentYield);
             self.getView().byId("xDefectiveProduct").setValue(currentDefects);
@@ -115,12 +217,20 @@ sap.ui.define(
                 " to " +
                 recEndDate +
                 ".";
+              var plantCondPageHref =
+                "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
+                ID +
+                ")";
+              self
+                .getView()
+                .byId("xPlantConditionLink")
+                .setHref(plantCondPageHref);
               self.getView().byId("xPlantCondition").setVisible(true);
               self.getView().byId("xPlantCondition").setText(msg);
               self.getView().byId("xPlantCondition").setType("Success");
               self.getView().byId("xPlant").setValue("Norm");
               self.getView().byId("xPlant").setValueColor("Good");
-            } else if (plantStatus == "Break Down") {
+            } else if (plantStatus == "Break Down" || plantStatus == "Fault") {
               //  Warning
               msg =
                 latestMsg +
@@ -135,6 +245,14 @@ sap.ui.define(
                 " to " +
                 recEndDate +
                 ".";
+              var plantCondPageHref =
+                "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
+                ID +
+                ")";
+              self
+                .getView()
+                .byId("xPlantConditionLink")
+                .setHref(plantCondPageHref);
               self.getView().byId("xPlantCondition").setVisible(true);
               self.getView().byId("xPlantCondition").setText(msg);
               self.getView().byId("xPlantCondition").setType("Error");
@@ -155,6 +273,14 @@ sap.ui.define(
                 " to " +
                 recEndDate +
                 ".";
+              var plantCondPageHref =
+                "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
+                ID +
+                ")";
+              self
+                .getView()
+                .byId("xPlantConditionLink")
+                .setHref(plantCondPageHref);
               self.getView().byId("xPlantCondition").setVisible(true);
               self.getView().byId("xPlantCondition").setText(msg);
               self.getView().byId("xPlantCondition").setType("Warning");
@@ -177,13 +303,13 @@ sap.ui.define(
         localStorage.setItem("AICORE-OBJECT", "");
         localStorage.setItem("AICORE-OBJECTID", "");
 
-        this.getView().setModel(
-          new JSONModel({
-            widthS: Device.system.phone ? "2em" : "5em",
-            widthM: Device.system.phone ? "4em" : "10em",
-            widthL: Device.system.phone ? "6em" : "15em",
-          })
-        );
+        // this.getView().setModel(
+        //   new JSONModel({
+        //     widthS: Device.system.phone ? "2em" : "5em",
+        //     widthM: Device.system.phone ? "4em" : "10em",
+        //     widthL: Device.system.phone ? "6em" : "15em",
+        //   })
+        // );
 
         // this._timeline = this.byId("idTimeline");
         // console.log(this._timeline);
@@ -215,44 +341,43 @@ sap.ui.define(
         // oModel.setSizeLimit(500);
         // this.getView().setModel(oModel);
 
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
+        // var xhr = new XMLHttpRequest();
+        // xhr.withCredentials = true;
 
-        xhr.addEventListener("readystatechange", function () {
-          if (this.readyState === 4) {
-            // console.log(this.responseText);
-            // var attnObj = JSON.parse(this.responseText);
-            //   console.log(attnObj);
-            //   console.log(attnObj.@odata.count);
-            //   console.log(attnObj.length);
-            //   console.log(attnObj.value.length);
-            // attentionCount = attnObj.value.length;
-            // if (attentionCount == 0) {
-            //   self.getView().byId("xAttention").setValueColor("Good");
-            //   self.getView().byId("xAttention").setIndicator("None");
-            //   self.getView().byId("xAttention").setState("Loading");
-            // } else {
-            //   self.getView().byId("xAttention").setValueColor("Critical");
-            //   self.getView().byId("xAttention").setIndicator("Up");
-            //   self.getView().byId("xAttention").setState("Loaded");
-            // }
-            // self.getView().byId("xAttention").setValue(attentionCount);
-          }
-        });
+        // xhr.addEventListener("readystatechange", function () {
+        //   if (this.readyState === 4) {
+        // console.log(this.responseText);
+        // var attnObj = JSON.parse(this.responseText);
+        //   console.log(attnObj);
+        //   console.log(attnObj.@odata.count);
+        //   console.log(attnObj.length);
+        //   console.log(attnObj.value.length);
+        // attentionCount = attnObj.value.length;
+        // if (attentionCount == 0) {
+        //   self.getView().byId("xAttention").setValueColor("Good");
+        //   self.getView().byId("xAttention").setIndicator("None");
+        //   self.getView().byId("xAttention").setState("Loading");
+        // } else {
+        //   self.getView().byId("xAttention").setValueColor("Critical");
+        //   self.getView().byId("xAttention").setIndicator("Up");
+        //   self.getView().byId("xAttention").setState("Loaded");
+        // }
+        // self.getView().byId("xAttention").setValue(attentionCount);
+        //   }
+        // });
 
-        xhr.open("GET", "/admin/PlantConditions?$select=shift,energyCons");
+        // xhr.open("GET", "/admin/PlantConditions?$select=shift,energyCons");
 
-        xhr.send();
+        // xhr.send();
 
         // console.log(oModel);
 
         // set mock data
         // var sPath = require.toUrl("./SampleData.json");
-        var oDModel = new ODataModel("/v2/admin/", true);
+        // var oDModel = new ODataModel("/v2/admin/", true);
         var oModel = new JSONModel(
           "/admin/PlantConditions?$top=3000&$orderby=ID%20desc&$select=ID,plantStatus,recStartedAt,recEndedAt,date,shift,yield,defectiveProd,energyCons"
         );
-        // console.log(oModel);
         // console.log(oDModel);
         oModel.setSizeLimit(3000);
         this.getView().setModel(oModel);
@@ -295,10 +420,19 @@ sap.ui.define(
         // MessageToast.show(oEvent.getSource().getUserName() + " is pressed.");
         // console.log(oEvent.getSource().getTitle());
         var plantCondId = oEvent.getSource().getTitle();
-        window.location.href =
-          "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
-          plantCondId +
-          ")";
+        // window.location.href =
+        //   "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
+        //   plantCondId +
+        //   ")";
+
+        var path =
+          "/fiori-apps.html#PlantConditions-display?HasActiveEntity=false&ID=" +
+          plantCondId;
+
+        //  Load page with selected plant cond id
+        // window.location.href = replaceUrlParam(document.URL, "ID", plantCondId);
+
+        window.location.href = path;
       },
       onPressItems: function (oEvent) {
         // MessageToast.show("The TimelineItem is pressed.");
@@ -315,8 +449,30 @@ sap.ui.define(
         window.location.href = "/fiori-apps.html#EquipmentConditions-manage";
       },
       toPlantCond: function () {
-        //    [TO-IMPROVE] Quick fix: Navigate to main app on EqConditions Overview
-        window.location.href = "/fiori-apps.html#PlantConditions-manage";
+        // window.location.href = "/fiori-apps.html#PlantConditions-manage";
+        var sParam = UriParameters.fromQuery(window.location.href).get("ID");
+        var path =
+          "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
+          sParam +
+          ")";
+
+        //  Load page with selected plant cond id
+        // window.location.href = replaceUrlParam(document.URL, "ID", plantCondId);
+
+        window.location.href = path;
+      },
+      onSimulateSwitch: function (oEvent) {
+        //  Busy Indicator
+        this.showBusyIndicator(2000, 0);
+
+        var self = this;
+        // console.log("inside simulate switch " + oEvent.getSource().getState());
+        var sState = oEvent.getSource().getState();
+        if (!sState) {
+          self.getView().byId("simulationConfig").setVisible(false);
+        } else {
+          self.getView().byId("simulationConfig").setVisible(true);
+        }
       },
       //  Method is call every 3 seconds to update tile + simulation of real-time monitoring
       onTileRefresh: function () {
@@ -331,6 +487,10 @@ sap.ui.define(
          * 6. Plant Status
          */
         var self = this;
+
+        //  [ToDo] where do i get emissions
+        var currentEmissions = randomIntFromInterval(20, 100);
+
         this.intervalHandler = setInterval(function () {
           /** Navigation Properties on iFrame App
            * [SCENARIO]: Specific Anomaly or Equipment in Detail page to Navigate user to.
@@ -358,10 +518,18 @@ sap.ui.define(
           }
 
           var refSwitch = self.getView().byId("refreshSwitch").getState();
-          // console.log(refSwitch);
+          // console.log("switch " + refSwitch);
 
           //  Auto Refresh switch is on
           if (refSwitch) {
+            localStorage.setItem("AICORE-SHOWCASE", "simulation");
+            self
+              .getView()
+              .byId("xBreadCrumbs")
+              .setCurrentLocationText(
+                "Insights to Plant Condition (In Simulation Mode)"
+              );
+
             //  1. Energy Consumption
             var x = randomIntFromInterval(1, 200);
             var sym = randomIntFromInterval(1, 2);
@@ -505,8 +673,9 @@ sap.ui.define(
             }
 
             //  Can be moved to Outside Auto Refresh. So to Check always.
+            //  Disable for now till further notice.
             //   3. Attention
-            var attentionCount;
+            /** var attentionCount;
             var xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
 
@@ -539,7 +708,16 @@ sap.ui.define(
               "/browse/EqCondsQuery?$filter=followUpDocNum%20ne%20null&$count=true"
             );
 
-            xhr.send();
+            xhr.send(); **/
+
+            var attentionCount = randomIntFromInterval(1, 5);
+            self.getView().byId("xAttention").setState("Loading");
+            self.getView().byId("xAttention").setValue(attentionCount);
+            self.getView().byId("xAttention").setValueColor("Critical");
+            self.getView().byId("xAttention").setIndicator("Up");
+            setTimeout(function () {
+              self.getView().byId("xAttention").setState("Loaded");
+            }, 1500);
 
             //  6. Plant Status
             //  [NOTE]: There is a catch to this logic.
@@ -573,7 +751,7 @@ sap.ui.define(
                 if (plantStatus == "Normal" && attnCount > 0) {
                   //  Normal BUT with Anom
                   msg =
-                    "Simulation: Plant " +
+                    "[Simulation Mode]: Plant " +
                     plant +
                     " is Functioning with Anomalies Detected. Checks done starting from Shift: (" +
                     shift +
@@ -582,6 +760,12 @@ sap.ui.define(
                     " to " +
                     recEndDate +
                     ".";
+                  var plantCondPageHref =
+                    "/fiori-apps.html#PlantConditions-manage";
+                  self
+                    .getView()
+                    .byId("xPlantConditionLink")
+                    .setHref(plantCondPageHref);
                   self.getView().byId("xPlantCondition").setVisible(true);
                   self.getView().byId("xPlantCondition").setText(msg);
                   self.getView().byId("xPlantCondition").setType("Warning");
@@ -590,7 +774,7 @@ sap.ui.define(
                 } else if (plantStatus == "Normal") {
                   //  Success
                   msg =
-                    "Simulation: Plant " +
+                    "[Simulation Mode]: Plant " +
                     plant +
                     " is Functioning with Full Capacity. Checks done starting from Shift: (" +
                     shift +
@@ -599,6 +783,12 @@ sap.ui.define(
                     " to " +
                     recEndDate +
                     ".";
+                  var plantCondPageHref =
+                    "/fiori-apps.html#PlantConditions-manage";
+                  self
+                    .getView()
+                    .byId("xPlantConditionLink")
+                    .setHref(plantCondPageHref);
                   self.getView().byId("xPlantCondition").setVisible(true);
                   self.getView().byId("xPlantCondition").setText(msg);
                   self.getView().byId("xPlantCondition").setType("Success");
@@ -607,7 +797,7 @@ sap.ui.define(
                 } else if (plantStatus == "Break Down") {
                   //  Warning
                   msg =
-                    "Simulation: Plant " +
+                    "[Simulation Mode]: Plant " +
                     plant +
                     " has Broken Down. Checks done starting from Shift: (" +
                     shift +
@@ -616,6 +806,12 @@ sap.ui.define(
                     " to " +
                     recEndDate +
                     ".";
+                  var plantCondPageHref =
+                    "/fiori-apps.html#PlantConditions-manage";
+                  self
+                    .getView()
+                    .byId("xPlantConditionLink")
+                    .setHref(plantCondPageHref);
                   self.getView().byId("xPlantCondition").setVisible(true);
                   self.getView().byId("xPlantCondition").setText(msg);
                   self.getView().byId("xPlantCondition").setType("Error");
@@ -624,7 +820,7 @@ sap.ui.define(
                 } else if (plantStatus == "Maintenance") {
                   //  Error
                   msg =
-                    "Simulation: Plant " +
+                    "[Simulation Mode]: Plant " +
                     plant +
                     " is under going Maintenance Works. Checks done starting from Shift: (" +
                     shift +
@@ -633,6 +829,12 @@ sap.ui.define(
                     " to " +
                     recEndDate +
                     ".";
+                  var plantCondPageHref =
+                    "/fiori-apps.html#PlantConditions-manage";
+                  self
+                    .getView()
+                    .byId("xPlantConditionLink")
+                    .setHref(plantCondPageHref);
                   self.getView().byId("xPlantCondition").setVisible(true);
                   self.getView().byId("xPlantCondition").setText(msg);
                   self.getView().byId("xPlantCondition").setType("Warning");
@@ -647,8 +849,260 @@ sap.ui.define(
             zhr.send();
           } else {
             //  Auto Refresh switch is off - stop all loading & loaded
+            localStorage.setItem("AICORE-SHOWCASE", "real");
+
+            //  [START]
+            var sParam = UriParameters.fromQuery(window.location.href).get(
+              "ID"
+            );
+            // console.log(sParam);
+
+            self.getView().byId("xAttention").setState("Loading");
+
+            localStorage.setItem("AICORE-ANOMALY-PLANTCONDITIONID", sParam);
+
+            // http://localhost:4004/analytics/AnomaliesExtendedView?$filter=eqCondId%20eq%209076&orderby=detectedAt%20desc&$top=1
+
+            var queryPath, latestMsg;
+
+            //  Breadcrumbs
+            if (sParam != null) {
+              self
+                .getView()
+                .byId("xBreadCrumbs")
+                .setCurrentLocationText(
+                  "Insights to Plant Condition (" + sParam + ")"
+                );
+              // using filter so to have response in array to not replicate logic in code
+              queryPath = "/browse/PlantConditions?$filter=ID eq " + sParam;
+              latestMsg = "";
+            } else {
+              self
+                .getView()
+                .byId("xBreadCrumbs")
+                .setCurrentLocationText(
+                  "Insights to Plant Condition (Latest Update)"
+                );
+              queryPath = "/browse/PlantConditions?$orderby=ID desc&$top=1";
+              latestMsg = "[Latest Update] ";
+            }
+
+            var plant,
+              ID,
+              plantStatus,
+              recStartDate,
+              recEndDate,
+              shift,
+              msg,
+              currentYield,
+              currentDefects,
+              currentEnergy;
+            var zhr = new XMLHttpRequest();
+            zhr.withCredentials = true;
+
+            zhr.addEventListener("readystatechange", function () {
+              if (this.readyState === 4) {
+                // console.log("listening to get latest plantid");
+                latestPlantCondObj = JSON.parse(this.responseText);
+                plant = latestPlantCondObj.value[0].plant;
+                ID = latestPlantCondObj.value[0].ID;
+                plantStatus = latestPlantCondObj.value[0].plantStatus;
+                recStartDate = latestPlantCondObj.value[0].recStartedAt;
+                recEndDate = latestPlantCondObj.value[0].recEndedAt;
+                shift = latestPlantCondObj.value[0].shift;
+                currentYield = latestPlantCondObj.value[0].yield;
+                currentDefects = latestPlantCondObj.value[0].defectiveProd;
+                currentEnergy = latestPlantCondObj.value[0].energyCons;
+
+                /**
+                 * [START]
+                 */
+                var ahr = new XMLHttpRequest();
+                ahr.withCredentials = true;
+
+                ahr.addEventListener("readystatechange", function () {
+                  if (this.readyState === 4) {
+                    // console.log("listening to local storage setting");
+                    // console.log(this.responseText);
+                    var eqConds = JSON.parse(this.responseText);
+                    for (let i = 0; i < eqConds.value.length; i++) {
+                      var cond = setEqStatus(
+                        eqConds.value[i].toEquipmentStatus_code
+                      );
+                      if (eqConds.value[i].equipment_NR == "220300010") {
+                        localStorage.setItem(
+                          "AICORE-ANOMALY-EQUIPMENTA-STATUS",
+                          cond
+                        );
+                      } else if (eqConds.value[i].equipment_NR == "220300020") {
+                        localStorage.setItem(
+                          "AICORE-ANOMALY-EQUIPMENTB-STATUS",
+                          cond
+                        );
+                      } else if (eqConds.value[i].equipment_NR == "220300031") {
+                        localStorage.setItem(
+                          "AICORE-ANOMALY-EQUIPMENT1-STATUS",
+                          cond
+                        );
+                      } else if (eqConds.value[i].equipment_NR == "220300032") {
+                        localStorage.setItem(
+                          "AICORE-ANOMALY-EQUIPMENT2-STATUS",
+                          cond
+                        );
+                      } else if (eqConds.value[i].equipment_NR == "220300033") {
+                        localStorage.setItem(
+                          "AICORE-ANOMALY-EQUIPMENT3-STATUS",
+                          cond
+                        );
+                      } else if (eqConds.value[i].equipment_NR == "220300034") {
+                        localStorage.setItem(
+                          "AICORE-ANOMALY-EQUIPMENT4-STATUS",
+                          cond
+                        );
+                      } else if (eqConds.value[i].equipment_NR == "220300035") {
+                        localStorage.setItem(
+                          "AICORE-ANOMALY-EQUIPMENT5-STATUS",
+                          cond
+                        );
+                      } else if (eqConds.value[i].equipment_NR == "220300036") {
+                        localStorage.setItem(
+                          "AICORE-ANOMALY-EQUIPMENT6-STATUS",
+                          cond
+                        );
+                      }
+                    }
+                  }
+                });
+
+                ahr.open(
+                  "GET",
+                  "/browse/PlantConditions(" + ID + ")/equipmentConditions"
+                );
+
+                ahr.send();
+
+                /** [END] */
+
+                self.getView().byId("xYield").setValue(currentYield);
+                self
+                  .getView()
+                  .byId("xDefectiveProduct")
+                  .setValue(currentDefects);
+                self
+                  .getView()
+                  .byId("xEnergyConsumption")
+                  .setValue(currentEnergy);
+                self
+                  .getView()
+                  .byId("xCarbonEmission")
+                  .setValue(currentEmissions);
+
+                if (plantStatus == "Normal") {
+                  //  Success
+                  msg =
+                    latestMsg +
+                    "Plant Condition (" +
+                    ID +
+                    "): Plant " +
+                    plant +
+                    " is Functioning with Full Capacity. Checks done starting from Shift: (" +
+                    shift +
+                    "), " +
+                    recStartDate +
+                    " to " +
+                    recEndDate +
+                    ".";
+                  var plantCondPageHref =
+                    "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
+                    ID +
+                    ")";
+                  self
+                    .getView()
+                    .byId("xPlantConditionLink")
+                    .setHref(plantCondPageHref);
+                  self.getView().byId("xPlantCondition").setVisible(true);
+                  self.getView().byId("xPlantCondition").setText(msg);
+                  self.getView().byId("xPlantCondition").setType("Success");
+                  self.getView().byId("xPlant").setValue("Norm");
+                  self.getView().byId("xPlant").setValueColor("Good");
+                } else if (
+                  plantStatus == "Break Down" ||
+                  plantStatus == "Fault"
+                ) {
+                  //  Warning
+                  msg =
+                    latestMsg +
+                    "Plant Condition (" +
+                    ID +
+                    "): Plant " +
+                    plant +
+                    " has Broken Down. Checks done starting from Shift: (" +
+                    shift +
+                    "), " +
+                    recStartDate +
+                    " to " +
+                    recEndDate +
+                    ".";
+                  var plantCondPageHref =
+                    "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
+                    ID +
+                    ")";
+                  self
+                    .getView()
+                    .byId("xPlantConditionLink")
+                    .setHref(plantCondPageHref);
+                  self.getView().byId("xPlantCondition").setVisible(true);
+                  self.getView().byId("xPlantCondition").setText(msg);
+                  self.getView().byId("xPlantCondition").setType("Error");
+                  self.getView().byId("xPlant").setValue("Down");
+                  self.getView().byId("xPlant").setValueColor("Critical");
+                } else if (plantStatus == "Maintenance") {
+                  //  Error
+                  msg =
+                    latestMsg +
+                    "Plant Condition (" +
+                    ID +
+                    "): Plant " +
+                    plant +
+                    " is under going Maintenance Works. Checks done starting from Shift: (" +
+                    shift +
+                    "), " +
+                    recStartDate +
+                    " to " +
+                    recEndDate +
+                    ".";
+                  var plantCondPageHref =
+                    "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
+                    ID +
+                    ")";
+                  self
+                    .getView()
+                    .byId("xPlantConditionLink")
+                    .setHref(plantCondPageHref);
+                  self.getView().byId("xPlantCondition").setVisible(true);
+                  self.getView().byId("xPlantCondition").setText(msg);
+                  self.getView().byId("xPlantCondition").setType("Warning");
+                  self.getView().byId("xPlant").setValue("Main");
+                  self.getView().byId("xPlant").setValueColor("Critical");
+                }
+              }
+            });
+
+            // zhr.open("GET", "/admin/PlantConditions?$orderby=ID desc&$top=1");
+            zhr.open("GET", queryPath);
+
+            zhr.send();
+
+            /** Navigation Properties from LocalStorage
+             *
+             */
+
+            localStorage.setItem("AICORE-ACTION", "");
+            localStorage.setItem("AICORE-OBJECT", "");
+            localStorage.setItem("AICORE-OBJECTID", "");
+            //  [END]
           }
-        }, 5000);
+        }, 3000);
       },
 
       onExit: function () {
@@ -660,6 +1114,38 @@ sap.ui.define(
     function randomIntFromInterval(min, max) {
       // min and max included
       return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    function setEqStatus(eqStatus) {
+      // OK;Normal;3;Normal Production
+      // FL;Fault;2;On-site Inspection
+      // BD;Break Down;1;Create Maintenance Order to fix it
+      // MT;Maintenance;2;Wait until the maintenance completed
+      if (eqStatus == "MT") {
+        return "fix";
+      } else if (eqStatus == "FL") {
+        return "down";
+      } else if (eqStatus == "BD") {
+        return "alert";
+      } else if (eqStatus == "OK") {
+        return "up";
+      }
+    }
+
+    function replaceUrlParam(url, paramName, paramValue) {
+      var pattern = new RegExp("(\\?|\\&)(" + paramName + "=).*?(&|$)");
+      var newUrl = url;
+      if (url.search(pattern) >= 0) {
+        newUrl = url.replace(pattern, "$1$2" + paramValue + "$3");
+      } else {
+        newUrl =
+          newUrl +
+          (newUrl.indexOf("?") > 0 ? "&" : "?") +
+          paramName +
+          "=" +
+          paramValue;
+      }
+      return newUrl;
     }
   }
 );

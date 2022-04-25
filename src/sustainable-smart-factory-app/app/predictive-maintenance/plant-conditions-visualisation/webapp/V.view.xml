@@ -2,6 +2,7 @@
     xmlns:l="sap.ui.layout"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
+    xmlns:core="sap.ui.core"
     xmlns:mc="sap.suite.ui.microchart"
     xmlns:commons="sap.suite.ui.commons"
     xmlns:html="http://www.w3.org/1999/xhtml">
@@ -46,10 +47,10 @@
     </FlexBox>
     <MessageStrip id="xPlantCondition" visible="false" text="" type="Success" enableFormattedText="true" showIcon="true" showCloseButton="false" class="sapUiTinyMarginBegin sapUiTinyMarginTop">
         <link>
-            <Link text="View Plant Condition" href="/fiori-apps.html#PlantConditions-manage" />
+            <Link id="xPlantConditionLink" text="View Plant Condition" href="/fiori-apps.html#PlantConditions-manage" />
         </link>
-    </MessageStrip>    
-    <Panel expandable="true" expanded="true" class="sapUiTinyMargin" width="auto">
+    </MessageStrip>
+    <Panel expandable="true" expanded="false" class="sapUiTinyMargin" width="auto">
         <headerToolbar>
             <OverflowToolbar active="true">
                 <Title text="Timeline of Events" />
@@ -67,17 +68,85 @@
     </Panel>
 
 
-    <Panel id="expandablePanel" expandable="true" expanded="true" expand="onExpand" height="1000px" width="auto" class="sapUiTinyMargin">
+    <Panel id="expandablePanel" expandable="true" expanded="true" expand="onExpand" height="1300px" width="auto" class="sapUiTinyMargin">
         <headerToolbar>
             <OverflowToolbar active="true">
                 <Title text="Manufacturing Floor Plan Layout" />
                 <ToolbarSpacer />
                 <Text text="Simulate Real-time Monitoring"/>
-                <Switch id="refreshSwitch" type="AcceptReject" state="false"></Switch>
+                <Switch id="refreshSwitch" type="AcceptReject" state="false" change="onSimulateSwitch"></Switch>
             </OverflowToolbar>
         </headerToolbar>
         <content>
-            <html:iframe id="plantVisual" src="predictive-maintenance/plant-conditions-visualisation/webapp/plant-visual/index.html" style="-webkit-transform: scale(1.5); transform: scale(1.5); -webkit-transform-origin: 0 0; transform-origin: 0 0;" frameBorder="0" height="600px" width="750px" scrolling="yes"/>
+            <l:BlockLayout id="simulationConfig" visible="false">
+                <l:BlockLayoutRow accentCells="Accent1">
+                    <l:BlockLayoutCell width="1">
+                        <!-- <Text text="EQ1" /> -->
+                        <!-- <l:titleLink>
+                            <Link text="ALL" href="https://openui5.hana.ondemand.com/" />
+                        </l:titleLink> -->
+                        <!-- <core:Icon src="sap-icon://add-activity" /> -->
+                        <Switch id="eq0stich" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell width="1">
+                        <!-- <Text text="EQ1" /> -->
+                        <!-- <l:titleLink>
+                            <Link text="EQ1" href="https://openui5.hana.ondemand.com/" />
+                        </l:titleLink> -->
+                        <Switch id="eq1stich" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell >
+                        <!-- <Text text="EQ2" /> -->
+                        <!-- <l:titleLink>
+                            <Link text="EQ2" href="https://openui5.hana.ondemand.com/" />
+                        </l:titleLink> -->
+                        <Switch id="eq2stich" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell width="1" >
+                        <!-- <Text text="EQ1" /> -->
+                        <!-- <l:titleLink>
+                            <Link text="EQ3" href="https://openui5.hana.ondemand.com/" />
+                        </l:titleLink> -->
+                        <Switch id="eq3stich" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell>
+                        <!-- <Text text="EQ2" /> -->
+                        <!-- <l:titleLink>
+                            <Link text="EQ4" href="https://openui5.hana.ondemand.com/" />
+                        </l:titleLink> -->
+                        <Switch id="eq4stich" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell width="1" >
+                        <!-- <Text text="EQ1" /> -->
+                        <!-- <l:titleLink>
+                            <Link text="EQ5" href="https://openui5.hana.ondemand.com/" />
+                        </l:titleLink> -->
+                        <Switch id="eq5stich" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell>
+                        <!-- <Text text="EQ2" /> -->
+                        <!-- <l:titleLink>
+                            <Link text="EQ6" href="https://openui5.hana.ondemand.com/" />
+                        </l:titleLink> -->
+                        <Switch id="eq6stich" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell width="1" >
+                        <!-- <Text text="EQ1" /> -->
+                        <!-- <l:titleLink>
+                            <Link text="EQ7" href="https://openui5.hana.ondemand.com/" />
+                        </l:titleLink> -->
+                        <Switch id="eq7stich" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell width="1" >
+                        <!-- <Text text="EQ2" /> -->
+                        <!-- <l:titleLink>
+                            <Link text="EQ8" href="https://openui5.hana.ondemand.com/" />
+                        </l:titleLink> -->
+                        <Switch id="eq8stich" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                </l:BlockLayoutRow>
+            </l:BlockLayout>
+            <html:iframe id="plantVisual" src="predictive-maintenance/plant-conditions-visualisation/webapp/plant-visual/index.html" style="-webkit-transform: scale(1.7); transform: scale(1.7); -webkit-transform-origin: 0 0; transform-origin: 0 0;" frameBorder="0" height="600px" width="750px" scrolling="yes"/>
         </content>
     </Panel>
 

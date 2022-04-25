@@ -115,7 +115,7 @@ body {
 .segments {
   list-style-type: none;
   margin: 0 0 0 0px;
-  padding: 2px;
+  padding: 0px;
   box-shadow: 10px 0 10px -10px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-wrap: wrap;
@@ -130,17 +130,17 @@ body {
 }
 .segments__item__link {
   display: block;
-  padding: 10px 0;
+  padding: 0.002px 0;
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
-  font-size: 10px;
+  font-size: 9px;
   color: #666;
   text-decoration: none;
   text-align: center;
 }
 .segments__item--active .segments__item__link {
-  background: #008fd3;
-  color: #fff;
+  background: #c5dbe663;
+  color: #298bec;
 }
 .segments__item--active .segments__svg__path {
   fill: #fff;
@@ -311,7 +311,8 @@ body {
   animation: fadein 5s;
 }
 .heatmap__areaicons__item__alert {
-    position: absolute;
+  display: none;
+  position: absolute;
   width: 60px;
   height: 45px;
   text-align: center;
@@ -324,7 +325,8 @@ body {
   animation: blink normal 1s infinite ease-in-out; /* Opera and prob css3 final iteration */
 }
 .heatmap__areaicons__item__break {
-    position: absolute;
+  display: none;
+  position: absolute;
   width: 80px;
   height: 80px;
   text-align: center;
@@ -334,7 +336,8 @@ body {
   transform: rotate(45deg);
 }
 .heatmap__areaicons__item__arm {
-    position: absolute;
+  display: none;  
+  position: absolute;
     width: 30px;
     height: 30px;
     text-align: center;
@@ -347,6 +350,7 @@ body {
   animation: blink normal 3s infinite ease-in-out; /* Opera and prob css3 final iteration */
   }
 .heatmap__areaicons__item {
+  display: none;
   position: absolute;
   width: 20px;
   height: 20px;
@@ -354,6 +358,53 @@ body {
   background: url(checked-success.svg);
   background-size: 100% 100%;
   padding: 3px 4px 0 0;
+}
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+  background-color: transparent;
+  width: 180px;
+  height: 110px;
+  /* border: 1px solid #f1f1f1; */
+  perspective: 500px; /* Remove this if you don't want the 3D effect */
+position: absolute;top: -30px;left: 50px;
+animation: fadein 5s;
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+  background-color: transparent;
+  color: black;
+}
+
+/* Style the back side */
+.flip-card-back {
+  background-color: rgb(0 0 0 / 20%);
+  color: white;
+  transform: rotateY(180deg);
 }
 .heatmap__annotations {
   position: absolute;
