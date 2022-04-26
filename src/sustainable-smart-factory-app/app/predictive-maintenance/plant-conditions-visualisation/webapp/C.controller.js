@@ -136,52 +136,91 @@ sap.ui.define(
 
             ahr.addEventListener("readystatechange", function () {
               if (this.readyState === 4) {
-                // console.log("listening to local storage setting");
-                // console.log(this.responseText);
                 var eqConds = JSON.parse(this.responseText);
                 for (let i = 0; i < eqConds.value.length; i++) {
                   var cond = setEqStatus(
                     eqConds.value[i].toEquipmentStatus_code
                   );
+                  var condId = eqConds.value[i].ID;
                   if (eqConds.value[i].equipment_NR == "220300010") {
+                    setNoOfAnom("AICORE-ANOMALY-EQUIPMENTA-ANOM", condId);
                     localStorage.setItem(
                       "AICORE-ANOMALY-EQUIPMENTA-STATUS",
                       cond
                     );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENTA-NAME",
+                      "LGP-Cutting machine#1"
+                    );
                   } else if (eqConds.value[i].equipment_NR == "220300020") {
+                    setNoOfAnom("AICORE-ANOMALY-EQUIPMENTB-ANOM", condId);
                     localStorage.setItem(
                       "AICORE-ANOMALY-EQUIPMENTB-STATUS",
                       cond
                     );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENTB-NAME",
+                      "LGP-Dotting machine#1"
+                    );
                   } else if (eqConds.value[i].equipment_NR == "220300031") {
+                    setNoOfAnom("AICORE-ANOMALY-EQUIPMENT1-ANOM", condId);
                     localStorage.setItem(
                       "AICORE-ANOMALY-EQUIPMENT1-STATUS",
                       cond
                     );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT1-NAME",
+                      "LGP-LED assembling machine robotic arm 1"
+                    );
                   } else if (eqConds.value[i].equipment_NR == "220300032") {
+                    setNoOfAnom("AICORE-ANOMALY-EQUIPMENT2-ANOM", condId);
                     localStorage.setItem(
                       "AICORE-ANOMALY-EQUIPMENT2-STATUS",
                       cond
                     );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT2-NAME",
+                      "LGP-LED assembling machine robotic arm 2"
+                    );
                   } else if (eqConds.value[i].equipment_NR == "220300033") {
+                    setNoOfAnom("AICORE-ANOMALY-EQUIPMENT3-ANOM", condId);
                     localStorage.setItem(
                       "AICORE-ANOMALY-EQUIPMENT3-STATUS",
                       cond
                     );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT3-NAME",
+                      "LGP-LED assembling machine robotic arm 3"
+                    );
                   } else if (eqConds.value[i].equipment_NR == "220300034") {
+                    setNoOfAnom("AICORE-ANOMALY-EQUIPMENT4-ANOM", condId);
                     localStorage.setItem(
                       "AICORE-ANOMALY-EQUIPMENT4-STATUS",
                       cond
                     );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT4-NAME",
+                      "LGP-LED assembling machine robotic arm 4"
+                    );
                   } else if (eqConds.value[i].equipment_NR == "220300035") {
+                    setNoOfAnom("AICORE-ANOMALY-EQUIPMENT5-ANOM", condId);
                     localStorage.setItem(
                       "AICORE-ANOMALY-EQUIPMENT5-STATUS",
                       cond
                     );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT5-NAME",
+                      "LGP-LED assembling machine robotic arm 5"
+                    );
                   } else if (eqConds.value[i].equipment_NR == "220300036") {
+                    setNoOfAnom("AICORE-ANOMALY-EQUIPMENT6-ANOM", condId);
                     localStorage.setItem(
                       "AICORE-ANOMALY-EQUIPMENT6-STATUS",
                       cond
+                    );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT6-NAME",
+                      "LGP-LED assembling machine robotic arm 6"
                     );
                   }
                 }
@@ -383,12 +422,48 @@ sap.ui.define(
         this.getView().setModel(oModel);
         // this.getView().getModel().setSizeLimit(1000);
 
+        // ?$filter=eqCondId eq 19409&$count=true
+        // var xModel = new JSONModel("/v2/analytics/AnomaliesExtendedView?$count=true");
+        // this.getView().setModel(xModel, "testModel");
+        var yModel = new JSONModel(
+          "/analytics/AnomaliesExtendedView?$count=true"
+        );
+        this.getView().setModel(yModel, "testv4Model");
+        // var zModel = new ODataModel("/v2/analytics/AnomaliesExtendedView");
+        // this.getView().setModel(zModel, "testoModel");
+
         this.onTileRefresh();
         // this.onAutoRefresh();
       },
       onBreadCrumbsToHome: function (oEvent) {
         // MessageToast.show(oEvent.getSource().getText() + " has been activated");
-        window.location.href = "/fiori-apps.html";
+        // window.location.href = "/fiori-apps.html";
+
+        // var x = this.getView().getModel("testModel");
+        // console.log(x);
+        // console.log(x.getData());
+        // console.log(x.oData);
+        var y = this.getView().getModel("testv4Model");
+        y.setSizeLimit(3000);
+        console.log(y);
+        console.log(y.getData());
+        console.log(y.oData);
+        console.log(y.oData.value);
+        console.log(y.oData["@odata.count"]);
+        console.log();
+        // /AnomaliesExtendedView?$filter=eqCondId eq 19409&$count=true
+        // y.read("?$filter=eqCondId eq 19409&$count=true", {
+        //   success: function (oChildEntry) {
+        //     console.log(oChildEntry);
+        //   },
+        //   error: function (oChildError) {
+        //     console.log(oChildError);
+        //   },
+        // });
+        // var z = this.getView().getModel("testoModel");
+        // console.log(z);
+        // console.log(z.getData());
+        // console.log(z.oData);
       },
       onBreadCrumbsToPlantConditions: function (oEvent) {
         window.location.href = "/fiori-apps.html#PlantConditions-manage";
@@ -1110,6 +1185,34 @@ sap.ui.define(
         if (this.intervalHandler) clearInterval(this.intervalHandler);
       },
     });
+
+    function setNoOfAnom(eqProperty, eqCondId) {
+      var bhr = new XMLHttpRequest();
+      bhr.withCredentials = true;
+
+      var anomCount;
+
+      bhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+          console.log(this.responseText);
+          var anomObj = JSON.parse(this.responseText);
+          anomCount = anomObj["@odata.count"];
+          // eqName = anomObj.value[0].equipmentName;
+          // anomCountJson = '{ "noOfAnomalies": "' + anomCount + '", "eqName": ' + eqName + '" }';
+          console.log(anomCount);
+          localStorage.setItem(eqProperty, anomCount);
+        }
+      });
+
+      bhr.open(
+        "GET",
+        "/analytics/AnomaliesExtendedView?$filter=eqCondId eq " +
+          eqCondId +
+          "&$count=true"
+      );
+
+      bhr.send();
+    }
 
     function randomIntFromInterval(min, max) {
       // min and max included

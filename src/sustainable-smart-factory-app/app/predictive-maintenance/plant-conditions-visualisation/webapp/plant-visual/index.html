@@ -28,6 +28,9 @@
        * > AICORE-ANOMALY-EQUIPMENTCONDITIONID
        * > AICORE-ANOMALY-EQUIPMENTNAME
        * > AICORE-ANOMALY-EQUIPMENT1-STATUS // up, down, fix, alert
+       * > AICORE-ANOMALY-EQUIPMENT1-ANOM
+       * > AICORE-ANOMALY-EQUIPMENT1-NAME
+       * ...
        * > AICORE-ANOMALY-EQUIPMENT2-STATUS // up, down, fix, alert
        * > AICORE-ANOMALY-EQUIPMENT3-STATUS // up, down, fix, alert
        * > AICORE-ANOMALY-EQUIPMENT4-STATUS // up, down, fix, alert
@@ -97,6 +100,9 @@
            
            */
           showElement("simulationHeatmap");
+          showElement("simulationAnnotation");
+          hideElement("realAnnotation");
+
           //  reset
           changeEqStatus("eq1", "up");
           changeEqStatus("eq2", "up");
@@ -113,6 +119,55 @@
         } else {
           //  hide heatmap
           hideElement("simulationHeatmap");
+          // hideElement("simulationAnnotation");
+          showElement("realAnnotation");
+
+          var totalAnomaliesFromAllEq = 0;
+          var eq1anom = parseFloat(localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT1-ANOM"
+          ));
+          var eq2anom = parseFloat(localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT2-ANOM"
+          ));
+          var eq3anom = parseFloat(localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT3-ANOM"
+          ));
+          var eq4anom = parseFloat(localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT4-ANOM"
+          ));
+          var eq5anom = parseFloat(localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT5-ANOM"
+          ));
+          var eq6anom = parseFloat(localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT6-ANOM"
+          ));
+          var eqaanom = parseFloat(localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENTA-ANOM"
+          ));
+          var eqbanom = parseFloat(localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENTB-ANOM"
+          ));
+
+          totalAnomaliesFromAllEq = eq1anom + eq2anom + eq3anom + eq4anom + eq5anom + eq6anom + eqaanom + eqbanom;
+
+          document.getElementById("totalEqCondAnom").innerText="Total no. of Anomalies: " + totalAnomaliesFromAllEq;
+          document.getElementById("eqaname").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENTA-NAME");
+          document.getElementById("eqbname").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENTB-NAME");
+          document.getElementById("eq1name").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENT1-NAME");
+          document.getElementById("eq2name").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENT2-NAME");
+          document.getElementById("eq3name").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENT3-NAME");
+          document.getElementById("eq4name").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENT4-NAME");
+          document.getElementById("eq5name").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENT5-NAME");
+          document.getElementById("eq6name").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENT6-NAME");
+
+          document.getElementById("eqaanom").innerText=eqaanom;
+          document.getElementById("eqbanom").innerText=eqbanom;
+          document.getElementById("eq1anom").innerText=eq1anom;
+          document.getElementById("eq2anom").innerText=eq2anom;
+          document.getElementById("eq3anom").innerText=eq3anom;
+          document.getElementById("eq4anom").innerText=eq4anom;
+          document.getElementById("eq5anom").innerText=eq5anom;
+          document.getElementById("eq6anom").innerText=eq6anom;
 
           /** REAL NAVIGATION
            *
@@ -201,6 +256,47 @@
         localStorage.setItem("AICORE-ACTION", "Navigate");
         localStorage.setItem("AICORE-OBJECT", "Equipment");
         localStorage.setItem("AICORE-OBJECTID", "220300034");
+      }
+
+      function navigateToEq1() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300031");
+      }
+      function navigateToEq2() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300032");
+      }
+      function navigateToEq3() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300033");
+      }
+      function navigateToEq4() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300035");
+      }
+      function navigateToEq5() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300036");
+      }
+      function navigateToEq6() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300034");
+      }
+      function navigateToEqA() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300020");
+      }
+      function navigateToEqB() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300010");
       }
     </script>
 

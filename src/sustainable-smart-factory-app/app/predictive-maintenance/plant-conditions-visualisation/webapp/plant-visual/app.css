@@ -362,13 +362,13 @@ body {
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 .flip-card {
   background-color: transparent;
-  width: 180px;
-  height: 110px;
+  width: 250px;
+  height: 210px;
   /* border: 1px solid #f1f1f1; */
   perspective: 500px; /* Remove this if you don't want the 3D effect */
-position: absolute;top: -30px;left: 50px;
+position: absolute;top: -90px;left: 0px;
 animation: fadein 5s;
-}
+border-radius: 25px;}
 
 /* This container is needed to position the front and back side */
 .flip-card-inner {
@@ -402,9 +402,27 @@ animation: fadein 5s;
 
 /* Style the back side */
 .flip-card-back {
-  background-color: rgb(0 0 0 / 20%);
+  background-color: #1363a88a;
   color: white;
   transform: rotateY(180deg);
+border-radius: 5px;}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  /* border: 1px solid #ddd; */
+}
+
+th, td {
+  text-align: left;
+  padding: 3px;
+  font-size: 8px;
+  font-family: BentonSans, sans-serif;
+}
+
+tr:nth-child(even) {
+  background-color: #8fcae8;
 }
 .heatmap__annotations {
   position: absolute;
@@ -429,6 +447,12 @@ animation: fadein 5s;
 }
 .heatmap__annotations__item__text {
   font-size: 15px;
+  line-height: 1.2;
+  color: #e87836;
+  width: 200px;
+}
+.heatmap__annotations__item__text__flip {
+  font-size: 10px;
   line-height: 1.2;
   color: #e87836;
   width: 200px;
