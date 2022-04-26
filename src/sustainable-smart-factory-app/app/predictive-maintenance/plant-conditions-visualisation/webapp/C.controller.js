@@ -24,34 +24,13 @@ sap.ui.define(
     "use strict";
 
     /** Toggle Simulation & Real Model
-     *  - Real model is the latest Plant Conditions visualisation
-     *  - Simulation model refers to a specific simulation that can be variable or hardcoded
+     *  - Real model is referring to the selected/latest Plant Conditions
+     *  - Simulation model refers to a specific simulation that can be variable or (hardcoded)
      *  1. ...
      */
     var latestPlantCondObj;
 
     return Controller.extend("plantconditionsvisual.C", {
-      hideBusyIndicator: function () {
-        BusyIndicator.hide();
-      },
-
-      showBusyIndicator: function (iDuration, iDelay) {
-        BusyIndicator.show(iDelay);
-
-        if (iDuration && iDuration > 0) {
-          if (this._sTimeoutId) {
-            clearTimeout(this._sTimeoutId);
-            this._sTimeoutId = null;
-          }
-
-          this._sTimeoutId = setTimeout(
-            function () {
-              this.hideBusyIndicator();
-            }.bind(this),
-            iDuration
-          );
-        }
-      },
       onInit: function () {
         /** [LOGIC FLOW]
          * 1. URL Parameters coming from Plant Condtions
@@ -67,12 +46,9 @@ sap.ui.define(
          */
 
         var sParam = UriParameters.fromQuery(window.location.href).get("ID");
-        // console.log(sParam);
         var self = this;
 
         localStorage.setItem("AICORE-ANOMALY-PLANTCONDITIONID", sParam);
-
-        // http://localhost:4004/analytics/AnomaliesExtendedView?$filter=eqCondId%20eq%209076&orderby=detectedAt%20desc&$top=1
 
         var queryPath, latestMsg;
 
@@ -435,35 +411,29 @@ sap.ui.define(
         this.onTileRefresh();
         // this.onAutoRefresh();
       },
+      hideBusyIndicator: function () {
+        BusyIndicator.hide();
+      },
+      showBusyIndicator: function (iDuration, iDelay) {
+        BusyIndicator.show(iDelay);
+
+        if (iDuration && iDuration > 0) {
+          if (this._sTimeoutId) {
+            clearTimeout(this._sTimeoutId);
+            this._sTimeoutId = null;
+          }
+
+          this._sTimeoutId = setTimeout(
+            function () {
+              this.hideBusyIndicator();
+            }.bind(this),
+            iDuration
+          );
+        }
+      },
       onBreadCrumbsToHome: function (oEvent) {
         // MessageToast.show(oEvent.getSource().getText() + " has been activated");
-        // window.location.href = "/fiori-apps.html";
-
-        // var x = this.getView().getModel("testModel");
-        // console.log(x);
-        // console.log(x.getData());
-        // console.log(x.oData);
-        var y = this.getView().getModel("testv4Model");
-        y.setSizeLimit(3000);
-        console.log(y);
-        console.log(y.getData());
-        console.log(y.oData);
-        console.log(y.oData.value);
-        console.log(y.oData["@odata.count"]);
-        console.log();
-        // /AnomaliesExtendedView?$filter=eqCondId eq 19409&$count=true
-        // y.read("?$filter=eqCondId eq 19409&$count=true", {
-        //   success: function (oChildEntry) {
-        //     console.log(oChildEntry);
-        //   },
-        //   error: function (oChildError) {
-        //     console.log(oChildError);
-        //   },
-        // });
-        // var z = this.getView().getModel("testoModel");
-        // console.log(z);
-        // console.log(z.getData());
-        // console.log(z.oData);
+        window.location.href = "/fiori-apps.html";
       },
       onBreadCrumbsToPlantConditions: function (oEvent) {
         window.location.href = "/fiori-apps.html#PlantConditions-manage";
