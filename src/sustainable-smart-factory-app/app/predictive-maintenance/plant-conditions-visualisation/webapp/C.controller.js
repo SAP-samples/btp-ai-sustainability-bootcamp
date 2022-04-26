@@ -824,7 +824,6 @@ sap.ui.define(
         this.showBusyIndicator(3500, 0);
 
         var self = this;
-        // console.log("inside simulate switch " + oEvent.getSource().getState());
         var sState = oEvent.getSource().getState();
         if (!sState) {
           self.getView().byId("simulationConfig").setVisible(false);
@@ -877,22 +876,6 @@ sap.ui.define(
       } else if (eqStatus == "OK") {
         return "up";
       }
-    }
-
-    function replaceUrlParam(url, paramName, paramValue) {
-      var pattern = new RegExp("(\\?|\\&)(" + paramName + "=).*?(&|$)");
-      var newUrl = url;
-      if (url.search(pattern) >= 0) {
-        newUrl = url.replace(pattern, "$1$2" + paramValue + "$3");
-      } else {
-        newUrl =
-          newUrl +
-          (newUrl.indexOf("?") > 0 ? "&" : "?") +
-          paramName +
-          "=" +
-          paramValue;
-      }
-      return newUrl;
     }
   }
 );
