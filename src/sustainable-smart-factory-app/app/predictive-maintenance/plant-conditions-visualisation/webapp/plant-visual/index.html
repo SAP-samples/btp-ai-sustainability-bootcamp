@@ -89,7 +89,6 @@
         // document.getElementById("simulationHeatmap").style.display="none";
         // document.getElementsByClassName("heatmap__container")[0].style.display="block";
 
-
         // localStorage.setItem("AICORE-SHOWCASE","real");
 
         var showcase = localStorage.getItem("AICORE-SHOWCASE");
@@ -99,9 +98,10 @@
            * - load heatmap
            
            */
+          hideElement("realAnnotation");
           showElement("simulationHeatmap");
           showElement("simulationAnnotation");
-          hideElement("realAnnotation");
+          showElement("heatmapLegend");
 
           //  reset
           changeEqStatus("eq1", "up");
@@ -115,59 +115,87 @@
 
           //  load simulation values
           //  alert coordinates
-
         } else {
           //  hide heatmap
           hideElement("simulationHeatmap");
+          hideElement("heatmapLegend");
+          try {
+            hideElement("simulationAnnotation");
+          } catch (error) {}
           // hideElement("simulationAnnotation");
           showElement("realAnnotation");
 
           var totalAnomaliesFromAllEq = 0;
-          var eq1anom = parseFloat(localStorage.getItem(
-            "AICORE-ANOMALY-EQUIPMENT1-ANOM"
-          ));
-          var eq2anom = parseFloat(localStorage.getItem(
-            "AICORE-ANOMALY-EQUIPMENT2-ANOM"
-          ));
-          var eq3anom = parseFloat(localStorage.getItem(
-            "AICORE-ANOMALY-EQUIPMENT3-ANOM"
-          ));
-          var eq4anom = parseFloat(localStorage.getItem(
-            "AICORE-ANOMALY-EQUIPMENT4-ANOM"
-          ));
-          var eq5anom = parseFloat(localStorage.getItem(
-            "AICORE-ANOMALY-EQUIPMENT5-ANOM"
-          ));
-          var eq6anom = parseFloat(localStorage.getItem(
-            "AICORE-ANOMALY-EQUIPMENT6-ANOM"
-          ));
-          var eqaanom = parseFloat(localStorage.getItem(
-            "AICORE-ANOMALY-EQUIPMENTA-ANOM"
-          ));
-          var eqbanom = parseFloat(localStorage.getItem(
-            "AICORE-ANOMALY-EQUIPMENTB-ANOM"
-          ));
+          var eq1anom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENT1-ANOM")
+          );
+          var eq2anom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENT2-ANOM")
+          );
+          var eq3anom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENT3-ANOM")
+          );
+          var eq4anom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENT4-ANOM")
+          );
+          var eq5anom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENT5-ANOM")
+          );
+          var eq6anom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENT6-ANOM")
+          );
+          var eqaanom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENTA-ANOM")
+          );
+          var eqbanom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENTB-ANOM")
+          );
 
-          totalAnomaliesFromAllEq = eq1anom + eq2anom + eq3anom + eq4anom + eq5anom + eq6anom + eqaanom + eqbanom;
+          totalAnomaliesFromAllEq =
+            eq1anom +
+            eq2anom +
+            eq3anom +
+            eq4anom +
+            eq5anom +
+            eq6anom +
+            eqaanom +
+            eqbanom;
 
-          document.getElementById("totalEqCondAnom").innerText="Total no. of Anomalies: " + totalAnomaliesFromAllEq;
-          document.getElementById("eqaname").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENTA-NAME");
-          document.getElementById("eqbname").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENTB-NAME");
-          document.getElementById("eq1name").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENT1-NAME");
-          document.getElementById("eq2name").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENT2-NAME");
-          document.getElementById("eq3name").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENT3-NAME");
-          document.getElementById("eq4name").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENT4-NAME");
-          document.getElementById("eq5name").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENT5-NAME");
-          document.getElementById("eq6name").innerText=localStorage.getItem("AICORE-ANOMALY-EQUIPMENT6-NAME");
+          document.getElementById("totalEqCondAnom").innerText =
+            "Total no. of Anomalies: " + totalAnomaliesFromAllEq;
+          document.getElementById("eqaname").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENTA-NAME"
+          );
+          document.getElementById("eqbname").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENTB-NAME"
+          );
+          document.getElementById("eq1name").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT1-NAME"
+          );
+          document.getElementById("eq2name").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT2-NAME"
+          );
+          document.getElementById("eq3name").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT3-NAME"
+          );
+          document.getElementById("eq4name").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT4-NAME"
+          );
+          document.getElementById("eq5name").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT5-NAME"
+          );
+          document.getElementById("eq6name").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT6-NAME"
+          );
 
-          document.getElementById("eqaanom").innerText=eqaanom;
-          document.getElementById("eqbanom").innerText=eqbanom;
-          document.getElementById("eq1anom").innerText=eq1anom;
-          document.getElementById("eq2anom").innerText=eq2anom;
-          document.getElementById("eq3anom").innerText=eq3anom;
-          document.getElementById("eq4anom").innerText=eq4anom;
-          document.getElementById("eq5anom").innerText=eq5anom;
-          document.getElementById("eq6anom").innerText=eq6anom;
+          document.getElementById("eqaanom").innerText = eqaanom;
+          document.getElementById("eqbanom").innerText = eqbanom;
+          document.getElementById("eq1anom").innerText = eq1anom;
+          document.getElementById("eq2anom").innerText = eq2anom;
+          document.getElementById("eq3anom").innerText = eq3anom;
+          document.getElementById("eq4anom").innerText = eq4anom;
+          document.getElementById("eq5anom").innerText = eq5anom;
+          document.getElementById("eq6anom").innerText = eq6anom;
 
           /** REAL NAVIGATION
            *
