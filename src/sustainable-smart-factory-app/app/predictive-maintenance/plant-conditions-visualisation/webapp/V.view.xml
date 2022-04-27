@@ -58,9 +58,16 @@
             </OverflowToolbar>
         </headerToolbar>
         <content>
-            <commons:Timeline id="idTimeline" textHeight="2" height="" axisOrientation="Horizontal" enableDoubleSided="true" groupByType="Year" groupBy="recStartedAt" growingThreshold="10" lazyLoading="false" enableScroll="true" filterTitle="Plant Status" sortOldestFirst="false" content="{/value}">
+            <commons:Timeline id="idTimeline" textHeight="2" height="" axisOrientation="Horizontal" 
+            enableDoubleSided="false" showIcons="true" groupByType="Year" groupBy="recStartedAt" growingThreshold="10" 
+            lazyLoading="true" enableScroll="true" filterTitle="Plant Status" sortOldestFirst="false" 
+            content="{/value}">
                 <commons:content>
-                    <commons:TimelineItem id="idTemplateItem" dateTime="{recStartedAt}" title="{ID}" userNameClickable="true" userNameClicked="onUserNameClick" select="onPressItems" userPicture="sap-icon://factory" text="Production yield rate: {yield}. Defective products: {defectiveProd}. Energy Consumption (KWh): {energyCons}." userName="{plantStatus}" filterValue="{plantStatus}" icon="{path: 'plantStatus', formatter: '.plantConditionStatusIcon'}">
+                    <commons:TimelineItem id="idTemplateItem" dateTime="{recStartedAt}" title="{ID}" 
+                    userNameClickable="true" userNameClicked="onUserNameClick" select="onPressItems" 
+                    userPicture="sap-icon://factory" text="Production yield rate: {yield}. Defective products: {defectiveProd}. Energy Consumption (KWh): {energyCons}." 
+                    userName="{plantStatus}" filterValue="{plantStatus}" 
+                    icon="{path: 'plantStatus', formatter: '.plantConditionStatusIcon'}">
                     </commons:TimelineItem>
                 </commons:content>
             </commons:Timeline>
