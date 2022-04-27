@@ -28,7 +28,7 @@ sap.ui.define(
     /** Toggle Simulation & Real Model
      *  - Real model is referring to the selected/latest Plant Conditions
      *  - Simulation model refers to a specific simulation that can be variable or (hardcoded)
-     *  1. ...
+     *  - Simulation mode can be used for real-time streaming.
      */
     var latestPlantCondObj;
 
@@ -304,44 +304,6 @@ sap.ui.define(
               }, 1500);
             }
 
-            //  Can be moved to Outside Auto Refresh. So to Check always.
-            //  Disable for now till further notice.
-            //   3. Attention
-            /** var attentionCount;
-            var xhr = new XMLHttpRequest();
-            xhr.withCredentials = true;
-
-            xhr.addEventListener("readystatechange", function () {
-              if (this.readyState === 4) {
-                //   console.log(this.responseText);
-                var attnObj = JSON.parse(this.responseText);
-                //   console.log(attnObj);
-                //   console.log(attnObj.@odata.count);
-                //   console.log(attnObj.length);
-                //   console.log(attnObj.value.length);
-                attentionCount = attnObj.value.length;
-                if (attentionCount == 0) {
-                  self.getView().byId("xAttention").setValueColor("Good");
-                  self.getView().byId("xAttention").setIndicator("None");
-                  self.getView().byId("xAttention").setState("Loading");
-                } else {
-                  self.getView().byId("xAttention").setValueColor("Critical");
-                  self.getView().byId("xAttention").setIndicator("Up");
-                  self.getView().byId("xAttention").setState("Loaded");
-                }
-
-                self.getView().byId("xAttention").setValue(attentionCount);
-              }
-            });
-
-            //  [To-Improve] Requires Attention tile to improve logic.
-            xhr.open(
-              "GET",
-              "/browse/EqCondsQuery?$filter=followUpDocNum%20ne%20null&$count=true"
-            );
-
-            xhr.send(); **/
-
             var attentionCount = randomIntFromInterval(1, 5);
             self.getView().byId("xAttention").setState("Loading");
             self.getView().byId("xAttention").setValue(attentionCount);
@@ -482,7 +444,8 @@ sap.ui.define(
           } else {
             //  Simulation switch is OFF - stop all loading & loaded
             localStorage.setItem("AICORE-SHOWCASE", "real");
-            self.initialLogicFlow(self);
+            //  should move initialLogicFlow to switch function method as this will be called repeatedly.
+            // self.initialLogicFlow(self);
             /**
              *  Navigation Properties from LocalStorage
              *  - Note: These config are defined by the visual app in iframe on user's click.
@@ -875,6 +838,9 @@ sap.ui.define(
         var sState = oEvent.getSource().getState();
         if (!sState) {
           self.getView().byId("simulationConfig").setVisible(false);
+
+          //  refresh kpi tiles
+          self.initialLogicFlow(self);
         } else {
           self.getView().byId("simulationConfig").setVisible(true);
         }
