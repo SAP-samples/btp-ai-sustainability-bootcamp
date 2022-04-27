@@ -90,31 +90,31 @@
                     <l:BlockLayoutCell width="1">
                         <!-- <Text text="EQ1" /> -->
                         <!-- <core:Icon src="sap-icon://add-activity" /> -->
-                        <Switch id="eq0stich" type="AcceptReject" state="true"></Switch>
+                        <Switch id="eq0stich" enabled="false" type="AcceptReject" state="true"></Switch>
                     </l:BlockLayoutCell>
                     <l:BlockLayoutCell width="1">
-                        <Switch id="eq1stich" type="AcceptReject" state="true"></Switch>
+                        <Switch id="eq1stich" enabled="false" type="AcceptReject" state="true"></Switch>
                     </l:BlockLayoutCell>
                     <l:BlockLayoutCell >
-                        <Switch id="eq2stich" type="AcceptReject" state="true"></Switch>
+                        <Switch id="eq2stich" enabled="false" type="AcceptReject" state="true"></Switch>
                     </l:BlockLayoutCell>
                     <l:BlockLayoutCell width="1">
-                        <Switch id="eq3stich" type="AcceptReject" state="true"></Switch>
+                        <Switch id="eq3stich" enabled="false" type="AcceptReject" state="true"></Switch>
                     </l:BlockLayoutCell>
                     <l:BlockLayoutCell>
-                        <Switch id="eq4stich" type="AcceptReject" state="true"></Switch>
+                        <Switch id="eq4stich" enabled="false" type="AcceptReject" state="true"></Switch>
                     </l:BlockLayoutCell>
                     <l:BlockLayoutCell width="1">
-                        <Switch id="eq5stich" type="AcceptReject" state="true"></Switch>
+                        <Switch id="eq5stich" enabled="false" type="AcceptReject" state="true"></Switch>
                     </l:BlockLayoutCell>
                     <l:BlockLayoutCell>
-                        <Switch id="eq6stich" type="AcceptReject" state="true"></Switch>
+                        <Switch id="eq6stich" enabled="false" type="AcceptReject" state="true"></Switch>
                     </l:BlockLayoutCell>
                     <l:BlockLayoutCell width="1">
-                        <Switch id="eq7stich" type="AcceptReject" state="true"></Switch>
+                        <Switch id="eq7stich" enabled="false" type="AcceptReject" state="true"></Switch>
                     </l:BlockLayoutCell>
                     <l:BlockLayoutCell width="1">
-                        <Switch id="eq8stich" type="AcceptReject" state="true"></Switch>
+                        <Switch id="eq8stich" enabled="false" type="AcceptReject" state="true"></Switch>
                     </l:BlockLayoutCell>
                 </l:BlockLayoutRow>
             </l:BlockLayout>

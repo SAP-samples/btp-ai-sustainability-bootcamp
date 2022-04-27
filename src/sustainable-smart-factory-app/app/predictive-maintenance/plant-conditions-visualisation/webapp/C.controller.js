@@ -132,6 +132,12 @@ sap.ui.define(
                 "/fiori-apps.html#Equipments-manage&/Equipments('" +
                 visObjectID +
                 "')";
+            } else if (visObject === "EquipmentCondition") {
+              // #Equipments-manage&/Equipments('220300010')
+              window.location.href =
+                "/fiori-apps.html#EquipmentConditions-manage&/EquipmentConditions(" +
+                visObjectID +
+                ")";
             }
           }
           /** Navigation Properties on iFrame App
@@ -579,6 +585,10 @@ sap.ui.define(
                       "AICORE-ANOMALY-EQUIPMENTA-NAME",
                       "LGP-Cutting machine#1"
                     );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENTA-CONDID",
+                      condId
+                    );
                   } else if (eqConds.value[i].equipment_NR == "220300020") {
                     setNoOfAnom("AICORE-ANOMALY-EQUIPMENTB-ANOM", condId);
                     localStorage.setItem(
@@ -588,6 +598,10 @@ sap.ui.define(
                     localStorage.setItem(
                       "AICORE-ANOMALY-EQUIPMENTB-NAME",
                       "LGP-Dotting machine#1"
+                    );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENTB-CONDID",
+                      condId
                     );
                   } else if (eqConds.value[i].equipment_NR == "220300031") {
                     setNoOfAnom("AICORE-ANOMALY-EQUIPMENT1-ANOM", condId);
@@ -599,6 +613,10 @@ sap.ui.define(
                       "AICORE-ANOMALY-EQUIPMENT1-NAME",
                       "LGP-LED assembling machine robotic arm 1"
                     );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT1-CONDID",
+                      condId
+                    );
                   } else if (eqConds.value[i].equipment_NR == "220300032") {
                     setNoOfAnom("AICORE-ANOMALY-EQUIPMENT2-ANOM", condId);
                     localStorage.setItem(
@@ -608,6 +626,10 @@ sap.ui.define(
                     localStorage.setItem(
                       "AICORE-ANOMALY-EQUIPMENT2-NAME",
                       "LGP-LED assembling machine robotic arm 2"
+                    );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT2-CONDID",
+                      condId
                     );
                   } else if (eqConds.value[i].equipment_NR == "220300033") {
                     setNoOfAnom("AICORE-ANOMALY-EQUIPMENT3-ANOM", condId);
@@ -619,6 +641,10 @@ sap.ui.define(
                       "AICORE-ANOMALY-EQUIPMENT3-NAME",
                       "LGP-LED assembling machine robotic arm 3"
                     );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT3-CONDID",
+                      condId
+                    );
                   } else if (eqConds.value[i].equipment_NR == "220300034") {
                     setNoOfAnom("AICORE-ANOMALY-EQUIPMENT4-ANOM", condId);
                     localStorage.setItem(
@@ -628,6 +654,10 @@ sap.ui.define(
                     localStorage.setItem(
                       "AICORE-ANOMALY-EQUIPMENT4-NAME",
                       "LGP-LED assembling machine robotic arm 4"
+                    );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT4-CONDID",
+                      condId
                     );
                   } else if (eqConds.value[i].equipment_NR == "220300035") {
                     setNoOfAnom("AICORE-ANOMALY-EQUIPMENT5-ANOM", condId);
@@ -639,6 +669,10 @@ sap.ui.define(
                       "AICORE-ANOMALY-EQUIPMENT5-NAME",
                       "LGP-LED assembling machine robotic arm 5"
                     );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT5-CONDID",
+                      condId
+                    );
                   } else if (eqConds.value[i].equipment_NR == "220300036") {
                     setNoOfAnom("AICORE-ANOMALY-EQUIPMENT6-ANOM", condId);
                     localStorage.setItem(
@@ -648,6 +682,10 @@ sap.ui.define(
                     localStorage.setItem(
                       "AICORE-ANOMALY-EQUIPMENT6-NAME",
                       "LGP-LED assembling machine robotic arm 6"
+                    );
+                    localStorage.setItem(
+                      "AICORE-ANOMALY-EQUIPMENT6-CONDID",
+                      condId
                     );
                   }
                 }
