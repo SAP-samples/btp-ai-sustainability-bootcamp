@@ -8,6 +8,7 @@ sap.ui.define(
     "sap/m/MessageToast",
     "sap/base/util/UriParameters",
     "sap/suite/ui/commons/TimelineItem",
+    "sap/suite/ui/commons/util/DateUtils",
     "require",
   ],
   function (
@@ -19,6 +20,7 @@ sap.ui.define(
     MessageToast,
     UriParameters,
     TimelineItem,
+    DateUtils,
     require
   ) {
     "use strict";
@@ -62,6 +64,7 @@ sap.ui.define(
         );
         // console.log(oDModel);
         oModel.setSizeLimit(3000);
+        oModel.attachRequestCompleted(convertData);
         this.getView().setModel(oModel);
 
         /** [LOGIC FLOW]
@@ -498,7 +501,6 @@ sap.ui.define(
        */
       initialLogicFlow: function (self) {
         var sParam = UriParameters.fromQuery(window.location.href).get("ID");
-        localStorage.setItem("AICORE-ANOMALY-PLANTCONDITIONID", sParam);
         var queryPath, latestMsg;
         //  Breadcrumbs
         if (sParam != null) {
@@ -520,6 +522,8 @@ sap.ui.define(
             );
           queryPath = "/browse/PlantConditions?$orderby=ID desc&$top=1";
           latestMsg = "[Latest Update] ";
+          localStorage.setItem("AICORE-ANOMALY-PLANTCONDITIONID", sParam);
+
         }
 
         var plant,
@@ -551,6 +555,8 @@ sap.ui.define(
             currentEnergy = latestPlantCondObj.value[0].energyCons;
             //  [ToDo] where do i get emissions
             // currentEmissions = randomIntFromInterval(20, 100);
+
+            localStorage.setItem("AICORE-ANOMALY-PLANTCONDITIONID", ID);
 
             var ahr = new XMLHttpRequest();
             ahr.withCredentials = true;
@@ -783,7 +789,11 @@ sap.ui.define(
             sParam +
             ")";
         } else {
-          window.location.href = "/fiori-apps.html#PlantConditions-manage";
+          // window.location.href = "/fiori-apps.html#PlantConditions-manage";
+          window.location.href =
+            "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
+            latestPlantCondObj.value[0].ID +
+            ")";
         }
       },
       /** Icon for Timeline */
@@ -855,6 +865,21 @@ sap.ui.define(
           "&$count=true"
       );
       bhr.send();
+    }
+
+    function convertData(oEvent) {
+      var oData,
+        oModel = oEvent.getSource();
+  
+      if (!oEvent.getParameters().success) {
+        return;
+      }
+  
+      oData = oModel.getData();
+      oData.value.forEach(function(oPlantCond) {
+        oPlantCond.recStartedAt = DateUtils.parseDate(oPlantCond.recStartedAt);
+      });
+      oModel.updateBindings(true);
     }
 
     function randomIntFromInterval(min, max) {
