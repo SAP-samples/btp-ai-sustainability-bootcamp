@@ -20,10 +20,351 @@
       document.loc_firstlang = document.loc_english;
       firstlang = "en";
 
+      /**
+       * [SIMULATION] Implementation of Visual App to Illustrate Selected Plant Condition with the right Equipment Stats
+       * - Selected Plant Condition > Equipment Condition > Equipment > Anomaly
+       * - Main app to set the following details
+       * > AICORE-ANOMALY-PLANTCONDITIONID
+       * > AICORE-ANOMALY-EQUIPMENTCONDITIONID
+       * > AICORE-ANOMALY-EQUIPMENTNAME
+       * > AICORE-ANOMALY-EQUIPMENT1-STATUS // up, down, fix, alert
+       * > AICORE-ANOMALY-EQUIPMENT1-ANOM
+       * > AICORE-ANOMALY-EQUIPMENT1-NAME
+       * ...
+       * > AICORE-ANOMALY-EQUIPMENT2-STATUS // up, down, fix, alert
+       * > AICORE-ANOMALY-EQUIPMENT3-STATUS // up, down, fix, alert
+       * > AICORE-ANOMALY-EQUIPMENT4-STATUS // up, down, fix, alert
+       * > AICORE-ANOMALY-EQUIPMENT5-STATUS // up, down, fix, alert
+       * > AICORE-ANOMALY-EQUIPMENT6-STATUS // up, down, fix, alert
+       * > AICORE-ANOMALY-EQUIPMENT7-STATUS // up, down, fix, alert
+       * > AICORE-ANOMALY-EQUIPMENT8-STATUS // up, down, fix, alert
+       * > AICORE-ANOMALY-EQUIPMENT-WHICH // 1-8 - set top left of anomaly alert to the right status (ver1: only 1 anomaly)
+       *
+       *
+       * Manage Elements
+       * - Location of Anomaly Alerts: Element Class Name (heatmap__annotations__item): top left
+       * - Location of Equipment Status Icon: Element Class Name (heatmap__areaicons__item__arm): top left
+       *
+       * Logic Flow:
+       * [Selected Equipment]
+       * - Alert Location shift to
+       * - Icon shift to
+       * - Update Equipment name in Alert window
+       * - Update Anomaly ID & Name in Alert
+       *
+       *
+       */
+      // localStorage.setItem("AICORE-ANOMALY-EQUIPMENT1-STATUS", "up");
+      // localStorage.setItem("AICORE-ANOMALY-EQUIPMENT2-STATUS", "up");
+      // localStorage.setItem("AICORE-ANOMALY-EQUIPMENT3-STATUS", "up");
+      // localStorage.setItem("AICORE-ANOMALY-EQUIPMENT4-STATUS", "down");
+      // localStorage.setItem("AICORE-ANOMALY-EQUIPMENT5-STATUS", "up");
+      // localStorage.setItem("AICORE-ANOMALY-EQUIPMENT6-STATUS", "up");
+      // localStorage.setItem("AICORE-ANOMALY-EQUIPMENTA-STATUS", "fix");
+      // localStorage.setItem("AICORE-ANOMALY-EQUIPMENTB-STATUS", "up");
+      setInterval(simulateAnomalyAlert, 1000);
+
+      function simulateAnomalyAlert() {
+        // console.log("time");
+        // const date = new Date();
+        // document.getElementById("demo").innerHTML = date.toLocaleTimeString();
+        // const btn = document.getElementById("asd");
+        // btn.textContent = date.toLocaleTimeString();
+
+        // document.getElementById("alert1").style.zIndex=0;
+
+        // var anomalyAlertMsg, plant;
+
+        // plant = localStorage.getItem("AICORE-ANOMALY-PLANTCONDITIONID");
+
+        // anomalyAlertMsg =
+        //   "Alert: Anomaly detected on Plant Condition (" + plant + ")";
+
+        // document.getElementsByClassName('heatmap__annotations__item')[0].style.top='200px';
+
+        // const anomalyAlert = document.getElementById("anomaly1");
+        // console.log(document.getElementById("anomaly1").innerHTML);
+        // anomalyAlert.innerHTML = anomalyAlertMsg;
+
+        // document.getElementById("simulationHeatmap").style.display="none";
+        // document.getElementsByClassName("heatmap__container")[0].style.display="block";
+
+        // localStorage.setItem("AICORE-SHOWCASE","real");
+
+        var showcase = localStorage.getItem("AICORE-SHOWCASE");
+
+        if (showcase == "simulation") {
+          /** START SIMULATION
+           * - load heatmap
+           
+           */
+          hideElement("realAnnotation");
+          showElement("simulationHeatmap");
+          // showElement("simulationAnnotation");
+          document.getElementById("simulationAnnotation").style.display = "flex";
+          showElement("heatmapLegend");
+
+          //  reset
+          changeEqStatus("eq1", "up");
+          changeEqStatus("eq2", "up");
+          changeEqStatus("eq3", "up");
+          changeEqStatus("eq4", "alert");
+          changeEqStatus("eq5", "up");
+          changeEqStatus("eq6", "up");
+          changeEqStatus("eqa", "up");
+          changeEqStatus("eqb", "up");
+
+          //  load simulation values
+          //  alert coordinates
+        } else {
+          //  hide heatmap
+          hideElement("simulationHeatmap");
+          hideElement("heatmapLegend");
+          try {
+            hideElement("simulationAnnotation");
+          } catch (error) {}
+          // hideElement("simulationAnnotation");
+          showElement("realAnnotation");
+
+          var totalAnomaliesFromAllEq = 0;
+          var eq1anom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENT1-ANOM")
+          );
+          var eq2anom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENT2-ANOM")
+          );
+          var eq3anom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENT3-ANOM")
+          );
+          var eq4anom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENT4-ANOM")
+          );
+          var eq5anom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENT5-ANOM")
+          );
+          var eq6anom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENT6-ANOM")
+          );
+          var eqaanom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENTA-ANOM")
+          );
+          var eqbanom = parseFloat(
+            localStorage.getItem("AICORE-ANOMALY-EQUIPMENTB-ANOM")
+          );
+
+          totalAnomaliesFromAllEq =
+            eq1anom +
+            eq2anom +
+            eq3anom +
+            eq4anom +
+            eq5anom +
+            eq6anom +
+            eqaanom +
+            eqbanom;
+
+          document.getElementById("totalEqCondAnom").innerText =
+            "Total no. of Anomalies: " + totalAnomaliesFromAllEq;
+          document.getElementById("eqaname").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENTA-NAME"
+          );
+          document.getElementById("eqbname").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENTB-NAME"
+          );
+          document.getElementById("eq1name").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT1-NAME"
+          );
+          document.getElementById("eq2name").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT2-NAME"
+          );
+          document.getElementById("eq3name").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT3-NAME"
+          );
+          document.getElementById("eq4name").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT4-NAME"
+          );
+          document.getElementById("eq5name").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT5-NAME"
+          );
+          document.getElementById("eq6name").innerText = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT6-NAME"
+          );
+
+          document.getElementById("eqaanom").innerText = eqaanom;
+          document.getElementById("eqbanom").innerText = eqbanom;
+          document.getElementById("eq1anom").innerText = eq1anom;
+          document.getElementById("eq2anom").innerText = eq2anom;
+          document.getElementById("eq3anom").innerText = eq3anom;
+          document.getElementById("eq4anom").innerText = eq4anom;
+          document.getElementById("eq5anom").innerText = eq5anom;
+          document.getElementById("eq6anom").innerText = eq6anom;
+
+          /** REAL NAVIGATION
+           *
+           */
+          var eq1status = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT1-STATUS"
+          );
+          var eq2status = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT2-STATUS"
+          );
+          var eq3status = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT3-STATUS"
+          );
+          var eq4status = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT4-STATUS"
+          );
+          var eq5status = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT5-STATUS"
+          );
+          var eq6status = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENT6-STATUS"
+          );
+          var eqAstatus = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENTA-STATUS"
+          );
+          var eqBstatus = localStorage.getItem(
+            "AICORE-ANOMALY-EQUIPMENTB-STATUS"
+          );
+          changeEqStatus("eq1", eq1status);
+          changeEqStatus("eq2", eq2status);
+          changeEqStatus("eq3", eq3status);
+          changeEqStatus("eq4", eq4status);
+          changeEqStatus("eq5", eq5status);
+          changeEqStatus("eq6", eq6status);
+          changeEqStatus("eqa", eqAstatus);
+          changeEqStatus("eqb", eqBstatus);
+        }
+      }
+
+      //  default: all none.
+      function changeEqStatus(eq, eqStatus) {
+        var elementId = eq + "" + eqStatus;
+        // console.log("before cond: " + elementId);
+        if (eqStatus == "up") {
+          // console.log("in up: " + elementId);
+          document.getElementById(elementId).style.display = "block";
+          document.getElementById(eq + "down").style.display = "none";
+          document.getElementById(eq + "fix").style.display = "none";
+          document.getElementById(eq + "alert").style.display = "none";
+        } else if (eqStatus == "down") {
+          // console.log("in down: " + elementId);
+          document.getElementById(elementId).style.display = "block";
+          document.getElementById(eq + "up").style.display = "none";
+          document.getElementById(eq + "fix").style.display = "none";
+          document.getElementById(eq + "alert").style.display = "none";
+        } else if (eqStatus == "fix") {
+          // console.log("in fix: " + elementId);
+          document.getElementById(elementId).style.display = "block";
+          document.getElementById(eq + "down").style.display = "none";
+          document.getElementById(eq + "up").style.display = "none";
+          document.getElementById(eq + "alert").style.display = "none";
+        } else if (eqStatus == "alert") {
+          // console.log("in alert: " + elementId);
+          document.getElementById(elementId).style.display = "block";
+          document.getElementById(eq + "down").style.display = "none";
+          document.getElementById(eq + "fix").style.display = "none";
+          document.getElementById(eq + "up").style.display = "none";
+        } else if (eqStatus == "") {
+          // console.log("in blank: " + elementId);
+          document.getElementById(eq + "up").style.display = "none";
+          document.getElementById(eq + "down").style.display = "none";
+          document.getElementById(eq + "fix").style.display = "none";
+          document.getElementById(eq + "up").style.display = "none";
+        }
+      }
+
+      function hideElement(elementid) {
+        document.getElementById(elementid).style.display = "none";
+      }
+
+      function showElement(elementid) {
+        document.getElementById(elementid).style.display = "block";
+      }
+
       function navigateToEq() {
         localStorage.setItem("AICORE-ACTION", "Navigate");
         localStorage.setItem("AICORE-OBJECT", "Equipment");
         localStorage.setItem("AICORE-OBJECTID", "220300034");
+      }
+      function navigateToEq1() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300031");
+      }
+      function navigateToEq2() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300032");
+      }
+      function navigateToEq3() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300033");
+      }
+      function navigateToEq4() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300035");
+      }
+      function navigateToEq5() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300036");
+      }
+      function navigateToEq6() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300034");
+      }
+      function navigateToEqA() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300010");
+      }
+      function navigateToEqB() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "Equipment");
+        localStorage.setItem("AICORE-OBJECTID", "220300020");
+      }
+      function navigateToEq1Cond() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "EquipmentCondition");
+        localStorage.setItem("AICORE-OBJECTID", localStorage.getItem("AICORE-ANOMALY-EQUIPMENT1-CONDID"));
+      }
+      function navigateToEq2Cond() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "EquipmentCondition");
+        localStorage.setItem("AICORE-OBJECTID", localStorage.getItem("AICORE-ANOMALY-EQUIPMENT2-CONDID"));
+      }
+      function navigateToEq3Cond() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "EquipmentCondition");
+        localStorage.setItem("AICORE-OBJECTID", localStorage.getItem("AICORE-ANOMALY-EQUIPMENT3-CONDID"));
+      }
+      function navigateToEq4Cond() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "EquipmentCondition");
+        localStorage.setItem("AICORE-OBJECTID", localStorage.getItem("AICORE-ANOMALY-EQUIPMENT4-CONDID"));
+      }
+      function navigateToEq5Cond() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "EquipmentCondition");
+        localStorage.setItem("AICORE-OBJECTID", localStorage.getItem("AICORE-ANOMALY-EQUIPMENT5-CONDID"));
+      }
+      function navigateToEq6Cond() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "EquipmentCondition");
+        localStorage.setItem("AICORE-OBJECTID", localStorage.getItem("AICORE-ANOMALY-EQUIPMENT6-CONDID"));
+      }
+      function navigateToEqACond() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "EquipmentCondition");
+        localStorage.setItem("AICORE-OBJECTID", localStorage.getItem("AICORE-ANOMALY-EQUIPMENTA-CONDID"));
+      }
+      function navigateToEqBCond() {
+        localStorage.setItem("AICORE-ACTION", "Navigate");
+        localStorage.setItem("AICORE-OBJECT", "EquipmentCondition");
+        localStorage.setItem("AICORE-OBJECTID", localStorage.getItem("AICORE-ANOMALY-EQUIPMENTB-CONDID"));
       }
     </script>
 
