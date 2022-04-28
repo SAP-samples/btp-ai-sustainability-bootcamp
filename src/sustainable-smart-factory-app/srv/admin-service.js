@@ -77,12 +77,6 @@ module.exports = async function () {
 
     //  Date logic: To add 7 days to the MO: Logic implemented in helper as moment object required.
 
-    // console.log(equipment);
-    // console.log(equipment[0].name);
-    // console.log("data: " + req.data);
-    // console.log(eqCondEntity); //  { ID: 1, IsActiveEntity: 'true' }
-    // console.log(eqCondition);
-
     // 3. Create Maintenance Order in S4 with Maintenance Operation Item & Costs
     //  Note: MO Operation logic are implemented in helper file.
     //  Assumptions randomised:
@@ -97,18 +91,14 @@ module.exports = async function () {
     };
 
     const mo = buildMaintenanceOrderForCreate(datamo);
-    // console.log(mo);
     const result = await maintenanceOrderApi
       .requestBuilder()
       .create(mo)
       .execute(sdkDest);
 
     //  4. Update EquipmentConditions record with the Maintenance Order ID returned from S4 API
-    // console.log(moId);
-    // console.log(result.toJSON());
     const moResult = result.toJSON();
     const moId = moResult.maintenanceOrder;
-    // console.log(moId);  // 4000223
 
     /** Exclusively locks the selected rows for subsequent updates in the current transaction, thereby preventing concurrent updates by other parallel transactions.
      * https://cap.cloud.sap/docs/node.js/cds-ql#select-forUpdate
@@ -185,15 +175,9 @@ module.exports = async function () {
     var confidence, type;
 
     if (results.hasOwnProperty("Slow_Sound")) {
-      // console.log("Slow");
-      // confidence = results.Normal;
-      // parseFloat(results.Normal).toFixed(3);
-      // confidence = results.Slow_Sound;
       confidence = parseFloat(results.Slow_Sound).toFixed(3);
       type = "A1";
     } else {
-      // console.log("Damage");
-      // confidence = results.Damage_Noise;
       confidence = parseFloat(results.Damage_Noise).toFixed(3);
       type = "A2";
     }
@@ -220,37 +204,7 @@ module.exports = async function () {
    */
   this.on("inferenceImageCV", async (req) => {
     //  0. Check Defect Percentage falls between Price Points
-
-    // console.log(req.getContextPath());
-
-    // var defectprice = await cds
-    //   .tx(req)
-    //   .run(SELECT(Items).from(DefectiveProductPrices).where({ productId: "SG23" }));
-    // console.log(defectprice);
-
-    // var query = "SELECT.from ('DefectiveProductPrices', o => o.`*`, o.Items)";
-    // var query = SELECT.from ('DefectiveProductPrices'); // works
-    // var query = SELECT.from ('DefectiveProductPrices', (o) => o`.*`, o.Items);
-    // const xx = await cds.run(query);
-
-    // var defectprice = await cds
-    //   .tx(req)
-    //   .run(SELECT.from('DefectiveProductPrices', d => d.`*`, d.Items).where({ productId: "SG23" }));
-    // console.log(defectprice);
-
-    // var xx = await db.get("/admin/DefectiveProductPrices(productId='SG23',IsActiveEntity=true)/Items");
-    // console.log(xx);
-
-    // const eqCondition = await SELECT.from(
-    //   EquipmentConditions,
-    //   eqCondEntity
-    // ).columns(["equipment_NR"]);
-
-    // console.log(req.headers.origin);
     var base_url = req.headers.origin;
-    // var base_url = window.location.origin;
-    // console.log(base_url);
-
     var pricesArray;
     var request = require("request");
     var options = {
@@ -267,8 +221,6 @@ module.exports = async function () {
       } else {
         var resBody = JSON.parse(response.body);
         pricesArray = resBody.value;
-        // pricesArray = JSON.parse(response.body.value);
-        // console.log(pricesArray);
       }
     });
 
@@ -280,10 +232,6 @@ module.exports = async function () {
       ["image", "productId"]
     );
 
-    // console.log("cvEntity");
-    // console.log(cvEntity);
-
-    // console.log(cvEntity.image);
     //  2. Prepare base64 format of file
     const fileBase64 = fs.readFileSync("app" + cvEntity.image, {
       encoding: "base64",
@@ -315,7 +263,6 @@ module.exports = async function () {
     defectDiscount = 0.45;
 
     if (results.hasOwnProperty("Normal")) {
-      // console.log("Normal");
       confidence = parseFloat(results.Normal).toFixed(3);
       label = "Y";
       defected = false;
@@ -324,12 +271,10 @@ module.exports = async function () {
         cvImageEntity.ID +
         ") entity processed successfully with NO DEFECTS.";
     } else {
-      // console.log("Anomalous");
       //  Anomaly detected, find defected segment
       const segResults = await aicoreAPI
         .tx(req)
         .send("POST", cv_inference_seg_url, data, headers);
-      // console.log(segResults);
       bin = "data:image/bmp;base64," + segResults.segmented_image;
       confidence = parseFloat(results.Anomalous).toFixed(3);
       label = "N";
@@ -339,17 +284,11 @@ module.exports = async function () {
         cvImageEntity.ID +
         ") entity processed successfully with DEFECT detected.";
       areaPercDefect = parseFloat(segResults.defected_area).toFixed(3) * 100;
-      // console.log("area perc " + areaPercDefect);
       var rangeMax, rangeMin;
       for (let i = 0; i < pricesArray.length; i++) {
         rangeMin = parseFloat(pricesArray[i].fromDefectedPerc);
         rangeMax = parseFloat(pricesArray[i].toDefectedPerc);
-        // console.log("from: " + rangeMin);
-        // console.log("in between " + areaPercDefect);
-        // console.log("to: " + rangeMax);
         if (areaPercDefect >= rangeMin && areaPercDefect <= rangeMax) {
-          // console.log("inside here");
-          // console.log(pricesArray[i].desc);
           defectDesc = pricesArray[i].desc;
           defectDiscount = pricesArray[i].defectiveDiscount;
         }
@@ -396,7 +335,6 @@ async function genid(req) {
   const { ID } = await cds
     .tx(req)
     .run(SELECT.one.from(req.target).columns("max(ID) as ID"));
-  //req.data.ID = ID - ID % 100 + 100 + 1
   req.data.ID = ID + 1;
 }
 
@@ -412,9 +350,7 @@ function generateToken(authUser) {
   };
   request(options, function (error, response) {
     if (error) throw new Error(error);
-    // console.log(response.body);
     var obj = JSON.parse(response.body);
-    // console.log(obj.access_token);
     token = "Bearer " + obj.access_token;
   });
 }

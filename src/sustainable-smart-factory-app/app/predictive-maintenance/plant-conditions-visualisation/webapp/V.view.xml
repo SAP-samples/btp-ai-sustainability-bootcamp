@@ -2,6 +2,7 @@
     xmlns:l="sap.ui.layout"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
+    xmlns:core="sap.ui.core"
     xmlns:mc="sap.suite.ui.microchart"
     xmlns:commons="sap.suite.ui.commons"
     xmlns:html="http://www.w3.org/1999/xhtml">
@@ -46,10 +47,10 @@
     </FlexBox>
     <MessageStrip id="xPlantCondition" visible="false" text="" type="Success" enableFormattedText="true" showIcon="true" showCloseButton="false" class="sapUiTinyMarginBegin sapUiTinyMarginTop">
         <link>
-            <Link text="View Plant Condition" href="/fiori-apps.html#PlantConditions-manage" />
+            <Link id="xPlantConditionLink" text="View Plant Condition" href="/fiori-apps.html#PlantConditions-manage" />
         </link>
-    </MessageStrip>    
-    <Panel expandable="true" expanded="true" class="sapUiTinyMargin" width="auto">
+    </MessageStrip>
+    <Panel expandable="true" expanded="false" class="sapUiTinyMargin" width="auto">
         <headerToolbar>
             <OverflowToolbar active="true">
                 <Title text="Timeline of Events" />
@@ -57,9 +58,16 @@
             </OverflowToolbar>
         </headerToolbar>
         <content>
-            <commons:Timeline id="idTimeline" textHeight="2" height="" axisOrientation="Horizontal" enableDoubleSided="true" groupByType="Year" groupBy="recStartedAt" growingThreshold="10" lazyLoading="false" enableScroll="true" filterTitle="Plant Status" sortOldestFirst="false" content="{/value}">
+            <commons:Timeline id="idTimeline" textHeight="2" height="" axisOrientation="Horizontal" 
+            enableDoubleSided="false" showIcons="true" groupByType="Year" groupBy="recStartedAt" growingThreshold="10" 
+            lazyLoading="true" enableScroll="true" filterTitle="Plant Status" sortOldestFirst="false" 
+            content="{/value}">
                 <commons:content>
-                    <commons:TimelineItem id="idTemplateItem" dateTime="{recStartedAt}" title="{ID}" userNameClickable="true" userNameClicked="onUserNameClick" select="onPressItems" userPicture="sap-icon://factory" text="Production yield rate: {yield}. Defective products: {defectiveProd}. Energy Consumption (KWh): {energyCons}." userName="{plantStatus}" filterValue="{plantStatus}" icon="{path: 'plantStatus', formatter: '.plantConditionStatusIcon'}">
+                    <commons:TimelineItem id="idTemplateItem" dateTime="{recStartedAt}" title="{ID}" 
+                    userNameClickable="true" userNameClicked="onUserNameClick" select="onPressItems" 
+                    userPicture="sap-icon://factory" text="Production yield rate: {yield}. Defective products: {defectiveProd}. Energy Consumption (KWh): {energyCons}." 
+                    userName="{plantStatus}" filterValue="{plantStatus}" 
+                    icon="{path: 'plantStatus', formatter: '.plantConditionStatusIcon'}">
                     </commons:TimelineItem>
                 </commons:content>
             </commons:Timeline>
@@ -67,53 +75,50 @@
     </Panel>
 
 
-    <Panel id="expandablePanel" expandable="true" expanded="true" expand="onExpand" height="1000px" width="auto" class="sapUiTinyMargin">
+    <Panel id="expandablePanel" expandable="true" expanded="true" expand="onExpand" height="1300px" width="auto" class="sapUiTinyMargin">
         <headerToolbar>
             <OverflowToolbar active="true">
                 <Title text="Manufacturing Floor Plan Layout" />
                 <ToolbarSpacer />
                 <Text text="Simulate Real-time Monitoring"/>
-                <Switch id="refreshSwitch" type="AcceptReject" state="false"></Switch>
+                <Switch id="refreshSwitch" type="AcceptReject" state="false" change="onSimulateSwitch"></Switch>
             </OverflowToolbar>
         </headerToolbar>
         <content>
-            <html:iframe id="plantVisual" src="predictive-maintenance/plant-conditions-visualisation/webapp/plant-visual/index.html" style="-webkit-transform: scale(1.5); transform: scale(1.5); -webkit-transform-origin: 0 0; transform-origin: 0 0;" frameBorder="0" height="600px" width="750px" scrolling="yes"/>
+            <l:BlockLayout id="simulationConfig" visible="false">
+                <l:BlockLayoutRow accentCells="Accent1">
+                    <l:BlockLayoutCell width="1">
+                        <!-- <Text text="EQ1" /> -->
+                        <!-- <core:Icon src="sap-icon://add-activity" /> -->
+                        <Switch id="eq0stich" enabled="false" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell width="1">
+                        <Switch id="eq1stich" enabled="false" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell >
+                        <Switch id="eq2stich" enabled="false" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell width="1">
+                        <Switch id="eq3stich" enabled="false" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell>
+                        <Switch id="eq4stich" enabled="false" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell width="1">
+                        <Switch id="eq5stich" enabled="false" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell>
+                        <Switch id="eq6stich" enabled="false" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell width="1">
+                        <Switch id="eq7stich" enabled="false" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell width="1">
+                        <Switch id="eq8stich" enabled="false" type="AcceptReject" state="true"></Switch>
+                    </l:BlockLayoutCell>
+                </l:BlockLayoutRow>
+            </l:BlockLayout>
+            <html:iframe id="plantVisual" src="predictive-maintenance/plant-conditions-visualisation/webapp/plant-visual/index.html" style="-webkit-transform: scale(1.7); transform: scale(1.7); -webkit-transform-origin: 0 0; transform-origin: 0 0;" frameBorder="0" height="600px" width="750px" scrolling="yes"/>
         </content>
     </Panel>
-
-    <!-- <Panel id="expandablePanel" expandable="true" expanded="true" expand="onExpand" height="1000px" width="auto" class="sapUiTinyMargin">
-            <headerToolbar>
-                <OverflowToolbar active="true">
-                    <Title text="2D Floor Plan LGP-LED Manufacturing Plant" />
-                    <ToolbarSpacer />
-                    <Text text="Simulate Real-time Monitoring of Floor Plan"/>
-                    <Switch id="refreshSwitch" type="AcceptReject" state="false"></Switch>
-                </OverflowToolbar>
-            </headerToolbar>
-            <content>
-                <l:HorizontalLayout>
-                <FlexBox alignItems="Start" class="sapUiSmallMargin" height="500px">
-                    <html:iframe id="plantVisual" src="predictive-maintenance/plant-conditions-visualisation/webapp/plant-visual/index.html" style="-webkit-transform: scale(1.0); transform: scale(1.0); -webkit-transform-origin: 0 0; transform-origin: 0 0;" frameBorder="0" height="600px" width="750px" scrolling="yes"/>
-                </FlexBox>
-                <FlexBox height="500px" width="200px">
-                    <items>
-                        <commons:Timeline id="idTimeline" textHeight="2" height="100%" axisOrientation="Vertical" enableDoubleSided="true" groupByType="" groupBy="" growingThreshold="10" lazyLoading="false" enableScroll="true" filterTitle="Plant Status" sortOldestFirst="false" content="{/Conditions}">
-                        <commons:content>
-                            <commons:TimelineItem id="idTemplateItem" dateTime="{recStartedAt}" title="{ID}" userNameClickable="true" userNameClicked="onUserNameClick" select="onPressItems" userPicture="sap-icon://factory" text="Production yield rate: {yield}. Defective products: {defectiveProd}. Energy Consumption (KWh): {energyCons}." userName="{plantStatus}" filterValue="{plantStatus}" icon="{path: 'plantStatus', formatter: '.plantConditionStatusIcon'}">
-                            </commons:TimelineItem>
-                        </commons:content>
-                    </commons:Timeline>
-                    </items>
-                </FlexBox>
-            </l:HorizontalLayout>
-            </content>
-        </Panel> -->
-
-
-
-    <!-- <FlexBox alignItems="Start" justifyContent="Start" class="sapUiSmallMargin" wrap="Wrap">
-        <items>
-
-        </items>
-    </FlexBox> -->
 </mvc:View>
