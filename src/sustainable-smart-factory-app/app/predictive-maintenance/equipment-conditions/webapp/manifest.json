@@ -96,6 +96,20 @@
                         "settings" : {
                             "entitySet" : "EquipmentConditions",
                             "navigation" : {
+                            },
+                            "content":{
+                                "header":{
+                                    "facets":{
+                                        "CustomHeaderFacetThresholdProgress":{
+                                            "template":"equipmentconditions.custom.ThresholdProgressBar",
+                                            "title": "No. of Anomalies Detected",
+                                            "position": {
+												"placement": "After",
+												"anchor": "CollectionFacet1"
+											}
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
