@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:control="sap.fe.core.controls">
+    <ProgressIndicator core:require="{handler: 'equipmentconditions/custom/CustomController'}" class="" percentValue="100" displayValue="{parts: [{path: 'toEquipmentStatus_code'},
+            {path: 'numberOfAnomalies'},
+            {path: 'ID'}],
+    formatter: 'handler.onGetThreshold' }" displayAnimation="true" showValue="true" state="{path: 'numberOfAnomalies',formatter: 'handler.onSetCritStatus' }" />
+</core:FragmentDefinition>
