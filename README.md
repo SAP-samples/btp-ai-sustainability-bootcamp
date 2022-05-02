@@ -15,10 +15,23 @@ which is developed and delivered by Partner Ecosystem Success Organization (form
 
 ### Solution Architecture
 ![Solution Architecture](resources/solution-architecture.png)
-- SAP AI Core and SAP AI Launchpad
-- Sustainable Smart Factory Application
-- SAP S/4HANA Cloud
+- SAP AI Core and SAP AI Launchpad: <br>
+Streamline the execution and operations of your AI assets in a standardized, scalable, and hyperscaler-agnostic way <br>
+
+- Sustainable Smart Factory Application: <br>
+A CAP based application glues all the pieces together by inferring the AI models, and recoridng data of plant daily operaiton and sustainability KPIs and extending Maintenance Management of SAP S/4HANA Cloud with Predictive Maintenance 
+    * Auto. Defect Detection<br>
+    -Quality records via computer vision
+    * Sound-based Predictive Maintenance<br>
+    -Historical conditions of plant and equipment, and sound anomalies <br>
+    -Integration with Maintenance Management of SAP S/4HANA Cloud
+- SAP S/4HANA Cloud<br>
+    * Central Master Data for Products and Equipments
+    * Maintenance Management
 - SAP Analytics Cloud for Planning
+    * Plant 360 story
+    * Maintenance Cost Planning
+    * Sustainability Planning and Energy Rate Prediction
 
 ### Storyline
 - LGP Product<br>
