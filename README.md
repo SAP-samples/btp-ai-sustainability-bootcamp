@@ -13,8 +13,6 @@ which is developed and delivered by Partner Ecosystem Success Organization (form
 - Maintenance Cost Planning/budgeting with Predictive Planning of SAP Analytics Cloud for Planning. 
 - Sustainability Planning and Energy Rate Prediction with Predictive Planning of SAP Analytics Cloud for Planning.
 
-### Storyline
-
 ### Solution Architecture
 ![Solution Architecture](resources/solution-architecture.png)
 - SAP AI Core and SAP AI Launchpad
@@ -22,6 +20,17 @@ which is developed and delivered by Partner Ecosystem Success Organization (form
 - SAP S/4HANA Cloud
 - SAP Analytics Cloud for Planning
 
+### Storyline
+- LGP Product<br>
+This business manufactures Light Guide Plates (LGP) used in LED panels.<br>
+An LGP is an optical product which can transform a line light source into a surface light source, widely applied in liquid crystal display screens such as computer monitors, car navigations, and PADs.
+![LGP Product](resources/lgp-product.png)
+- Factory Layout
+![LGP Factory Layout](resources/factory-layout.png)
+- 2020 before implementing sustainable-smart-factory-app  
+![2020](resources/lgp-factory-2020.png)
+- 2021 after implementing sustainable-smart-factory-app  
+![2021](resources/lgp-factory-2021.png)
 ### Final Outcomes
 
 ## Requirements
