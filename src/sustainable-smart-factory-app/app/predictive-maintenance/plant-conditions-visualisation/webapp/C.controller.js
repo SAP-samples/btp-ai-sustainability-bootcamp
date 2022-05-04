@@ -1,26 +1,30 @@
 sap.ui.define(
   [
     "sap/ui/core/BusyIndicator",
-    "sap/ui/Device",
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/odata/v2/ODataModel",
     "sap/m/MessageToast",
     "sap/base/util/UriParameters",
     "sap/suite/ui/commons/TimelineItem",
+    "sap/suite/ui/commons/TimelineFilterType",
     "sap/suite/ui/commons/util/DateUtils",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
     "require",
   ],
   function (
     BusyIndicator,
-    Device,
     Controller,
     JSONModel,
     ODataModel,
     MessageToast,
     UriParameters,
     TimelineItem,
+    TimelineFilterType,
     DateUtils,
+    Filter,
+    FilterOperator,
     require
   ) {
     "use strict";
@@ -32,7 +36,161 @@ sap.ui.define(
      */
     var latestPlantCondObj;
 
+    /** Save on Global Settings for better UX Experience
+     *  - Panel Expansion | AICORE-SETTINGS-TIMELINE-PANEL
+     *  - Filter | AICORE-FILTER-CURRENT | Fault, Maintenance, Normal, All
+     * @SearchParams: Global Settings
+     */
+    var filterCurrent = "All";
+    var timelinePanel = false;
+
     return Controller.extend("plantconditionsvisual.C", {
+      customFTFilterChecked: function (oEvent) {
+        var sSelectedItem = oEvent.getParameter("selected"),
+          filter = null,
+          aSelectedDataItems = [];
+        if (sSelectedItem) {
+          filter = new Filter({
+            path: "plantStatus",
+            value1: "Fault",
+            operator: FilterOperator.EQ,
+          });
+
+          aSelectedDataItems = ["Fault"];
+        }
+
+        this.byId("idTimeline").setModelFilter({
+          type: TimelineFilterType.Data,
+          filter: filter,
+        });
+        this.byId("idTimeline").setCurrentFilter(aSelectedDataItems);
+      },
+      onTimelineExpand: function(oEvent){
+        //  Global Parameter on Panel Expansion
+        timelinePanel = this.byId("idTimelinePanel").getExpanded();
+      },
+      plantStatusChanged: function (oEvent) {
+        //  Global Parameter on Filter Settings
+        filterCurrent = oEvent.getParameter("selectedItem").getKey();
+
+        var sSelectedItem = oEvent.getParameter("selectedItem").getKey();
+        if (sSelectedItem === "All") {
+          // clear country filter
+          this._timeline.setCustomFilterMessage("");
+          this._timeline.setCustomModelFilter("statusFilter", null);
+        } else {
+          this._timeline.setCustomFilterMessage(
+            "Plant Status (" + sSelectedItem + ")"
+          );
+          this._timeline.setCustomModelFilter(
+            "statusFilter",
+            new Filter({
+              path: "plantStatus",
+              value1: sSelectedItem,
+              operator: FilterOperator.EQ,
+            })
+          );
+        }
+      },
+      _initBindingEventHandler: function () {
+        var oBinding = this._timeline.getBinding("content");
+        this._timeline.setNoDataText(
+          "Loading all plant conditions. Please be patient."
+        );
+
+        oBinding.attachDataReceived(function () {
+          this._timeline.setNoDataText(
+            "There isn't any plant conditions based on that filter parameters."
+          );
+        }, this);
+
+        this._timeline.attachFilterSelectionChange(function (oEvent) {
+          var sType = oEvent.getParameter("type"),
+            bClear = oEvent.getParameter("clear");
+
+          if (bClear) {
+            this.byId("idStatusSelector").setSelectedKey("All");
+            filterCurrent = "All";
+            return;
+          }
+
+          if (sType === TimelineFilterType.Search) {
+            this._search(oEvent);
+          }
+          // if (sType === TimelineFilterType.Data) {
+          //   this._dataFilter(oEvent);
+          // }
+          // if (sType === TimelineFilterType.Time) {
+          //   this._timeFilter(oEvent);
+          // }
+        }, this);
+      },
+      _search: function (oEvent) {
+        var aColumns = ["plantStatus", "yield", "defectiveProd", "energyCons"],
+          oFilter = null,
+          sSearchTerm = oEvent.getParameter("searchTerm");
+        if (sSearchTerm) {
+          oFilter = new Filter(
+            aColumns.map(function (sColName) {
+              return new Filter(sColName, FilterOperator.Contains, sSearchTerm);
+            })
+          );
+        }
+
+        oEvent.bPreventDefault = true;
+
+        this._timeline.setModelFilter({
+          type: "Search",
+          filter: oFilter,
+        });
+      },
+      onAfterRendering: function () {
+        //  Work-in-Progress: Dynamic Filter List
+        // console.log("filterList");
+        // console.log(this._timeline.getFilterList());
+        // console.log("headerBar");
+        // console.log(this._timeline.getHeaderBar());
+        // console.log("itemFilter");
+        // this._timeline.getItemFilter
+        var xBar = this._timeline.getHeaderBar();
+        xBar.addContent(new sap.m.Label({ text: "Plant Status: " }));
+        // console.log(this.byId("idStatusSelector"));
+        xBar.addContent(this.byId("idStatusSelector"));
+        // xBar.addContent(new sap.m.Select({
+        //   id: "idStatusSelector",
+        //   items: [
+        //     new sap.ui.core.Item({key:"All", text:"All"}),
+        //     new sap.ui.core.Item({key:"Fault", text:"Fault"}),
+        //     new sap.ui.core.Item({key:"Maintenance", text:"Maintenance"})
+        //   ]
+
+        // }));
+
+        /** GLOBAL SETTINGS
+         *  - On Filter
+         *  - On Select
+         *  - On Panel
+         */
+        if (filterCurrent === "All") {
+          // clear country filter
+          this._timeline.setCustomFilterMessage("");
+          this._timeline.setCustomModelFilter("statusFilter", null);
+        } else {
+          this._timeline.setCustomFilterMessage(
+            "Plant Status (" + filterCurrent + ")"
+          );
+          this._timeline.setCustomModelFilter(
+            "statusFilter",
+            new Filter({
+              path: "plantStatus",
+              value1: filterCurrent,
+              operator: FilterOperator.EQ,
+            })
+          );
+        }
+        this.byId("idStatusSelector").setSelectedKey(filterCurrent);
+        this.byId("idTimelinePanel").setExpanded(timelinePanel);
+      },
       onInit: function () {
         /** [LOGIC FLOW - in initialLogicFlow()]
          *  1. URL Parameters coming from Plant Condtions
@@ -57,15 +215,42 @@ sap.ui.define(
 
         /**
          *  For Timeline Control to Load Plant Conditions.
+         *  - JSON Model - convertData required for date. sizeLimit 3000 | change xml /value | convert doesn't work for v2
+         *  - OData Model - convertData not required | change xml /PlantConditions
+         *  > filterValue & filterTitle not showing in filter window need to figure out.
+         *  > search doesn't seem to work for both JSON & Odata.
+         *
+         *  Note: Hide Search Field in onAfterRendering method.
+         *
+         * 2022-04-27 14:55:06.385500 Request failed with status code 400: GET PlantConditions/$count?$filter=(substringof(%27Fault%27,plantStatus)%20or%20substringof(Faultm,yield)%20or%20substringof(Faultm,defectiveProd)%20or%20substringof(Faultm,energyCons)) - [{"code":"400","message":"The type 'Edm.Decimal' is not compatible to 'Edm.String'","persistent":true,"targets":["/PlantConditions/$count"],"type":"Error"}] sap.ui.model.odata.ODataMessageParser
+         *
          */
-        // var oDModel = new ODataModel("/v2/admin/", true);
+        var oDModel = new ODataModel("/v2/admin/", true);
         var oModel = new JSONModel(
           "/admin/PlantConditions?$top=3000&$orderby=ID%20desc&$select=ID,plantStatus,recStartedAt,recEndedAt,date,shift,yield,defectiveProd,energyCons"
         );
         // console.log(oDModel);
-        oModel.setSizeLimit(3000);
-        oModel.attachRequestCompleted(convertData);
-        this.getView().setModel(oModel);
+        // console.log(oModel);
+        // oModel.setSizeLimit(3000);
+        // oModel.attachRequestCompleted(convertData); //  switch on for json model
+        this.getView().setModel(oDModel);
+
+        //  Timeline control manipulation
+        this._timeline = this.byId("idTimeline");
+        this._initBindingEventHandler();
+
+        //  Custom Message
+        this._timeline.setCustomMessage(
+          "All Plant Conditions loaded in Timeline of Events"
+        );
+
+        // this.byId("idTimeline").setCustomGrouping(function(oDate) {
+        //   return {
+        //     key: oDate.getFullYear() + "/" + (oDate.getMonth() < 6 ? 1 : 2),
+        //     title: oDate.getFullYear() + "/" + (oDate.getMonth() < 6 ? "1. half" : "2. half"),
+        //     date: oDate
+        //   };
+        // });
 
         /** [LOGIC FLOW]
          *  1. URL Parameters coming from Plant Condtions
@@ -140,6 +325,13 @@ sap.ui.define(
                 ")";
             }
           }
+
+          self.getView().byId("xAnomCount").setState("Loaded");
+          self
+            .getView()
+            .byId("xAnomCount")
+            .setValue(localStorage.getItem("AICORE-ANOM-EQCOND-COUNT"));
+
           /** Navigation Properties on iFrame App
            * [SCENARIO]: Specific Anomaly or Equipment in Detail page to Navigate user to.
            * - Action: Navigate | Update | etc.
@@ -492,7 +684,6 @@ sap.ui.define(
           queryPath = "/browse/PlantConditions?$orderby=ID desc&$top=1";
           latestMsg = "[Latest Update] ";
           localStorage.setItem("AICORE-ANOMALY-PLANTCONDITIONID", sParam);
-
         }
 
         var plant,
@@ -810,6 +1001,19 @@ sap.ui.define(
             return "sap-icon://machine";
         }
       },
+      /** Icon Colour for Timeline */
+      plantConditionStatusIconColour: function (sStatus) {
+        switch (sStatus) {
+          case "Normal":
+            return "Success";
+          case "Fault":
+            return "Warning";
+          case "Maintenance":
+            return "Error";
+          default:
+            return "Success";
+        }
+      },
       onUserNameClick: function (oEvent) {
         // MessageToast.show(oEvent.getSource().getUserName() + " is pressed.");
         var plantCondId = oEvent.getSource().getTitle();
@@ -860,6 +1064,7 @@ sap.ui.define(
           var anomObj = JSON.parse(this.responseText);
           anomCount = anomObj["@odata.count"];
           localStorage.setItem(eqProperty, anomCount);
+          return anomCount;
         }
       });
       bhr.open(
@@ -874,13 +1079,13 @@ sap.ui.define(
     function convertData(oEvent) {
       var oData,
         oModel = oEvent.getSource();
-  
+
       if (!oEvent.getParameters().success) {
         return;
       }
-  
+
       oData = oModel.getData();
-      oData.value.forEach(function(oPlantCond) {
+      oData.value.forEach(function (oPlantCond) {
         oPlantCond.recStartedAt = DateUtils.parseDate(oPlantCond.recStartedAt);
       });
       oModel.updateBindings(true);

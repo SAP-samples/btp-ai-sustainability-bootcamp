@@ -582,14 +582,20 @@ annotate sf.EquipmentConditions with @(UI.HeaderFacets : [
         Target : '@UI.DataPoint#Status',
     }]
 },
-{
-    $Type  : 'UI.CollectionFacet',
-    ID     : 'CollectionFacet2',
-    Facets : [{
-        $Type  : 'UI.ReferenceFacet',
-        Target : '@UI.DataPoint#progressIndicator',
-    }]
-},
+/** [TO BE IMPROVED]
+ *  - Currently moved logic to custom fragment.
+ *  - To be only bound after formatting it with threshold data from AnomalyType entity.
+ *  - Recommendation: To bring threshold value to EqCond entity instead.
+ *  - To achieve better performance
+ */
+// {
+//     $Type  : 'UI.CollectionFacet',
+//     ID     : 'CollectionFacet2',
+//     Facets : [{
+//         $Type  : 'UI.ReferenceFacet',
+//         Target : '@UI.DataPoint#progressIndicator',
+//     }]
+// },
 {
     $Type  : 'UI.CollectionFacet',
     ID     : 'CollectionFacet3',
