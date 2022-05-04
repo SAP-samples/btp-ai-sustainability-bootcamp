@@ -8,10 +8,32 @@
 ## Requirements
 
 ## Download and Installation
+
 ```
+git clone https://github.com/SAP-samples/btp-ai-core-bootcamp.git
+cd btp-ai-core-bootcamp/src/sustainable-smart-factory-app
 npm install
+```
+- To run the app with sql DB for development
+Please udpate the section below in package.json
+```
+"db": {
+        "kind": "sql"
+    }
+```
+Then run the command
+```
 cds watch
 ```
+- To deploy the app as SAP HANA HDI Container on BTP
+login to your own Cloud Foundry on BTP
+```
+cf login
+cds build --for hana
+cds deploy --to hana
+cds watch
+```
+- To open the sustainable-smart-factory-app UI, please open the url "http://localhost:4004/fiori-apps.html#Shell-home" with Firefox or Google Chrome
 ## Known Issues
 
 ## How to obtain support

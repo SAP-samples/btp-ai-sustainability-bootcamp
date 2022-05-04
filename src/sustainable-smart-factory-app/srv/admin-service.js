@@ -5,7 +5,17 @@ const {
 } = require("@sap/cloud-sdk-vdm-maintenance-order-service");
 const { maintenanceOrderApi } = maintenanceOrderService();
 const { buildMaintenanceOrderForCreate } = require("./helper");
-const sdkDest = { destinationName: "S4HC_D2V" };
+
+/** [DESTINATION]
+ *  - For simplicity & dev purposes, this project will be utilising a defined destination approach.
+ * More info here: https://cap.cloud.sap/docs/guides/using-services#app-defined-destinations
+ * And here: https://sap.github.io/cloud-sdk/docs/js/features/connectivity/destination
+ */
+//  Below approach to connect to BTP destination service will be commented out.
+// const sdkDest = { destinationName: "S4HC_D2V" };
+
+//  App Defined Destination approach (NOT RECOMMENDED for Productive Landscapes)
+const sdkDest = cds.env.s4hc.credentials;
 
 /** [CONFIG]
  * Best practice is to have it defined in User Defined variables in the NodeJS app deployed in CF.
@@ -16,7 +26,7 @@ const sdkDest = { destinationName: "S4HC_D2V" };
  *
  * For simplicity & dev purposes, our current deployment will use the local approach.
  * Where config params are store in package.json cds config payload.
- * Please DO NOT use it for productive.
+ * IMPORTANT: Please DO NOT use this approach for productive.
  * - aicore
  * > oauth
  * > credentials
@@ -26,6 +36,13 @@ const sdkDest = { destinationName: "S4HC_D2V" };
  * >> imageclass
  * >> imageseg
  * >> soundclass
+ * - s4hc
+ * > credentials
+ * >> destiation
+ * >> url
+ * >> auth
+ * >> user
+ * >> password
  *
  */
 

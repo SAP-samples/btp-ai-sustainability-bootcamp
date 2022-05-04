@@ -19,7 +19,7 @@
                 </TileContent>
             </GenericTile>
             <GenericTile id="xYieldTile" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Yield Rate" subheader="Plant Manufacturing" sizeBehavior="Small">
-                <TileContent footer="Non-defective Produce">
+                <TileContent footer="Non-defective Product">
                     <NumericContent animateTextChange="true" icon="sap-icon://machine" id="xYield" withMargin="false" value="1283" valueColor="Good" indicator="Up" scale="pcs"/>
                 </TileContent>
             </GenericTile>
@@ -29,18 +29,23 @@
                 </TileContent>
             </GenericTile>
             <GenericTile id="xEnergyTile" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Energy Consumption" subheader="Plant Equipments" sizeBehavior="Small">
-                <TileContent footer="Real-time Monitoring">
+                <TileContent footer="Key Sustainability KPI">
                     <NumericContent animateTextChange="true" icon="sap-icon://energy-saving-lightbulb" id="xEnergyConsumption" withMargin="false" value="518" valueColor="Good" indicator="Up" scale="KWh"/>
                 </TileContent>
             </GenericTile>
             <GenericTile id="xCarbonTile" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="CO² Emissions" subheader="Greenhouse Gas" sizeBehavior="Small">
-                <TileContent footer="Real-time Monitoring">
+                <TileContent footer="Key Sustainability KPI">
                     <NumericContent animateTextChange="true" icon="sap-icon://e-care" id="xCarbonEmission" withMargin="false" value="22" valueColor="Good" indicator="Up" scale="Kg"/>
                 </TileContent>
             </GenericTile>
             <GenericTile id="xAttentionTile" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Requires Attention" subheader="Anomaly Detection" press="toEqCond" sizeBehavior="Small">
                 <TileContent footer="Equipment Conditions">
                     <NumericContent animateTextChange="true" icon="sap-icon://alert" id="xAttention" state="Loading" withMargin="false" value="0" valueColor="Good"/>
+                </TileContent>
+            </GenericTile>
+            <GenericTile id="xAnomTile" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="# of Anomalies" subheader="From All EQ Conditions" press="toEqCond" sizeBehavior="Small">
+                <TileContent footer="Plant Condition">
+                    <NumericContent animateTextChange="true" icon="sap-icon://alert" id="xAnomCount" state="Loading" withMargin="false" value="0" valueColor="Good"/>
                 </TileContent>
             </GenericTile>
         </items>
@@ -50,24 +55,35 @@
             <Link id="xPlantConditionLink" text="View Plant Condition" href="/fiori-apps.html#PlantConditions-manage" />
         </link>
     </MessageStrip>
-    <Panel expandable="true" expanded="false" class="sapUiTinyMargin" width="auto">
+    <Panel id="idTimelinePanel" expandable="true" expanded="false" expand="onTimelineExpand" class="sapUiTinyMargin" width="auto">
         <headerToolbar>
             <OverflowToolbar active="true">
                 <Title text="Timeline of Events" />
                 <ToolbarSpacer />
+                <!-- <Label text="Plant Status"></Label> -->
+                <Select id="idStatusSelector" change="plantStatusChanged">
+                    <core:Item key="All" text="All"/>
+                    <core:Item key="Normal" text="Normal"/>
+                    <core:Item key="Fault" text="Fault"/>
+                    <core:Item key="Maintenance" text="Maintenance"/>
+                </Select>
+                <!-- <CheckBox id="chkCustomFilterAll" text="All Status" select="customAllFilterChecked"/>
+                <CheckBox id="chkCustomFilterFT" text="Fault" select="customFTFilterChecked"/>
+                <CheckBox id="chkCustomFilterMT" text="Maintenance" select="customMTFilterChecked"/> -->
             </OverflowToolbar>
         </headerToolbar>
         <content>
             <commons:Timeline id="idTimeline" textHeight="2" height="" axisOrientation="Horizontal" 
-            enableDoubleSided="false" showIcons="true" groupByType="Year" groupBy="recStartedAt" growingThreshold="10" 
-            lazyLoading="true" enableScroll="true" filterTitle="Plant Status" sortOldestFirst="false" 
-            content="{/value}">
+            enableDoubleSided="false" alignment="Top" showIcons="true" groupByType="Year" groupBy="recStartedAt" growingThreshold="10" 
+            lazyLoading="true" showSearch="false" showHeaderBar="true" enableScroll="true" filterTitle="Plant Status" sortOldestFirst="false" 
+            content="{/PlantConditions}">
                 <commons:content>
                     <commons:TimelineItem id="idTemplateItem" dateTime="{recStartedAt}" title="{ID}" 
                     userNameClickable="true" userNameClicked="onUserNameClick" select="onPressItems" 
                     userPicture="sap-icon://factory" text="Production yield rate: {yield}. Defective products: {defectiveProd}. Energy Consumption (KWh): {energyCons}." 
                     userName="{plantStatus}" filterValue="{plantStatus}" 
-                    icon="{path: 'plantStatus', formatter: '.plantConditionStatusIcon'}">
+                    icon="{path: 'plantStatus', formatter: '.plantConditionStatusIcon'}"
+                    status="{path: 'plantStatus', formatter: '.plantConditionStatusIconColour'}">
                     </commons:TimelineItem>
                 </commons:content>
             </commons:Timeline>
@@ -75,7 +91,7 @@
     </Panel>
 
 
-    <Panel id="expandablePanel" expandable="true" expanded="true" expand="onExpand" height="1300px" width="auto" class="sapUiTinyMargin">
+    <Panel id="expandablePanel" expandable="true" expanded="true" height="1300px" width="auto" class="sapUiTinyMargin">
         <headerToolbar>
             <OverflowToolbar active="true">
                 <Title text="Manufacturing Floor Plan Layout" />
@@ -102,7 +118,7 @@
                         <Switch id="eq3stich" enabled="false" type="AcceptReject" state="true"></Switch>
                     </l:BlockLayoutCell>
                     <l:BlockLayoutCell>
-                        <Switch id="eq4stich" enabled="false" type="AcceptReject" state="true"></Switch>
+                        <Switch id="eq4stich" enabled="false" type="AcceptReject" state="false"></Switch>
                     </l:BlockLayoutCell>
                     <l:BlockLayoutCell width="1">
                         <Switch id="eq5stich" enabled="false" type="AcceptReject" state="true"></Switch>
