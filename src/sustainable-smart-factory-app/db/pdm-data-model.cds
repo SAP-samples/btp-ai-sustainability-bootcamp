@@ -8,6 +8,7 @@ using {
 
 ////////////////////////////////////////////////////////////
 //Data Model for Predctive Maintenance module
+//Equipments: Equipment master data
 //PlantConditions:  The recorded condition of the plants given a time period.
 //EquipmentConditions: The recorded condition of the equipment given a time period
 //Anomalies: The detected sound anomaly attached to an equipment
@@ -22,9 +23,11 @@ entity PlantConditions : managed {
       recEndedAt          : Timestamp;
       date                : Date;
       shift               : ShiftNo;
+      //key figures recorded in plant condition
       yield               : Decimal(9,2);
       defectiveProd       : Decimal(9,2);
       energyCons          : Decimal(9,2);
+      //Each PlantCondition is associated with the EquipmentConditions during the time period
       equipmentConditions : Association to many EquipmentConditions
                               on equipmentConditions.plantCond = $self;
 }
@@ -40,11 +43,13 @@ entity Equipments : managed {
       name         : localized String(40);
       desc         : localized String(100);
       toEquipmentStatus : Association to PlantEquipmentStatus;
+      //Organizational data
       compCode     : String(4);
       plant        : String(4);
       plantSection : String(3);
       funcLocation : String(30);
       costCenter   : String(10);
+      //historical condition record of the equipment
       conditions   : Association to many EquipmentConditions
                        on conditions.equipment = $self;
 }
@@ -52,21 +57,12 @@ entity Equipments : managed {
 entity EquipmentConditions : managed {
   key ID                : Integer;
       plantCond         : Association to PlantConditions;
-      // plant              : String(4);
-      // plantSection       : String(3);
-      // funcLocation       : String(30);
-      // equipment          : String(18);
-      // equipmentName      : String(40);
       equipment         : Association to Equipments;
-      //equipmentStatus    : EquipmentStatus default 'OK';
       toEquipmentStatus : Association to PlantEquipmentStatus;
       virtual noOfAnomaliesSinceLastMT : Integer;
       recStartedAt      : Timestamp;
       recEndedAt        : Timestamp;
       date                : Date;
-      // faultProb          : Decimal;
-      //fault              : Integer;
-      // breakDownProb      : Decimal;
       virtual moCreated : Boolean;
       //detected sound anomalies of the equipment during the period
       anomalies         : Association to many Anomalies
@@ -78,21 +74,7 @@ entity EquipmentConditions : managed {
       followUpDocNum    : String(12);
       maintenanceCost   : Decimal(9,2);
       currency          : Currency;
-
-      //or explicit maintenance order linkage
-      //maintenanceOrder   : String(12);
-      //maintOrderType     : Association to MaintenanceOrderTypes;
 }
-
-// entity MaintenanceOrderTypes : sap.common.CodeList {
-//   key code : String(4);
-// }
-
-// type EquipmentStatus : String enum {
-//   Normal    = 'OK';
-//   Fault     = 'FL';
-//   BreakDown = 'BD';
-// }
 
 //For UI Header Annotation Criticality
 type Criticality : Integer enum {
@@ -108,6 +90,10 @@ entity PlantEquipmentStatus {
       recommendation : localized String(50);
 }
 
+//////////////////////////////////////////////////////////////////////
+//Anomalies entity here can be used for any kind of Anomalies, such as
+//sound, image, temperature, humidity etc
+//////////////////////////////////////////////////////////////////////
 entity Anomalies : managed {
   key ID           : Integer;
       detectedAt   : Timestamp;
