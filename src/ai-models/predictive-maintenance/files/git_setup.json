@@ -1,14 +1,14 @@
 {
     "repo": {
-        "name": "aicore-test-calabria",
-        "url": "https://github.com/calabria/aicore-test",
-        "username": "calabria",
-        "password": "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"
+        "name": "lgp-repo",
+        "url": "https://github.com/sap-btp-ai-sustainability-bootcamp/lgp_green_factory",
+        "username": "sap-btp-ai-sustainability-bootcamp",
+        "password": "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"
     },
     "app": {
         "applicationName": "aicore-sound",
-        "repositoryUrl": "https://github.com/calabria/aicore-test",
+        "repositoryUrl": "https://github.com/sap-btp-ai-sustainability-bootcamp/lgp_green_factory",
         "revision": "HEAD",
-        "path": "workflows_sound"
+        "path": "workflow_sound"
     }
 }
