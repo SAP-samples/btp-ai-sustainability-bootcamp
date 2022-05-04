@@ -33,7 +33,7 @@ spec:
         maxReplicas: 5
         containers:
         - name: kfserving-container
-          image: "docker.io/yoshidj/sound-serve:0.0.1"
+          image: "docker.io/yoshidj/sound-serve:latest"
           ports:
             - containerPort: 9001
               protocol: TCP
