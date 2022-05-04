@@ -9,6 +9,8 @@ node_modules/
 target/
 app/catalog/node_modules/
 app/catalog/dist/
+db/default-env.json
+db/.env
 
 #temp local pure sapui5 fiori app
 app/sap.ai.sample.smart-factory-app
@@ -31,7 +33,7 @@ mta_archives/
 *.flattened-pom.xml
 
 # IDEs
-# .vscode
+.vscode/
 # .idea
 
 # added by cds deploy
