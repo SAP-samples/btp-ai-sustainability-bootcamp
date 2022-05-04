@@ -110,6 +110,7 @@ sap.ui.define(
 
           if (bClear) {
             this.byId("idStatusSelector").setSelectedKey("All");
+            filterCurrent = "All";
             return;
           }
 
