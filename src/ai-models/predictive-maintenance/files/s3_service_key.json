@@ -1,7 +1,0 @@
-{
-  "access_key_id": "AKIA2KZYVEQLGEDZEOWL",
-  "bucket": "books-dataset",
-  "secret_access_key": "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",
-  "host": "s3.amazonaws.com",
-  "region": "eu-central-1"
-}
