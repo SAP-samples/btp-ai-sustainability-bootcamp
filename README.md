@@ -45,9 +45,9 @@ A CAP-based application on BTP glues all the pieces together by inferring the AI
     * Sustainability Planning and Energy Rate Prediction
 
 ### Storyline
+Bagnoli Co. is a famous manufacturer of Light Guide Plates (LGP) used in LED panels since 2008, based in Milan, Italy. The company has design and manufacturing of LGP, adopted SAP S/4HANA Cloud as digtial business platfrom since 2020. The Bagnoli brothers have a vision to become an sustainable smart LGP manufacturer by reducing waste and improving production effeciency and workplace safety. In 2021, An SAP gold partner has been hired to implement their vision with SAP Business Technology Platform. SAP AI Core has been proposed to optimise these business process efficiency in quality inspection with computer vision, and sound anonaly detection based predictive maintenance in which sustainability key figures are recorded during plant daily operation such as energy consumption and CO2 emission. And SAP Analytics Cloud for Planning is also suggested to provide insights of production and sustainability KPI to plant manager, also used for Planning of Maintenance Cost  and Sustainability. And a CAP-based Sustainable Smart Factory Application is also created for end users to glue different components for extending SAP S/4HANA Cloud in Quality Inspection and Maintenance Management with intelligence and sustainability.
 - LGP Product<br>
-This business manufactures Light Guide Plates (LGP) used in LED panels.<br>
-An LGP is an optical product which can transform a line light source into a surface light source, widely applied in liquid crystal display screens such as computer monitors, car navigations, and PADs.
+Light Guide Plates (LGP) is used in LED panels, which can transform a line light source into a surface light source, widely applied in liquid crystal display screens such as computer monitors, car navigations, and PADs.
 ![LGP Product](resources/lgp-product.png)
 - Factory Layout
 ![LGP Factory Layout](resources/factory-layout.png)
