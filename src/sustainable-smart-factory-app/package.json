@@ -1,9 +1,9 @@
 {
     "name": "sustainable-smart-factory-app",
     "version": "1.0.0",
-    "description": "Sustainable Smart Factory App for BTP AI Bootcamp",
-    "repository": "https://github.com/SAP-samples/btp-ai-core-bootcamp",
-    "license": "UNLICENSED",
+    "description": "Sustainable Smart Factory App for BTP AI&Sustainability Bootcamp",
+    "repository": "https://github.com/SAP-samples/btp-ai-sustainability-bootcamp",
+    "license": "Apache License Version 2.0",
     "private": true,
     "dependencies": {
         "@sap/cds": "^5",
@@ -53,16 +53,6 @@
     "cds": {
         "build": {
             "target": "."
-        },
-        "s4hc": {
-            "kind": "config",
-            "credentials": {
-                "destination":"S4HC",
-                "url": "https://my301832-api.s4hana.ondemand.com",
-                "authentication": "BasicAuthentication",
-                "username": "SA_IN_API_USER",
-                "password": "SolutionArchitects01!"
-            }
         },
         "aicore": {
             "kind": "config",
