@@ -7,15 +7,28 @@ const { maintenanceOrderApi } = maintenanceOrderService();
 const { buildMaintenanceOrderForCreate } = require("./helper");
 
 /** [DESTINATION]
- *  - For simplicity & dev purposes, this project will be utilising a defined destination approach.
+ *  - For dev purposes, this project could utilise a defined destination approach.
  * More info here: https://cap.cloud.sap/docs/guides/using-services#app-defined-destinations
  * And here: https://sap.github.io/cloud-sdk/docs/js/features/connectivity/destination
  */
-//  Below approach to connect to BTP destination service will be commented out.
-// const sdkDest = { destinationName: "S4HC_D2V" };
+//  Below approach to connect to BTP destination service
+const sdkDest = { destinationName: "S4HC_D2V" };
 
 //  App Defined Destination approach (NOT RECOMMENDED for Productive Landscapes)
-const sdkDest = cds.env.s4hc.credentials;
+//  Defined in package.json in the CDS packet
+// const sdkDest = cds.env.s4hc.credentials;
+/** below is the definition of the cds defined destination approach for development purpose 
+"s4hc": {
+  "kind": "config",
+  "credentials": {
+      "destination":"S4HC",
+      "url": "https://myXXXXX-api.s4hana.ondemand.com",
+      "authentication": "BasicAuthentication",
+      "username": "XXXXX",
+      "password": "XXXXX"
+  }
+}
+ */
 
 /** [CONFIG]
  * Best practice is to have it defined in User Defined variables in the NodeJS app deployed in CF.
