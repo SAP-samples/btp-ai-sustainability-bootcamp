@@ -54,16 +54,6 @@
         "build": {
             "target": "."
         },
-        "s4hc": {
-            "kind": "config",
-            "credentials": {
-                "destination":"S4HC",
-                "url": "https://my301832-api.s4hana.ondemand.com",
-                "authentication": "BasicAuthentication",
-                "username": "SA_IN_API_USER",
-                "password": "SolutionArchitects01!"
-            }
-        },
         "aicore": {
             "kind": "config",
             "url": "https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments",
