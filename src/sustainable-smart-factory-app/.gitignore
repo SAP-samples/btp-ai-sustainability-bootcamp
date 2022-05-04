@@ -35,7 +35,4 @@ mta_archives/
 # .idea
 
 # added by cds deploy
-# default-env.json
-    # added by cds deploy
-    default-env.json
-    
+default-env.json
