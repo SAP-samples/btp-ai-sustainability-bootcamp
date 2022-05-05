@@ -15,9 +15,9 @@ In SAP, we put Sustainability into the core of our strategy, having a vision to 
 
 ## Description
 This github repository includes the sample code and exercises of the btp-ai-core-bootcamp, which is developed and delivered by Partner Ecosystem Success Organization (formerly known as GPO) of SAP SE, showcasing SAP partners how to add <b>Intelligence</b> and <b>Sustainability</b> into your solutions on SAP Business Technology Platform with SAP AI Core/SAP Launchpad and SAP Analytics Cloud for Planning. The bootcamp uses an end-to-end storyline about a Sustainable Smart Factory filled with Intelligence and Sustainability
-- Building a deep learning Image Segmentation Model on product images with SAP AI Core for automatic Defeat Detection in production lines
-- Building a deep learning Sound Anomaly Classificaiton Model on acoustical sounds of machinery with SAP AI Core for condition monitoring based Predictive Maintenance 
-- Configure and Deploy the [sustainable-smart-factory-app](src/sustainable-smart-factory-app)(CAP based) to SAP HANA Cloud  
+- Building a deep learning [Image Segmentation Model](src/ai-models/defect-detection) on product images with SAP AI Core for automatic Defeat Detection in production lines
+- Building a deep learning [Sound Anomaly Classificaiton Model](src/ai-models/predictive-maintenance) on acoustical sounds of machinery with SAP AI Core for condition monitoring based Predictive Maintenance 
+- Configure and Deploy the [sustainable-smart-factory-app](src/sustainable-smart-factory-app)(CAP based) to your own SAP HANA Cloud  
 - Creating a Plant 360 story to analyse Production and Sustainability KPIs of plant such as production, defective rate, energy consumption and CO2 emission etc SAP Analytics Cloud.
 - Maintenance Cost Planning with Predictive Planning of SAP Analytics Cloud for Planning. 
 - Sustainability Planning and Energy Rate Prediction with Predictive Planning of SAP Analytics Cloud for Planning.
@@ -26,10 +26,10 @@ This github repository includes the sample code and exercises of the btp-ai-core
 ![Solution Architecture](resources/solution-architecture.png)
 - SAP AI Core and SAP AI Launchpad: <br>
 Streamline the execution and operations of Deep Learning Models in a standardized, scalable, and hyperscaler-agnostic way <br>
-    * Image Segmentation Model for Auto. Defect Detection
-    * Sound Anomaly Classificaiton Model for Predictive Maintenance
+    * [Image Segmentation Model for Auto. Defect Detection](src/ai-models/defect-detection)
+    * [Sound Anomaly Classificaiton Model for Predictive Maintenance](src/ai-models/predictive-maintenance)
 
-- Sustainable Smart Factory Application: <br>
+- [Sustainable Smart Factory Application](src/sustainable-smart-factory-app): <br>
 A CAP-based application on BTP glues all the pieces together by inferring the AI models with IoT streaming data(product images from camera, machinery sound collectec by the), and recoridng data of plant daily operaiton and sustainability KPIs, extending Maintenance Management of SAP S/4HANA Cloud with Predictive Maintenance 
     * Auto. Defect Detection<br>
     -Quality records via computer vision
