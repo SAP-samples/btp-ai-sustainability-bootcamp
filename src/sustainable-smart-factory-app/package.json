@@ -60,7 +60,7 @@
             "oauth": "https://iotdev.authentication.eu10.hana.ondemand.com/oauth/token?grant_type=client_credentials",
             "credentials": {
                 "clientid": "sb-a21dc034-456f-4378-a9f3-e9924fdd859f!b11737|aicore!b540",
-                "secret": "NtnTn+lF63ffBF64YvA1BhqPdRA="
+                "secret": "your-password"
             },
             "inferences": {
                 "imageseg": "/df7df2f1cb85aff0/v1/models/imagesegmodel:predict",
