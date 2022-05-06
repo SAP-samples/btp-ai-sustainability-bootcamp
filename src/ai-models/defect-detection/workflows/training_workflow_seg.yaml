@@ -21,7 +21,7 @@ spec:
     - name: image-seg-sk-training
       metadata:
         labels:
-          ai.sap.com/resourcePlan: basic.8x
+          ai.sap.com/resourcePlan: infer.s
       inputs:
         artifacts:
           - name: image-data
@@ -34,7 +34,7 @@ spec:
             archive:
               none: {}
       container:
-        image: "docker.io/yoshidj/image-seg-train:0.0.1"
+        image: "docker.io/yoshidj/image-seg-train:mobilenet"
         imagePullPolicy: Always
         command: ["/bin/sh", "-c"]
         args:
