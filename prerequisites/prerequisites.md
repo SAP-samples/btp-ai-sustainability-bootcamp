@@ -21,7 +21,10 @@ pip install -r path/to/requirements.txt
 *	Install Git following instructions [here](https://github.com/git-guides/install-git).
 *	Clone [btp-ai-sustainability-bootcamp repository](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp). This is the main bootcamp repository containing all the necessary code.  A guide on how to clone a repository can be found [here]( https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
 
-*	Clone [lgp-green-factory repository](https://github.com/sap-btp-ai-sustainability-bootcamp). This is the repository that will be synchronized with the SAP AI Core environment provided for this bootcamp. Please notice that this is a private repository and each participant will need to share with us his/her Github username to be granted access. Please use the official bootcamp Teams channel to get in touch with us.
+*	Clone [lgp-green-factory repository](https://github.com/sap-btp-ai-sustainability-bootcamp). This is the repository that will be synchronized with the SAP AI Core environment provided for this bootcamp. Please notice that this is a private repository and each participant will need to share with us his/her Github username to be granted access. Please use the official bootcamp Teams channel to get in touch with us. Once we will have invited you to join the lgp-green-factory repo, you should receive an automatic email at the address connected to you Github account. Follow instructions there to accept our invitation. 
+
+* We recommend you to create an access token to be used in place of your password to access the lgp-green-factory repository. Instructions on how to generate a token can be found here https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token. Give **repo** permissions. Take note of your token.
+
 
 ## 3. Install Docker Desktop and create a personal Docker Registry 
 Instructions can be found [here](https://docs.docker.com/docker-hub/), Step 1 to 4.
