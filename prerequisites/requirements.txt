@@ -9,4 +9,5 @@ joblib==1.1.0
 opencv-python-headless==4.5.3.56
 librosa==0.8.1
 ai-core-sdk==1.12.0
+pyyaml==6.0
 jupyterlab==3.0.16
