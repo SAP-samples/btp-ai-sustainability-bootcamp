@@ -17,7 +17,7 @@ In this folder you can find everything used to develop the solution to the busin
 - **data**
 	* It contains the LGP image datasets and the relative ground truth divided per category: defected (labeled as NG) and normal LGP devices (labeled as OK).
 	* This is basically the dataset that is already uploaded in the AWS S3 bucket at the path:<br/>
-		aws s3 ls s3://ai-sustainability-dataset/image/data/
+	+ aws s3 ls s3://ai-sustainability-dataset/image/data/
 - **notebooks**
 	* **defect_detection_development_segmentation.ipynb**
 		* This is the Jupyter notebook where all the development steps are tested: loading the data, preprocess the data, prepare the datasets for training, validation and test, build and initialize the model, test the model).
