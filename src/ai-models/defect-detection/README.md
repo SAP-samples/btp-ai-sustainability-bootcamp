@@ -3,6 +3,36 @@
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/REPO-NAME)](https://api.reuse.software/info/github.com/SAP-samples/REPO-NAME)
 -->
 
+- **Challenge**
+With the increasing demand, the LGP production lines must improve quality and speed.
+The distribution of the LGP points is uneven and the size, shape, and brightness of the same kind of defects can also differ one from another: the traditional computer vision methods give poor result.
+
+- **Solution**
+Deep learning techniques have found wide application in product surface defect detection and are suitable for the detection of complex defects of the LGP.
+
+Image segmentation is a common technique in digital image processing and analysis: it consists of partitioning an image into multiple parts or regions, often based on the characteristics of the pixels in the image.
+A deep learning technique called semantic segmentation lets you associate every pixel of an image with a class label and this is possible thanks to the use of convolutional neural networks (CNNs).
+
+- **Sustainability benefits**
+
+	* Part of the defective products can be still be sold as 2nd quality items reducing waste.
+	* Reduced price of end product.
+	* Traditional defect detection is detrimental for workers’ health: with an automated process with DL it is possible to achieve a safer work place.
+ 
+
+## The Deep Learning model
+
+The U-Net architecture was initially presented in the context of biomedical images but has since been applied to natural images as well. The name "U-Net" is apparent, as the architecture diagram shows a U shape.
+
+
+
+Training CNN is a time consuming and expensive process. You need large dataset of images and a long trial and error process to succeed. 
+Many frameworks (keras, tensorflow, pytorch) offer prebuilt or pretrained networks that can be used as a starting point. For instance, for our scenario we have used:
+MobileNetV2 as encoder, in-order to learn robust features and reduce the number of trainable parameters;
+MobileNetV2 network was trained on more than a million images from the ImageNet database. The network has learned rich feature representations for a wide range of images.
+the upsample block as a decoder, which is already implemented in the pix2pix example in the TensorFlow Examples repo.
+
+
 ## Description
 
 In this folder you can find everything used to develop the solution to the business challenge of LGP automated defect detection with Deep Learning techniques in SAP AI Core and SAP AI Launchpad. Please, find below the list and description of each folder and their content:
