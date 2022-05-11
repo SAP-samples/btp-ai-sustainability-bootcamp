@@ -5,6 +5,19 @@
 
 ## Description
 
+In this folder you can find everything used to develop the solution to the business challenge of LGP automated defect detection with Deep Learning techniques in SAP AI Core and SAP AI Launchpad. We have the following folders and content:
+
+- [code:]
+ * [train_seg:] 
+  * it contains the python code to build semantic segmentation model, to preprocess the data and to train the model itself on SAP AI Core;
+  * the requirements.txt and the Docker file to dockerize the train.py python code;
+ * [infer_seg:] 
+  * it contains the code for the serving web application that will be deployed in SAP AI Core to serve the inference requests to the semantic segmentation model;
+  * the requirements.txt and the Docker file to dockerize the infer.py python code;
+- data
+- notebooks
+- workflows
+
 ## Requirements
 
 ## Download and Installation
