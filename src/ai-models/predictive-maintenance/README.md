@@ -76,7 +76,7 @@ In this folder you can find everything used to develop the solution to the busin
   		* It contains also the requirements.txt and the Docker file to dockerize the train.py python code.
  	* **infer**
   		* It contains the code for the serving web application that will be deployed in SAP AI Core to serve the inference requests to the sound classification model.
-  		* It comntains also the requirements.txt and the Docker file to dockerize the infer.py python code.
+  		* It contains also the requirements.txt and the Docker file to dockerize the infer.py python code.
 - **LGPsound**
 	* It contains the custom made datasets divided per category: OK, Anomaly Type I, Anomaly Type II.
 	* This is basically the dataset that is already uploaded in the AWS S3 bucket at the path:<br/>
@@ -112,7 +112,7 @@ train.py is a Python class which implements all the required steps developed and
 
 - **read_dataset:** to load the images and apply some pre-processing;
 - **split_dataset:** to split the dataset among train, validation and test samples;
-- **build_unet_model:** to build the chosen mode;
+- **build_model:** to build the chosen mode;
 - **init_model:** to initialize and compile the model:
 - **train_model:** to configure the training and execute it;
 - **save_model:** to save the model;
