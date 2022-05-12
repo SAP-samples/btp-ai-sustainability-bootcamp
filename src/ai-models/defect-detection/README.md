@@ -108,7 +108,7 @@ train.py is a Python class which implements all the required steps developed and
 
 ## **SAP AI Core end-to-end workflow**
 
-![Serving web app](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/model_performance.png)
+![Serving web app](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/ai_core_e2e.png)
 
 
 ## Requirements
