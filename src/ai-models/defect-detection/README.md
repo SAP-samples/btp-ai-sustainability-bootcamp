@@ -71,8 +71,8 @@ In this folder you can find everything used to develop the solution to the busin
 
 
 ## Requirements
-[Prerequisites](btp-ai-sustainability-bootcamp/prerequisites/prerequisites.md): <br>
-[Requirements](btp-ai-sustainability-bootcamp/prerequisites/requirements.txt): <br>
+* [Prerequisites](https://github.com/SAP-samples/<repository-name>/prerequisites/prerequisites.md) <br>
+* [Requirements](https://github.com/SAP-samples/<repository-name>/prerequisites/requirements.txt)
 
 
 ## Download and Installation
