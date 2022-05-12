@@ -57,12 +57,13 @@ In the last part of a CNN a regular Neural Network for classification purposes l
 
 ### Metrics and loss function
 
+- **Accuracy** is one metric for evaluating classification models. Informally, accuracy is the fraction of predictions our model got right. It is the ratio of number of correct predictions to the total number of input samples.
 
+- **SparseCategoricalCrossentropy** is used usually when there are two or more label classes and labels are provided as integers.
 
 
 ## Dataset
-We assume that for each machine a dataset of sounds clips is available. Sound clips are annotated in three category: OK, Anomaly Type I, Anomaly Type II . This means we know how the machine sound like in normal vs anomalous conditions.  
-Therefore, we will choose a supervised approach (Acoustic Scene Classification). Other approaches are also valid in machine condition monitoring use cases, such as unsupervised anomaly detection.
+We assume that for each machine a dataset of sounds clips is available. Sound clips are annotated in three category: OK, Anomaly Type I, Anomaly Type II . This means we know how the machine sound like in normal vs anomalous conditions. Therefore, we will choose a supervised approach (Acoustic Scene Classification).
 Disclaimer: The dataset is custom made and the exercise has the only purpuse to demo how we can use deep learning for sound analysis. This is not to be taken blindly as a real-life working model.
 
 
