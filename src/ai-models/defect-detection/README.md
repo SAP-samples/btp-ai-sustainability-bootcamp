@@ -37,6 +37,18 @@ MobileNetV2 network was trained on more than a million images from the ImageNet 
 The upsample block is instead taken from the implementation in the pix2pix example available in the TensorFlow Examples repo.
 
 
+### Metrics and loss function
+
+The Intersection-Over-Union (IoU) is one of the most commonly used metrics in semantic segmentation. 
+This metric ranges from 0-1 with 0 signifying no overlap and 1 signifying perfectly overlapping segmentation.
+
+* Overlap = number of pixel belonging to the defect class shared among prediction and ground truth
+
+* Union = sum of the number of pixel belonging to the defect class in the prediction and ground truth - overlap
+
+We have defined a specific and more suitable loss function for our use case in order to evaluate how well our algorithm models the dataset: 1 - IoU.
+
+
 ## Description
 
 In this folder you can find everything used to develop the solution to the business challenge of LGP automated defect detection with Deep Learning techniques in SAP AI Core and SAP AI Launchpad. Please, find below the list and description of each folder and their content:
