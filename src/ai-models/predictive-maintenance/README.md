@@ -5,8 +5,8 @@
 
 ## **Business challenge: Acoustic Based Proactive Maintenance**
 The LGP plant maintenance is managed by using:
-	- Reactive maintenance, where the process of repairing assets to standard operating conditions occur after poor performance or breakdown is observed;
-	- preventive time-based maintenance, where assets are maintained on a calendar-based schedule. 
+- reactive maintenance, where the process of repairing assets to standard operating conditions occur after poor performance or breakdown is observed;
+- preventive time-based maintenance, where assets are maintained on a calendar-based schedule. 
 This approach leads to challenges with plant efficiency, shorter life expectancies of assets, safety issues, sporadic asset downtime and overspending. Quality control was human based and prone to errors. End customers would return entire product batches in case of defective products
 
 
@@ -74,24 +74,24 @@ In this folder you can find everything used to develop the solution to the busin
 
 - **code**
  	* **train** 
-  		* It contains the python code to build the semantic segmentation model, to preprocess the data and to train the model itself on SAP AI Core
+  		* It contains the python code to build the sound classification model, to preprocess the data and to train the model itself on SAP AI Core.
   		* It contains also the requirements.txt and the Docker file to dockerize the train.py python code.
  	* **infer**
-  		* It contains the code for the serving web application that will be deployed in SAP AI Core to serve the inference requests to the semantic segmentation model.
+  		* It contains the code for the serving web application that will be deployed in SAP AI Core to serve the inference requests to the sound classification model.
   		* It comntains also the requirements.txt and the Docker file to dockerize the infer.py python code.
-- **data**
-	* It contains the LGP image datasets and the relative ground truth divided per category: defected (labeled as NG) and normal LGP devices (labeled as OK).
+- **LGPsound**
+	* It contains the custom made datasets divided per category: OK, Anomaly Type I, Anomaly Type II.
 	* This is basically the dataset that is already uploaded in the AWS S3 bucket at the path:<br/>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aws s3 ls s3://ai-sustainability-dataset/image/data/
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aws s3 ls s3://ai-sustainability-dataset/sound/data/
 - **notebooks**
-	* **defect_detection_development_segmentation.ipynb**
+	* **sound_based_predictive_maintenance.ipynb**
 		* This is the Jupyter notebook where all the development steps are tested: loading the data, preprocess the data, prepare the datasets for training, validation and test, build and initialize the model, test the model).
-	* **defect_detection_aicore_notebook_one_time_config.ipynb**
+	* **sound_based_predictive_maintenance_in_AICore.ipynb**
 		* This is the Jupyter notebook to execute all the one-time configurations in SAP AI Core.
-	* **defect_detection_aicore_notebook_train_infer.ipynb**
-		* This is the Jupyter notebook to execute the training of the semantic segmentation model and retrieve the metrics in SAP AI Core.
-		* This is also the Jupyter notebook to execute the deployment of the semantic segmentation model in SAP AI Core and that shows how to use the exposed URL to make an inference.
-	* NB: These notebookes are intended to be used locally.
+	* **main.ipynb**
+		* This is the Jupyter notebook to execute the training of the sound classification model and retrieve the metrics in SAP AI Core.
+		* This is also the Jupyter notebook to execute the deployment of the sound classification model in SAP AI Core and that shows how to use the exposed URL to make an inference.
+	* NB: These notebooks are intended to be used locally.
 - **workflows**
 	* **training_workflow_seg.yaml**
 		* It's the template that specifies the training parameters and the training workflows in terms of Docker containers.
@@ -99,6 +99,13 @@ In this folder you can find everything used to develop the solution to the busin
 	* **serving_workflow_seg.yaml**
 		* It's the template that specifies all the parameters needed to deploy and serve the web application.
 		* This file has to be loaded in the GitHub repository that will be connected to SAP AI Core.
+
+
+## **Training python code**
+
+<p align="center">
+<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/sound_classification_workflow.png" width="800"/>
+</p>
 
 
 ## **Training python code**
@@ -113,11 +120,6 @@ train.py is a Python class which implements all the required steps developed and
 - **save_model:** to save the model;
 - **get_model:** to load the model;
 - **model_metrics:** to define and register the chosen metrics.
-
-
-<p align="center">
-<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/sound_classification_workflow.png" width="800"/>
-</p>
 
 
 ## **Serving python code**
