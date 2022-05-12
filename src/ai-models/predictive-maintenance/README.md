@@ -11,10 +11,9 @@ This approach leads to challenges with plant efficiency, shorter life expectanci
 
 
 ### **Solution**
-Deep learning techniques have found wide application in product surface defect detection and are suitable for the detection of complex defects of the LGP.
+IoT sensors measuring features such as temperature, humidity, pressure, vibrations, rotational speed, electric current are traditionally used for machine condition monitoring and predictive maintenance. With advances in Computer Audition, acoustic based predictive maintenance is becoming possible.
 
-IoT sensors measuring features such as temperature, humidity, pressure, vibrations, rotational speed, electric current are traditionally used for machine condition monitoring and predictive maintenance More on Predictive Maintenance
-With advances in Computer Audition, acoustic based predictive maintenance is becoming possible
+So an SAP Partner proposed to implement a Smart Factory Application on top of SAP BTP to improve manufactoring operations and raise awareness on sustainability KPIs. Machine condition monitoring based on sound classification was implemented to replace time-based preventive maintenance with proactive (and predictive) maintenance and to prevent downtimes.
 
 
 ### **Sustainability benefits**
@@ -29,8 +28,7 @@ With advances in Computer Audition, acoustic based predictive maintenance is bec
 
 ### Acoustic features
 
-Sound is a pressure wave that propagates through air. Sound files record the amplitude of this wave captured by one or more microphones at discrete time intervals. 
-Sounds files come with a few fundamental metadata: sampling rate, bits per sample, number of channels.
+Sound is a pressure wave that propagates through air. Sound files record the amplitude of this wave captured by one or more microphones at discrete time intervals. Sounds files come with a few fundamental metadata: sampling rate, bits per sample, number of channels.
 
 Sound can be represented in two domains: time domain or frequency domain. From both representation, it’s possible to extract features that can be the input for analytics model.
 Log Mel Spectrogram and MFCCs are very commonly used, especially (but not only) for the description of human vocal tract.
@@ -70,7 +68,7 @@ Disclaimer: The dataset is custom made and the exercise has the only purpuse to 
 
 ## Description
 
-In this folder you can find everything used to develop the solution to the business challenge of LGP automated defect detection with Deep Learning techniques in SAP AI Core and SAP AI Launchpad. Please, find below the list and description of each folder and their content:
+In this folder you can find everything used to develop the solution to the business challenge of acoustic based proactive maintenance with Deep Learning techniques in SAP AI Core and SAP AI Launchpad. Please, find below the list and description of each folder and their content:
 
 - **code**
  	* **train** 
