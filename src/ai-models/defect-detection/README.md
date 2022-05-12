@@ -36,7 +36,9 @@ Usually the training of a complex DANN is a time consuming and expensive process
 MobileNetV2 network was trained on more than a million images from the ImageNet database. Therefore the network has learned rich feature representations for a wide range of images.
 The upsample block is instead taken from the implementation in the pix2pix example available in the TensorFlow Examples repo.
 
-![U-Net](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/modified_unet.png)
+<p align="center">
+<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/modified_unet.png" width="800"/>
+</p>
 
 
 ### Metrics and loss function
@@ -48,11 +50,15 @@ This metric ranges from 0-1 with 0 signifying no overlap and 1 signifying perfec
 
 * Union = sum of the number of pixel belonging to the defect class in the prediction and ground truth - overlap
 
-![iou](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/iou_def.png)
+<p align="center">
+<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/iou_def.png" width="400"/>
+</p>
 
 We have defined a specific and more suitable loss function for our use case in order to evaluate how well our algorithm models the dataset: 1 - IoU.
 
-![plots](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/model_performance.png)
+<p align="center">
+<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/model_performance.png" width="800"/>
+</p>
 
 
 ## Description
@@ -103,12 +109,16 @@ train.py is a Python class which implements all the required steps developed and
 
 ## **Serving python code**
 
-![Serving web app](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/serv_app_workflow.png)
+<p align="center">
+<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/serv_app_workflow.png" width="800"/>
+</p>
 
 
 ## **SAP AI Core end-to-end workflow**
 
-![Serving web app](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/ai_core_e2e.png)
+<p align="center">
+<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/ai_core_e2e.png" width="800"/>
+</p>
 
 
 ## Requirements
