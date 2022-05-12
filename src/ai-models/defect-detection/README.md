@@ -81,6 +81,25 @@ In this folder you can find everything used to develop the solution to the busin
 		* It's the template that specifies all the parameters needed to deploy and serve the web application.
 		* This file has to be loaded in the GitHub repository that will be connected to SAP AI Core.
 
+## **Training python code**
+
+train.py is a Python class which implements all the required steps developed and tested in the Jupyter development notebook. This piece of code can be run in SAP AI Core and is expected to include the following methods:
+
+- **read_dataset:** to load the images and apply some pre-processing;
+- **split_dataset:** to split the dataset among train, validation and test samples;
+- **build_unet_model:** to build the chosen mode;
+- **init_model:** to initialize and compile the model:
+- **train_model:** to configure the training and execute it;
+- **save_model:** to save the model;
+- **get_model:** to load the model;
+- **model_metrics:** to define and register the chosen metrics.
+
+
+## **Serving python code**
+
+
+## **SAP AI Core end-to-end workflow**
+
 
 ## Requirements
 * [Prerequisites](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/prerequisites/prerequisites.md) <br>
