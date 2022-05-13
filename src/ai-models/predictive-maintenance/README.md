@@ -7,7 +7,7 @@
 The LGP plant maintenance is managed by using:
 - reactive maintenance, where the process of repairing assets to standard operating conditions occur after poor performance or breakdown is observed;
 - preventive time-based maintenance, where assets are maintained on a calendar-based schedule. 
-This approach leads to challenges with plant efficiency, shorter life expectancies of assets, safety issues, sporadic asset downtime and overspending. Quality control was human based and prone to errors. End customers would return entire product batches in case of defective products
+This approach leads to challenges with plant efficiency, shorter life expectancies of assets, safety issues, sporadic asset downtime and overspending. Quality control was human based and prone to errors. End customers would return entire product batches in case of defective products.
 
 
 ### **Solution**
