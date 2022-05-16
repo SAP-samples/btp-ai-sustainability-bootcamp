@@ -33,7 +33,7 @@ spec:
         maxReplicas: 5
         containers:
         - name: kfserving-container
-          image: "docker.io/YOUR_DOCKER_USERNAME/image-seg-serve:latest"
+          image: "docker.io/YOUR_DOCKER_USERNAME/image-seg-infer:mobilenet"
           ports:
             - containerPort: 9001
               protocol: TCP
