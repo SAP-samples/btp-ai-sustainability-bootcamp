@@ -324,7 +324,7 @@ class TrainSKInterface:
         
         # Load config
         batch_size = 32
-        num_epochs = 500
+        num_epochs = 200
 
         # Initialize model
         self.init_model()
