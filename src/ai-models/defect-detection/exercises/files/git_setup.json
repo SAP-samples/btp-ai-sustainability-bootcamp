@@ -1,6 +1,10 @@
 {
     "app": {
+<<<<<<< HEAD
         "applicationName": "defect-det-app-uXXXX",
+=======
+        "applicationName": "defect_det_app_uXXXX",
+>>>>>>> 2adcd9626f6349ee44e710b4679a3462fd555bc1
         "repositoryUrl": "https://github.com/sap-btp-ai-sustainability-bootcamp/lgp_green_factory",
         "revision": "HEAD",
         "path": "workflows_defect_det_UXXXX"
