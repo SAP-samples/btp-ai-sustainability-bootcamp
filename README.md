@@ -75,6 +75,9 @@ Light Guide Plates (LGP) is used in LED panels, which can transform a line light
 ### Other Requirements
 - Complete the [openSAP course](https://open.sap.com/courses/sac3) about Planning with SAP Analytics Cloud
 
+## More Materials
+We have closedly worked with SAP HANA Academy Team for more deep dive content about AI&Sustainability based on the bootcamp storyline. If you would like to learn more, please visit this [playlist](https://youtube.com/playlist?list=PLkzo92owKnVyJ5bZXYHb8QUTNRaUMYNST) prepared by SAP HANA Academy Team.
+
 ## Download and Installation
 
 ## Known Issues
