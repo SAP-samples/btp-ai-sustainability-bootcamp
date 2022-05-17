@@ -9,6 +9,7 @@
         "@sap/cds": "^5",
         "@sap/cds-odata-v2-adapter-proxy": "^1.8.14",
         "@sap/cloud-sdk-vdm-maintenance-order-service": "^2.0.0",
+        "@sap/xsenv": "^3.2.2",
         "axios": "^0.26.1",
         "express": "^4",
         "fs": "0.0.1-security",
@@ -56,15 +57,11 @@
         },
         "aicore": {
             "kind": "config",
+            "dest": "S4HC_AICOREBOOTCAMP",
             "url": "https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments",
-            "oauth": "https://iotdev.authentication.eu10.hana.ondemand.com/oauth/token?grant_type=client_credentials",
-            "credentials": {
-                "clientid": "sb-a21dc034-456f-4378-a9f3-e9924fdd859f!b11737|aicore!b540",
-                "secret": "your-password"
-            },
+            "resourcegroup": "defect-det",
             "inferences": {
-                "imageseg": "/df7df2f1cb85aff0/v1/models/imagesegmodel:predict",
-                "imageclass": "/dfccff3697592a4a/v1/models/imagemodel:predict",
+                "imageseg": "/dba17425d1283522/v1/models/imagesegmodel:predict",
                 "soundclass": "/dc17f655b2de9ccd/v1/models/soundmodel:predict"
             }
         },
