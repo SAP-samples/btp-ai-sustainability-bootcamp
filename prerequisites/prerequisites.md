@@ -1,9 +1,9 @@
-# Prerequisites to execute SAP AI Core exercises
+# Prerequisites to execute SAP AI Core exercises Linux & MacOS
 
 These instructions are for MacOS or Linux users. If you are a Windows user, please check out Windows instructions [here](./prerequisites_win.md)
 
 ## 1. Install Docker Desktop and create a personal Docker Registry
-Instructions can be found [here](https://docs.docker.com/docker-hub/), Step 1 to 4.
+Instructions can be found [here](https://docs.docker.com/docker-hub/), Step 1 to 3.
 
  We recommend you to create an access token to be used in place of your password. Instructions on how to generate a token can be found [here](https://docs.docker.com/docker-hub/access-tokens/#create-an-access-token).
  
