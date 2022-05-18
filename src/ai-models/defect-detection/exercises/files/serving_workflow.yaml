@@ -1,15 +1,15 @@
 apiVersion: ai.sap.com/v1alpha1
 kind: ServingTemplate
 metadata:
-  name: image-seg-infer-tutorial
+  name: image-seg-infer-uXXXX
   annotations:
     scenarios.ai.sap.com/description: "SAP AI Core tutorial scenario"
     scenarios.ai.sap.com/name: "image-seg-uXXXX"
     executables.ai.sap.com/description: "Inference executable for image segmentation"
-    executables.ai.sap.com/name: "image-seg-infer-tutorial-exec"
+    executables.ai.sap.com/name: "image-seg-infer-exec-uXXXX"
   labels:
     scenarios.ai.sap.com/id: "image-seg-uXXXX"
-    executables.ai.sap.com/id: "image-seg-infer-tutorial"
+    executables.ai.sap.com/id: "image-seg-infer-uXXXX"
     ai.sap.com/version: "1.0.0"
 spec:
   inputs:
