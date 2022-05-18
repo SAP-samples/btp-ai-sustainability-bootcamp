@@ -1,0 +1,33 @@
+{
+    "VCAP_SERVICES": {
+        "hana": [
+            {
+                "name": "sustainable-smart-factory-app-db",
+                "tags": [
+                    "hana"
+                ],
+                "credentials": _REPLACE_W_HANA_SERVICE_KEY_CREDENTIALS_
+            }
+        ],
+        "destination": [
+            {
+                "name": "sustainable-smart-factory-app-destination-service",
+                "label": "destination",
+                "tags": [
+                    "destination"
+                ],
+                "credentials": _REPLACE_W_DEST_SERVICE_KEY_CREDENTIALS_
+            }
+        ],
+        "xsuaa": [
+            {
+                "name": "sustainable-smart-factory-app-xsuaa-service",
+                "label": "xsuaa",
+                "tags": [
+                    "xsuaa"
+                ],
+                "credentials": _REPLACE_W_XSUAA_SERVICE_KEY_CREDENTIALS_
+            }
+        ]
+    }
+}
