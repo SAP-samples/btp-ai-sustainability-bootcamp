@@ -41,3 +41,19 @@ source bootcamp_venv/Scripts/activate
 pip install -r btp-ai-sustainability-bootcamp/prerequisites/requirements.txt
 ```
 
+## Exercise 1 - BYOM with TensorFlow - Defect Detection
+
+Open a <span style="color:orange">**Git Bash** </span> and type:
+```sh
+cd sap_aicore_bootcamp/btp-ai-sustainability-bootcamp
+git pull
+cd ..
+source bootcamp_venv/bin/activate
+jupyter lab
+```
+
+Jupyter will start in your default browser. In the lefthand side pane, navigate to: <br>
+
+btp-ai-sustainability-bootcamp > src > ai-models > defect-detection > exercises <br>
+
+and double click on defect-detection-part1.ipynb to open it. Then please follow through the notebook instructions.
