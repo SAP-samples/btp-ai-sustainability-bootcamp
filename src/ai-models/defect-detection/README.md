@@ -86,7 +86,7 @@ In this folder you can find everything used to develop the solution to the busin
  	* **defect-detection-part2.ipynb**
  		* This is the Jupyter notebook to follow in order to execute the training of the semantic segmentation model and retrieve the metrics in SAP AI Core.
  		* It contains detailed instructions for all the steps.
-- **notebooks**
+- **notebooks (ONLY for reference, not needed for exercise 1)**
 	* **defect_detection_development_segmentation.ipynb**
 		* This is the Jupyter notebook where all the development steps are tested: loading the data, preprocess the data, prepare the datasets for training, validation and test, build and initialize the model, test the model).
 	* **defect_detection_aicore_notebook_one_time_config.ipynb**
@@ -95,7 +95,7 @@ In this folder you can find everything used to develop the solution to the busin
 		* This is the Jupyter notebook to execute the training of the semantic segmentation model and retrieve the metrics in SAP AI Core.
 		* This is also the Jupyter notebook to execute the deployment of the semantic segmentation model in SAP AI Core and that shows how to use the exposed URL to make an inference.
 	* NB: These notebookes are intended to be used locally.
-- **workflows**
+- **workflows (ONLY for reference, not needed for exercise 1**
 	* **training_workflow_seg.yaml**
 		* It's the template that specifies the training parameters and the training workflows in terms of Docker containers.
 		* This file has to be loaded in the GitHub repository that will be connected to SAP AI Core.
