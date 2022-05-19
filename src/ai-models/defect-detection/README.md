@@ -37,7 +37,7 @@ MobileNetV2 network was trained on more than a million images from the ImageNet 
 The upsample block is instead taken from the implementation in the pix2pix example available in the TensorFlow Examples repo.
 
 <p align="center">
-<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/modified_unet.png" width="800"/>
+<img src="../../../resources/modified_unet.png" width="800"/>
 </p>
 
 
@@ -51,13 +51,13 @@ This metric ranges from 0-1 with 0 signifying no overlap and 1 signifying perfec
 * Union = sum of the number of pixel belonging to the defect class in the prediction and ground truth - overlap
 
 <p align="center">
-<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/iou_def.png" width="400"/>
+<img src="../../../resources/iou_def.png" width="400"/>
 </p>
 
 We have defined a specific and more suitable loss function for our use case in order to evaluate how well our algorithm models the dataset: 1 - IoU.
 
 <p align="center">
-<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/model_performance.png" width="800"/>
+<img src="../../../resources/model_performance.png" width="800"/>
 </p>
 
 
@@ -120,21 +120,21 @@ train.py is a Python class which implements all the required steps developed and
 ## **Serving python code**
 
 <p align="center">
-<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/serv_app_workflow.png" width="800"/>
+<img src="../../../resources/serv_app_workflow.png" width="800"/>
 </p>
 
 
 ## **SAP AI Core end-to-end workflow**
 
 <p align="center">
-<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/ai_core_e2e.png" width="800"/>
+<img src="../../../resources/ai_core_e2e.png" width="800"/>
 </p>
 
 
 ## Requirements
-* [Prerequisites for Linux/MacOS](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/prerequisites/prerequisites.md) <br>
-* [Prerequisites for Windows](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/prerequisites/prerequisites_win.md) <br>
-* [Requirements](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/prerequisites/requirements.txt)
+* [Prerequisites for Linux/MacOS](../../../prerequisites/prerequisites.md) <br>
+* [Prerequisites for Windows](../../../prerequisites/prerequisites_win.md) <br>
+* [Requirements](../../../prerequisites/requirements.txt)
 
 
 ## Download and Installation
