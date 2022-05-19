@@ -95,7 +95,7 @@ In this folder you can find everything used to develop the solution to the busin
 		* This is the Jupyter notebook to execute the training of the semantic segmentation model and retrieve the metrics in SAP AI Core.
 		* This is also the Jupyter notebook to execute the deployment of the semantic segmentation model in SAP AI Core and that shows how to use the exposed URL to make an inference.
 	* NB: These notebookes are intended to be used locally.
-- **workflows (ONLY for reference, not needed for exercise 1**
+- **workflows (ONLY for reference, not needed for exercise 1)**
 	* **training_workflow_seg.yaml**
 		* It's the template that specifies the training parameters and the training workflows in terms of Docker containers.
 		* This file has to be loaded in the GitHub repository that will be connected to SAP AI Core.
