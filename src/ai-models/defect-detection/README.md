@@ -99,7 +99,7 @@ train.py is a Python class which implements all the required steps developed and
 
 - **read_dataset:** to load the images and apply some pre-processing;
 - **split_dataset:** to split the dataset among train, validation and test samples;
-- **build_unet_model:** to build the chosen mode;
+- **build_model:** to build the chosen mode;
 - **init_model:** to initialize and compile the model:
 - **train_model:** to configure the training and execute it;
 - **save_model:** to save the model;
