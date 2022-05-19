@@ -1,4 +1,4 @@
-# AI Core Exercises - Linux, MacOS
+# SAP AI Core Exercises - Linux, MacOS
 
 
 These instructions are for MacOS or Linux users. If you are a Windows user, please check out Windows instructions [here](./prerequisites_win.md)
