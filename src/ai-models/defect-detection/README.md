@@ -122,7 +122,8 @@ train.py is a Python class which implements all the required steps developed and
 
 
 ## Requirements
-* [Prerequisites](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/prerequisites/prerequisites.md) <br>
+* [Prerequisites for Linux/MacOS](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/prerequisites/prerequisites.md) <br>
+* [Prerequisites for Windows](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/prerequisites/prerequisites_win.md) <br>
 * [Requirements](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/prerequisites/requirements.txt)
 
 
