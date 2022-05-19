@@ -67,7 +67,7 @@ In this folder you can find everything used to develop the solution to the busin
 
 - **code**
  	* **train_seg** 
-  		* It contains the python code to build the semantic segmentation model, to preprocess the data and to train the model itself on SAP AI Core
+  		* It contains the python code to build the semantic segmentation model, to preprocess the data and to train the model itself on SAP AI Core.
   		* It contains also the requirements.txt and the Docker file to dockerize the train.py python code.
  	* **infer_seg**
   		* It contains the code for the serving web application that will be deployed in SAP AI Core to serve the inference requests to the semantic segmentation model.
@@ -76,6 +76,16 @@ In this folder you can find everything used to develop the solution to the busin
 	* It contains the LGP image datasets and the relative ground truth divided per category: defected (labeled as NG) and normal LGP devices (labeled as OK).
 	* This is basically the dataset that is already uploaded in the AWS S3 bucket at the path:<br/>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aws s3 ls s3://ai-sustainability-dataset/image/data/
+- **exercises**
+	* **files**
+		* This folder contains the credential files to be filled in order to go through exercise 1.
+		* This folder contains also the training and serving template files to be customized in order to go through exercise 1.
+ 	* **defect-detection-part1.ipynb**
+ 		* This is the Jupyter notebook with the AI Core one-time configurations that a participant is required to go through during exercise 1.
+ 		* It contains detailed instructions for all the steps.
+ 	* **defect-detection-part2.ipynb**
+ 		* This is the Jupyter notebook to follow in order to execute the training of the semantic segmentation model and retrieve the metrics in SAP AI Core.
+ 		* It contains detailed instructions for all the steps.
 - **notebooks**
 	* **defect_detection_development_segmentation.ipynb**
 		* This is the Jupyter notebook where all the development steps are tested: loading the data, preprocess the data, prepare the datasets for training, validation and test, build and initialize the model, test the model).
