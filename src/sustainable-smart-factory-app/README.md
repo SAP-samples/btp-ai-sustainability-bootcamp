@@ -3,13 +3,12 @@
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/REPO-NAME)](https://api.reuse.software/info/github.com/SAP-samples/REPO-NAME)
 -->
 
-## Description
-Part of the AI & Sustainability Bootcamp, we have developed a sample UI app to assist partners to take reference from to build their own solutions focusing on AI & Sustainability topics. The following technologies are used as part of building and extending this app, such as, SAP AI Core and SAP Analytics Cloud.
-<p>The sample application is built using various frameworks, such as SAP Fiori elements, Custom SAPUI5, SAP Cloud Application Programming (CAP) model and extending with SAP systems such as SAP Business Technology Platform & SAP S/4HANA Cloud.
+Part of the AI & Sustainability Bootcamp, we have developed a sample UI app to assist partners to take reference from to build their own solutions focusing on AI & Sustainability topics.
+<p>The sample application is built using various frameworks, such as SAP Fiori elements, Custom SAPUI5, SAP Cloud Application Programming (CAP) model and extending with SAP systems such as SAP Business Technology Platform, SAP S/4HANA Cloud & SAP Analytics Cloud.
 
 ## Deployment Models
-We have prepared a few models for you to consume and take reference from in order to deploy this sample app successfully to your preferred platform/landscapes.
-Please note that the sample app is shipped AS-IT-IS, and if you faced with any issues, SAP will not be providing any support. However, if you find any bugs or issues, you may [Create an Issue](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/issues).
+We have prepared a few models for you to consider and take reference from in order to deploy this sample app successfully to your preferred platform/landscapes.
+Please note that the sample app is shipped AS-IT-IS, and if you faced with any issues, **SAP will not be providing any support**. However, if you find any bugs or issues, you may [create an issue here](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/issues).
 
 ### **1. Hybrid Model**: Local App consuming SAP BTP Cloud Services
 Follow instructions from this current [README.md](README.md).
@@ -22,11 +21,12 @@ More instructions to come. Stay tuned.
 Below are some setup steps that are required to ensure a success deployment of the application.
 
 ### **(i) Create `SAP HANA Cloud Service` in SAP BTP**
-> From SAP BTP Cockpit > Cloud Foundry > Spaces > dev > **SAP HANA Cloud** <br>(make sure you select the option to "Allow ALL IP Addresses" during creation)
+> SAP BTP Cockpit > Cloud Foundry > Spaces > dev > **SAP HANA Cloud** <br>(make sure you select the option to "Allow ALL IP Addresses" during creation)
 
 ![SAP BTP HANA Cloud](https://user-images.githubusercontent.com/8436161/128988191-f079627d-59c3-4015-a689-d4933613ba41.png)
 
 ### **(ii) Connecting to a `S/4HANA Cloud System` via SAP BTP Connectivity Destination**
+> SAP BTP Cockpit > Connectivity > Destinations > **New Destination**
 
 In this step, you will require a S/4HANA Cloud instance for this to work. You will be using a technical user with the right authorisation to Manage Maintenance Order in your S/4HANA Cloud tenant. This will be triggered in the app itself part of the Equipments Condition module.
 
@@ -51,6 +51,7 @@ In this step, you will require a S/4HANA Cloud instance for this to work. You wi
 _Please note that the above destination name `S4HC_AICOREBOOTCAMP` is defined inside [package.json](package.json) for the app and will be used in the **Custom Logic** file on S/4HANA Maintenance Order `Line 82` located in [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/srv/admin-service.js](srv/admin-service.js)._ Prior to that, please make sure you've done your own testing of calling the API with Postman to ensure that your credentials works.
 
 ### **(ii) Create a Destination in SAP BTP, using your SAP AI Core Service key credentials**
+> SAP BTP Cockpit > Connectivity > Destinations > **New Destination**
 
 In this step, you will require an instance of SAP AI Core in your SAP BTP account for this to work. 
 
@@ -92,7 +93,7 @@ Copy and Paste the relevant property value (from Service Key above) such as, **`
 ![AICORE Destination in SAP BTP Cockpit](https://user-images.githubusercontent.com/8436161/169439295-025eef7d-79d8-4c6b-9cae-aaec105ad569.png)
 
 ## Download and Installation
-> Make sure you have completed the [Mandatory Setup Steps](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/main/src/sustainable-smart-factory-app#requirements-mandatory-setup-steps) before proceeding.
+> Make sure you have completed **ALL** of the [Mandatory Setup Steps](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/main/src/sustainable-smart-factory-app#requirements-mandatory-setup-steps) before proceeding.
 
 Please kindly note that the **following instructions below is strictly for the deployment model of a hybrid approach (local app, cloud services)**.
 Thus, the app will only work locally while consuming SAP BTP services (hana, destination, xsuaa, ai-core) through a defined default-env.json file.
@@ -119,7 +120,7 @@ npm install
 
 ### **Step 3:** Deploy the `SAP HANA Artifacts` (required for the app) in your SAP BTP HANA Cloud as a `SAP HANA HDI Container`.
 
-> (Optional) For development & testing purposes, you may also utilise SQLite to run the DB locally in your workstation
+> (Optional) For development & testing purposes, you may also utilise SQLite as persistency in your local workstation. You may toggle to/fro sql > hana, if you like.
 
 <p></p>
 <details>
@@ -128,7 +129,7 @@ npm install
   Please note that there are some limitations on SQLite and if you're looking to productise this solution eventually, it is strongly recommended to still test it with SAP HANA Cloud. 
   <p> 
 
-> Update the following payload in [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/package.json](package.json) under `cds.db.kind`
+Update the following payload in [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/package.json](package.json) under `cds.db.kind`
 
 ```json
 "db": {
