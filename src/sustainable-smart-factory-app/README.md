@@ -51,16 +51,17 @@ In this step, you will require a S/4HANA Cloud instance for this to work. You wi
 _Please note that the above destination name `S4HC_AICOREBOOTCAMP` is defined inside [package.json](package.json) for the app and will be used in the **Custom Logic** file on S/4HANA Maintenance Order `Line 82` located in [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/srv/admin-service.js](srv/admin-service.js)._ Prior to that, please make sure you've done your own testing of calling the API with Postman to ensure that your credentials works.
 
 ### **(ii) Create a Destination in SAP BTP, using your SAP AI Core Service key credentials**
-> SAP BTP Cockpit > Connectivity > Destinations > **New Destination**
 
 In this step, you will require an instance of SAP AI Core in your SAP BTP account for this to work. 
 
 ![AICORE Instance in SAP BTP Cockpit](https://user-images.githubusercontent.com/8436161/169442399-70a1197b-af35-4e7b-8f95-565a585aa677.gif)
 
 Create a service key where you will use the OAuth credentials provided, and entered the value to the Destination config.
-> For bootcamp related setup, if you have received the AI Core credentials, please proceed to use it in setting this up in your own SAP BTP account.
+> For bootcamp related setup, if you have received the AI Core credentials, you may proceed to use it accordingly to configure the destination in your own SAP BTP Account.
 
 ![AICORE Instance Key in SAP BTP Cockpit](https://user-images.githubusercontent.com/8436161/169466232-ee914f60-f19d-4364-88c7-324b21b908d2.png)
+
+> SAP BTP Cockpit > Connectivity > Destinations > **New Destination**
 
 Copy and Paste the relevant property value (from Service Key above) such as, **`clientid, clientsecret, url, ai_api_url`** into the config of **SAP BTP Connectivity Destination**.
 
@@ -82,7 +83,7 @@ Copy and Paste the relevant property value (from Service Key above) such as, **`
 
 > **Token Service URL Type**: Dedicated
 
-> **Token Service URL**: `url` (NOT ai_api_url)
+> **Token Service URL**: `url`/oauth/token **(NOT referring to the ai_api_url. And make sure to add /oauth/token towards the end of the path.)**
 
 > **Token Service User**: <LEAVE_EMPTY>
 
@@ -103,6 +104,11 @@ While developing your own solution, you may take this as a reference (AS-IT-IS) 
 
 Refer [here for more information on the other deployment models](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/main/src/sustainable-smart-factory-app#deployment-models). Each has its own configurations to setup accordingly.
 
+### Choice of Development Tools (IDE)
+You may use either one of following IDE based on your preferences.
+1. **Microsoft Visual Studio Code**: Do note that you have to install some of the required libraries.
+2. **(Recommended) SAP Business Application Studio**: Select Full Stack Cloud Application as the Predefined Extensions when creating the Dev Space.
+
 ### **Step 1:** Clone this Git Repo into a `btp-ai-core-bootcamp` project folder.
 
 ```bash
@@ -120,27 +126,6 @@ npm install
 
 ### **Step 3:** Deploy the `SAP HANA Artifacts` (required for the app) in your SAP BTP HANA Cloud as a `SAP HANA HDI Container`.
 
-> (Optional) For development & testing purposes, you may also utilise SQLite as persistency in your local workstation. You may toggle to/fro sql > hana, if you like.
-
-<p></p>
-<details>
-  <summary>Hint: Click here to learn how to deploy DB locally in <b>SQLite</b>.</summary>
-   <p>
-  Please note that there are some limitations on SQLite and if you're looking to productise this solution eventually, it is strongly recommended to still test it with SAP HANA Cloud. 
-  <p> 
-
-Update the following payload in [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/package.json](package.json) under `cds.db.kind`
-
-```json
-"db": {
-    "kind": "sql"
-}
-```
-</details>
-<p></p>
-
-> `(Recommended)` Deploy the SAP HANA Artifacts as **SAP HANA HDI Container** on SAP BTP
-login to your own Cloud Foundry on BTP
 ```bash
 cf login
 ```
@@ -151,7 +136,9 @@ cds deploy --to hana
 
 ### **Step 4:** Connect your Local app to `SAP BTP Cloud services` by storing various credentials locally.
 
-To run it locally and connect with SAP BTP services, you'd need to create a local file `default-env.json` in your btp-ai-core-bootcamp folder [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/default-env.json](default-env.json) with the `hana`, `destination` & `xsuaa` service key credentials. You may refer to the default-env file as a template, then `copy JSON payload of each service key into the respective credentials part`. 
+To run it locally and connect with SAP BTP services, you'd need to create a local file `default-env.json` in your btp-ai-core-bootcamp folder [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/default-env.json](default-env.json) with the `hana`, `destination` & `xsuaa` service key credentials. <p></p>
+
+You may refer to the default-env file as a template, then `copy JSON payload of each service key into the respective credentials part`. 
 
 #### A. SAP BTP HANA Cloud HDI service instance
 
@@ -166,7 +153,7 @@ cf create-service-key sustainable-smart-factory-app-db sustainable-smart-factory
 cf service-key sustainable-smart-factory-app-db sustainable-smart-factory-app-db-key
 ```
 
-**Copy & Paste the entire payload**, replace `_REPLACE_W_HANA_SERVICE_KEY_CREDENTIALS_` in the **credentials** section under `hana` in the [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/default-env.json](default-env.json) file.
+**Copy & Paste the entire payload**, replace `_REPLACE_W_HANA_SERVICE_KEY_CREDENTIALS_` in the **credentials** section under `hana` in the [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/default-env.json](default-env.json) file. You might realise that the deployment of the SAP HANA HDI would have overwritten the default-env.json with the HANA credentials already. Not to worry, you can refer to this template below again.
 
 #### B. SAP BTP Connectivity Destination service instance
 
@@ -226,7 +213,7 @@ cf service-key smartfactory-xsuaa smartfactory-xsuaa-key
 ```
 
 ### **Step 5:** App Variables to Configure, pointing to your AI Core Deployed trained ML Model.
-Prior to this step, you should already have completed the AI Core model training and serving setup. You should have the following values ready for inferencing against the ML model. Please note that the following values are specific to your own setup following the AI Core Hands-on Exercises.
+Prior to this step, you should already have completed the AI Core model training and serving setup, and should have the following values ready for inferencing against the ML model. Please note that the values are specific to your own setup following the AI Core Hands-on Exercises.
 - Resource Group
 - Deployment Inference URL
 - Image Segmentation Deployment ID
@@ -252,7 +239,8 @@ You may also formulate this with the service key's service url > AI_API_URL with
 3. Copy & paste the successful deployement of the **Image Segmentation Deployment ID** into package.json, replacing this variable `_AICORE_IMAGESEG_DEPLOYMENT_ID_`, under cds > aicore > inferences > imageseg.
 4. Copy & paste the successful deployement of the **Sound Classification Deployment ID** into package.json, replacing this variable `_AICORE_SOUNDCLASS_DEPLOYMENT_ID_`, under cds > aicore > inferences > soundclass.
 
-Refer here as an example of the variables defined in your [package.json](package.json).
+You may refer below as an example of the variables defined in your [package.json](package.json).
+
 ![Package Reference of Variables defined](https://user-images.githubusercontent.com/8436161/169464323-0100bce9-885f-4218-b67e-d608acc07bf7.png)
 
 ### **Step 6:** Run the `CAP App` connected to SAP BTP Services.
