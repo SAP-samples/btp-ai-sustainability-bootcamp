@@ -29,10 +29,6 @@ const cv_inference_seg_url = cds.env.aicore.inferences.imageseg;
 const airesourcegroup = cds.env.aicore.resourcegroup;
 // const serviceurl = cds.env.aicore.serviceurl;   //  serviceurl + cv_inference_seg_url
 
-getDestination('AICORE').then(dest => {
-    authToken = "Bearer " + dest.authTokens[0].value;
-});
-
 /** [FOR REFERENCE] */
 //  App Defined Destination approach (NOT RECOMMENDED for Productive Landscapes)
 //  Defined in package.json in the CDS packet
@@ -221,6 +217,11 @@ module.exports = async function () {
      * 3. Return results
      */
     this.on("inferenceImageCV", async (req) => {
+        getDestination('AICORE').then(dest => {
+            console.log(dest);
+            authToken = "Bearer " + dest.authTokens[0].value;
+        });
+
         //  0. Check Defect Percentage falls between Price Points
         var defectProductPriceRange = await SELECT.from('DefectiveProductPrices', dpp => {dpp.productId, dpp.Items (Items => Items`.*`)});
         var pricesArray = defectProductPriceRange[0].Items;
