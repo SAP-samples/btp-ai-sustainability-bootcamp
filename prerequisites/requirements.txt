@@ -11,4 +11,3 @@ librosa
 ai-core-sdk
 pyyaml
 jupyterlab
-ai_api_client_sdk
