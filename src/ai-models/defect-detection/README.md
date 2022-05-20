@@ -37,7 +37,7 @@ MobileNetV2 network was trained on more than a million images from the ImageNet 
 The upsample block is instead taken from the implementation in the pix2pix example available in the TensorFlow Examples repo.
 
 <p align="center">
-<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/modified_unet.png" width="800"/>
+<img src="../../../resources/modified_unet.png" width="800"/>
 </p>
 
 
@@ -51,13 +51,13 @@ This metric ranges from 0-1 with 0 signifying no overlap and 1 signifying perfec
 * Union = sum of the number of pixel belonging to the defect class in the prediction and ground truth - overlap
 
 <p align="center">
-<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/iou_def.png" width="400"/>
+<img src="../../../resources/iou_def.png" width="400"/>
 </p>
 
 We have defined a specific and more suitable loss function for our use case in order to evaluate how well our algorithm models the dataset: 1 - IoU.
 
 <p align="center">
-<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/model_performance.png" width="800"/>
+<img src="../../../resources/model_performance.png" width="800"/>
 </p>
 
 
@@ -67,7 +67,7 @@ In this folder you can find everything used to develop the solution to the busin
 
 - **code**
  	* **train_seg** 
-  		* It contains the python code to build the semantic segmentation model, to preprocess the data and to train the model itself on SAP AI Core
+  		* It contains the python code to build the semantic segmentation model, to preprocess the data and to train the model itself on SAP AI Core.
   		* It contains also the requirements.txt and the Docker file to dockerize the train.py python code.
  	* **infer_seg**
   		* It contains the code for the serving web application that will be deployed in SAP AI Core to serve the inference requests to the semantic segmentation model.
@@ -76,7 +76,17 @@ In this folder you can find everything used to develop the solution to the busin
 	* It contains the LGP image datasets and the relative ground truth divided per category: defected (labeled as NG) and normal LGP devices (labeled as OK).
 	* This is basically the dataset that is already uploaded in the AWS S3 bucket at the path:<br/>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aws s3 ls s3://ai-sustainability-dataset/image/data/
-- **notebooks**
+- **exercises**
+	* **files**
+		* This folder contains the credential files to be filled in order to go through exercise 1.
+		* This folder contains also the training and serving template files to be customized in order to go through exercise 1.
+ 	* **defect-detection-part1.ipynb**
+ 		* This is the Jupyter notebook with the AI Core one-time configurations that a participant is required to go through during exercise 1.
+ 		* It contains detailed instructions for all the steps.
+ 	* **defect-detection-part2.ipynb**
+ 		* This is the Jupyter notebook to follow in order to execute the training of the semantic segmentation model and retrieve the metrics in SAP AI Core.
+ 		* It contains detailed instructions for all the steps.
+- **notebooks (ONLY for reference, not needed for exercise 1)**
 	* **defect_detection_development_segmentation.ipynb**
 		* This is the Jupyter notebook where all the development steps are tested: loading the data, preprocess the data, prepare the datasets for training, validation and test, build and initialize the model, test the model).
 	* **defect_detection_aicore_notebook_one_time_config.ipynb**
@@ -85,7 +95,7 @@ In this folder you can find everything used to develop the solution to the busin
 		* This is the Jupyter notebook to execute the training of the semantic segmentation model and retrieve the metrics in SAP AI Core.
 		* This is also the Jupyter notebook to execute the deployment of the semantic segmentation model in SAP AI Core and that shows how to use the exposed URL to make an inference.
 	* NB: These notebookes are intended to be used locally.
-- **workflows**
+- **workflows (ONLY for reference, not needed for exercise 1)**
 	* **training_workflow_seg.yaml**
 		* It's the template that specifies the training parameters and the training workflows in terms of Docker containers.
 		* This file has to be loaded in the GitHub repository that will be connected to SAP AI Core.
@@ -99,7 +109,7 @@ train.py is a Python class which implements all the required steps developed and
 
 - **read_dataset:** to load the images and apply some pre-processing;
 - **split_dataset:** to split the dataset among train, validation and test samples;
-- **build_unet_model:** to build the chosen mode;
+- **build_model:** to build the chosen mode;
 - **init_model:** to initialize and compile the model:
 - **train_model:** to configure the training and execute it;
 - **save_model:** to save the model;
@@ -110,20 +120,21 @@ train.py is a Python class which implements all the required steps developed and
 ## **Serving python code**
 
 <p align="center">
-<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/serv_app_workflow.png" width="800"/>
+<img src="../../../resources/serv_app_workflow.png" width="800"/>
 </p>
 
 
 ## **SAP AI Core end-to-end workflow**
 
 <p align="center">
-<img src="https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/resources/ai_core_e2e.png" width="800"/>
+<img src="../../../resources/ai_core_e2e.png" width="800"/>
 </p>
 
 
 ## Requirements
-* [Prerequisites](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/prerequisites/prerequisites.md) <br>
-* [Requirements](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/blob/main/prerequisites/requirements.txt)
+* [Prerequisites for Linux/MacOS](../../../prerequisites/prerequisites.md) <br>
+* [Prerequisites for Windows](../../../prerequisites/prerequisites_win.md) <br>
+* [Requirements](../../../prerequisites/requirements.txt)
 
 
 ## Download and Installation
