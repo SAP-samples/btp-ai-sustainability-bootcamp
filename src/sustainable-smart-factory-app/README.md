@@ -14,6 +14,7 @@ Please note that the sample app is shipped AS-IT-IS, and if you faced with any i
 Follow instructions from this current [README.md](README.md).
 ### **2. Cloud Model with SAP BTP Launchpad**: Cloud Native App as MTA, deployed in SAP BTP with SAP Launchpad services & Managed Approuter
 More instructions to come. Stay tuned.
+You're currently in this branch.
 ### **3. Cloud Model with Cloud Foundry Environment in SAP BTP**: Cloud Native App as MTA, deployed in SAP BTP Cloud Foundry Environment
 More instructions to come. Stay tuned.
 
