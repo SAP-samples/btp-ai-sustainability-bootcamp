@@ -263,7 +263,9 @@ Note: Please make sure you're in the right folder directory. `btp-ai-core-bootca
 cds run
 ```
 
-> Open the sustainable-smart-factory-app UI, Navitate to "http://localhost:4004/fiori-apps.html#Shell-home" with `Mozilla Firefox` or `Google Chrome`
+Open the sustainable-smart-factory-app UI, Navitate to "http://localhost:4004/fiori-apps.html#Shell-home" with `Mozilla Firefox` or `Google Chrome`.
+
+![App Running](../../resources/predictive-maintenance.gif)
 
 ## Known Issues
 
