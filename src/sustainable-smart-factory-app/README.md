@@ -11,9 +11,11 @@ We have prepared a few models for you to consider and take reference from in ord
 Please note that the sample app is shipped AS-IT-IS, and if you faced with any issues, **SAP will not be providing any support**. However, if you find any bugs or issues, you may [create an issue here](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/issues).
 
 ### **1. Hybrid Model**: Local App consuming SAP BTP Cloud Services
-Follow instructions from this current [README.md](README.md).
+Follow instructions from **[`main` branch](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/main/src/sustainable-smart-factory-app)**.
+
 ### **2. Cloud Model with SAP BTP Launchpad**: Cloud Native App as MTA, deployed in SAP BTP with SAP Launchpad services & Managed Approuter
-More instructions to come. Stay tuned.
+Follow instructions from **[`deploy-btp-mta-launchpad` branch](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/deploy-btp-mta-launchpad/src/sustainable-smart-factory-app)**.
+
 ### **3. Cloud Model with Cloud Foundry Environment in SAP BTP**: Cloud Native App as MTA, deployed in SAP BTP Cloud Foundry Environment
 More instructions to come. Stay tuned.
 
