@@ -29,6 +29,10 @@ const cv_inference_seg_url = cds.env.aicore.inferences.imageseg;
 const airesourcegroup = cds.env.aicore.resourcegroup;
 // const serviceurl = cds.env.aicore.serviceurl;   //  serviceurl + cv_inference_seg_url
 
+getDestination('AICORE').then(dest => {
+    authToken = "Bearer " + dest.authTokens[0].value;
+});
+
 /** [FOR REFERENCE] */
 //  App Defined Destination approach (NOT RECOMMENDED for Productive Landscapes)
 //  Defined in package.json in the CDS packet
@@ -160,6 +164,9 @@ module.exports = async function () {
      * 4. Return results
      */
     this.on("inferenceSoundAnomaly", async (req) => {
+        getDestination('AICORE').then(dest => {
+            authToken = "Bearer " + dest.authTokens[0].value;
+        });
         //  1. Connect to AICORE Remote Service (defined in package.json)
         const aicoreAPI = await cds.connect.to("aicore");
         const anomalyEntity = req.params[0];
@@ -218,7 +225,6 @@ module.exports = async function () {
      */
     this.on("inferenceImageCV", async (req) => {
         getDestination('AICORE').then(dest => {
-            console.log(dest);
             authToken = "Bearer " + dest.authTokens[0].value;
         });
 
