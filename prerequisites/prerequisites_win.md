@@ -44,7 +44,7 @@ source bootcamp_venv/Scripts/activate
 pip install -r btp-ai-sustainability-bootcamp/prerequisites/requirements.txt
 ```
 
-## Exercise 1 - BYOM with TensorFlow - Defect Detection
+## Exercises - BYOM with TensorFlow
 
 Open a <span style="color:orange">**Git Bash** </span> and type:
 ```sh
@@ -55,9 +55,19 @@ source bootcamp_venv/bin/activate
 jupyter lab
 ```
 
+### Exercise 1 - Defect Detection
 
-Jupyter will start in your default browser. In the lefthand side pane, navigate to: <br>
+Jupyter will start in your default browser. In the lefthand side pane, navigate to: <br> 
 
 btp-ai-sustainability-bootcamp > src > ai-models > defect-detection > exercises <br>
 
-and double click on defect-detection-part1.ipynb to open it. Then please follow through the notebook instructions.
+and double click on defect-detection-part1.ipynb to open it. Follow through the notebook instructions.
+
+
+### Exercise 2 - Sound classification
+
+Jupyter will start in your default browser. In the lefthand side pane, navigate to: <br> 
+
+btp-ai-sustainability-bootcamp > src > ai-models > predictive-maintenance > exercises <br>
+
+and double click on sound-classification-part1.ipynb to open it. Follow through the notebook instructions.
