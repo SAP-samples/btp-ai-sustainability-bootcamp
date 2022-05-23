@@ -59,7 +59,7 @@ jupyter lab
 
 Jupyter will start in your default browser. In the lefthand side pane, navigate to: <br> 
 
-btp-ai-sustainability-bootcamp > src > ai-models > defect-detection > exercises <br>
+btp-ai-sustainability-bootcamp &rarr; src &rarr; ai-models &rarr; defect-detection &rarr; exercises <br>
 
 and double click on defect-detection-part1.ipynb to open it. Follow through the notebook instructions.
 
@@ -68,6 +68,6 @@ and double click on defect-detection-part1.ipynb to open it. Follow through the 
 
 Jupyter will start in your default browser. In the lefthand side pane, navigate to: <br> 
 
-btp-ai-sustainability-bootcamp > src > ai-models > predictive-maintenance > exercises <br>
+btp-ai-sustainability-bootcamp &rarr; src &rarr; ai-models &rarr; predictive-maintenance &rarr; exercises <br>
 
 and double click on sound-classification-part1.ipynb to open it. Follow through the notebook instructions.
