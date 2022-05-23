@@ -82,7 +82,18 @@ In this folder you can find everything used to develop the solution to the busin
 	* It contains the custom made datasets divided per category: OK, Anomaly Type I, Anomaly Type II.
 	* This is basically the dataset that is already uploaded in the AWS S3 bucket at the path:<br/>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aws s3 ls s3://ai-sustainability-dataset/sound/data/
-- **notebooks**
+- **exercises**
+	* **files**
+		* This folder contains the credential files to be filled in order to go through exercise 2.
+		* This folder contains also the training and serving template files to be customized in order to go through exercise 2.
+		* NB: If you have gone through exercise 1, you will need only aic_service_key.json (this is exactly the same file used during exercise 1), git_setup.json and the two templates.
+ 	* **sound-classification-part1.ipynb**
+ 		* This is the Jupyter notebook with the AI Core one-time configurations that a participant is required to go through during exercise 2.
+ 		* It contains detailed instructions for all the steps.
+ 	* **sound-classification-part2.ipynb**
+ 		* This is the Jupyter notebook to follow in order to execute the training of the sound classification model and retrieve the metrics in SAP AI Core.
+ 		* It contains detailed instructions for all the steps.
+- **notebooks (ONLY for reference, not needed for exercise 2)**
 	* **sound_based_predictive_maintenance.ipynb**
 		* This is the Jupyter notebook where all the development steps are tested: loading the data, preprocess the data, prepare the datasets for training, validation and test, build and initialize the model, test the model).
 	* **sound_based_predictive_maintenance_in_AICore.ipynb**
