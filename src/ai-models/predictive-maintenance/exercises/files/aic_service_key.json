@@ -1,0 +1,11 @@
+{
+  "serviceurls": {
+    "AI_API_URL": "YOUR_AI_API_URL"
+  },
+  "appname": "YOUR_APPNAME",
+  "clientid": "YOUR_CLIENTID",
+  "clientsecret": "YOUR_CLIENTSECRET",
+  "identityzone": "YOUR_IDENTITYZONE",
+  "identityzoneid": "YOUR_IDENTITYZONEID",
+  "url": "YOUR_URL"
+}

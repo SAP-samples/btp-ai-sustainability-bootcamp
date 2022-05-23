@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: sound-train-uXXXX
+  annotations:
+    scenarios.ai.sap.com/description: "SAP developers tutorial scenario"
+    scenarios.ai.sap.com/name: "sound-scen-uXXXX"
+    executables.ai.sap.com/description: "CNN for acoustic scene classification"
+    executables.ai.sap.com/name: "sound-train-exec-uXXXX"
+    artifacts.ai.sap.com/data.kind: "dataset"
+    artifacts.ai.sap.com/model.kind: "model"
+  labels:
+    scenarios.ai.sap.com/id: "sound-scen-uXXXX"
+    executables.ai.sap.com/id: "sound-train-uXXXX"
+    ai.sap.com/version: "1.0.0"
+spec:
+  imagePullSecrets:
+    - name: docker-registry-secret
+  entrypoint: sound-training
+  templates:
+    - name: sound-training
+      metadata:
+        labels:
+          ai.sap.com/resourcePlan: starter
+      inputs:
+        artifacts:
+          - name: sound-data
+            path: /app/data/
+      outputs:
+        artifacts:
+          - name: sound-model
+            path: /app/model
+            globalName: sound-model
+            archive:
+              none: {}
+      container:
+        image: "docker.io/YOUR_DOCKER_USERNAME/sound-train:latest"
+        imagePullPolicy: Always
+        command: ["/bin/sh", "-c"]
+        args:
+          - >
+            set -e && echo "---Start Training---" && python /app/src/train.py && ls -lR /app/model && echo "---End Training---"

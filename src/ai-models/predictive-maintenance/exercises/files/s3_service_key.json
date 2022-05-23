@@ -1,0 +1,7 @@
+{
+  "access_key_id": "ACCESS_KEY_ID",
+  "bucket": "BUCKET_NAME",
+  "secret_access_key": "SECRET_ACCESS_KEY",
+  "host": "s3.amazonaws.com",
+  "region": "eu-central-1"
+}

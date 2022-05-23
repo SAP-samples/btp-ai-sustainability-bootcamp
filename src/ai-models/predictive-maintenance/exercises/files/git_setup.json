@@ -1,0 +1,8 @@
+{
+    "app": {
+        "applicationName": "sound-app-uXXXX",
+        "repositoryUrl": "https://github.com/sap-btp-ai-sustainability-bootcamp/lgp_green_factory",
+        "revision": "HEAD",
+        "path": "workflows_sound_UXXXX"
+    }
+}
