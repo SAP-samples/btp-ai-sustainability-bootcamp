@@ -13,7 +13,7 @@ This approach leads to challenges with plant efficiency, shorter life expectanci
 ### **Solution**
 IoT sensors measuring features such as temperature, humidity, pressure, vibrations, rotational speed, electric current are traditionally used for machine condition monitoring and predictive maintenance. With advances in Computer Audition, acoustic based predictive maintenance is becoming possible.
 
-So an SAP Partner proposed to implement a Smart Factory Application on top of SAP BTP to improve manufactoring operations and raise awareness on sustainability KPIs. Machine condition monitoring based on sound classification was implemented to replace time-based preventive maintenance with proactive (and predictive) maintenance and to prevent downtimes.
+So an SAP Partner proposed to implement a Smart Factory Application on top of SAP BTP to improve manufacturing operations and raise awareness on sustainability KPIs. Machine condition monitoring based on sound classification was implemented to replace time-based preventive maintenance with proactive (and predictive) maintenance and to prevent downtimes.
 
 
 ### **Sustainability benefits**
