@@ -15,7 +15,7 @@ metadata:
     ai.sap.com/version: "1.0.0"
 spec:
   imagePullSecrets:
-    - name: docker-registry-secret
+    - name: docker-registry-uXXXX
   entrypoint: sound-training
   templates:
     - name: sound-training

@@ -28,7 +28,7 @@ spec:
     spec: |
       predictor:
         imagePullSecrets:
-          - name: docker-registry-secret
+          - name: docker-registry-uXXXX
         minReplicas: 1
         maxReplicas: 5
         containers:
