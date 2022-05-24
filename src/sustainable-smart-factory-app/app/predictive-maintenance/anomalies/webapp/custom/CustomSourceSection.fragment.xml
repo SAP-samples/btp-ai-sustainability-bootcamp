@@ -1,8 +1,8 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout">
-	<l:VerticalLayout>
+	<l:VerticalLayout core:require="{handler: 'anomalies/custom/CustomFormatter'}">
 		<l:content>
 			<core:HTML content='&lt;audio controls&gt;
-  &lt;source src=&quot;{rawValue}&quot; type=&quot;audio/wav&quot;&gt;
+  &lt;source src="{path: "rawValue", formatter: "handler.formatSoundURL"}" type=&quot;audio/wav&quot;&gt;
 &lt;/audio&gt;'>
 			</core:HTML>
 		</l:content>

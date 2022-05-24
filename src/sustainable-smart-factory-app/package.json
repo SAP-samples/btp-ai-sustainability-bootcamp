@@ -69,12 +69,6 @@
             "fsurl": "_AICORE_APP_FS_URL_"
         },
         "requires": {
-            "aicore": {
-                "kind": "rest",
-                "credentials": {
-                    "url": "_AICORE_DEPLOYMENT_URL_"
-                }
-            },
             "db": {
                 "kind": "hana"
             },

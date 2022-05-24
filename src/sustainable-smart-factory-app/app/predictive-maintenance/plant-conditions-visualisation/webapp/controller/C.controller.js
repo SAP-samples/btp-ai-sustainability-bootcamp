@@ -50,7 +50,7 @@ sap.ui.define(
          */
         var deploymentModel = "cloud";  //  local or cloud
         var modelURL = sap.ui.require.toUrl("plantconditionsvisual");  // empty if it's local
-        console.log("modelURL is here");
+        // console.log("modelURL is here");
         // var btpLpServiceURL = "https://smart-factory-8221c96ftrial.cfapps.eu10.hana.ondemand.com";
 
         return Controller.extend("plantconditionsvisual.controller.C", {
@@ -1007,12 +1007,57 @@ sap.ui.define(
                 // window.location.href = "/fiori-apps.html";
 
                 // this.byId("titleImage").setSrc(sap.ui.require.toUrl("btp/samples/simple/app/images/logo_ui5.png"));
-                console.log("modelURL is here");
+                // console.log("modelURL is here");
                 var modelURL = sap.ui.require.toUrl("plantconditionsvisual");  // empty if it's local
-                console.log(modelURL);
-                console.log("here");
+                // console.log(modelURL);
+                // console.log("here");
                 // this.byId("titleImage").setSrc(sap.ui.require.toUrl("btp/samples/simple/app/images/logo_ui5.png"));        
-                console.log(sap.ui.require.toUrl("plantconditionsvisual/plant-visual/index.html"));
+                // console.log(sap.ui.require.toUrl("plantconditionsvisual/plant-visual/index.html"));
+                // var toGoURL = sap.ui.require.toUrl("plantconditionsvisual/plant-visual/index.html");
+                // try {
+                //     // document.getElementById("application-PlantConditionsVisual-display-component---V--plantVisual").src = toGoURL;
+                //     document.getElementById("application-PlantConditionsVisual-Display-component---V--plantVisual").src = toGoURL;
+                // } catch (error) {
+                //     console.log(error);
+                // }
+
+
+                // this.getRouter().navTo("PlantConditionsList", {}, true);
+
+                var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
+                console.log(oCrossAppNavigator);
+                var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                    target: {
+                        semanticObject: "Shell",
+                        action: "Home",
+                        params: {
+                            "PlantConditions": "1"
+                        }
+                    }
+                })) || ""; // generate the Hash to display a Supplier
+                oCrossAppNavigator.toExternal({
+                    target: {
+                        shellHash: hash
+                    }
+                }); // navigate to Supplier application
+
+            },
+            onBreadCrumbsToPlantConditions: function (oEvent) {
+                // window.location.href = "/fiori-apps.html#PlantConditions-manage";
+                // var locationOrigin = window.location.origin;    //  host
+                // var locationSearch = "/site" + window.location.search;    //  ?siteId=xxxx
+                // var params = "#PlantConditions-Manage&/PlantConditions(10)"
+                // var locationParam = "#PlantConditions-Manage";
+                // var locationHref = locationOrigin + locationSearch + locationParam;
+                // console.log("location");
+                // console.log(locationHref);
+                // window.location.href = locationHref;
+                // console.log("modelURL is here");
+                var modelURL = sap.ui.require.toUrl("plantconditionsvisual");  // empty if it's local
+                // console.log(modelURL);
+                // console.log("here");
+                // this.byId("titleImage").setSrc(sap.ui.require.toUrl("btp/samples/simple/app/images/logo_ui5.png"));        
+                // console.log(sap.ui.require.toUrl("plantconditionsvisual/plant-visual/index.html"));
                 // var toGoURL = sap.ui.require.toUrl("plantconditionsvisual/plant-visual/index.html");
                 // try {
                 //     // document.getElementById("application-PlantConditionsVisual-display-component---V--plantVisual").src = toGoURL;
@@ -1040,18 +1085,6 @@ sap.ui.define(
                         shellHash: hash
                     }
                 }); // navigate to Supplier application
-
-            },
-            onBreadCrumbsToPlantConditions: function (oEvent) {
-                // window.location.href = "/fiori-apps.html#PlantConditions-manage";
-                var locationOrigin = window.location.origin;    //  host
-                var locationSearch = "/site" + window.location.search;    //  ?siteId=xxxx
-                // var params = "#PlantConditions-Manage&/PlantConditions(10)"
-                var locationParam = "#PlantConditions-Manage";
-                var locationHref = locationOrigin + locationSearch + locationParam;
-                console.log("location");
-                console.log(locationHref);
-                window.location.href = locationHref;
             },
             onBreadCrumbsToPlantCondition: function (oEvent) {
                 var sParam = UriParameters.fromQuery(window.location.href).get("ID");

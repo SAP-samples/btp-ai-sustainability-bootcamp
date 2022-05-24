@@ -1,5 +1,0 @@
-applications:
-- name: plant-jt
-  memory: 1024m
-  instances: 1
-buildpack: https://github.com/cloudfoundry/nodejs-buildpack.git

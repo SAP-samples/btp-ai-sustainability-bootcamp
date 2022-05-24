@@ -167,42 +167,66 @@ module.exports = async function () {
         getDestination('AICORE').then(dest => {
             authToken = "Bearer " + dest.authTokens[0].value;
         });
-        //  1. Connect to AICORE Remote Service (defined in package.json)
-        const aicoreAPI = await cds.connect.to("aicore");
         const anomalyEntity = req.params[0];
 
         const anomaly = await SELECT.from(Anomalies, anomalyEntity).columns([
             "rawValue",
         ]);
 
-        //  2. Prepare base64 format of file
-        const fileBase64 = fs.readFileSync("app" + anomaly.rawValue, {
-            encoding: "base64",
-        });
-        var data = JSON.stringify({
-            sound: fileBase64,
+        //  https://stackoverflow.com/questions/17124053/node-js-get-image-from-web-and-encode-with-base64
+        var request = require('request').defaults({ encoding: null });
+        var data;
+        request.get(fsurl + anomaly.rawValue, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // data = "data:" + response.headers["content-type"] + ";base64," + Buffer.from(body).toString('base64');
+                data = JSON.stringify({
+                    sound: Buffer.from(body).toString('base64')
+                });
+                // console.log(data);
+            }
         });
 
-        var headers = {
-            "AI-Resource-Group": "sound",
-            "Content-Type": "application/json",
-            Authorization: token,
+        await sleep(2000);
+
+        var axios = require('axios');
+
+        var config = {
+            method: 'post',
+            url: aicoreurl + sound_inference_url,
+            headers: {
+                'AI-Resource-Group': airesourcegroup,
+                'Authorization': authToken,
+                'Content-Type': 'application/json'
+            },
+            data: data
         };
-
-        //  3. Start CDS TX to call AI Core Inference API (path is defined at the top cv_inference_url)
-        const results = await aicoreAPI
-            .tx(req)
-            .send("POST", sound_inference_url, data, headers);
 
         var confidence, type;
 
-        if (results.hasOwnProperty("Slow_Sound")) {
-            confidence = parseFloat(results.Slow_Sound).toFixed(3);
-            type = "A1";
-        } else {
-            confidence = parseFloat(results.Damage_Noise).toFixed(3);
-            type = "A2";
-        }
+        axios(config)
+            .then(function (response) {
+                var results = response.data;
+                if (results.hasOwnProperty("Slow_Sound")) {
+                    confidence = parseFloat(results.Slow_Sound).toFixed(3);
+                    type = "A1";
+                } else {
+                    confidence = parseFloat(results.Damage_Noise).toFixed(3);
+                    type = "A2";
+                }
+            })
+            .catch(function (error) {
+                // console.log(error);
+                message = "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and soundclass might be wrongly configured.";
+                req.error({
+                    code: 'Error in Service Call',
+                    message: message,
+                    target: 'admin-service.js|inferenceSoundAnomaly',
+                    status: 418
+                })
+
+            });
+        await sleep(2000);
+
         await UPDATE(Anomalies, anomalyEntity.ID).with({
             status: "2",
             confidence: confidence,
@@ -305,13 +329,13 @@ module.exports = async function () {
             .catch(function (error) {
                 // console.log(error);
                 message = "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and imageseg might be wrongly configured.";
-                req.error ({
+                req.error({
                     code: 'Error in Service Call',
                     message: message,
                     target: 'admin-service.js|inferenceImageCV',
                     status: 418
-                  })
-                  
+                })
+
             });
         await sleep(2000);
         await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
