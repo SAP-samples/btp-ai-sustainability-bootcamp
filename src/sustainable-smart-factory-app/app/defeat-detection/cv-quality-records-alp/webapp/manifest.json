@@ -46,9 +46,15 @@
                     },
                     "semanticObject": "CVQualityRecordsView",
                     "action": "display",
-                    "title": "{{flpTitle}}",
-                    "subTitle": "{{flpSubtitle}}",
-                    "icon": ""
+                    "title": "{{appTitle}}",
+                    "subTitle": "{{appSubTitle}}",
+                    "info": "Analytical List Page for Quality Records of Computer Vision",
+                    "icon": "sap-icon://line-chart",
+                    "indicatorDataSource": {
+                        "dataSource": "mainService",
+                        "path": "/dynamic_dest/smart-factory-app-api/analytics/CVQualityRecordsView/$count",
+                        "refresh": 0
+                    }
                 }
             }
         }
@@ -171,5 +177,9 @@
     },
     "sap.platform.hcp": {
         "uri": ""
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "smartfactory"
     }
 }

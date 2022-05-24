@@ -6,6 +6,9 @@
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
         "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
         "dataSources": {
             "AdminService": {
                 "uri": "/admin/",
@@ -15,15 +18,42 @@
                 }
             }
         },
-        "-sourceTemplate": {
-            "id": "ui5template.basicSAPUI5ApplicationProject",
-            "-id": "ui5template.smartTemplate",
-            "-version": "1.40.12"
+        "sourceTemplate": {
+            "id": "@sap-ux/fiori-elements-writer:lrop",
+            "version": "0.2.0"
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "equipmentconditions-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "EquipmentConditions",
+                    "action": "Manage",
+                    "title": "{{appTitle}}",
+                    "subTitle": "{{appSubTitle}}",
+                    "info": "Equipment Condition Monitoring by Time Period",
+                    "icon": "sap-icon://machine",
+                    "indicatorDataSource": {
+                        "dataSource": "mainService",
+                        "path": "/dynamic_dest/smart-factory-app-api/admin/EquipmentConditions/$count",
+                        "refresh": 0
+                    }
+                }
+            }
         }
+    },
+    "sap.platform.cf": {
+        "ui5VersionNumber": "1.101.0"
     },
     "sap.ui5": {
         "dependencies": {
+            "minUI5Version": "1.101.0",
             "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
                 "sap.fe.templates": {}
             }
         },
@@ -37,7 +67,7 @@
                 "settings": {
                     "synchronizationMode": "None",
                     "operationMode": "Server",
-                    "autoExpandSelect" : true,
+                    "autoExpandSelect": true,
                     "earlyRequests": true,
                     "groupProperties": {
                         "default": {
@@ -66,17 +96,17 @@
                     "id": "EquipmentConditionsList",
                     "name": "sap.fe.templates.ListReport",
                     "options": {
-                        "settings" : {
-                            "entitySet" : "EquipmentConditions",
+                        "settings": {
+                            "entitySet": "EquipmentConditions",
                             "initialLoad": true,
-                            "navigation" : {
-                                "EquipmentConditions" : {
-                                    "detail" : {
-                                        "route" : "EquipmentConditionsDetails"
+                            "navigation": {
+                                "EquipmentConditions": {
+                                    "detail": {
+                                        "route": "EquipmentConditionsDetails"
                                     }
                                 }
                             },
-                            "controlConfiguration" :{
+                            "controlConfiguration": {
                                 "@com.sap.vocabularies.UI.v1.LineItem": {
                                     "tableSettings": {
                                         "selectionMode": "Single",
@@ -93,20 +123,19 @@
                     "id": "EquipmentConditionsDetailsList",
                     "name": "sap.fe.templates.ObjectPage",
                     "options": {
-                        "settings" : {
-                            "entitySet" : "EquipmentConditions",
-                            "navigation" : {
-                            },
-                            "content":{
-                                "header":{
-                                    "facets":{
-                                        "CustomHeaderFacetThresholdProgress":{
-                                            "template":"equipmentconditions.custom.ThresholdProgressBar",
+                        "settings": {
+                            "entitySet": "EquipmentConditions",
+                            "navigation": {},
+                            "content": {
+                                "header": {
+                                    "facets": {
+                                        "CustomHeaderFacetThresholdProgress": {
+                                            "template": "equipmentconditions.custom.ThresholdProgressBar",
                                             "title": "No. of Anomalies Detected",
                                             "position": {
-												"placement": "After",
-												"anchor": "CollectionFacet1"
-											}
+                                                "placement": "After",
+                                                "anchor": "CollectionFacet1"
+                                            }
                                         }
                                     }
                                 }
@@ -122,11 +151,28 @@
         }
     },
     "sap.ui": {
+        "fullWidth": false,
         "technology": "UI5",
-        "fullWidth": false
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
     },
     "sap.fiori": {
         "registrationIds": [],
         "archeType": "transactional"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "smartfactory"
     }
 }

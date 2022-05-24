@@ -10,21 +10,26 @@
         "@sap/cds-odata-v2-adapter-proxy": "^1.8.14",
         "@sap/cloud-sdk-vdm-maintenance-order-service": "^2.0.0",
         "@sap/xsenv": "^3.2.2",
+        "@sap/xssec": "^3",
         "axios": "^0.26.1",
+        "cors": "^2.8.5",
         "express": "^4",
         "fs": "0.0.1-security",
         "hdb": "^0.19.2",
-        "passport": "0.5.2",
+        "http": "0.0.1-security",
+        "https": "^1.0.0",
+        "passport": "^0.5.2",
         "request": "^2.88.2",
         "smartfactory": "./"
     },
     "devDependencies": {
         "@sap/hdi-deploy": "^4.3.3",
-        "sqlite3": "^5.0.4"
+        "@sap/ux-specification": "^1.100.1"
     },
     "scripts": {
         "start": "cds run",
-        "watch": "cds watch"
+        "watch": "cds watch",
+        "undeploy": "cf undeploy sustainable-smart-factory-app --delete-services --delete-service-keys"
     },
     "eslintConfig": {
         "extends": "eslint:recommended",
@@ -52,9 +57,6 @@
         }
     },
     "cds": {
-        "build": {
-            "target": "."
-        },
         "aicore": {
             "kind": "config",
             "dest": "S4HC_AICOREBOOTCAMP",
@@ -63,7 +65,8 @@
             "inferences": {
                 "imageseg": "/_AICORE_IMAGESEG_DEPLOYMENT_ID_/v1/models/imagesegmodel:predict",
                 "soundclass": "/_AICORE_SOUNDCLASS_DEPLOYMENT_ID_/v1/models/soundmodel:predict"
-            }
+            },
+            "fsurl": "_AICORE_APP_FS_URL_"
         },
         "requires": {
             "aicore": {
@@ -74,6 +77,9 @@
             },
             "db": {
                 "kind": "hana"
+            },
+            "uaa": {
+                "kind": "xsuaa"
             }
         },
         "hana": {

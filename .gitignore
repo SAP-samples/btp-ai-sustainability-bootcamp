@@ -12,3 +12,6 @@
 
 # added by cds deploy
 # default-env.json
+DELETE
+**/dist
+src/sustainable-smart-factory-app/resources/**

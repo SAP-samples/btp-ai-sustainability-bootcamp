@@ -1,9 +1,303 @@
----
-_schema-version: '3.1'
+_schema-version: "3.1"
 ID: sustainable-smart-factory-app
-version: 1.0.0
-description: "Sustainable Smart Factory App for BTP AI Bootcamp"
+description: Sustainable Smart Factory App for BTP AI Bootcamp - Version Deploy LP
+version: 1.1.0
+modules:
+  - name: sustainable-smart-factory-app-file-server
+    type: nodejs
+    path: app/resources
+    provides:
+      - name: fs-api
+        properties:
+          srv-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+      host: ${appname}-fs
+      disk-quota: 1G
+      memory: 256m
+      instances: 1
+  - name: sustainable-smart-factory-app-srv
+    type: nodejs
+    path: gen/srv
+    requires:
+      - name: sustainable-smart-factory-app-db
+      - name: sustainable-smart-factory-app-destination-service
+      - name: sustainable-smart-factory-app-uaa
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+      host: ${appname}
+    build-parameters:
+      builder: npm-ci
+  - name: sustainable-smart-factory-app-db-deployer
+    type: hdb
+    path: gen/db
+    requires:
+      - name: sustainable-smart-factory-app-db
+    parameters:
+      buildpack: nodejs_buildpack
+  - name: sustainable-smart-factory-app-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: sustainable-smart-factory-app-destination-service
+        parameters:
+          content-target: true
+      - name: sustainable-smart-factory-app_html_repo_host
+        parameters:
+          service-key:
+            name: sustainable-smart-factory-app_html_repo_host-key
+      - name: sustainable-smart-factory-app-uaa
+        parameters:
+          service-key:
+            name: sustainable-smart-factory-app-uaa-key
+    parameters:
+      content:
+        instance:
+          destinations:
+            - Name: smartfactory_sustainable_smart_factory_app_html_repo_host
+              ServiceInstanceName: sustainable-smart-factory-app-html5-app-host-svc
+              ServiceKeyName: sustainable-smart-factory-app_html_repo_host-key
+              sap.cloud.service: smartfactory
+            - Authentication: OAuth2UserTokenExchange
+              Name: smartfactory_sustainable_smart_factory_app_uaa
+              ServiceInstanceName: sustainable-smart-factory-app-xsuaa-service
+              ServiceKeyName: sustainable-smart-factory-app-uaa-key
+              sap.cloud.service: smartfactory
+          existing_destinations_policy: ignore
+    build-parameters:
+      no-source: true
+  - name: sustainable-smart-factory-app-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: sustainable-smart-factory-app_html_repo_host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - equipmentconditions.zip
+          name: equipmentconditions
+          target-path: resources/
+        - artifacts:
+            - plantconditions.zip
+          name: plantconditions
+          target-path: resources/
+        - artifacts:
+            - anomalies.zip
+          name: anomalies
+          target-path: resources/
+        - artifacts:
+            - soundanomalytypes.zip
+          name: soundanomalytypes
+          target-path: resources/
+        - artifacts:
+            - equipments.zip
+          name: equipments
+          target-path: resources/
+        - artifacts:
+            - plantequipmentstatus.zip
+          name: plantequipmentstatus
+          target-path: resources/
+        - artifacts:
+            - cvqualityrecords.zip
+          name: cvqualityrecords
+          target-path: resources/
+        - artifacts:
+            - defectiveproductprices.zip
+          name: defectiveproductprices
+          target-path: resources/
+        - artifacts:
+            - sqicvqualityrecordsalp.zip
+          name: sqicvqualityrecordsalp
+          target-path: resources/
+        - artifacts:
+            - sfequipmentconditionsalp.zip
+          name: sfequipmentconditionsalp
+          target-path: resources/
+        - artifacts:
+            - plantconditionsvisual.zip
+          name: plantconditionsvisual
+          target-path: resources/
+
+  - name: equipmentconditions
+    type: html5
+    path: app/predictive-maintenance/equipment-conditions
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: plantconditions
+    type: html5
+    path: app/predictive-maintenance/plant-conditions
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: anomalies
+    type: html5
+    path: app/predictive-maintenance/anomalies
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: soundanomalytypes
+    type: html5
+    path: app/predictive-maintenance/anomaly-types
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: equipments
+    type: html5
+    path: app/plant-master-data/equipments
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: plantequipmentstatus
+    type: html5
+    path: app/plant-master-data/plant-equipment-status
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: cvqualityrecords
+    type: html5
+    path: app/defeat-detection/cv-quality-records
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: defectiveproductprices
+    type: html5
+    path: app/defeat-detection/defective-product-prices
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: sqicvqualityrecordsalp
+    type: html5
+    path: app/defeat-detection/cv-quality-records-alp
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: sfequipmentconditionsalp
+    type: html5
+    path: app/predictive-maintenance/equipment-conditions-alp
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: plantconditionsvisual
+    type: html5
+    path: app/predictive-maintenance/plant-conditions-visualisation
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+resources:
+  - name: sustainable-smart-factory-app-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+    properties:
+      hdi-service-name: ${service-name}
+  - name: sustainable-smart-factory-app-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        tenant-mode: dedicated
+        xsappname: ${appname}
+      path: ./xs-security.json
+      service: xsuaa
+      service-name: sustainable-smart-factory-app-xsuaa-service
+      service-plan: application
+  - name: sustainable-smart-factory-app-destination-service
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+              - Authentication: NoAuthentication
+                Description: Smart Factory CAP service
+                HTML5.DynamicDestination: true
+                HTML5.ForwardAuthToken: true
+                Name: smart-factory-app-api
+                ProxyType: Internet
+                Type: HTTP
+                URL: ~{srv-api/srv-url}
+              - Authentication: NoAuthentication
+                Description: Smart Factory Backend Server Serving Media files
+                HTML5.DynamicDestination: true
+                HTML5.ForwardAuthToken: true
+                Name: smart-factory-backend-api
+                ProxyType: Internet
+                Type: HTTP
+                URL: ~{fs-api/srv-url}
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-name: sustainable-smart-factory-app-destination-service
+      service-plan: lite
+    requires:
+      - name: srv-api
+      - name: fs-api
+  - name: sustainable-smart-factory-app_html_repo_host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: sustainable-smart-factory-app-html5-app-host-svc
+      service-plan: app-host
 parameters:
+  appname: smart-factory-_REPLACE_W_YOUR_UNIQUE_SUBDOMAINID_
+  deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
@@ -11,35 +305,3 @@ build-parameters:
       commands:
         - npm ci
         - npx -p @sap/cds-dk cds build --production
-
-modules:
-  - name: sustainable-smart-factory-app-srv
-    type: nodejs
-    path: srv #gen/srv
-    parameters:
-      buildpack: nodejs_buildpack
-    build-parameters:
-      builder: npm-ci
-    provides:
-      - name: srv-api # required by consumers of CAP services (e.g. approuter)
-        properties:
-          srv-url: ${default-url}
-    requires:
-      - name: sustainable-smart-factory-app-db
-
-  - name: sustainable-smart-factory-app-db-deployer
-    type: hdb
-    path: db #gen/db
-    parameters:
-      buildpack: nodejs_buildpack
-    requires:
-      - name: sustainable-smart-factory-app-db
-
-resources:
-  - name: sustainable-smart-factory-app-db
-    type: com.sap.xs.hdi-container
-    parameters:
-      service: hana # or 'hanatrial' on trial landscapes
-      service-plan: hdi-shared
-    properties:
-      hdi-service-name: ${service-name}

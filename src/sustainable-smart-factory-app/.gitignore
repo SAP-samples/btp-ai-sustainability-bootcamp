@@ -38,3 +38,5 @@ mta_archives/
 
 # added by cds deploy
 default-env.json
+
+**/dist

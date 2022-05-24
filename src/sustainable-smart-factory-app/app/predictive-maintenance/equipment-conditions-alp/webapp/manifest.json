@@ -46,9 +46,15 @@
                     },
                     "semanticObject": "AnomaliesExtendedView",
                     "action": "display",
-                    "title": "{{flpTitle}}",
-                    "subTitle": "{{flpSubtitle}}",
-                    "icon": ""
+                    "title": "{{appTitle}}",
+                    "subTitle": "{{appDescription}}",
+                    "info": "Equipment Conditions Analytical List Page",
+                    "icon": "sap-icon://manager-insight",
+                    "indicatorDataSource": {
+                        "dataSource": "mainService",
+                        "path": "/dynamic_dest/smart-factory-app-api/analytics/AnomaliesExtendedView/$count",
+                        "refresh": 0
+                    }
                 }
             }
         }
@@ -171,5 +177,9 @@
     },
     "sap.platform.hcp": {
         "uri": ""
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "smartfactory"
     }
 }

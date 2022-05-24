@@ -5,6 +5,10 @@
 
 Part of the AI & Sustainability Bootcamp, we have developed a sample UI app to assist partners to take reference from to build their own solutions focusing on AI & Sustainability topics.
 <p>The sample application is built using various frameworks, such as SAP Fiori elements, Custom SAPUI5, SAP Cloud Application Programming (CAP) model and extending with SAP systems such as SAP Business Technology Platform, SAP S/4HANA Cloud & SAP Analytics Cloud.
+<p>
+
+### In this [deployment model #2](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/deploy-btp-mta-launchpad/src/sustainable-smart-factory-app#2-cloud-model-with-sap-btp-launchpad-cloud-native-app-as-mta-deployed-in-sap-btp-with-sap-launchpad-services--managed-approuter), you will be pushing all your SAP Fiori applications into a Managed Approuter HTML5 Repository & Cloud Foundry Environment in SAP BTP, then subsequently create a central entry point via SAP Launchpad Service. Here is a glimpse of what you will achieve.
+![Deployment to SAP BTP Launchpad](https://user-images.githubusercontent.com/8436161/169964568-68aa39ba-90a8-4c11-88aa-8c090731a503.gif)
 
 ## Deployment Models
 We have prepared a few models for you to consider and take reference from in order to deploy this sample app successfully to your preferred platform/landscapes.
@@ -24,6 +28,39 @@ Below are some setup steps that are required to ensure a success deployment of t
 
 ### **(i) Create an instance of `SAP Launchpad Service` in SAP BTP**
 In this deployment model, we will be using SAP BTP Launchpad Service and its Managed Approuter to deploy and manage all the SAP Fiori Applications.
+
+#### Subscribe to SAP Launchpad service
+1. Enter your Global Account. If you are using a trial account, choose Go To Your Trial Account.
+2. Choose Account Explorer.
+3. In the Subaccounts tab, choose the subaccount where you have deployed your service and application.
+![Subaccount Selection](https://developers.sap.com/tutorials/btp-app-launchpad-service/jcr:content.github-proxy.1652304971.file/choose_subaccount.png)
+4. Choose Services → Service Marketplace on the left.
+5. Search for the Launchpad Service tile and choose Create.
+![Launchpad Creation](https://developers.sap.com/tutorials/btp-app-launchpad-service/jcr:content.github-proxy.1652304971.file/create_launchpad_service.png)
+6. Keep the default settings for Service and Plan and choose Create.
+![Launchpad Plan](https://developers.sap.com/tutorials/btp-app-launchpad-service/jcr:content.github-proxy.1652304971.file/new_instance_dialog.png)
+
+#### Assigning SAP Launchpad role collection
+You need to assign your user to the Launchpad_Admin role collection, so you don’t get an error accessing the Launchpad Service site later on.
+
+1. Choose Security → Users on the left.
+
+2. Choose your user.
+
+3. Under Role Collections on the right, choose Assign Role Collection and assign the Launchpad_Admin role collection to your user.
+
+![Launchpad Role](https://developers.sap.com/tutorials/btp-app-launchpad-service/jcr:content.github-proxy.1652304971.file/add_launchpad_admin_role.png)
+
+4. Open another browser or clear your browser’s cache.
+
+See section [Initial Setup](https://help.sap.com/viewer/8c8e1958338140699bd4811b37b82ece/Cloud/en-US/fd79b232967545569d1ae4d8f691016b.html) in the SAP Launchpad service’s documentation for more details.
+
+https://developers.sap.com/tutorials/btp-app-launchpad-service.html
+
+Create Site
+Manage Site from Provider etc
+
+
 
 ### **(ii) Create `SAP HANA Cloud Service` in SAP BTP**
 > SAP BTP Cockpit > Cloud Foundry > Spaces > dev > **SAP HANA Cloud** <br>(make sure you select the option to "Allow ALL IP Addresses" during creation)

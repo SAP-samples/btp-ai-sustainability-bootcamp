@@ -6,6 +6,9 @@
         "title": "{{appTitle}}",
         "description": "{{appDescription}}",
         "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
         "dataSources": {
             "AdminService": {
                 "uri": "/admin/",
@@ -15,31 +18,57 @@
                 }
             }
         },
-        "-sourceTemplate": {
-            "id": "ui5template.basicSAPUI5ApplicationProject",
-            "-id": "ui5template.smartTemplate",
-            "-version": "1.40.12"
+        "sourceTemplate": {
+            "id": "@sap-ux/fiori-freestyle-writer:basic",
+            "version": "0.11.6"
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "plantconditionsvisual-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "PlantConditionsVisual",
+                    "action": "Display",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "info": "Visualise Plant Conditions",
+                    "icon": "sap-icon://building"
+                }
+            }
         }
     },
+    "sap.platform.cf": {
+        "ui5VersionNumber": "1.101.0"
+    },
     "sap.ui5": {
+        "fullWidth": false,
+        "flexEnabled": true,
         "dependencies": {
+            "minUI5Version": "1.101.0",
             "libs": {
-                "sap.fe.templates": {},
-                "sap.ui.layout": {},
-                "sap.ui.core": {},
                 "sap.m": {},
-                "sap.suite.ui.microchart": {}
+                "sap.ui.core": {},
+                "sap.f": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.ui.comp": {},
+                "sap.ui.generic.app": {},
+                "sap.ui.table": {},
+                "sap.ushell": {},
+                "sap.suite.ui.commons": {}
             }
         },
         "rootView": {
-            "viewName": "plantconditionsvisual.V",
+            "viewName": "plantconditionsvisual.view.V",
             "type": "XML",
-            "async": true
+            "async": true,
+            "id": "V"
         },
         "resources": {
             "css": [
                 {
-                    "uri": "style.css"
+                    "uri": "css/style.css"
                 }
             ]
         },
@@ -64,10 +93,32 @@
             }
         },
         "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "plantconditionsvisual.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false
+            },
             "routes": [
-                
+                {
+                    "name": "RouteView1",
+                    "pattern": "RouteView1",
+                    "target": [
+                        "TargetView1"
+                    ]
+                }
             ],
             "targets": {
+                "TargetView1": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "V",
+                    "viewName": "V"
+                }
             }
         },
         "contentDensities": {
@@ -77,10 +128,27 @@
     },
     "sap.ui": {
         "technology": "UI5",
-        "fullWidth": false
+        "fullWidth": false,
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
     },
     "sap.fiori": {
         "registrationIds": [],
         "archeType": "transactional"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "smartfactory"
     }
 }

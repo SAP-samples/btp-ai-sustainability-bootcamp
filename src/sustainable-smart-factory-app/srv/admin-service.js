@@ -23,11 +23,11 @@ const sdkDest = { destinationName: cds.env.aicore.dest };
 //  Main Inference URL has been added to cds config on aicore. Refer to package.json under cds packet.
 //  See implementation in inference method.
 var authToken;
-const aicoreurl = cds.env.aicore.url;   //  aicoreurl + cv_inference_seg_url
+const fsurl = cds.env.aicore.fsurl;   //  file server for media file resources
+const aicoreurl = cds.env.aicore.url;
 const sound_inference_url = cds.env.aicore.inferences.soundclass;
 const cv_inference_seg_url = cds.env.aicore.inferences.imageseg;
 const airesourcegroup = cds.env.aicore.resourcegroup;
-// const serviceurl = cds.env.aicore.serviceurl;   //  serviceurl + cv_inference_seg_url
 
 getDestination('AICORE').then(dest => {
     authToken = "Bearer " + dest.authTokens[0].value;
@@ -229,7 +229,7 @@ module.exports = async function () {
         });
 
         //  0. Check Defect Percentage falls between Price Points
-        var defectProductPriceRange = await SELECT.from('DefectiveProductPrices', dpp => {dpp.productId, dpp.Items (Items => Items`.*`)});
+        var defectProductPriceRange = await SELECT.from('DefectiveProductPrices', dpp => { dpp.productId, dpp.Items(Items => Items`.*`) });
         var pricesArray = defectProductPriceRange[0].Items;
 
         const cvImageEntity = req.params[0];
@@ -237,13 +237,19 @@ module.exports = async function () {
             ["image", "productId"]
         );
 
-        //  1. Prepare base64 format of file
-        const fileBase64 = fs.readFileSync("app" + cvEntity.image, {
-            encoding: "base64",
+        //  https://stackoverflow.com/questions/17124053/node-js-get-image-from-web-and-encode-with-base64
+        var request = require('request').defaults({ encoding: null });
+        var data;
+        request.get(fsurl + cvEntity.image, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // data = "data:" + response.headers["content-type"] + ";base64," + Buffer.from(body).toString('base64');
+                data = JSON.stringify({
+                    image: Buffer.from(body).toString('base64')
+                });
+            }
         });
-        var data = JSON.stringify({
-            image: fileBase64,
-        });
+
+        await sleep(2000);
 
         var axios = require('axios');
 
@@ -297,7 +303,15 @@ module.exports = async function () {
                 }
             })
             .catch(function (error) {
-                console.log(error);
+                // console.log(error);
+                message = "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and imageseg might be wrongly configured.";
+                req.error ({
+                    code: 'Error in Service Call',
+                    message: message,
+                    target: 'admin-service.js|inferenceImageCV',
+                    status: 418
+                  })
+                  
             });
         await sleep(2000);
         await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
@@ -310,6 +324,7 @@ module.exports = async function () {
             defectiveDiscount: defectDiscount,
         });
 
+        //  req.notify | req.error | req.info | req.warn
         req.notify(message);
     });
 

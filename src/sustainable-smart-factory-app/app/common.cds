@@ -57,16 +57,17 @@ annotate sf.CVQualityRecords with @(
                 Value : confidence,
                 Label : '{i18n>Confidence}'
             },
-            {
-                $Type             : 'UI.DataFieldForAction',
-                Action            : 'AdminService.inferenceImageCV',
-                IconUrl           : 'sap-icon://detail-view',
-                Inline            : true,
-                ![@UI.Emphasized] : true, //Button is highlighted
-            },
-            {   
-                Value : image 
-            },
+            //  Removed for simplicity in list item view
+            // {
+            //     $Type             : 'UI.DataFieldForAction',
+            //     Action            : 'AdminService.inferenceImageCV',
+            //     IconUrl           : 'sap-icon://detail-view',
+            //     Inline            : true,
+            //     ![@UI.Emphasized] : true, //Button is highlighted
+            // },
+            // {   
+            //     Value : image 
+            // },
             {
                 Value : detectedAt,
                 Label : '{i18n>DetectedAt}'
@@ -568,8 +569,7 @@ annotate sf.EquipmentConditions with @(UI : {HeaderInfo : {
     TypeName       : '{i18n>EquipmentCondition}',
     TypeNamePlural : '{i18n>EquipmentConditions}',
     Title          : {Value : equipment.name},
-    Description    : {Value : equipment.NR},
-    // ImageUrl       : '/media/pcb.png',
+    Description    : {Value : equipment.NR}
 }, });
 
 annotate sf.EquipmentConditions with @(UI.HeaderFacets : [

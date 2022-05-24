@@ -5,10 +5,10 @@
 		<l:content>
 			<l:HorizontalLayout>
 				<l:content>
-					<l:VerticalLayout class="sapUiSmallMargin" width="320px">
+					<l:VerticalLayout class="sapUiSmallMargin" width="320px" core:require="{handler: 'cvqualityrecords/custom/CustomFormatter'}">
 						<l:content>
 							<Title level="H3" titleStyle="H3" text="Original Image" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin"/>
-							<Image src="{image}" width="300px" />
+							<Image src="{path: 'image', formatter: 'handler.formatImageURL'}" width="300px" />
 						</l:content>
 					</l:VerticalLayout>
 					<l:VerticalLayout class="sapUiSmallMargin" visible="{successInference}" width="320px">
