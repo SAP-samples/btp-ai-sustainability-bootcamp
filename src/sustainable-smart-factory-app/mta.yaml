@@ -2,6 +2,16 @@ _schema-version: "3.1"
 ID: sustainable-smart-factory-app
 description: Sustainable Smart Factory App for BTP AI Bootcamp - Version Deploy LP
 version: 1.1.0
+parameters:
+  appname: smart-factory-_REPLACE_W_YOUR_UNIQUE_SUBDOMAINID_
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx -p @sap/cds-dk cds build --production
 modules:
   - name: sustainable-smart-factory-app-file-server
     type: nodejs
@@ -295,13 +305,3 @@ resources:
       service: html5-apps-repo
       service-name: sustainable-smart-factory-app-html5-app-host-svc
       service-plan: app-host
-parameters:
-  appname: smart-factory-_REPLACE_W_YOUR_UNIQUE_SUBDOMAINID_
-  deploy_mode: html5-repo
-  enable-parallel-deployments: true
-build-parameters:
-  before-all:
-    - builder: custom
-      commands:
-        - npm ci
-        - npx -p @sap/cds-dk cds build --production

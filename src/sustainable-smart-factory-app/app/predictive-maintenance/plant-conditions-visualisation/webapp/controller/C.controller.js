@@ -1003,112 +1003,70 @@ sap.ui.define(
                 }
             },
             onBreadCrumbsToHome: function (oEvent) {
-                // MessageToast.show(oEvent.getSource().getText() + " has been activated");
-                // window.location.href = "/fiori-apps.html";
-
-                // this.byId("titleImage").setSrc(sap.ui.require.toUrl("btp/samples/simple/app/images/logo_ui5.png"));
-                // console.log("modelURL is here");
-                var modelURL = sap.ui.require.toUrl("plantconditionsvisual");  // empty if it's local
-                // console.log(modelURL);
-                // console.log("here");
-                // this.byId("titleImage").setSrc(sap.ui.require.toUrl("btp/samples/simple/app/images/logo_ui5.png"));        
-                // console.log(sap.ui.require.toUrl("plantconditionsvisual/plant-visual/index.html"));
-                // var toGoURL = sap.ui.require.toUrl("plantconditionsvisual/plant-visual/index.html");
-                // try {
-                //     // document.getElementById("application-PlantConditionsVisual-display-component---V--plantVisual").src = toGoURL;
-                //     document.getElementById("application-PlantConditionsVisual-Display-component---V--plantVisual").src = toGoURL;
-                // } catch (error) {
-                //     console.log(error);
-                // }
-
-
-                // this.getRouter().navTo("PlantConditionsList", {}, true);
-
-                var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
+                var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
                 console.log(oCrossAppNavigator);
                 var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
                     target: {
                         semanticObject: "Shell",
-                        action: "Home",
-                        params: {
-                            "PlantConditions": "1"
-                        }
+                        action: "Home"
                     }
-                })) || ""; // generate the Hash to display a Supplier
+                })) || "";
                 oCrossAppNavigator.toExternal({
                     target: {
                         shellHash: hash
                     }
-                }); // navigate to Supplier application
+                });
 
             },
             onBreadCrumbsToPlantConditions: function (oEvent) {
-                // window.location.href = "/fiori-apps.html#PlantConditions-manage";
-                // var locationOrigin = window.location.origin;    //  host
-                // var locationSearch = "/site" + window.location.search;    //  ?siteId=xxxx
-                // var params = "#PlantConditions-Manage&/PlantConditions(10)"
-                // var locationParam = "#PlantConditions-Manage";
-                // var locationHref = locationOrigin + locationSearch + locationParam;
-                // console.log("location");
-                // console.log(locationHref);
-                // window.location.href = locationHref;
-                // console.log("modelURL is here");
-                var modelURL = sap.ui.require.toUrl("plantconditionsvisual");  // empty if it's local
-                // console.log(modelURL);
-                // console.log("here");
-                // this.byId("titleImage").setSrc(sap.ui.require.toUrl("btp/samples/simple/app/images/logo_ui5.png"));        
-                // console.log(sap.ui.require.toUrl("plantconditionsvisual/plant-visual/index.html"));
-                // var toGoURL = sap.ui.require.toUrl("plantconditionsvisual/plant-visual/index.html");
-                // try {
-                //     // document.getElementById("application-PlantConditionsVisual-display-component---V--plantVisual").src = toGoURL;
-                //     document.getElementById("application-PlantConditionsVisual-Display-component---V--plantVisual").src = toGoURL;
-                // } catch (error) {
-                //     console.log(error);
-                // }
-
-
-                // this.getRouter().navTo("PlantConditionsList", {}, true);
-
-                var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
-                console.log(oCrossAppNavigator);
+                var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
                 var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
                     target: {
                         semanticObject: "PlantConditions",
-                        action: "Manage",
-                        params: {
-                            "PlantConditions": "1"
-                        }
+                        action: "Manage"
                     }
-                })) || ""; // generate the Hash to display a Supplier
+                })) || "";
                 oCrossAppNavigator.toExternal({
                     target: {
                         shellHash: hash
                     }
-                }); // navigate to Supplier application
+                });
             },
             onBreadCrumbsToPlantCondition: function (oEvent) {
                 var sParam = UriParameters.fromQuery(window.location.href).get("ID");
+
                 if (sParam != null) {
-                    var locationOrigin = window.location.origin;    //  host
-                    var locationSearch = window.location.search;    //  ?siteId=xxxx
-                    // var params = "#PlantConditions-Manage&/PlantConditions(10)"
-                    var locationParam = "#PlantConditions-Manage&/PlantConditions(" + sParam + ")";
-                    window.location.href = locationOrigin + locationSearch + locationParam;
-                    // window.location.href =
-                    //     "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
-                    //     sParam +
-                    //     ")";
+                    var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+                    var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                        target: {
+                            semanticObject: "PlantConditions",
+                            action: "Manage"
+                        },
+                        params: {
+                            "ID": sParam
+                        }
+                    })) || "";
+                    oCrossAppNavigator.toExternal({
+                        target: {
+                            shellHash: hash
+                        }
+                    });
                 } else {
-                    // window.location.href = "/fiori-apps.html#PlantConditions-manage";
-                    var locationOrigin = window.location.origin;    //  host
-                    var locationSearch = window.location.search;    //  ?siteId=xxxx
-                    // var params = "#PlantConditions-Manage&/PlantConditions(10)"
-                    var locationParam = "#PlantConditions-Manage&/PlantConditions(" + latestPlantCondObj.value[0].ID + ")";
-                    window.location.href = locationOrigin + locationSearch + locationParam;
-                    // window.location.href =
-                    //     "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
-                    //     latestPlantCondObj.value[0].ID +
-                    //     ")";
+                    var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+                    var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                        target: {
+                            semanticObject: "PlantConditions",
+                            action: "Manage"
+                        },
+                        params: {
+                            "ID": latestPlantCondObj.value[0].ID
+                        }
+                    })) || "";
+                    oCrossAppNavigator.toExternal({
+                        target: {
+                            shellHash: hash
+                        }
+                    });
                 }
             },
             /** Icon for Timeline */
@@ -1140,22 +1098,65 @@ sap.ui.define(
             onUserNameClick: function (oEvent) {
                 // MessageToast.show(oEvent.getSource().getUserName() + " is pressed.");
                 var plantCondId = oEvent.getSource().getTitle();
-                var path =
-                    "/fiori-apps.html#PlantConditions-display?HasActiveEntity=false&ID=" +
-                    plantCondId;
-                window.location.href = path;
+                // var path =
+                //     "/fiori-apps.html#PlantConditionsVisual-display?HasActiveEntity=false&ID=" +
+                //     plantCondId;
+                // window.location.href = path;
+                var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+                var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                    target: {
+                        semanticObject: "PlantConditionsVisual",
+                        action: "Display"
+                    },
+                    params: {
+                        "HasActiveEntity": false,
+                        "ID": plantCondId
+                    }
+                })) || "";
+                oCrossAppNavigator.toExternal({
+                    target: {
+                        shellHash: hash
+                    }
+                });
             },
             toEqCond: function () {
                 //    [TO-IMPROVE] Quick fix: Navigate to main app on EqConditions Overview
-                window.location.href = "/fiori-apps.html#EquipmentConditions-manage";
+                // window.location.href = "/fiori-apps.html#EquipmentConditions-manage";
+                var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+                var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                    target: {
+                        semanticObject: "EquipmentConditions",
+                        action: "Manage"
+                    }
+                })) || "";
+                oCrossAppNavigator.toExternal({
+                    target: {
+                        shellHash: hash
+                    }
+                });
             },
             toPlantCond: function () {
                 var sParam = UriParameters.fromQuery(window.location.href).get("ID");
-                var path =
-                    "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
-                    sParam +
-                    ")";
-                window.location.href = path;
+                // var path =
+                //     "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
+                //     sParam +
+                //     ")";
+                // window.location.href = path;
+                var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+                var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                    target: {
+                        semanticObject: "PlantConditions",
+                        action: "Display"
+                    },
+                    params: {
+                        "ID": sParam
+                    }
+                })) || "";
+                oCrossAppNavigator.toExternal({
+                    target: {
+                        shellHash: hash
+                    }
+                });
             },
             onSimulateSwitch: function (oEvent) {
                 //  Load Busy Indicator for Simulation
