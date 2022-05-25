@@ -1,42 +1,40 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core"
 	xmlns="sap.m"
 	xmlns:l="sap.ui.layout">
-	<l:VerticalLayout class="sapUiTinyMargin" width="">
-		<l:content>
-			<l:HorizontalLayout>
-				<l:content>
-					<l:VerticalLayout class="sapUiSmallMargin" width="320px" core:require="{handler: 'cvqualityrecords/custom/CustomFormatter'}">
-						<l:content>
-							<Title level="H3" titleStyle="H3" text="Original Image" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin"/>
-							<Image src="{path: 'image', formatter: 'handler.formatImageURL'}" width="300px" />
-						</l:content>
-					</l:VerticalLayout>
-					<l:VerticalLayout class="sapUiSmallMargin" visible="{successInference}" width="320px">
-						<l:content>
-							<Title level="H3" visible="{successInference}" titleStyle="H3" text="Defective Area" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin"/>
-							<Image id="inSegment" alt="Preview not available yet due to no inference action taken." src="{segmentedImage}" width="300px" />
-						</l:content>
-					</l:VerticalLayout>
-					<l:VerticalLayout class="sapUiSmallMargin" width="320px" core:require="{handler: 'cvqualityrecords/custom/CustomFormatter'}">
-						<l:content>
-							<Title level="H3" visible="{successInference}" titleStyle="H3" text="Defect Insights" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin"/>
-							<GenericTile id="xDefectArea" visible="{successInference}" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Defected Area %" subheader="Of the Surface Area" sizeBehavior="Responsive" frameType="TwoByOne">
-								<TileContent footer="Classified as {defectiveDesc}">
-									<NumericContent animateTextChange="true" icon="sap-icon://cancel-share" id="xDefect" withMargin="false" truncateValueTo="6" value="{path: 'defectedPerc', formatter:'handler.formatDecToPercentage'}" valueColor="Critical" scale="%"/>
-								</TileContent>
-							</GenericTile>
-							<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="xDefectDiscountTile" visible="{successInference}" header="Price Discount" sizeBehavior="Responsive" valueColor="Good" frameType="TwoByHalf">
-								<TileContent>
-									<NumericContent scale="%" icon="sap-icon://waiver" value="{path: 'defectiveDiscount', formatter: 'handler.formatDecToPercentageDiscount'}" withMargin="false" />
-								</TileContent>
-							</GenericTile>
-						</l:content>
-					</l:VerticalLayout>
-				</l:content>
-			</l:HorizontalLayout>
-			<MessageStrip class="sapUiTinyMargin" visible="{successInference}" text="Success inferenced with original image. Defected area segmented in preview above." type="Success" showIcon="true" showCloseButton="false"></MessageStrip>
-		</l:content>
-	</l:VerticalLayout>
-
-	<!-- "{path: 'plantStatus', formatter: '.plantConditionStatusIcon'}"> -->
+    <l:Grid hSpacing="0" vSpacing="0" position="Left" defaultSpan="XL12 L12 M12 S12" class="sapUiTinyMargin">
+		<l:Grid hSpacing="0" vSpacing="0" position="Left" defaultSpan="XL4 L3 M6 S12" class="sapUiTinyMargin" core:require="{handler: 'cvqualityrecords/custom/CustomFormatter'}">
+			<l:Grid hSpacing="0" vSpacing="0" position="Center" defaultSpan="L12 M12 S12" class="sapUiTinyMargin">
+				<Title level="H3" titleStyle="H3" text="Original Image" class="sapUiTinyMarginTopBottom sapUiTinyMarginBegin" />
+				<Image src="{path: 'image', formatter: 'handler.formatImageURL'}" densityAware="false" width="300px">
+					<layoutData>
+						<l:GridData visibleOnSmall="true" />
+					</layoutData>
+				</Image>
+			</l:Grid>
+			<l:Grid hSpacing="0" vSpacing="0" position="Center" defaultSpan="L12 M12 S12" class="sapUiTinyMargin">
+				<Title level="H3" visible="{successInference}" titleStyle="H3" text="Defective Area" class="sapUiTinyMarginTopBottom sapUiTinyMarginBegin" />
+				<Image src="{segmentedImage}" densityAware="false" width="300px">
+					<layoutData>
+						<l:GridData visibleOnSmall="true" />
+					</layoutData>
+				</Image>
+			</l:Grid>
+			<l:Grid hSpacing="0" width="80%" vSpacing="0" position="Center" defaultSpan="L12 M12 S12" class="sapUiTinyMargin">
+				<Title level="H3" visible="{successInference}" titleStyle="H3" text="Defect Insights" class="sapUiTinyMarginTopBottom sapUiTinyMarginBegin" />
+				<GenericTile id="xDefectArea" visible="{successInference}" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Defected Area %" subheader="Of the Surface Area" sizeBehavior="Responsive" frameType="TwoByOne">
+					<TileContent footer="Classified as {defectiveDesc}">
+						<NumericContent animateTextChange="true" icon="sap-icon://cancel-share" id="xDefect" withMargin="false" truncateValueTo="6" value="{path: 'defectedPerc', formatter:'handler.formatDecToPercentage'}" valueColor="Critical" scale="%" />
+					</TileContent>
+				</GenericTile>
+				<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" id="xDefectDiscountTile" visible="{successInference}" header="Price Discount" sizeBehavior="Responsive" valueColor="Good" frameType="TwoByHalf">
+					<TileContent>
+						<NumericContent scale="%" icon="sap-icon://waiver" value="{path: 'defectiveDiscount', formatter: 'handler.formatDecToPercentageDiscount'}" withMargin="false" />
+					</TileContent>
+				</GenericTile>
+			</l:Grid>
+		</l:Grid>
+		<l:Grid hSpacing="0" vSpacing="0" position="Left" defaultSpan="L12 M12 S12" class="sapUiTinyMargin">
+			<MessageStrip class="sapUiTinyMargin" visible="{successInference}" text="Success inferenced with original image. Defected area segmented in preview above." type="Success" showIcon="true" showCloseButton="false" />
+		</l:Grid>
+	</l:Grid>
 </core:FragmentDefinition>

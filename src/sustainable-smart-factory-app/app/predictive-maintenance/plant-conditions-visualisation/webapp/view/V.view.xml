@@ -57,9 +57,9 @@
         </items>
     </FlexBox>
     <MessageStrip id="xPlantCondition" visible="false" text="" type="Success" enableFormattedText="true" showIcon="true" showCloseButton="false" class="sapUiTinyMarginBegin sapUiTinyMarginTop">
-        <link>
+        <!-- <link>
             <Link id="xPlantConditionLink" text="View Plant Condition" href="/fiori-apps.html#PlantConditions-manage" />
-        </link>
+        </link> -->
     </MessageStrip>
     <Panel id="idTimelinePanel" expandable="true" expanded="false" expand="onTimelineExpand" class="sapUiTinyMargin" width="auto">
         <headerToolbar>
@@ -103,7 +103,7 @@
                 <Title text="Manufacturing Floor Plan Layout" />
                 <ToolbarSpacer />
                 <Text text="Simulate Real-time Monitoring"/>
-                <Switch id="refreshSwitch" type="AcceptReject" state="false" change="onSimulateSwitch"></Switch>
+                <Switch id="refreshSwitch" enabled="false" type="AcceptReject" state="false" change="onSimulateSwitch"></Switch>
             </OverflowToolbar>
         </headerToolbar>
         <content>

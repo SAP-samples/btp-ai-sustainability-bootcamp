@@ -154,16 +154,8 @@ sap.ui.define(
                 });
             },
             onAfterRendering: function () {
-                //  Work-in-Progress: Dynamic Filter List
-                // console.log("filterList");
-                // console.log(this._timeline.getFilterList());
-                // console.log("headerBar");
-                // console.log(this._timeline.getHeaderBar());
-                // console.log("itemFilter");
-                // this._timeline.getItemFilter
                 var xBar = this._timeline.getHeaderBar();
                 xBar.addContent(new sap.m.Label({ text: "Plant Status: " }));
-                // console.log(this.byId("idStatusSelector"));
                 xBar.addContent(this.byId("idStatusSelector"));
 
                 var toGoURL = sap.ui.require.toUrl("plantconditionsvisual/plant-visual/index.html");
@@ -173,34 +165,6 @@ sap.ui.define(
                 } catch (error) {
                     console.log(error);
                 }
-
-                // xBar.addContent(new sap.m.Select({
-                //   id: "idStatusSelector",
-                //   items: [
-                //     new sap.ui.core.Item({key:"All", text:"All"}),
-                //     new sap.ui.core.Item({key:"Fault", text:"Fault"}),
-                //     new sap.ui.core.Item({key:"Maintenance", text:"Maintenance"})
-                //   ]
-                // this.byId("titleImage").setSrc(sap.ui.require.toUrl("btp/samples/simple/app/images/logo_ui5.png"));            
-
-                // try {
-                //     if (deploymentModel == "local") {
-                //         // this.byId("plantVisual").setSrc("predictive-maintenance/plant-conditions-visualisation/webapp/plant-visual/index.html");
-                //         document.getElementById("application-PlantConditionsVisual-display-component---V--plantVisual").src = "/predictive-maintenance/plant-conditions-visualisation/webapp/plant-visual/index.html";
-                //         document.getElementById("application-PlantConditionsVisual-Display-component---V--plantVisual").src = "/predictive-maintenance/plant-conditions-visualisation/webapp/plant-visual/index.html";
-                //         modelURL = "";
-                //     } else {
-                //         console.log("in here cloud");
-                //         // this.byId("plantVisual").setSrc("plant-visual/index.html");
-                //         document.getElementById("application-PlantConditionsVisual-display-component---V--plantVisual").src = "/plant-visual/index.html";
-                //         //  in FLP service id is application-PlantConditionsVisual-Display-component---V--plantVisual
-                //         document.getElementById("application-PlantConditionsVisual-Display-component---V--plantVisual").src = "/plant-visual/index.html";
-                //         modelURL = btpLpServiceURL;
-                //     }
-                // } catch (error) {
-
-                // }
-                // }));
 
                 /** GLOBAL SETTINGS
                  *  - On Filter
@@ -280,14 +244,6 @@ sap.ui.define(
                     "All Plant Conditions loaded in Timeline of Events"
                 );
 
-                // this.byId("idTimeline").setCustomGrouping(function(oDate) {
-                //   return {
-                //     key: oDate.getFullYear() + "/" + (oDate.getMonth() < 6 ? 1 : 2),
-                //     title: oDate.getFullYear() + "/" + (oDate.getMonth() < 6 ? "1. half" : "2. half"),
-                //     date: oDate
-                //   };
-                // });
-
                 /** [LOGIC FLOW]
                  *  1. URL Parameters coming from Plant Condtions
                  *  2. Hide Visual Simulation Panel
@@ -311,7 +267,6 @@ sap.ui.define(
                  *
                  *  A.  Mock Up Simulation Values on KPI Tiles
                  *  B.  Switch for Actual or Simulation Plant Condition
-                 *  C.
                  *
                  * [Load Mock up values on KPI Tiles]
                  * 1. Energy Consumption: Plant perspective on energy consumption
@@ -324,7 +279,7 @@ sap.ui.define(
                  * 6. Plant Status
                  */
                 var self = this;
-                //  [ToDo] where do i get emissions
+                //  [ToDo] where do i get emissions?
                 var currentEmissions = randomIntFromInterval(20, 100);
                 self.getView().byId("xCarbonEmission").setValue(currentEmissions);
 
@@ -340,26 +295,23 @@ sap.ui.define(
                     var visAction = localStorage.getItem("AICORE-ACTION");
                     var visObject = localStorage.getItem("AICORE-OBJECT");
                     var visObjectID = localStorage.getItem("AICORE-OBJECTID");
+                    //  visObject: Anomaly | Equipment | EquipmentConditions
                     if (visAction === "Navigate") {
-                        if (visObject === "Anomaly") {
-                            // #Anomalies-manage&/Anomalies(1662)
-                            window.location.href =
-                                "/fiori-apps.html#Anomalies-manage&/Anomalies(" +
-                                visObjectID +
-                                ")";
-                        } else if (visObject === "Equipment") {
-                            // #Equipments-manage&/Equipments('220300010')
-                            window.location.href =
-                                "/fiori-apps.html#Equipments-manage&/Equipments('" +
-                                visObjectID +
-                                "')";
-                        } else if (visObject === "EquipmentCondition") {
-                            // #Equipments-manage&/Equipments('220300010')
-                            window.location.href =
-                                "/fiori-apps.html#EquipmentConditions-manage&/EquipmentConditions(" +
-                                visObjectID +
-                                ")";
-                        }
+                        var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+                        var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                            target: {
+                                semanticObject: visObject,
+                                action: "Manage"
+                            },
+                            params: {
+                                "ID": visObjectID
+                            }
+                        })) || "";
+                        oCrossAppNavigator.toExternal({
+                            target: {
+                                shellHash: hash
+                            }
+                        });
                     }
 
                     self.getView().byId("xAnomCount").setState("Loaded");
@@ -582,12 +534,8 @@ sap.ui.define(
                                         " to " +
                                         recEndDate +
                                         ".";
-                                    var plantCondPageHref =
-                                        "/fiori-apps.html#PlantConditions-manage";
-                                    self
-                                        .getView()
-                                        .byId("xPlantConditionLink")
-                                        .setHref(plantCondPageHref);
+                                    // var plantCondPageHref ="/fiori-apps.html#PlantConditions-manage";
+                                    // self.getView().byId("xPlantConditionLink").setHref(plantCondPageHref);
                                     self.getView().byId("xPlantCondition").setVisible(true);
                                     self.getView().byId("xPlantCondition").setText(msg);
                                     self.getView().byId("xPlantCondition").setType("Warning");
@@ -605,12 +553,8 @@ sap.ui.define(
                                         " to " +
                                         recEndDate +
                                         ".";
-                                    var plantCondPageHref =
-                                        "/fiori-apps.html#PlantConditions-manage";
-                                    self
-                                        .getView()
-                                        .byId("xPlantConditionLink")
-                                        .setHref(plantCondPageHref);
+                                    // var plantCondPageHref ="/fiori-apps.html#PlantConditions-manage";
+                                    // self.getView().byId("xPlantConditionLink").setHref(plantCondPageHref);
                                     self.getView().byId("xPlantCondition").setVisible(true);
                                     self.getView().byId("xPlantCondition").setText(msg);
                                     self.getView().byId("xPlantCondition").setType("Success");
@@ -628,12 +572,8 @@ sap.ui.define(
                                         " to " +
                                         recEndDate +
                                         ".";
-                                    var plantCondPageHref =
-                                        "/fiori-apps.html#PlantConditions-manage";
-                                    self
-                                        .getView()
-                                        .byId("xPlantConditionLink")
-                                        .setHref(plantCondPageHref);
+                                    // var plantCondPageHref ="/fiori-apps.html#PlantConditions-manage";
+                                    // self.getView().byId("xPlantConditionLink").setHref(plantCondPageHref);
                                     self.getView().byId("xPlantCondition").setVisible(true);
                                     self.getView().byId("xPlantCondition").setText(msg);
                                     self.getView().byId("xPlantCondition").setType("Error");
@@ -651,12 +591,8 @@ sap.ui.define(
                                         " to " +
                                         recEndDate +
                                         ".";
-                                    var plantCondPageHref =
-                                        "/fiori-apps.html#PlantConditions-manage";
-                                    self
-                                        .getView()
-                                        .byId("xPlantConditionLink")
-                                        .setHref(plantCondPageHref);
+                                    // var plantCondPageHref ="/fiori-apps.html#PlantConditions-manage";
+                                    // self.getView().byId("xPlantConditionLink").setHref(plantCondPageHref);
                                     self.getView().byId("xPlantCondition").setVisible(true);
                                     self.getView().byId("xPlantCondition").setText(msg);
                                     self.getView().byId("xPlantCondition").setType("Warning");
@@ -907,14 +843,8 @@ sap.ui.define(
                                 " to " +
                                 recEndDate +
                                 ".";
-                            var plantCondPageHref =
-                                "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
-                                ID +
-                                ")";
-                            self
-                                .getView()
-                                .byId("xPlantConditionLink")
-                                .setHref(plantCondPageHref);
+                            // var plantCondPageHref ="/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +ID +")";
+                            // self.getView().byId("xPlantConditionLink").setHref(plantCondPageHref);
                             self.getView().byId("xPlantCondition").setVisible(true);
                             self.getView().byId("xPlantCondition").setText(msg);
                             self.getView().byId("xPlantCondition").setType("Success");
@@ -935,14 +865,8 @@ sap.ui.define(
                                 " to " +
                                 recEndDate +
                                 ".";
-                            var plantCondPageHref =
-                                "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
-                                ID +
-                                ")";
-                            self
-                                .getView()
-                                .byId("xPlantConditionLink")
-                                .setHref(plantCondPageHref);
+                            // var plantCondPageHref ="/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +ID +")";
+                            // self.getView().byId("xPlantConditionLink").setHref(plantCondPageHref);
                             self.getView().byId("xPlantCondition").setVisible(true);
                             self.getView().byId("xPlantCondition").setText(msg);
                             self.getView().byId("xPlantCondition").setType("Error");
@@ -963,14 +887,8 @@ sap.ui.define(
                                 " to " +
                                 recEndDate +
                                 ".";
-                            var plantCondPageHref =
-                                "/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +
-                                ID +
-                                ")";
-                            self
-                                .getView()
-                                .byId("xPlantConditionLink")
-                                .setHref(plantCondPageHref);
+                            // var plantCondPageHref ="/fiori-apps.html#PlantConditions-manage&/PlantConditions(" +ID +")";
+                            // self.getView().byId("xPlantConditionLink").setHref(plantCondPageHref);
                             self.getView().byId("xPlantCondition").setVisible(true);
                             self.getView().byId("xPlantCondition").setText(msg);
                             self.getView().byId("xPlantCondition").setType("Warning");
