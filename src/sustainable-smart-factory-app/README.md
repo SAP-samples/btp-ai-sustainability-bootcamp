@@ -7,7 +7,13 @@ As part of the AI & Sustainability Bootcamp, we have developed a sample app name
 * [Image segemtation](..//ai-models/defect-detection) for auto. defect detection
 * [Sound anomalies detection](/src/ai-models/predictive-maintenance) for predictive maintenance
 In this way, you also learn from to build end-to-end industry cloud solutions on SAP BTP focusing on AI & Sustainability topics.
-<p>The sample application is mainly built on top of SAP Cloud Application Programming (CAP) model and SAP Fiori elements. Extending the Maintence Management of SAP S/4HANA Cloud with side-by-side extensibility on SAP BTP, integrating with SAP Analytics Cloud for plant 360 analytics, and maintenance cost & sustainability KPIs planning.
+<p>The sample application is mainly built on top of SAP Cloud Application Programming (CAP) model and SAP Fiori Elements.It helps:
+
+* Monitoring the daily operation of the plant.
+* Recording the sustainability KPI(energy consumption) of the plant on daily. 
+* Scoring the AI models against the live sensor Data
+* Extending the Maintenance Management of SAP S/4HANA Cloud with side-by-side extensibility on SAP BTP with sound-based predictive maintenance.
+* Integrating with SAP Analytics Cloud for plant 360 analytics, and maintenance cost & sustainability KPIs planning.
 
 ![Solution Architecture](../../resources/solution-architecture.png)
 
