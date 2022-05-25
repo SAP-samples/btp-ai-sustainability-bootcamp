@@ -8,6 +8,7 @@ As part of the AI & Sustainability Bootcamp, we have developed a sample app name
 * [Sound anomalies detection](/src/ai-models/predictive-maintenance) for predictive maintenance
 In this way, you also learn from to build end-to-end industry cloud solutions on SAP BTP focusing on AI & Sustainability topics.
 <p>The sample application is mainly built on top of SAP Cloud Application Programming (CAP) model and SAP Fiori elements. Extending the Maintence Management of SAP S/4HANA Cloud with side-by-side extensibility on SAP BTP, integrating with SAP Analytics Cloud for plant 360 analytics, and maintenance cost & sustainability KPIs planning.
+
 ![Solution Architecture](../../resources/solution-architecture.png)
 
 ## Deployment Options
@@ -25,9 +26,9 @@ More instructions to come. Stay tuned.
 
 ## Prerequisites (Mandatory Setup Steps to Perform)
 Below are some setup steps that are required to ensure a success deployment of the application.
-### **(i) Obtain an SAP BTP trial, free tier or productive account etc. 
+### **(i) Obtain an SAP BTP trial, free tier or productive account etc**. 
 Please refer to this [tutorial](https://developers.sap.com/tutorials/hcp-create-trial-account.html) about Getting a Free Account on SAP BTP Trial.
-### **(ii) Set Up SAP HANA Cloud and SAP Business Application Studio on your SAP BTP account by following this [tutorial](https://developers.sap.com/group.hana-cloud-setup.html).
+### **(ii) Set Up SAP HANA Cloud and SAP Business Application Studio** on your SAP BTP account by following this [tutorial](https://developers.sap.com/group.hana-cloud-setup.html).
 > SAP BTP Cockpit > Cloud Foundry > Spaces > dev > **SAP HANA Cloud** <br>(make sure you select the option to "Allow ALL IP Addresses" during creation)
 
 ![SAP BTP HANA Cloud](https://user-images.githubusercontent.com/8436161/128988191-f079627d-59c3-4015-a689-d4933613ba41.png)
