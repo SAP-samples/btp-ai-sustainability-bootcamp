@@ -3,17 +3,25 @@
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/REPO-NAME)](https://api.reuse.software/info/github.com/SAP-samples/REPO-NAME)
 -->
 
-Part of the AI & Sustainability Bootcamp, we have developed a sample UI app to assist partners to take reference from to build their own solutions focusing on AI & Sustainability topics.
-<p>The sample application is built using various frameworks, such as SAP Fiori elements, Custom SAPUI5, SAP Cloud Application Programming (CAP) model and extending with SAP systems such as SAP Business Technology Platform, SAP S/4HANA Cloud & SAP Analytics Cloud.
+As part of the AI & Sustainability Bootcamp, we have developed a sample app named sustainable-smart-factory-app to inference the [AI models](/src/ai-models) which you have developed in Enterprise AI in Action sessions of this bootcamp. 
+* [Image segemtation](/src/ai-models/defect-detection) for auto. defect detection
+* [Sound anomalies detection](/src/ai-models/predictive-maintenance) for predictive maintenance
+In this way, you also learn from to build end-to-end industry cloud solutions on SAP BTP focusing on AI & Sustainability topics.
+<p>The sample application is mainly built on top of SAP Cloud Application Programming (CAP) model and SAP Fiori elements. Extending the Maintence Management of SAP S/4HANA Cloud with side-by-side extensibility on SAP BTP, integrating with SAP Analytics Cloud for plant 360 analytics, and maintenance cost & sustainability KPIs planning.
+![Solution Architecture](/resources/solution-architecture.png)
 
-## Deployment Models
+## Deployment Options
 We have prepared a few models for you to consider and take reference from in order to deploy this sample app successfully to your preferred platform/landscapes.
 Please note that the sample app is shipped AS-IT-IS, and if you faced with any issues, **SAP will not be providing any support**. However, if you find any bugs or issues, you may [create an issue here](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/issues).
 
-### **1. Hybrid Model**: Local App consuming SAP BTP Cloud Services
+### **0. Prerequisites
+* A SAP BTP trial, free tier or productive account etc. Please refer to this [tutorial](https://developers.sap.com/tutorials/hcp-create-trial-account.html) about Getting a Free Account on SAP BTP Trial.
+* Set Up SAP HANA Cloud and SAP Business Application Studio on your SAP BTP account by following this [tutorial](https://developers.sap.com/group.hana-cloud-setup.html).
+
+### **1. [Recommended for development/testing]Hybrid Option**: Local App consuming SAP BTP Cloud Services
 Follow instructions from **[`main` branch](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/main/src/sustainable-smart-factory-app)**.
 
-### **2. Cloud Model with SAP BTP Launchpad**: Cloud Native App as MTA, deployed in SAP BTP with SAP Launchpad services & Managed Approuter
+### **2. [Recommended for production]Cloud Option with SAP BTP Launchpad**: Cloud Native App as MTA, deployed in SAP BTP with SAP Launchpad services & Managed Approuter
 Follow instructions from **[`deploy-btp-mta-launchpad` branch](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/deploy-btp-mta-launchpad/src/sustainable-smart-factory-app)**.
 
 ### **3. Cloud Model with Cloud Foundry Environment in SAP BTP**: Cloud Native App as MTA, deployed in SAP BTP Cloud Foundry Environment
@@ -21,13 +29,14 @@ More instructions to come. Stay tuned.
 
 ## Prerequisites (Mandatory Setup Steps to Perform)
 Below are some setup steps that are required to ensure a success deployment of the application.
-
-### **(i) Create `SAP HANA Cloud Service` in SAP BTP**
+### **(i) Obtain an SAP BTP trial, free tier or productive account etc. 
+Please refer to this [tutorial](https://developers.sap.com/tutorials/hcp-create-trial-account.html) about Getting a Free Account on SAP BTP Trial.
+### **(ii) Set Up SAP HANA Cloud and SAP Business Application Studio on your SAP BTP account by following this [tutorial](https://developers.sap.com/group.hana-cloud-setup.html).
 > SAP BTP Cockpit > Cloud Foundry > Spaces > dev > **SAP HANA Cloud** <br>(make sure you select the option to "Allow ALL IP Addresses" during creation)
 
 ![SAP BTP HANA Cloud](https://user-images.githubusercontent.com/8436161/128988191-f079627d-59c3-4015-a689-d4933613ba41.png)
 
-### **(ii) Connecting to a `S/4HANA Cloud System` via SAP BTP Connectivity Destination**
+### **(iii) Connecting to a `S/4HANA Cloud System` via SAP BTP Connectivity Destination**
 > SAP BTP Cockpit > Connectivity > Destinations > **New Destination**
 
 In this step, you will require a S/4HANA Cloud instance for this to work. You will be using a technical user with the right authorisation to Manage Maintenance Order in your S/4HANA Cloud tenant. This will be triggered in the app itself part of the Equipments Condition module.
@@ -52,7 +61,7 @@ In this step, you will require a S/4HANA Cloud instance for this to work. You wi
 
 _Please note that the above destination name `S4HC_AICOREBOOTCAMP` is defined inside [package.json](package.json) for the app and will be used in the **Custom Logic** file on S/4HANA Maintenance Order `Line 82` located in [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/srv/admin-service.js](srv/admin-service.js)._ Prior to that, please make sure you've done your own testing of calling the API with Postman to ensure that your credentials works.
 
-### **(ii) Create a Destination in SAP BTP, using your SAP AI Core Service key credentials**
+### **(vi) Create a Destination in SAP BTP, using your SAP AI Core Service key credentials**
 
 In this step, you will require an instance of SAP AI Core in your SAP BTP account for this to work. 
 
