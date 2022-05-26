@@ -19,7 +19,7 @@ The sample application is mainly built on top of **SAP Cloud Application Program
 
 ![Solution Architecture](../../resources/solution-architecture.png)
 
-In this [deployment option #2](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/deploy-btp-mta-launchpad/src/sustainable-smart-factory-app#2-cloud-model-with-sap-btp-launchpad-cloud-native-app-as-mta-deployed-in-sap-btp-with-sap-launchpad-services--managed-approuter-recommended-for-production), you will be pushing all your **SAP Fiori applications** (in the app folder) into a **Managed Approuter HTML5 Repository** & Cloud Foundry Environment in SAP BTP, then subsequently create a central entry point via **SAP Launchpad Service + SAP Mobile Start**. Here is a glimpse of what you will achieve.
+In this [deployment option #2](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/deploy-btp-mta-launchpad/src/sustainable-smart-factory-app#2-cloud-option-with-sap-btp-launchpad-cloud-native-app-as-mta-deployed-in-sap-btp-with-sap-launchpad-services--managed-approuter-recommended-for-development-testing-or-even-production), you will be pushing all your **SAP Fiori applications** (in the app folder) into a **Managed Approuter HTML5 Repository** & Cloud Foundry Environment in SAP BTP, then subsequently create a central entry point via **SAP Launchpad Service + SAP Mobile Start**. Here is a glimpse of what you will achieve.
 
 ![Deployment to SAP BTP Launchpad](https://user-images.githubusercontent.com/8436161/169964568-68aa39ba-90a8-4c11-88aa-8c090731a503.gif)
 
