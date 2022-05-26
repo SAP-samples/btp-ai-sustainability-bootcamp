@@ -4,7 +4,7 @@
 -->
 
 As part of the AI & Sustainability Bootcamp, we have developed a sample app named sustainable-smart-factory-app to inference the [AI models](../ai-models) which you have developed in Enterprise AI in Action sessions of this bootcamp. 
-* [Image segemtation](..//ai-models/defect-detection) for auto. defect detection
+* [Image segmentation](..//ai-models/defect-detection) for auto. defect detection
 * [Sound anomalies detection](/src/ai-models/predictive-maintenance) for predictive maintenance
 In this way, you also learn from to build end-to-end industry cloud solutions on SAP BTP focusing on AI & Sustainability topics.
 <p>
@@ -130,7 +130,7 @@ Copy and Paste the relevant property value (from Service Key above) such as, **`
 _Please note that the above destination name `AICORE` is being used (thus please **DO NOT** change) and defined in the **Custom Logic** file on `getDestination()` method located in [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/srv/admin-service.js](srv/admin-service.js)._
 
 ## Download and Installation
-> Make sure you have completed **ALL** of the [Prerequisite Steps](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/deploy-btp-mta-launchpad/src/sustainable-smart-factory-app#prerequisites-mandatory-setup-steps-to-perform) before proceeding.
+> Make sure you have completed **ALL** of the [Prerequisite Steps](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/deploy-btp-mta-launchpad/src/sustainable-smart-factory-app#prerequisites) before proceeding.
 
 Please kindly note that the **following instructions below is strictly for the deployment option of a Cloud Native approach as MTA, deployed in SAP BTP with SAP Launchpad services & Managed Approuter**.
 <p>
@@ -160,7 +160,7 @@ npm install
 ```
 
 ### **Step 3:** Build & Deploy MTA
-Open [mta.yaml](mta.yaml), go to **line 6**, locate appname property and replace `_REPLACE_W_YOUR_UNIQUE_SUBDOMAINID_` with your **Unique Subdomain Name** or a unique name for the solution.
+Open [mta.yaml](mta.yaml), go to **line 6**, locate **appname** property and replace `_REPLACE_W_YOUR_UNIQUE_SUBDOMAINID_` with your **Unique Subdomain Name** or a unique name for the solution.
 
 ![SAP BTP Unique Subdomain](https://user-images.githubusercontent.com/8436161/170443901-e3e9d8d1-fc9f-47a4-9b0f-0981f3fb471d.png)
 
@@ -176,7 +176,7 @@ Open [mta.yaml](mta.yaml), go to **line 6**, locate appname property and replace
 <p></p>
 
 Once renamed your solution, it's time to **package your app with the MTA Build Tool**.<br>
-<i>Alternatively, you can right click the [mta.yaml](mta.yaml) file and select Build MTA Project.</i>
+<i>Alternatively, you can right click the [mta.yaml](mta.yaml) file and select **Build MTA Project**.</i>
 ```bash
 mbt build
 ```
@@ -193,7 +193,7 @@ npm install -g mbt
 <p></p>
 
 Once packaged, it's time to **deploy the MTAR archive**.<br>
-<i>Alternatively, you can right click the archive file [sustainable-smart-factory-app_1.1.0.mtar](mta_archives/sustainable-smart-factory-app_1.1.0.mtar) file and select Deploy MTA Archive.</i>
+<i>Alternatively, you can right click the archive file in the folder [mta_archives](mta_archives) file and select **Deploy MTA Archive**.</i>
 
 ```bash
 cf deploy mta_archives/sustainable-smart-factory-app_1.1.0.mtar
@@ -228,15 +228,15 @@ Also, prior to this step, you should already have completed the AI Core model tr
 - **f. Sound Classification Deployment ID**: `_AICORE_SOUNDCLASS_DEPLOYMENT_ID_`
 
 #### File Server Backend App deployed in CF
-As MTA deployment accepts lightweight Fiori app deployment, thus we are unable to load such a huge size (200+MB) of media resources into the Abnomalies Fiori App. Thus, we have deployed this NodeJS app to your Cloud Foundry environment as part of the entire MTA deployment.
+As MTA deployment recommends lightweight Fiori app deployment, thus we are unable to load such a huge size (200+MB) of media resources into the Anomalies Fiori App. Thus, we have deployed this NodeJS app to your Cloud Foundry environment as part of the entire MTA deployment.
 You may retrieve the URL by ethier looking at your deployment logs, cf commands or browsing through your dev space.
 > SAP BTP Cockpit > Cloud Foundry > Spaces > dev > sustainable-smart-factory-app-file-server > **Application Routes**
 
 ![File Server App in SAP BTP Cockpit](https://user-images.githubusercontent.com/8436161/170294046-4a7534f7-9a6a-411c-8c96-3386a29980c3.png)
 
 Copy the URL Path and replace `_AICORE_APP_FS_URL_` in the **following 2 locations**:
-- [package.json](package.json): cds > aicore > **fsurl**
-- [anomalies/webapp/custom/CustomFormatter.js](app/predictive-maintenance/anomalies/webapp/custom/CustomFormatter.js): **formatSoundURL** method
+- [package.json](package.json): cds > aicore > **fsurl** property value
+- [anomalies/webapp/custom/CustomFormatter.js](app/predictive-maintenance/anomalies/webapp/custom/CustomFormatter.js): inside **formatSoundURL** method
 
 #### CAP CDS Servlet App deployed in CF
 Required for the KPI Tiles setup in your SAP BTP Launchpad service.
@@ -274,7 +274,7 @@ In this step, you will require a S/4HANA Cloud instance for this to work. You wi
 
 ![CAP CDS Destination in SAP BTP Cockpit](https://user-images.githubusercontent.com/8436161/170293032-4868a221-f135-41e4-ae2e-c5da8badfe7f.png)
 
-_Please note that the above destination name `smart-factory-app-api` is defined inside all of your Fiori app's manifest under cross navigation (**below is a code snippet just for your reference**). <p>
+_Please note that the above destination name `smart-factory-app-api` is defined inside all of your Fiori app's manifest under cross navigation (**below is a code snippet just for your reference**). Defined in **indicatorDataSource > path**.<p>
 What we are trying to achieve here is to expose the URL so that our KPI tile in the Launchpad will be able to retrieve a data count of the data entities._
 
 ```json
