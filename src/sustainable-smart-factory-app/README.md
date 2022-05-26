@@ -193,7 +193,7 @@ npm install -g mbt
 <p></p>
 
 Once packaged, it's time to **deploy the MTAR archive**.<br>
-<i>Alternatively, you can right click the archive file in the folder [mta_archives](mta_archives) file and select **Deploy MTA Archive**.</i>
+<i>Alternatively, you can right click the archive file in the folder mta_archives and select **Deploy MTA Archive**.</i>
 
 ```bash
 cf deploy mta_archives/sustainable-smart-factory-app_1.1.0.mtar
@@ -329,7 +329,7 @@ You may refer below as an example of the variables defined in your [package.json
 mbt build
 ```
 Once packaged, it's time to **deploy the MTAR archive**.<br>
-<i>Alternatively, you can right click the archive file [sustainable-smart-factory-app_1.1.0.mtar](mta_archives/sustainable-smart-factory-app_1.1.0.mtar) file and select Deploy MTA Archive.</i>
+<i>Alternatively, you can right click the archive file in the folder mta_archives and select **Deploy MTA Archive**.</i>
 
 ```bash
 cf deploy mta_archives/sustainable-smart-factory-app_1.1.0.mtar
