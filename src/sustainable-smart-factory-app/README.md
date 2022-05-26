@@ -19,7 +19,8 @@ The sample application is mainly built on top of **SAP Cloud Application Program
 
 ![Solution Architecture](../../resources/solution-architecture.png)
 
-### In this [deployment model #2](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/deploy-btp-mta-launchpad/src/sustainable-smart-factory-app#2-cloud-model-with-sap-btp-launchpad-cloud-native-app-as-mta-deployed-in-sap-btp-with-sap-launchpad-services--managed-approuter), you will be pushing all your SAP Fiori applications into a Managed Approuter HTML5 Repository & Cloud Foundry Environment in SAP BTP, then subsequently create a central entry point via SAP Launchpad Service. Here is a glimpse of what you will achieve.
+In this [deployment option #2](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/deploy-btp-mta-launchpad/src/sustainable-smart-factory-app#2-cloud-model-with-sap-btp-launchpad-cloud-native-app-as-mta-deployed-in-sap-btp-with-sap-launchpad-services--managed-approuter-recommended-for-production), you will be pushing all your **SAP Fiori applications** (in the app folder) into a **Managed Approuter HTML5 Repository** & Cloud Foundry Environment in SAP BTP, then subsequently create a central entry point via **SAP Launchpad Service + SAP Mobile Start**. Here is a glimpse of what you will achieve.
+
 ![Deployment to SAP BTP Launchpad](https://user-images.githubusercontent.com/8436161/169964568-68aa39ba-90a8-4c11-88aa-8c090731a503.gif)
 
 ## Deployment Options
@@ -28,68 +29,41 @@ Please note that the sample app is shipped AS-IT-IS, and if you faced with any i
 
 > Note: Please DO NOT attempt to implement both deployment models in a single repo project as each deployment option has different approaches in steps and configuration variables setup. It is recommended to have different repo project directories for the different deployment branches.
 
-### **1. Hybrid Model**: Local App consuming SAP BTP Cloud Services <br>**(Recommended for development or test, also for bootcamp exercise)**
+### **1. Hybrid Option**: Local App consuming SAP BTP Cloud Services <br>**(Recommended for development or test, also for bootcamp exercise)**
 Follow instructions from **[`main` branch](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/main/src/sustainable-smart-factory-app)**.
 
-### **2. Cloud Model with SAP BTP Launchpad**: Cloud Native App as MTA, deployed in SAP BTP with SAP Launchpad services & Managed Approuter <br>**(Recommended for production)**
+### **2. Cloud Option with SAP BTP Launchpad**: Cloud Native App as MTA, deployed in SAP BTP with SAP Launchpad services & Managed Approuter <br>**(Recommended for development, testing or even production)**
 Follow instructions from **[`deploy-btp-mta-launchpad` branch](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/deploy-btp-mta-launchpad/src/sustainable-smart-factory-app)**.
 
-### **3. Cloud Model with Cloud Foundry Environment in SAP BTP**: Cloud Native App as MTA, deployed in SAP BTP Cloud Foundry Environment
+### **3. Cloud Option with Cloud Foundry Environment in SAP BTP**: Cloud Native App as MTA, deployed in SAP BTP Cloud Foundry Environment
 More instructions to come. Stay tuned.
 
-## Prerequisites (Mandatory Setup Steps to Perform)
+## Prerequisites
 Below are some setup steps that are required to ensure a success deployment of the application.
 
 ### **(i) Obtain an SAP BTP Trial, Free Tier or Productive Account**. 
-Please refer to this [tutorial](https://developers.sap.com/tutorials/hcp-create-trial-account.html) about Getting a Free Account on SAP BTP Trial.
+Please complete this [tutorial](https://developers.sap.com/tutorials/hcp-create-trial-account.html) about Getting a Free Account on SAP BTP Trial.
 
 ### **(ii) Set Up SAP HANA Cloud and SAP Business Application Studio** 
-You may follow this [tutorial](https://developers.sap.com/group.hana-cloud-setup.html).
+Please complete this [tutorial](https://developers.sap.com/group.hana-cloud-setup.html).
 
 > SAP BTP Cockpit > Cloud Foundry > Spaces > dev > **SAP HANA Cloud** <br>(make sure you select the option to "Allow ALL IP Addresses" during creation)
 
 ![SAP BTP HANA Cloud](https://user-images.githubusercontent.com/8436161/128988191-f079627d-59c3-4015-a689-d4933613ba41.png)
 
-### **(iii) Create an instance of `SAP Launchpad Service` in SAP BTP**
+### **(iii) Subscribed to `SAP Launchpad Service` in SAP BTP**
 In this deployment model, we will be using SAP BTP Launchpad Service and its Managed Approuter to deploy and manage all the SAP Fiori Applications.
 
-#### Subscribe to SAP Launchpad service
-1. Enter your Global Account. If you are using a trial account, choose Go To Your Trial Account.
-2. Choose Account Explorer.
-3. In the Subaccounts tab, choose the subaccount where you have deployed your service and application.
-![Subaccount Selection](https://developers.sap.com/tutorials/btp-app-launchpad-service/jcr:content.github-proxy.1652304971.file/choose_subaccount.png)
-4. Choose Services → Service Marketplace on the left.
-5. Search for the Launchpad Service tile and choose Create.
-![Launchpad Creation](https://developers.sap.com/tutorials/btp-app-launchpad-service/jcr:content.github-proxy.1652304971.file/create_launchpad_service.png)
-6. Keep the default settings for Service and Plan and choose Create.
-![Launchpad Plan](https://developers.sap.com/tutorials/btp-app-launchpad-service/jcr:content.github-proxy.1652304971.file/new_instance_dialog.png)
+Please complete this [tutorial to setup](https://developers.sap.com/tutorials/cp-portal-cloud-foundry-getting-started.html) with the right authorisation role assigned to your user as well.
 
-#### Assigning SAP Launchpad role collection
-You need to assign your user to the Launchpad_Admin role collection, so you don’t get an error accessing the Launchpad Service site later on.
-
-1. Choose Security → Users on the left.
-
-2. Choose your user.
-
-3. Under Role Collections on the right, choose Assign Role Collection and assign the Launchpad_Admin role collection to your user.
-
-![Launchpad Role](https://developers.sap.com/tutorials/btp-app-launchpad-service/jcr:content.github-proxy.1652304971.file/add_launchpad_admin_role.png)
-
-4. Open another browser or clear your browser’s cache.
-
-See section [Initial Setup](https://help.sap.com/viewer/8c8e1958338140699bd4811b37b82ece/Cloud/en-US/fd79b232967545569d1ae4d8f691016b.html) in the SAP Launchpad service’s documentation for more details.
-
-https://developers.sap.com/tutorials/btp-app-launchpad-service.html
-
-Create Site
-Manage Site from Provider etc
+![SAP BTP Launchpad Subscribed](https://user-images.githubusercontent.com/8436161/170425138-f0cc7e73-1577-4ac2-afb3-01a9ecf3a99c.png)
 
 ### **(iv) Connecting to a `S/4HANA Cloud System` via SAP BTP Connectivity Destination**
 > SAP BTP Cockpit > Connectivity > Destinations > **New Destination**
 
 In this step, you will require a S/4HANA Cloud instance for this to work. You will be using a technical user with the right authorisation to Manage Maintenance Order in your S/4HANA Cloud tenant. This will be triggered in the app itself part of the Equipments Condition module.
 
-> **Name**: `S4HC_AICOREBOOTCAMP` 
+> **Name**: `S4HC_AICOREBOOTCAMP`
 
 > **Type**: HTTP
 
@@ -107,7 +81,8 @@ In this step, you will require a S/4HANA Cloud instance for this to work. You wi
 
 ![S4HANA Destination in SAP BTP Cockpit](https://user-images.githubusercontent.com/8436161/168980113-837f9341-c385-41d9-a0aa-065c186fa57d.png)
 
-_Please note that the above destination name `S4HC_AICOREBOOTCAMP` is defined inside [package.json](package.json) for the app and will be used in the **Custom Logic** file on S/4HANA Maintenance Order `Line 82` located in [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/srv/admin-service.js](srv/admin-service.js)._ Prior to that, please make sure you've done your own testing of calling the API with Postman to ensure that your credentials works.
+_Please note that the above destination name `S4HC_AICOREBOOTCAMP` is being used (thus please **DO NOT** change) and defined inside [package.json](package.json) for the app and will be used in the **Custom Logic** file on S/4HANA Maintenance Order `Line 82` located in [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/srv/admin-service.js](srv/admin-service.js)._ <p>
+Prior to that, please make sure you've done your own testing of calling the API with Postman to ensure that your credentials works.
 
 ### **(iv) Create a Destination in SAP BTP, using your SAP AI Core Service key credentials**
 
@@ -124,7 +99,7 @@ Create a service key where you will use the OAuth credentials provided, and ente
 
 Copy and Paste the relevant property value (from Service Key above) such as, **`clientid, clientsecret, url, ai_api_url`** into the config of **SAP BTP Connectivity Destination**.
 
-> **Name**: `AICORE` 
+> **Name**: `AICORE` (do not change)
 
 > **Type**: HTTP
 
@@ -142,7 +117,7 @@ Copy and Paste the relevant property value (from Service Key above) such as, **`
 
 > **Token Service URL Type**: Dedicated
 
-> **Token Service URL**: `url`/oauth/token **(NOT referring to the ai_api_url. And make sure to add /oauth/token towards the end of the path.)**
+> **Token Service URL**: `url`/oauth/token **(NOT referring to the ai_api_url, make sure to append /oauth/token at the end of the URL path.)**
 
 > **Token Service User**: <LEAVE_EMPTY>
 
@@ -152,16 +127,17 @@ Copy and Paste the relevant property value (from Service Key above) such as, **`
 
 ![AICORE Destination in SAP BTP Cockpit](https://user-images.githubusercontent.com/8436161/169439295-025eef7d-79d8-4c6b-9cae-aaec105ad569.png)
 
-## Download and Installation
-> Make sure you have completed **ALL** of the [Mandatory Setup Steps](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/main/src/sustainable-smart-factory-app#requirements-mandatory-setup-steps) before proceeding.
+_Please note that the above destination name `AICORE` is being used (thus please **DO NOT** change) and defined in the **Custom Logic** file on `getDestination()` method located in [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/srv/admin-service.js](srv/admin-service.js)._
 
-Please kindly note that the **following instructions below is strictly for the deployment model of a hybrid approach (local app, cloud services)**.
-Thus, the app will only work locally while consuming SAP BTP services (hana, destination, xsuaa, ai-core) through a defined default-env.json file.
+## Download and Installation
+> Make sure you have completed **ALL** of the [Prerequisite Steps](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/deploy-btp-mta-launchpad/src/sustainable-smart-factory-app#prerequisites-mandatory-setup-steps-to-perform) before proceeding.
+
+Please kindly note that the **following instructions below is strictly for the deployment option of a Cloud Native approach as MTA, deployed in SAP BTP with SAP Launchpad services & Managed Approuter**.
 <p>
 While developing your own solution, you may take this as a reference (AS-IT-IS) and troubleshoot on your own if you'd like to deploy it on other SAP/non-SAP landscapes.
 </p>
 
-Refer [here for more information on the other deployment models](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/main/src/sustainable-smart-factory-app#deployment-models). Each has its own configurations to setup accordingly.
+Refer [here for more information on the other deployment options](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/deploy-btp-mta-launchpad/src/sustainable-smart-factory-app#deployment-options). Each has its own configurations to setup accordingly.
 
 ### Choice of Development Tools (IDE)
 You may use either one of following IDE based on your preferences.
@@ -184,20 +160,64 @@ npm install
 ```
 
 ### **Step 3:** Build & Deploy MTA
-Provide a name to your app. _REPLACE_W_YOUR_UNIQUE_SUBDOMAINID_
-<br>Build MTA.
-Right click mta file to build or run command mbt build.
-<br>Deploy MTA.
-Right click mtar file to deploy mta archive or run command cf deploy /path to mtar archive.
-<br>Post Deployment steps required & redeployment.
-Unless you're an experience developer in this domain, you are able to define the variables in advance and thus not requiring a redeployment.
+Open [mta.yaml](mta.yaml), go to **line 6**, locate appname property and replace `_REPLACE_W_YOUR_UNIQUE_SUBDOMAINID_` with your **Unique Subdomain Name** or a unique name for the solution.
+
+![SAP BTP Unique Subdomain](https://user-images.githubusercontent.com/8436161/170443901-e3e9d8d1-fc9f-47a4-9b0f-0981f3fb471d.png)
+
+> Results: Parameter `appname` should be something like `smart-factory-8221c96ftrial`.
+
+<p></p>
+<details>
+  <summary>Hint: How to locate your unique Subdomain name.</summary>
+
+![SAP BTP Unique Subdomain](https://user-images.githubusercontent.com/8436161/126601394-9d2ea36d-8d2a-44bc-b178-3aed760dbe9e.png)
+
+</details>
+<p></p>
+
+Once renamed your solution, it's time to **package your app with the MTA Build Tool**.<br>
+<i>Alternatively, you can right click the [mta.yaml](mta.yaml) file and select Build MTA Project.</i>
+```bash
+mbt build
+```
+<p></p>
+<details>
+  <summary>Hint: Make sure you've installed the build tool in your IDE.</summary>
+
+```bash
+npm install -g mta
+npm install -g mbt
+```
+
+</details>
+<p></p>
+
+Once packaged, it's time to **deploy the MTAR archive**.<br>
+<i>Alternatively, you can right click the archive file [sustainable-smart-factory-app_1.1.0.mtar](mta_archives/sustainable-smart-factory-app_1.1.0.mtar) file and select Deploy MTA Archive.</i>
+
+```bash
+cf deploy mta_archives/sustainable-smart-factory-app_1.1.0.mtar
+```
+<p>
+
+It will take about a few minutes for the deployment to be completed. <p>
+If you're an experienced developer in this domain, you should be able to define the variables in advance and thus not requiring a redeployment (later step).
 As there are some server-side variables that are required for the frontend to integrate with, thus the Post Deployment steps are required.
 - Define variables in various locations
-- Create 2 more destinations so the endpoint is reachable.
+- Create destinations so the endpoint is reachable for KPI tiles.
+
+> Note: One common issue most deployment faced is not being able to deploy to HANA DB successfully. This is due to the instance being stopped (shut down every 24 hours automatically). Thus, please make sure your HANA Cloud instance is started prior to deployment.
 
 ### **Step 4:** Post-Deployment: App Variables to Configure, Destinations to Create, Redeploy
-At this stage, please check and ensure that your app is up and running with all the various services created as well.
-From there, you'll need the following values from various location, then configure them in the app itself. You'll be guided along below.
+At this stage, please check and ensure that your **app is up and running with all the various services created** as well.
+From there, you'll need the following **URL values** from various location, then configure them in the app itself. You'll be guided along below.
+
+```bash
+cf apps
+```
+
+![Apps Deployed in CF dev space](https://user-images.githubusercontent.com/8436161/170435549-74b3017c-0c3f-4ee5-a8c6-ee61f14b48d8.png)
+
 - **a. File Server Backend App deployed in CF**: `_AICORE_APP_FS_URL_`
 - **b. CAP CDS Servlet App deployed in CF**: `_AICORE_APP_CAP_CDS_URL_`
 
@@ -207,7 +227,7 @@ Also, prior to this step, you should already have completed the AI Core model tr
 - **e. Image Segmentation Deployment ID**: `_AICORE_IMAGESEG_DEPLOYMENT_ID_`
 - **f. Sound Classification Deployment ID**: `_AICORE_SOUNDCLASS_DEPLOYMENT_ID_`
 
-#### a. File Server Backend App deployed in CF
+#### File Server Backend App deployed in CF
 As MTA deployment accepts lightweight Fiori app deployment, thus we are unable to load such a huge size (200+MB) of media resources into the Abnomalies Fiori App. Thus, we have deployed this NodeJS app to your Cloud Foundry environment as part of the entire MTA deployment.
 You may retrieve the URL by ethier looking at your deployment logs, cf commands or browsing through your dev space.
 > SAP BTP Cockpit > Cloud Foundry > Spaces > dev > sustainable-smart-factory-app-file-server > **Application Routes**
@@ -215,10 +235,10 @@ You may retrieve the URL by ethier looking at your deployment logs, cf commands 
 ![File Server App in SAP BTP Cockpit](https://user-images.githubusercontent.com/8436161/170294046-4a7534f7-9a6a-411c-8c96-3386a29980c3.png)
 
 Copy the URL Path and replace `_AICORE_APP_FS_URL_` in the **following 2 locations**:
-- [package.json](package.json) > cds > aicore > **fsurl**
-- [anomalies/CustomFormatter.js](app/predictive-maintenance/anomalies/webapp/custom/CustomFormatter.js)
+- [package.json](package.json): cds > aicore > **fsurl**
+- [anomalies/webapp/custom/CustomFormatter.js](app/predictive-maintenance/anomalies/webapp/custom/CustomFormatter.js): **formatSoundURL** method
 
-#### b. CAP CDS Servlet App deployed in CF
+#### CAP CDS Servlet App deployed in CF
 Required for the KPI Tiles setup in your SAP BTP Launchpad service.
 
 You may retrieve the URL by ethier looking at your deployment logs, cf commands or browsing through your dev space.
@@ -232,7 +252,7 @@ Copy the **URL Path from Application Route** and replace `_AICORE_APP_CAP_CDS_UR
 
 In this step, you will require a S/4HANA Cloud instance for this to work. You will be using a technical user with the right authorisation to Manage Maintenance Order in your S/4HANA Cloud tenant. This will be triggered in the app itself part of the Equipments Condition module.
 
-> **Name**: `smart-factory-app-api` 
+> **Name**: `smart-factory-app-api`
 
 > **Type**: HTTP
 
@@ -254,9 +274,28 @@ In this step, you will require a S/4HANA Cloud instance for this to work. You wi
 
 ![CAP CDS Destination in SAP BTP Cockpit](https://user-images.githubusercontent.com/8436161/170293032-4868a221-f135-41e4-ae2e-c5da8badfe7f.png)
 
-_Please note that the above destination name `smart-factory-app-api` is defined inside all of your Fiori app's manifest under cross navigation._
+_Please note that the above destination name `smart-factory-app-api` is defined inside all of your Fiori app's manifest under cross navigation (**below is a code snippet just for your reference**). <p>
+What we are trying to achieve here is to expose the URL so that our KPI tile in the Launchpad will be able to retrieve a data count of the data entities._
 
+```json
+/** Code snippet taken from app/plant-conditions/webapp/manifest.json */
 
+"crossNavigation": {
+    "inbounds": {
+        "plantconditions-inbound": {
+            ...
+            "semanticObject": "PlantConditions",
+            ...
+            "indicatorDataSource": {
+                "dataSource": "mainService",
+                "path": "/dynamic_dest/smart-factory-app-api/admin/PlantConditions/$count",
+                "refresh": 0
+            }
+        }
+    }
+}
+/** No changes are required. */
+```
 
 #### Resource Group
 > _Bootcamp participant, you might not have access to SAP AI Launchpad, however, you should already have created the Resource Group via an API request either via Jupyter Notebook or Postman._
@@ -280,15 +319,52 @@ You may also formulate this with the service key's service url > AI_API_URL with
 
 You may refer below as an example of the variables defined in your [package.json](package.json).
 
-![Package Reference of Variables defined](https://user-images.githubusercontent.com/8436161/169464323-0100bce9-885f-4218-b67e-d608acc07bf7.png)
+![Package Reference of Variables defined](https://user-images.githubusercontent.com/8436161/170442675-036d1d17-fd9a-4ebf-827c-9c0b5f5c9e88.png)
 
-### **Step 5:** Build the NEW MTA & Deploy (again).
+### **Step 5:** (Re)Build the MTA & (Re)Deploy.
+
+**Package your app with the MTA Build Tool**.<br>
+<i>Alternatively, you can right click the [mta.yaml](mta.yaml) file and select Build MTA Project.</i>
+```bash
+mbt build
+```
+Once packaged, it's time to **deploy the MTAR archive**.<br>
+<i>Alternatively, you can right click the archive file [sustainable-smart-factory-app_1.1.0.mtar](mta_archives/sustainable-smart-factory-app_1.1.0.mtar) file and select Deploy MTA Archive.</i>
+
+```bash
+cf deploy mta_archives/sustainable-smart-factory-app_1.1.0.mtar
+```
+<p>
+
+It will take about a few minutes for the deployment to be completed.
 
 ### **Step 6:** Test & Run your Fiori Applications in your HTML5 Repository.
+Congratulations! 👏 If you've achieved till here, give yourself a pat on your back! Now, it's just a matter of configuring the Launchpad. Before we dive into the specifics of Launchpad configuration, let's navigate around and explore into the 11 Fiori apps you've deployed in your HTML5 repo. There are 2 ways to access the URLs.
+- Bash Terminal
+```bash
+cf html5-list -u -di sustainable-smart-factory-app-destination-service --runtime launchpad
+```
+![HTML5 Repo List Bash](https://user-images.githubusercontent.com/8436161/170434827-0f2cfd01-ea5d-4dc9-8947-73756f73b054.png)
 
-### **Step 7:** Add Fiori Apps to your SAP BTP Launchpad Service.
+- SAP BTP Cockpit
 
+> SAP BTP Cockpit > **HTML5 Applications**
 
+![HTML5 Repo List Cockpit](https://user-images.githubusercontent.com/8436161/170434807-f0951f65-5a39-4926-aa48-b86d3e5ee66e.png)
+
+### **Step 7:** Add the deployed 11 Fiori Apps to your Launchpad Site.
+
+SAP BTP Cockpit > Instances & Subscriptions > SAP Launchpad Service > In a New Window. <br>
+Site Manager > Provider Manager > Content Provider > HTML5 Apps Repository > **Synchronise** <br>
+Site Manager > Content Manager > Content Explorer > **HTML5 Apps**<br>
+Tick all the checkboxes of the 11 Fiori Applications we have deployed. Add to my Content. <br>
+Site Manager > Content Manager > **My Content**<br>
+For simplicity, we will not implement any roles & authorisation here.<br>
+Click on `Everyone` role > Edit > Click into the + Search bar > Assign all the 11 Apps to it (+) <br>
+Save. <br>
+Site Manager > Site > **Go to Site**<br>
+
+![Launchpad Site Setup Successfully](https://user-images.githubusercontent.com/8436161/170450595-887a34ae-a1e1-4b57-bb62-1f608d8b6c06.png)
 
 ## Known Issues
 
