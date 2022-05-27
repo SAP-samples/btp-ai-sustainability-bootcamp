@@ -243,7 +243,7 @@ annotate sf.PlantConditions with @(
     }
 ) {
     ID @Common : {
-        SemanticObject  : 'PlantConditions',
+        SemanticObject  : 'PlantConditionsVisual',
         Text            : ID,
         TextArrangement : #TextOnly
     };
