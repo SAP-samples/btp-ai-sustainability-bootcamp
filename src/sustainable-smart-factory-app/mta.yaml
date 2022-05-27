@@ -3,7 +3,7 @@ ID: sustainable-smart-factory-app
 description: Sustainable Smart Factory App for BTP AI Bootcamp - Version Deploy LP
 version: 1.1.0
 parameters:
-  appname: smart-factory-8221c96ftrial
+  appname: smart-factory-_REPLACE_W_YOUR_UNIQUE_SUBDOMAINID_
   deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
