@@ -60,13 +60,13 @@
         "aicore": {
             "kind": "config",
             "dest": "S4HC_AICOREBOOTCAMP",
-            "url": "_AICORE_DEPLOYMENT_URL_",
-            "resourcegroup": "_AICORE_RESOURCE_GROUP_",
+            "url": "https://api.ai.prod.eu-central-1.aws.ml.hana.ondemand.com/v2/inference/deployments",
+            "resourcegroup": "bootcamp-jacobtjw",
             "inferences": {
-                "imageseg": "/_AICORE_IMAGESEG_DEPLOYMENT_ID_/v1/models/imagesegmodel:predict",
-                "soundclass": "/_AICORE_SOUNDCLASS_DEPLOYMENT_ID_/v1/models/soundmodel:predict"
+                "imageseg": "/dba17425d1283522/v1/models/imagesegmodel:predict",
+                "soundclass": "/d10574f135d487ed/v1/models/soundmodel:predict"
             },
-            "fsurl": "_AICORE_APP_FS_URL_"
+            "fsurl": "https://smart-factory-8221c96ftrial-fs.cfapps.eu10.hana.ondemand.com"
         },
         "requires": {
             "db": {

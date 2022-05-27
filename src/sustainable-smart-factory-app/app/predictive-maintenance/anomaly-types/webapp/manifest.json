@@ -38,7 +38,7 @@
                     "indicatorDataSource": {
                         "dataSource": "mainService",
                         "path": "/dynamic_dest/smart-factory-app-api/admin/AnomalyTypes/$count",
-                        "refresh": 0
+                        "refresh": 5000
                     }
                 }
             }

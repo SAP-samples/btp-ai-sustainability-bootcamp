@@ -18,6 +18,7 @@ sap.ui.define([], function () {
              * + value path of the source file
              * /35b68727-9978-4cd5-a1a0-d126f85674a2.smartfactory.cvqualityrecords/~230522133042+0000~/media/cv/OK/xxx.bmp
              */
+            //  routing is implemented in xs-app.json mapping /media (val) to backend /media files
             var relativePath = sap.ui.require.toUrl("cvqualityrecords");
             return relativePath + val;
         }

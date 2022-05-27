@@ -53,7 +53,7 @@
                     "indicatorDataSource": {
                         "dataSource": "mainService",
                         "path": "/dynamic_dest/smart-factory-app-api/analytics/CVQualityRecordsView/$count",
-                        "refresh": 0
+                        "refresh": 5000
                     }
                 }
             }

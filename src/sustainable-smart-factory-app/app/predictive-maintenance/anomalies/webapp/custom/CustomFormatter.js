@@ -13,9 +13,12 @@ sap.ui.define([], function () {
 
             //  Note: relative path couldn't be used because it is recommended not to deploy huge dataset as part of UI app deployment.
             //  Thus, media resources is stored in a backend server served by a CF app.
-            // var relativePath = sap.ui.require.toUrl("anomalies");
             //  To Improve: How to automate this part to retrieve this URL on server side.
-            return "_AICORE_APP_FS_URL_" + val;
+            //  (fixed) Resolution: xs-app.json, implemented routing. route /media to /media targetting the backend destination.
+            //  thus, _AICORE_APP_FS_URL_ is not required anymore
+            // return "_AICORE_APP_FS_URL_" + val;
+            var relativePath = sap.ui.require.toUrl("anomalies");
+            return relativePath + val;
         }
     };
 });

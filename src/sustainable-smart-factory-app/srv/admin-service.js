@@ -362,22 +362,6 @@ function sleep(ms) {
     });
 }
 
-/** Calculate No. of Faults in each EQConditions */
-async function calculateFaults(req) {
-    const eqconds = await cds.tx(req).run(SELECT.from(req.target));
-    const db = await cds.connect.to("db");
-    const { Anomalies } = db.entities;
-    for (let i = 0; i < eqconds.length; i++) {
-        var eqcondId = eqconds[i].ID;
-        var faults = await cds
-            .tx(req)
-            .run(SELECT.from(Anomalies).where({ eqCond_ID: eqcondId }));
-        await UPDATE(req.target, eqcondId).with({
-            fault: faults.length,
-        });
-    }
-}
-
 /** Generate primary keys for target entity in request */
 async function genid(req) {
     const { ID } = await cds
@@ -387,6 +371,7 @@ async function genid(req) {
 }
 
 /** Default Helper function to auth your app getting connected with SAP BTP Destination services and return Destination object. */
+//  To Improve: replace with cloud sdk core
 async function getDestination(dest) {
     try {
         xsenv.loadEnv();

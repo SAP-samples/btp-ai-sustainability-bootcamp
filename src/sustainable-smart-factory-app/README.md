@@ -99,7 +99,7 @@ Create a service key where you will use the OAuth credentials provided, and ente
 
 Copy and Paste the relevant property value (from Service Key above) such as, **`clientid, clientsecret, url, ai_api_url`** into the config of **SAP BTP Connectivity Destination**.
 
-> **Name**: `AICORE` (do not change)
+> **Name**: `AICORE`
 
 > **Type**: HTTP
 
@@ -234,9 +234,8 @@ You may retrieve the URL by ethier looking at your deployment logs, cf commands 
 
 ![File Server App in SAP BTP Cockpit](https://user-images.githubusercontent.com/8436161/170294046-4a7534f7-9a6a-411c-8c96-3386a29980c3.png)
 
-Copy the URL Path and replace `_AICORE_APP_FS_URL_` in the **following 2 locations**:
+Copy the URL Path and replace `_AICORE_APP_FS_URL_` in the **following location**:
 - [package.json](package.json): cds > aicore > **fsurl** property value
-- [anomalies/webapp/custom/CustomFormatter.js](app/predictive-maintenance/anomalies/webapp/custom/CustomFormatter.js): inside **formatSoundURL** method
 
 #### CAP CDS Servlet App deployed in CF
 Required for the KPI Tiles setup in your SAP BTP Launchpad service.
@@ -289,7 +288,7 @@ What we are trying to achieve here is to expose the URL so that our KPI tile in 
             "indicatorDataSource": {
                 "dataSource": "mainService",
                 "path": "/dynamic_dest/smart-factory-app-api/admin/PlantConditions/$count",
-                "refresh": 0
+                "refresh": 5000
             }
         }
     }
