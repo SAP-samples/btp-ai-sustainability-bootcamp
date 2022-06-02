@@ -113,35 +113,51 @@ module.exports = async function () {
         const result = await maintenanceOrderApi
             .requestBuilder()
             .create(mo)
-            .execute(sdkDest);
-
-        //  4. Update EquipmentConditions record with the Maintenance Order ID returned from S4 API
-        const moResult = result.toJSON();
-        const moId = moResult.maintenanceOrder;
-
-        /** Exclusively locks the selected rows for subsequent updates in the current transaction, thereby preventing concurrent updates by other parallel transactions.
-         * https://cap.cloud.sap/docs/node.js/cds-ql#select-forUpdate
-         */
-        try {
-            let eqCond = await SELECT.from(
-                EquipmentConditions,
-                eqCondEntity
-            ).forUpdate();
-            //> EquipmentConditions is locked for other transactions
-            await UPDATE(EquipmentConditions, eqCondEntity.ID).with({
-                followUpDocType: "MO",
-                followUpDocNum: moId,
+            .execute(sdkDest)
+            .catch(err => {
+                console.log('Error:', err.message);
+                console.log('Cause:', err.cause?.message);
+                console.log('Root cause:', err.rootCause?.message);
+                // message = "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and soundclass might be wrongly configured.";
+                message = err.rootCause?.message;
             });
-            req.notify(
-                `Maintenance Order#${moId} created Successfully for Equipment#${eqCondition.equipment_NR}.`
-            );
-        } catch (e) {
-            //> failed to acquire the lock, likely because of timeout
+
+        if (result === undefined) {
             req.error({
-                message: "Error in updating EquipmentConditions entity on MO record.",
-                target: "followUpDocNum",
-                status: 418,
-            });
+                code: 'Error in S4HC Service Request Call',
+                message: message,
+                target: 'admin-service.js|createMO',
+                status: 419
+            })
+        } else {
+            //  4. Update EquipmentConditions record with the Maintenance Order ID returned from S4 API
+            const moResult = result.toJSON();
+            const moId = moResult.maintenanceOrder;
+
+            /** Exclusively locks the selected rows for subsequent updates in the current transaction, thereby preventing concurrent updates by other parallel transactions.
+             * https://cap.cloud.sap/docs/node.js/cds-ql#select-forUpdate
+             */
+            try {
+                let eqCond = await SELECT.from(
+                    EquipmentConditions,
+                    eqCondEntity
+                ).forUpdate();
+                //> EquipmentConditions is locked for other transactions
+                await UPDATE(EquipmentConditions, eqCondEntity.ID).with({
+                    followUpDocType: "MO",
+                    followUpDocNum: moId,
+                });
+                req.notify(
+                    `Maintenance Order#${moId} created Successfully for Equipment#${eqCondition.equipment_NR}.`
+                );
+            } catch (e) {
+                //> failed to acquire the lock, likely because of timeout
+                req.error({
+                    message: "Error in updating EquipmentConditions entity on MO record.",
+                    target: "followUpDocNum",
+                    status: 418,
+                });
+            }
         }
     });
 
