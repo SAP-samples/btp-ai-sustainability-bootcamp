@@ -332,7 +332,6 @@ class TrainSKInterface:
         # Load config
         batch_size = 32
         num_epochs = 200
-        num_epochs = 5 #To be changed
 
         # Initialize model
         self.init_model()
@@ -449,7 +448,7 @@ class TrainSKInterface:
                     {'val_iou': str(self.val_accuracy)}
                 ]
         custom_info_1 = [{"name": "training_history", 
-                          "value": str(training_history)}]
+                          "value": str(self.training_history)}]
 
         logging.info(f"custom_info")
         body = {'execution_id': self.execution_id,

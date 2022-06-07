@@ -182,7 +182,7 @@ class TrainInterface:
             validation_data = ( np.array(self.X_validation, np.float32),
                                 np.array(self.y_validation, np.float32),
                                            ),        
-            epochs = 5 #To be changed
+            epochs = 30 #To be changed
         )
 
         self.loss = history.history['loss']
