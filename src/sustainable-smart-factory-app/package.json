@@ -59,7 +59,9 @@
             "kind": "config",
             "dest": "S4HC_AICOREBOOTCAMP",
             "url": "_AICORE_DEPLOYMENT_URL_",
-            "resourcegroup": "_AICORE_RESOURCE_GROUP_",
+            "default-resourcegroup": "_AICORE_DEFAULT_RESOURCE_GROUP_",
+            "sound-resourcegroup": "_AICORE_SOUND_RESOURCE_GROUP_",
+            "image-resourcegroup": "_AICORE_IMAGE_RESOURCE_GROUP_",
             "inferences": {
                 "imageseg": "/_AICORE_IMAGESEG_DEPLOYMENT_ID_/v1/models/imagesegmodel:predict",
                 "soundclass": "/_AICORE_SOUNDCLASS_DEPLOYMENT_ID_/v1/models/soundmodel:predict"
