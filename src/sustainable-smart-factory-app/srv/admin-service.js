@@ -26,8 +26,9 @@ var authToken;
 const aicoreurl = cds.env.aicore.url; //  aicoreurl + cv_inference_seg_url
 const sound_inference_url = cds.env.aicore.inferences.soundclass;
 const cv_inference_seg_url = cds.env.aicore.inferences.imageseg;
-const airesourcegroup = cds.env.aicore.resourcegroup;
-// const serviceurl = cds.env.aicore.serviceurl;   //  serviceurl + cv_inference_seg_url
+const default_aicore_resourcegroup = cds.env.aicore['default-resourcegroup'];   //  use this variable if both models are in one RG
+const sound_aicore_resourcegroup = cds.env.aicore['sound-resourcegroup'];       //  change value to default_aicore_resourcegroup if using only 1 RG for both
+const image_aicore_resourcegroup = cds.env.aicore['image-resourcegroup'];       //  change value to default_aicore_resourcegroup if using only 1 RG for both
 
 getDestination("AICORE").then((dest) => {
   authToken = "Bearer " + dest.authTokens[0].value;
@@ -198,9 +199,9 @@ module.exports = async function () {
     });
 
     var headers = {
-      "AI-Resource-Group": "sound",
+      "AI-Resource-Group": sound_aicore_resourcegroup,
       "Content-Type": "application/json",
-      Authorization: token,
+      Authorization: authToken,
     };
 
     //  3. Start CDS TX to call AI Core Inference API (path is defined at the top cv_inference_url)
@@ -270,7 +271,7 @@ module.exports = async function () {
       method: "post",
       url: aicoreurl + cv_inference_seg_url,
       headers: {
-        "AI-Resource-Group": airesourcegroup,
+        "AI-Resource-Group": image_aicore_resourcegroup,
         Authorization: authToken,
         "Content-Type": "application/json",
       },
@@ -317,7 +318,14 @@ module.exports = async function () {
         }
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
+        message = "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and imageseg might be wrongly configured.";
+        req.error({
+            code: 'Error in Service Call',
+            message: message,
+            target: 'admin-service.js|inferenceImageCV',
+            status: 418
+        })
       });
     await sleep(2000);
     await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
