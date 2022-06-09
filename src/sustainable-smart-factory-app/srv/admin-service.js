@@ -182,8 +182,6 @@ module.exports = async function () {
     getDestination("AICORE").then((dest) => {
       authToken = "Bearer " + dest.authTokens[0].value;
     });
-    //  1. Connect to AICORE Remote Service (defined in package.json)
-    const aicoreAPI = await cds.connect.to("aicore");
     const anomalyEntity = req.params[0];
 
     const anomaly = await SELECT.from(Anomalies, anomalyEntity).columns([
@@ -210,17 +208,6 @@ module.exports = async function () {
       },
       data: data,
     };
-
-    // var headers = {
-    //   "AI-Resource-Group": "sound",
-    //   "Content-Type": "application/json",
-    //   Authorization: authToken,
-    // };
-
-    //  3. Start CDS TX to call AI Core Inference API (path is defined at the top cv_inference_url)
-    // const results = await aicoreAPI
-    //   .tx(req)
-    //   .send("POST", sound_inference_url, data, headers);
 
     var confidence, type, message;
 
