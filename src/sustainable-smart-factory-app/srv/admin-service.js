@@ -26,9 +26,9 @@ var authToken;
 const aicoreurl = cds.env.aicore.url; //  aicoreurl + cv_inference_seg_url
 const sound_inference_url = cds.env.aicore.inferences.soundclass;
 const cv_inference_seg_url = cds.env.aicore.inferences.imageseg;
-const default_aicore_resourcegroup = cds.env.aicore['default-resourcegroup'];   //  use this variable if both models are in one RG
-const sound_aicore_resourcegroup = cds.env.aicore['sound-resourcegroup'];       //  change value to default_aicore_resourcegroup if using only 1 RG for both
-const image_aicore_resourcegroup = cds.env.aicore['image-resourcegroup'];       //  change value to default_aicore_resourcegroup if using only 1 RG for both
+const default_aicore_resourcegroup = cds.env.aicore["default-resourcegroup"]; //  use this variable if both models are in one RG
+const sound_aicore_resourcegroup = cds.env.aicore["sound-resourcegroup"]; //  change value to default_aicore_resourcegroup if using only 1 RG for both
+const image_aicore_resourcegroup = cds.env.aicore["image-resourcegroup"]; //  change value to default_aicore_resourcegroup if using only 1 RG for both
 
 getDestination("AICORE").then((dest) => {
   authToken = "Bearer " + dest.authTokens[0].value;
@@ -198,26 +198,65 @@ module.exports = async function () {
       sound: fileBase64,
     });
 
-    var headers = {
-      "AI-Resource-Group": sound_aicore_resourcegroup,
-      "Content-Type": "application/json",
-      Authorization: authToken,
+    var axios = require("axios");
+
+    var config = {
+      method: "post",
+      url: aicoreurl + sound_inference_url,
+      headers: {
+        "AI-Resource-Group": sound_aicore_resourcegroup,
+        Authorization: authToken,
+        "Content-Type": "application/json",
+      },
+      data: data,
     };
 
+    // var headers = {
+    //   "AI-Resource-Group": "sound",
+    //   "Content-Type": "application/json",
+    //   Authorization: authToken,
+    // };
+
     //  3. Start CDS TX to call AI Core Inference API (path is defined at the top cv_inference_url)
-    const results = await aicoreAPI
-      .tx(req)
-      .send("POST", sound_inference_url, data, headers);
+    // const results = await aicoreAPI
+    //   .tx(req)
+    //   .send("POST", sound_inference_url, data, headers);
 
-    var confidence, type;
+    var confidence, type, message;
 
-    if (results.hasOwnProperty("Slow_Sound")) {
-      confidence = parseFloat(results.Slow_Sound).toFixed(3);
-      type = "A1";
-    } else {
-      confidence = parseFloat(results.Damage_Noise).toFixed(3);
-      type = "A2";
-    }
+    axios(config)
+      .then(function (response) {
+        var segResults = response.data;
+
+        if (segResults.hasOwnProperty("Slow_Sound")) {
+          confidence = parseFloat(segResults.Slow_Sound).toFixed(3);
+          type = "A1";
+          message =
+            "Anomaly (ID: " +
+            anomalyEntity.ID +
+            ") entity processed successfully. Identified as Slow Sound.";
+        } else {
+          confidence = parseFloat(segResults.Damage_Noise).toFixed(3);
+          type = "A2";
+          message =
+            "Anomaly (ID: " +
+            anomalyEntity.ID +
+            ") entity processed successfully. Identified as Damage Noise.";
+        }
+      })
+      .catch(function (error) {
+        // console.log(error);
+        message =
+          "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and imageseg might be wrongly configured.";
+        req.error({
+          code: "Error in Service Call",
+          message: message,
+          target: "admin-service.js|inferenceSoundAnomaly",
+          status: 418,
+        });
+      });
+    await sleep(3500);
+
     await UPDATE(Anomalies, anomalyEntity.ID).with({
       status: "2",
       confidence: confidence,
@@ -225,9 +264,7 @@ module.exports = async function () {
       anomalyType_code: type,
     });
 
-    req.notify(
-      `Anomaly (ID: ` + anomalyEntity.ID + `) entity processed successfully.`
-    );
+    req.notify(message);
   });
 
   /** Logic Flow of Inferencing CV Image Anomaly
@@ -319,15 +356,16 @@ module.exports = async function () {
       })
       .catch(function (error) {
         // console.log(error);
-        message = "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and imageseg might be wrongly configured.";
+        message =
+          "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and imageseg might be wrongly configured.";
         req.error({
-            code: 'Error in Service Call',
-            message: message,
-            target: 'admin-service.js|inferenceImageCV',
-            status: 418
-        })
+          code: "Error in Service Call",
+          message: message,
+          target: "admin-service.js|inferenceImageCV",
+          status: 418,
+        });
       });
-    await sleep(2000);
+    await sleep(3500);
     await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
       qualityLabel: label,
       detectedAt: new Date(),
