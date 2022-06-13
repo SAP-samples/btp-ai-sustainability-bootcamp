@@ -5,7 +5,7 @@ Training script to showcase the end-to-end training and evaluation script.
 
 import numpy as np
 import pandas as pd
-#import datetime
+from datetime import datetime
 import logging
 import cv2
 import joblib
@@ -14,7 +14,6 @@ import keras
 import ast
 import random
 
-from sapai import tracking
 from os.path import exists
 from joblib import load, dump
 from os import makedirs, environ
@@ -36,6 +35,10 @@ import sys
 sys.path.append('/usr/lib/python3.8/site-packages/')
 from tensorflow_examples.models.pix2pix import pix2pix
 
+from ai_core_sdk.ai_core_v2_client import AICoreV2Client
+from ai_api_client_sdk.models.metric import Metric
+from ai_api_client_sdk.models.metric_custom_info import MetricCustomInfo
+from ai_api_client_sdk.models.metric_tag import MetricTag
 
 FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
 # Use filename="file.log" as a param to logging to log to a file
@@ -65,6 +68,8 @@ class TrainSKInterface:
         self.model_name = "segmentation_model"
         self.output_path = environ["OUTPUT_PATH"]
         self.file_name = environ["DATA_SOURCE"]
+        self.execution_id = environ["AICORE_EXECUTION_ID"]
+        self.api_base_url = environ['AICORE_TRACKING_ENDPOINT']
         self.loss = None
         self.val_loss = None
         self.accuracy = None
@@ -74,7 +79,9 @@ class TrainSKInterface:
         self.MSK_WIDTH = 224
         self.MSK_HEIGHT = 224
         self.target_classes = None
-        self.training_metrics = None
+        self.training_history = None
+        self.ai_core_v2_client = None
+        self.aic_service_key = "/app/src/aic_service_key.json"
 
     
     def create_dataset(self, img_folder, bnw, binary, width, height):
@@ -394,33 +401,62 @@ class TrainSKInterface:
         """
         if self.image_pipeline is None:
             self.get_model()
-
+        
+        #Infer model on the test set and evaluate accuracy
         infer_data = np.array(self.convert_back(self.val, 'image', 3, self.IMG_WIDTH, self.IMG_HEIGHT), 
                               np.float32) #Change to test sample
         infer_masks = np.array(self.convert_back(self.val, 'mask', 1, self.MSK_WIDTH, self.MSK_HEIGHT),
                                np.float32) #Change to test sample
         
         score = self.image_pipeline.evaluate(infer_data, infer_masks)
-        #print("Accuracy: " + str(score[0]))
 
         metric = [
             {"name": "Model accuracy",
             "value": float(score[1]),
             "labels":[{"name": "dataset", "value": "test set"}]}
             ]
-        #print(metric)
-        tracking.log_metrics(metric, artifact_name = "defect-detection")
+       # Define an AI Core Client. 
+        # When the code is executed in AI Core, there is no need to specify the AI Core tenant credentials
+        self.ai_core_v2_client =  AICoreV2Client(base_url='')
+
+        # Register the accuracy as a metric with the modify API.
+        timestamp=datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+        metrics=[   
+                    {   "name": "Accuracy", 
+                        "value": float(score[1]),
+                        "timestamp": timestamp ,
+                        "labels": [ {
+                            "name": "dataset",
+                            "value": "test set"
+                        }]
+                    },                     
+            ]
+        body = {'execution_id': self.execution_id,
+                'metrics': [Metric.from_dict(m) for m in metrics],
+        }
+        self.ai_core_v2_client.metrics.modify(**body)
         
-        self.training_metrics = [
+        
+        # Register custom informations as metrics. 
+        # Custom information can contain anything as long as it is encoded as a string
+
+        # Registering Training History (Loss and Accuracy curves during training)
+        self.training_history = [
                     {'loss': str(self.loss)},
                     {'val_loss': str(self.val_loss)},
                     {'iou': str(self.accuracy)},
                     {'val_iou': str(self.val_accuracy)}
                 ]
-        custom_info_1 = [{"name": "Metrics", "value": str(self.training_metrics)}]
+        custom_info_1 = [{"name": "training_history", 
+                          "value": str(self.training_history)}]
 
-        #print(custom_info_1)
-        tracking.set_custom_info(custom_info_1)
+        logging.info(f"custom_info")
+        body = {'execution_id': self.execution_id,
+                 'custom_info': [ MetricCustomInfo.from_dict(mcid) for mcid in custom_info_1]        
+        }
+        self.ai_core_v2_client.metrics.modify(**body)
+
+
 
         return None
 
