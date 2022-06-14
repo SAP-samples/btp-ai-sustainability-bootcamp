@@ -7,8 +7,7 @@ These instructions are for MacOS or Linux users. If you are a Windows user, plea
 
 ### 1. Install Docker Desktop and create a personal Docker Registry
 Instructions can be found [here](https://docs.docker.com/docker-hub/), Step 1 to 4.
-
- We recommend you to create an access token to be used in place of your password. Instructions on how to generate a token can be found [here](https://docs.docker.com/docker-hub/access-tokens/#create-an-access-token).
+We recommend you to create an access token to be used in place of your password. Instructions on how to generate a token can be found [here](https://docs.docker.com/docker-hub/access-tokens/#create-an-access-token).
 
 ###  2. Install Git and clone bootcamp repositories
 *	Install Git following instructions [here](https://github.com/git-guides/install-git).
@@ -20,10 +19,11 @@ cd sap_aicore_bootcamp
 git clone https://github.com/SAP-samples/btp-ai-sustainability-bootcamp.git
 ```
 
-*	Clone [lgp-green-factory repository](https://github.com/sap-btp-ai-sustainability-bootcamp). This is the repository that will be synchronized with the SAP AI Core environment provided for this bootcamp. Please notice that this is a private repository and each participant will need to share with us his/her Github username to be granted access. Please use the official bootcamp Teams channel to get in touch with us. Once we will have invited you to join the lgp-green-factory repo, you should receive an automatic email at the address connected to you Github account. Follow instructions there to accept our invitation.
+
+*	**Clone lgp-green-factory repository**. This is the repository that will be synchronized with the SAP AI Core environment provided for this bootcamp. Please notice that this is a private repository and each participant will need to share with us his/her Github username to be granted access. Please use the official bootcamp Teams channel to get in touch with us. Once we have invited you to join the repo, you should receive an automatic email at the address connected to you Github account. Follow instructions there to accept our invitation and clone the repository with the following commands. Replace the placeholder LGP_FACTORY_REPO with the correct name of the repository you have been invited to.
 ```sh
 cd sap_aicore_bootcamp
-git clone https://github.com/sap-btp-ai-sustainability-bootcamp/lgp_green_factory.git
+git clone https://github.com/sap-btp-ai-sustainability-bootcamp/LGP_FACTORY_REPO.git
 ```
 
 ### 3. Install a Python3 environment
