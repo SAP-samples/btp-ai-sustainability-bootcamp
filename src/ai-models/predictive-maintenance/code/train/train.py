@@ -6,7 +6,7 @@ Training script to showcase the end-to-end training and evaluation script.
 import numpy as np
 import pandas as pd
 import logging
-import datetime
+from datetime import datetime
 
 import joblib
 from joblib import load, dump
@@ -25,7 +25,11 @@ from tensorflow.python.client import device_lib
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 
-from sapai import tracking
+from ai_core_sdk.ai_core_v2_client import AICoreV2Client
+from ai_api_client_sdk.models.metric import Metric
+from ai_api_client_sdk.models.metric_custom_info import MetricCustomInfo
+from ai_api_client_sdk.models.metric_tag import MetricTag
+
 FORMAT = "%(asctime)s:%(name)s:%(levelname)s - %(message)s"
 # Use filename="file.log" as a param to logging to log to a file
 logging.basicConfig(format=FORMAT, level=logging.INFO)
@@ -43,12 +47,17 @@ class TrainInterface:
         self.model_name = "sound_classifier.pkl"
         self.output_path = environ["OUTPUT_PATH"]
         self.file_name = environ["DATA_SOURCE"]
+        self.execution_id = environ["AICORE_EXECUTION_ID"]
+        self.api_base_url = environ['AICORE_TRACKING_ENDPOINT']
         self.loss = None
         self.val_loss = None
         self.accuracy = None
         self.val_accuracy = None
         self.class_dict={}
         self.classes={}
+        self.ai_core_v2_client = None
+        self.aic_service_key = "/app/src/aic_service_key.json"
+        
 
     def acoustic_feature_computation( self, clip ):
         scale, sr = librosa.load(clip)
@@ -173,7 +182,7 @@ class TrainInterface:
             validation_data = ( np.array(self.X_validation, np.float32),
                                 np.array(self.y_validation, np.float32),
                                            ),        
-            epochs = 50 #To be changed
+            epochs = 30 #To be changed
         )
 
         self.loss = history.history['loss']
@@ -220,37 +229,56 @@ class TrainInterface:
         """
         if self.tf_model is None:
             self.get_model()
-
+        
+        #Infer model on the test set and evaluate accuracy
         infer_data = np.array(self.X_test, np.float32)
         infer_data_labels = np.array(self.y_test, np.float32)
-        
         score = self.tf_model.evaluate(infer_data, infer_data_labels)
-        #print("Accuracy: " + str(score[0]))
-
-        metric = [
-            {"name": "Model Accuracy",
-            "value": float(score[1]),
-            "labels":[{"name": "dataset", "value": "test set"}]}
+        logging.info("Define client")
+        
+        # Define an AI Core Client. 
+        # When the code is executed in AI Core, there is no need to specify the AI Core tenant credentials
+        self.ai_core_v2_client =  AICoreV2Client(base_url='')
+        
+        # Register the accuracy as a metric with the modify API.
+        timestamp=datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+        metrics=[   
+                    {   "name": "Accuracy", 
+                        "value": float(score[1]),
+                        "timestamp": timestamp ,
+                        "labels": [ {
+                            "name": "dataset",
+                            "value": "test set"
+                        }]
+                    },                     
             ]
-        #print(metric)
-        tracking.log_metrics(metric, artifact_name = "sound-metrics")
+        body = {'execution_id': self.execution_id,
+                'metrics': [Metric.from_dict(m) for m in metrics],
+        }
+        self.ai_core_v2_client.metrics.modify(**body)
 
-        training_metrics = [
+        # Register custom informations as metrics. 
+        # Custom information can contain anything as long as it is encoded as a string
+        
+        # Registering Training History (Loss and Accuracy curves during training)
+        training_history = [
                     {'loss': str(self.loss)},
                     {'val_loss': str(self.val_loss)},
                     {'accuracy': str(self.accuracy)},
                     {'val_accuracy': str(self.val_accuracy)}
                 ]
-        custom_info_1 = [{"name": "Metrics", 
-                          "value": str(training_metrics)}]
-        logstr=custom_info_1[0]['name']+custom_info_1[0]['value']
-        logging.info(logstr)
+        custom_info_1 = [{"name": "training_history", 
+                          "value": str(training_history)}]
 
-        #print(custom_info_1)
-        tracking.set_custom_info(custom_info_1)
-        logging.info(f"custom_info_1")
+        logging.info(f"custom_info")
+        body = {'execution_id': self.execution_id,
+                 'custom_info': [ MetricCustomInfo.from_dict(mcid) for mcid in custom_info_1]        
+        }
+        self.ai_core_v2_client.metrics.modify(**body)
 
-        #confusion matrix
+        logging.info(f"custom_info_1 done")
+
+        #Registering Confusion Matrix
         pred=self.tf_model(np.array(self.X_test, np.float32) , training=False)
         pred_class = [ np.where(arr == np.amax(arr))[0][0] for arr in np.array(pred) ]
         pred_label = [ self.class_dict[i]  for i in pred_class]
@@ -263,11 +291,12 @@ class TrainInterface:
                               'classes': [ k for k in self.classes.keys()]
                           })
                          } ]
-        logstr=custom_info_2[0]['name']+custom_info_2[0]['value']
-        logging.info(logstr)
 
         #print(custom_info_2)
-        tracking.set_custom_info(custom_info_2)
+        body = {'execution_id': self.execution_id,
+                 'custom_info': [ MetricCustomInfo.from_dict(mcid) for mcid in custom_info_2]        
+        }
+        self.ai_core_v2_client.metrics.modify(**body)
         logging.info(f"custom_info_2")
 
 
@@ -279,6 +308,14 @@ class TrainInterface:
         Run the training script with all the necessary steps
         """
         logging.info(f"Let's gooo")
+        
+        env="environ\n"
+
+        import os
+ 
+        for k, v in environ.items():
+            env=env+k+"="+v+'\n'
+        logging.info(env)   
         
         self.read_dataset()
         logging.info(f"Data has been read")
