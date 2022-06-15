@@ -51,7 +51,7 @@ Open a <span style="color:orange">**Git Bash** </span> and type:
 cd sap_aicore_bootcamp/btp-ai-sustainability-bootcamp
 git pull
 cd ..
-source bootcamp_venv/bin/activate
+source bootcamp_venv/Scripts/activate
 jupyter lab
 ```
 
