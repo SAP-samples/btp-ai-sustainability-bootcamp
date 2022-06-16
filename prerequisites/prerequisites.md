@@ -20,7 +20,7 @@ git clone https://github.com/SAP-samples/btp-ai-sustainability-bootcamp.git
 ```
 
 
-*	**Clone lgp-green-factory repository**. This is the repository that will be synchronized with the SAP AI Core environment provided for this bootcamp. Please notice that this is a private repository and each participant will need to share with us his/her Github username to be granted access. Please use the official bootcamp Teams channel to get in touch with us. Once we have invited you to join the repo, you should receive an automatic email at the address connected to you Github account. Follow instructions there to accept our invitation and clone the repository with the following commands. Replace the placeholder LGP_FACTORY_REPO with the correct name of the repository you have been invited to.
+*	**Clone LGP Factory repository**. This is the repository that will be synchronized with the SAP AI Core environment provided for this bootcamp. Please notice that this is a private repository and each participant will need to share with us his/her Github username to be granted access. Please use the official bootcamp Teams channel to get in touch with us. Once we have invited you to join the repo, you should receive an automatic email at the address connected to you Github account. Follow instructions there to accept our invitation and clone the repository with the following commands. Replace the placeholder LGP_FACTORY_REPO with the correct name of the repository you have been invited to.
 ```sh
 cd sap_aicore_bootcamp
 git clone https://github.com/sap-btp-ai-sustainability-bootcamp/LGP_FACTORY_REPO.git
