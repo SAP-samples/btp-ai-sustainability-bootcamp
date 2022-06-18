@@ -23,10 +23,10 @@ This github repository includes the sample code and exercises of the btp-ai-core
 - Sustainability Planning and Energy Rate Prediction with Predictive Planning of SAP Analytics Cloud for Planning.
 
 ### Target Audience
-The bootcamp showcases an end-to-end process of building intelligece and sustainabality scenarios on SAP BTP with AI and Planning, which invovled serveral personas as below, also is a reflection of real-life to build an industry cloud solution of Intelligence and Sustainability.
-* Data Scientist or Machine Learning Engineer, who will be responsible for building,training and serving AI Models as APIs.
-* Application Developer, who is in charge of creating a cloud-based application which will extend the backend ERP with industry related  etc, record and collect the sustainability data in daily business process, and inference the AI Models APIs. 
-* Enterprise Planning Consultant or Analytics Consultant, will help to make sense of the sustainability KPIs along with business KPIs for coporate performance management, and assure the planning and execution of sustainability goals.
+The bootcamp showcases an end-to-end process of building intelligece and sustainabality scenarios on SAP BTP with AI and Planning, which involve serveral personas as below, also as a reflection of real-life to build an industry cloud solution of Intelligence and Sustainability.
+* Data Scientist or Machine Learning Engineer, who are responsible for building,training and serving AI Models as APIs.
+* Application Developer, who is in charge of creating a cloud-based application which will extend the backend ERP with industry-related business process in a side-by-side manner, record and collect the sustainability data in daily business process, and inference the AI Models APIs. 
+* Enterprise Planning Consultant or Analytics Consultant, who can help to make sense of the sustainability KPIs along with business KPIs for coporate performance management, and assure the planning and execution of sustainability goals.
 
 ### Solution Architecture
 ![Solution Architecture](resources/solution-architecture.png)
@@ -36,7 +36,7 @@ Streamline the execution and operations of Deep Learning Models in a standardize
     * [Sound Anomaly Classificaiton Model for Predictive Maintenance](src/ai-models/predictive-maintenance)
 
 - [Sustainable Smart Factory Application](src/sustainable-smart-factory-app): <br>
-A CAP-based application on BTP glues all the pieces together by inferring the AI models with IoT streaming data(product images from camera, machinery sound collectec by the), and recoridng data of plant daily operaiton and sustainability KPIs, extending Maintenance Management of SAP S/4HANA Cloud with Predictive Maintenance 
+A CAP-based application on BTP glues all the pieces together by inferencing the AI models with IoT streaming data(product images from camera, machinery sound collectec by the), and recoridng data of plant daily operaiton and sustainability KPIs, extending [Maintenance Management of SAP S/4HANA Cloud](https://help.sap.com/docs/SAP_S4HANA_CLOUD/2dfa044a255f49e89a3050daf3c61c11/f9f9400b81de4235b910887d91d925c4.html?version=2202.500) with [Predictive Maintenance](https://en.wikipedia.org/wiki/Predictive_maintenance)
     * Auto. Defect Detection<br>
     -Quality records via computer vision
     * Sound-based Predictive Maintenance<br>
