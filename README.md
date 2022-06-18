@@ -22,6 +22,12 @@ This github repository includes the sample code and exercises of the btp-ai-core
 - Maintenance Cost Planning with Predictive Planning of SAP Analytics Cloud for Planning. 
 - Sustainability Planning and Energy Rate Prediction with Predictive Planning of SAP Analytics Cloud for Planning.
 
+### Target Audience
+The bootcamp showcases an end-to-end process of building intelligece and sustainabality scenarios on SAP BTP with AI and Planning, which invovled serveral personas as below, also is a reflection of real-life to build an industry cloud solution of Intelligence and Sustainability.
+* Data Scientist or Machine Learning Engineer, who will be responsible for building,training and serving AI Models as APIs.
+* Application Developer, who is in charge of creating a cloud-based application which will extend the backend ERP with industry related  etc, record and collect the sustainability data in daily business process, and inference the AI Models APIs. 
+* Enterprise Planning Consultant or Analytics Consultant, will help to make sense of the sustainability KPIs along with business KPIs for coporate performance management, and assure the planning and execution of sustainability goals.
+
 ### Solution Architecture
 ![Solution Architecture](resources/solution-architecture.png)
 - SAP AI Core and SAP AI Launchpad: <br>
