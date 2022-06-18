@@ -14,7 +14,7 @@ In manufacturing, AI can help factories by improving production efficiency, and 
 In SAP, we put Sustainability into the core of our strategy, having a vision to enable every customer to become a Sustainable Intelligent Enterprise. We have developed this AI&Sustainability Bootcamp to inspire and enable our partners to build intelligent scenarios and sustainability on BTP with AI and Planning.
 
 ## Description
-This github repository includes the sample code and exercises of the btp-ai-core-bootcamp, which is developed and delivered by Partner Ecosystem Success Organization (formerly known as GPO) of SAP SE, showcasing SAP partners how to add <b>Intelligence</b> and <b>Sustainability</b> into your solutions on SAP Business Technology Platform with SAP AI Core/SAP Launchpad and SAP Analytics Cloud for Planning. The bootcamp uses an end-to-end storyline about a Sustainable Smart Factory filled with Intelligence and Sustainability
+This github repository includes the sample code and exercises of the btp-ai-core-bootcamp, which is developed and delivered by Partner Ecosystem Success Organization (formerly known as GPO) of SAP SE, showcasing SAP partners how to add <b>Intelligence</b> and <b>Sustainability</b> into your industry cloud solutions on SAP Business Technology Platform with SAP AI Core/SAP Launchpad and SAP Analytics Cloud for Planning. The bootcamp uses an end-to-end storyline about a Sustainable Smart Factory filled with Intelligence and Sustainability
 - Building a deep learning [Image Segmentation Model](src/ai-models/defect-detection) on product images with SAP AI Core for automatic Defeat Detection in production lines
 - Building a deep learning [Sound Anomaly Classificaiton Model](src/ai-models/predictive-maintenance) on acoustical sounds of machinery with SAP AI Core for condition monitoring based Predictive Maintenance 
 - Configure and Deploy the [sustainable-smart-factory-app](src/sustainable-smart-factory-app)(CAP based) to your own SAP HANA Cloud  
@@ -66,14 +66,19 @@ Light Guide Plates (LGP) is used in LED panels, which can transform a line light
 ![Predictive Maintenance](resources/plant-360.gif)
 #### Maintenance Cost & Sustainability Planning
 ![Maintenance Cost & Sustainability Planning](resources/maintenance-cost&sustainability-planning.gif)
+
 ## Requirements
 ### Software Requirements
+System access below for exercises will be provided in bootcamp by SAP. Therefore, no action required for the bootcamp participants.
 - SAP AI Core
 - SAP AI Launch Pad
 - SAP Analytics Cloud for Planning
 - SAP S/4HANA Cloud
 ### Other Requirements
 - Complete the [openSAP course](https://open.sap.com/courses/sac3) about Planning with SAP Analytics Cloud
+
+## Exercises
+Please follow [this manual](exercises/README.md) to perform the excises, which allows you to replicate the end-to-end Sustainable Smart Factory solution on your own SAP BTP account as described in above. 
 
 ## More Materials
 We have closedly worked with SAP HANA Academy Team for more deep dive content about AI&Sustainability based on the bootcamp storyline. If you would like to learn more, please visit this [playlist](https://youtube.com/playlist?list=PLkzo92owKnVyJ5bZXYHb8QUTNRaUMYNST) prepared by SAP HANA Academy Team.
