@@ -234,7 +234,7 @@ module.exports = async function () {
       .catch(function (error) {
         // console.log(error);
         message =
-          "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and imageseg might be wrongly configured.";
+          "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and imageseg might be wrongly configured. Destination in BTP setup might be wrong.";
         req.error({
           code: "Error in Service Call",
           message: message,
@@ -242,7 +242,7 @@ module.exports = async function () {
           status: 418,
         });
       });
-    await sleep(3500);
+    await sleep(5000);
 
     await UPDATE(Anomalies, anomalyEntity.ID).with({
       status: "2",
@@ -344,7 +344,7 @@ module.exports = async function () {
       .catch(function (error) {
         // console.log(error);
         message =
-          "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and imageseg might be wrongly configured.";
+          "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and imageseg might be wrongly configured. Destination in BTP setup might be wrong.";
         req.error({
           code: "Error in Service Call",
           message: message,
@@ -352,7 +352,7 @@ module.exports = async function () {
           status: 418,
         });
       });
-    await sleep(3500);
+    await sleep(5000);
     await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
       qualityLabel: label,
       detectedAt: new Date(),

@@ -57,24 +57,25 @@ annotate sf.CVQualityRecords with @(
                 Value : confidence,
                 Label : '{i18n>Confidence}'
             },
-            {
-                $Type             : 'UI.DataFieldForAction',
-                Action            : 'AdminService.inferenceImageCV',
-                IconUrl           : 'sap-icon://detail-view',
-                Inline            : true,
-                ![@UI.Emphasized] : true, //Button is highlighted
-            },
-            {   
-                Value : image 
-            },
+            //  Uncomment below parts if you want to have the inference button or more details at the list level
+            // {
+            //     $Type             : 'UI.DataFieldForAction',
+            //     Action            : 'AdminService.inferenceImageCV',
+            //     IconUrl           : 'sap-icon://detail-view',
+            //     Inline            : true,
+            //     ![@UI.Emphasized] : true, //Button is highlighted
+            // },
+            // {   
+            //     Value : image 
+            // },
             {
                 Value : detectedAt,
                 Label : '{i18n>DetectedAt}'
             },
-            {
-                Value : detectedPerc,
-                Label : '{i18n>DetectedPerc}'
-            }
+            // {
+            //     Value : detectedPerc,
+            //     Label : '{i18n>DetectedPerc}'
+            // }
         ]
     }
 ) {
@@ -366,15 +367,7 @@ annotate sf.Equipments with @(
     Common.SemanticKey : [NR],
     UI                 : {
         Identification  : [
-            {Value : NR},
-            {
-                $Type             : 'UI.DataFieldForAction',
-                Action            : 'AdminService.createMO',
-                Label             : 'Create Maintenance Order',
-                IconUrl           : 'sap-icon://technical-object',
-                Inline            : true,
-                ![@UI.Emphasized] : true, //Button is highlighted
-            }
+            {Value : NR}
         ],
         SelectionFields : [
             NR,
@@ -701,7 +694,7 @@ annotate sf.Anomalies with @(
                 Label : '{i18n>ID}'
             },
             {
-                Value : equipment,
+                Value : equipment.NR,
                 Label : '{i18n>Equipment}'
             },
             {
@@ -712,21 +705,22 @@ annotate sf.Anomalies with @(
                 Value : confidence,
                 Label : '{i18n>Confidence}'
             },
-            {
-                Value : status,
-                Label : '{i18n>AnomalyStatus}'
-            },
+            // {
+            //     Value : status,
+            //     Label : '{i18n>AnomalyStatus}'
+            // },
             {
                 Value : detectedAt,
                 Label : '{i18n>DetectedAt}'
             },
-            {
-                $Type             : 'UI.DataFieldForAction',
-                Action            : 'AdminService.inferenceSoundAnomaly',
-                IconUrl           : 'sap-icon://detail-view',
-                Inline            : true,
-                ![@UI.Emphasized] : true, //Button is highlighted
-            },
+            //  Uncomment if you want to have the inference button at the list level
+            // {
+            //     $Type             : 'UI.DataFieldForAction',
+            //     Action            : 'AdminService.inferenceSoundAnomaly',
+            //     IconUrl           : 'sap-icon://detail-view',
+            //     Inline            : true,
+            //     ![@UI.Emphasized] : true, //Button is highlighted
+            // },
         ]
     }
 ) {
