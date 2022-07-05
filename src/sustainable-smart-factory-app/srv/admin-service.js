@@ -173,13 +173,14 @@ module.exports = async function () {
      * b. Parse base 64 as body under JSON sound parameter
      * c. Process results - Anomalous or Normal
      *
-     * 1. Connect to AICORE Remote Service (defined in package.json)
+     * 1. Connect and authenticate to AICORE Remote Service (defined in package.json)
      * 2. Prepare base64 format of file
      * 3. Start CDS TX to call AI Core Inference API (path is defined at the top sound_inference_url)
-     * 4. Return results
+     * 4. Update the inference results on the Anomalies record
      */
     this.on("inferenceSoundAnomaly", async (req) => {
-        await getDestination("AICORE").then((dest) => {
+      //1. Connect and authenticate to AICORE destniation Service defined in btp and package.json  
+      await getDestination("AICORE").then((dest) => {
             authToken = "Bearer " + dest.authTokens[0].value;
         });
         const aicoreAPI = await cds.connect.to("aicore");
@@ -195,8 +196,8 @@ module.exports = async function () {
         // var data = JSON.stringify({sound: fileBase64});
         var data = { sound: fileBase64 };
 
+        //3. Start CDS TX to call AI Core Inference API (path is defined at the top sound_inference_url)
         var confidence, type, message;
-
         try {
             var headers = {
                 "AI-Resource-Group": sound_aicore_resourcegroup,
@@ -223,7 +224,7 @@ module.exports = async function () {
                     anomalyEntity.ID +
                     ") entity processed successfully. Identified as Damage Noise.";
             }
-
+            //4. Update the inference results on the Anomalies record
             await UPDATE(Anomalies, anomalyEntity.ID).with({
                 status: "2",
                 confidence: confidence,
