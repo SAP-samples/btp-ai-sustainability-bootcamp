@@ -14,7 +14,7 @@
         "express": "^4",
         "fs": "0.0.1-security",
         "hdb": "^0.19.2",
-        "passport": "0.5.2",
+        "passport": ">=0.6.0",
         "request": "^2.88.2",
         "smartfactory": "./"
     },
