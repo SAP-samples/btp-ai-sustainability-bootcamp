@@ -35,7 +35,7 @@ The bootcamp showcases an end-to-end process of building intelligece and sustain
 * Enterprise Planning Consultant or Analytics Consultant, who can help to make sense of the sustainability KPIs along with business KPIs for coporate performance management, and assure the planning and execution of sustainability goals.
 
 ### Solution Architecture
-![Solution Architecture](resources/solution-architecture.png)
+![Solution Architecture](resources/solution-architecture-full.png)
 - SAP AI Core and SAP AI Launchpad: <br>
 Streamline the execution and operations of Deep Learning Models in a standardized, scalable, and hyperscaler-agnostic way <br>
     * [Image Segmentation Model for Auto. Defect Detection](src/ai-models/defect-detection)
