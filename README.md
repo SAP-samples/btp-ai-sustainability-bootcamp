@@ -9,9 +9,9 @@ Sustainability is a hot topic for us all today, and for CEOs profitability is no
 <br/>
 At SAP, we are not only acting now on sustainability with goals of zero emissions, zero waste, and zero inequality by 2030, but also having a vision to enable every enterprise to become an intelligent, networked, sustainable enterprise with our technologies and solutions. <br/>
 <br/>
-SAP’s Business Technology Platform provides the foundation of application development, integration, data and AI. On top of this technology platform, SAP has created a new sustainability portfolio to help the enterprise drive sustainable practices inside its organisation and across its entire value chain, such as SAP Product Footprint Management, SAP Responsible Design and Production and SAP Sustainability Control Tower etc.<br/>
+SAP’s Business Technology Platform provides the foundation of application development, integration, data and AI. On top of this technology platform, SAP has created a new sustainability portfolio to help the enterprise drive sustainable practices inside its organisation and across its entire value chain, such as [SAP Product Footprint Management](https://help.sap.com/docs/SAP_BTP_PFM), [SAP Responsible Design and Production](https://www.sap.com/products/responsible-design-and-production.html) and [SAP Sustainability Control Tower](https://www.sap.com/products/sustainability-control-tower.html) etc.<br/>
 <br/>
-We also would like our SAP Partners to create industry cloud solutions for end-to-end industry-specific business processes that consider sustainability dimensions. Therefore, we have developed this AI&Sustainability Bootcamp to inspire and enable our partners to build intelligent scenarios and sustainability on BTP with AI and Planning.<br/>
+We also would like our SAP Partners to create industry cloud solutions for end-to-end industry-specific business processes that consider sustainability dimensions. Therefore, we have developed this AI&Sustainability Bootcamp to inspire and enable our partners to build intelligent scenarios and sustainability on BTP with AI and Planning. Please read more in [our blog series about this topic](https://blogs.sap.com/2022/05/19/building-intelligent-scenarios-and-sustainability-on-sap-btp/).<br/>
 <br/>
 Profitability and sustainability are two sides of a coin for an intelligent, networked, and sustainable enterprise. To achieve the ultimate goals of making profitability sustainable, and sustainability profitable, organizations need to embed sustainability goals into strategy planning and business operations. Importantly, Artificial Intelligence plays a critical role in this journey by helping businesses to be more efficient and intelligent. AI(Artificial Intelligence) and Sustainability are the very frontier of frontiers in today's digital technologies, where count for enormous oppotuines in various industries.<br/>
 <br/>
@@ -93,11 +93,18 @@ System access below for exercises will be provided in bootcamp by SAP. Therefore
 Please follow [this manual](exercises/README.md) to perform the excises, which allows you to replicate the end-to-end Sustainable Smart Factory solution on your own SAP BTP account as described in above. 
 
 ## More Materials
-We have closedly worked with SAP HANA Academy Team for more deep dive content about AI&Sustainability based on the bootcamp storyline. If you would like to learn more, please visit this [playlist](https://youtube.com/playlist?list=PLkzo92owKnVyJ5bZXYHb8QUTNRaUMYNST) prepared by SAP HANA Academy Team.
+We have closedly worked with SAP HANA Academy Team for more deep dive content about AI&Sustainability based on the bootcamp storyline. If you would like to learn more, please visit this following YouTube video playlists prepared by SAP HANA Academy Team  
+* [SAP Artificial Intelligence Onboarding / Pre-reqs Playlist](https://youtube.com/playlist?list=PLkzo92owKnVyJ5bZXYHb8QUTNRaUMYNST)
+* [SAP Artificial Intelligence Defect Detection Playlist](https://youtube.com/playlist?list=PLkzo92owKnVzjYmJJMk17pu567BAKW5NL) 
+* [SAP Artificial Intelligence Predictive Maintenance Playlist](https://youtube.com/playlist?list=PLkzo92owKnVw6OOhfauKAM7MJSamnWBLn)
+* [SAP Artificial Intelligence; Application Playlist](https://youtube.com/playlist?list=PLkzo92owKnVxcURT-afSJePEUTSqFYVP_)
+* [Maintenance Cost & Sustainability Planning with SAP Analytics Cloud Playlist](https://youtube.com/playlist?list=PLkzo92owKnVy2ED2ZfPzJcSLZVlcQ0jDw)
 
 ## Download and Installation
+Exercise manuals are available [here](exercises) if you would like to replicate the solution on your own BTP account.
 
 ## Known Issues
+IoT Gateway part is out of the scope in this sample. However, in a real-life project, IoT Gateway is required for IoT sensor data streaming and ingetion.
 
 ## How to obtain support
 [Create an issue](https://github.com/SAP-samples/btp-ai-core-bootcamp/issues) in this repository if you find a bug or have questions about the content.
