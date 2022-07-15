@@ -15,7 +15,7 @@ In this way, you also learn from to build end-to-end industry cloud solutions on
 * Extending the Maintenance Management of SAP S/4HANA Cloud with side-by-side extensibility on SAP BTP with sound-based predictive maintenance.
 * Integrating with SAP Analytics Cloud for plant 360 analytics, and maintenance cost & sustainability KPIs planning.
 
-![Solution Architecture](../../resources/solution-architecture.png)
+![Solution Architecture](../../resources/ssf-app-architecture.png)
 
 Please read [this blog post-Embedding Intelligence and Sustainability into Custom Applications on SAP BTP](https://blogs.sap.com/2022/07/14/embedding-intelligence-and-sustainability-into-custom-applications-on-sap-btp/) about more details about the Sustainable Smart Factory App.
 
