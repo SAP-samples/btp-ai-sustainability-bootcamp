@@ -4,18 +4,20 @@
 -->
 
 As part of the AI & Sustainability Bootcamp, we have developed a sample app named sustainable-smart-factory-app to inference the [AI models](../ai-models) which you have developed in Enterprise AI in Action sessions of this bootcamp. 
-* [Image segemtation](..//ai-models/defect-detection) for auto. defect detection
+* [Image segemtation](../ai-models/defect-detection) for auto. defect detection
 * [Sound anomalies detection](/src/ai-models/predictive-maintenance) for predictive maintenance
 In this way, you also learn from to build end-to-end industry cloud solutions on SAP BTP focusing on AI & Sustainability topics.
 <p>The sample application is mainly built on top of SAP Cloud Application Programming (CAP) model and SAP Fiori Elements.It helps:
 
 * Monitoring the daily operation of the plant.
-* Recording the sustainability KPI(energy consumption) of the plant on daily. 
+* Recording the sustainability KPIs(energy consumption) of the plant on daily basis. 
 * Scoring the AI models against the live sensor Data
 * Extending the Maintenance Management of SAP S/4HANA Cloud with side-by-side extensibility on SAP BTP with sound-based predictive maintenance.
 * Integrating with SAP Analytics Cloud for plant 360 analytics, and maintenance cost & sustainability KPIs planning.
 
 ![Solution Architecture](../../resources/solution-architecture.png)
+
+Please read [this blog post-Embedding Intelligence and Sustainability into Custom Applications on SAP BTP](https://blogs.sap.com/2022/07/14/embedding-intelligence-and-sustainability-into-custom-applications-on-sap-btp/) about more details about the Sustainable Smart Factory App.
 
 ## Deployment Options
 We have prepared a few models for you to consider and take reference from in order to deploy this sample app successfully to your preferred platform/landscapes.
