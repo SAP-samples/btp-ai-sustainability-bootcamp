@@ -24,10 +24,11 @@ const sdkDest = { destinationName: cds.env.aicore.dest };
 //  See implementation in inference method.
 var authToken;
 const fsurl = cds.env.aicore.fsurl;   //  file server for media file resources
-const aicoreurl = cds.env.aicore.url;
 const sound_inference_url = cds.env.aicore.inferences.soundclass;
 const cv_inference_seg_url = cds.env.aicore.inferences.imageseg;
-const airesourcegroup = cds.env.aicore.resourcegroup;
+const default_aicore_resourcegroup = cds.env.aicore["default-resourcegroup"]; //  use this variable if both models are in one RG
+const sound_aicore_resourcegroup = cds.env.aicore["sound-resourcegroup"]; //  change value to default_aicore_resourcegroup if using only 1 RG for both
+const image_aicore_resourcegroup = cds.env.aicore["image-resourcegroup"]; //  change value to default_aicore_resourcegroup if using only 1 RG for both
 
 getDestination('AICORE').then(dest => {
     authToken = "Bearer " + dest.authTokens[0].value;
@@ -180,7 +181,7 @@ module.exports = async function () {
      * 4. Return results
      */
     this.on("inferenceSoundAnomaly", async (req) => {
-        getDestination('AICORE').then(dest => {
+        await getDestination('AICORE').then(dest => {
             authToken = "Bearer " + dest.authTokens[0].value;
         });
         const anomalyEntity = req.params[0];
@@ -195,64 +196,60 @@ module.exports = async function () {
         request.get(fsurl + anomaly.rawValue, function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 // data = "data:" + response.headers["content-type"] + ";base64," + Buffer.from(body).toString('base64');
-                data = JSON.stringify({
-                    sound: Buffer.from(body).toString('base64')
-                });
+                data = { sound: Buffer.from(body).toString('base64') };
                 // console.log(data);
             }
         });
 
         await sleep(2000);
 
-        var axios = require('axios');
+        const aicoreAPI = await cds.connect.to("aicore");
+        var confidence, type, message;
+        try {
+            var headers = {
+                "AI-Resource-Group": sound_aicore_resourcegroup,
+                "Content-Type": "application/json",
+                Authorization: authToken,
+            };
 
-        var config = {
-            method: 'post',
-            url: aicoreurl + sound_inference_url,
-            headers: {
-                'AI-Resource-Group': airesourcegroup,
-                'Authorization': authToken,
-                'Content-Type': 'application/json'
-            },
-            data: data
-        };
+            const soundResults = await aicoreAPI
+                .tx(req)
+                .send("POST", sound_inference_url, data, headers);
 
-        var confidence, type;
+            if (soundResults.hasOwnProperty("Slow_Sound")) {
+                confidence = parseFloat(soundResults.Slow_Sound).toFixed(3);
+                type = "A1";
+                message =
+                    "Anomaly (ID: " +
+                    anomalyEntity.ID +
+                    ") entity processed successfully. Identified as Slow Sound.";
+            } else {
+                confidence = parseFloat(soundResults.Damage_Noise).toFixed(3);
+                type = "A2";
+                message =
+                    "Anomaly (ID: " +
+                    anomalyEntity.ID +
+                    ") entity processed successfully. Identified as Damage Noise.";
+            }
 
-        axios(config)
-            .then(function (response) {
-                var results = response.data;
-                if (results.hasOwnProperty("Slow_Sound")) {
-                    confidence = parseFloat(results.Slow_Sound).toFixed(3);
-                    type = "A1";
-                } else {
-                    confidence = parseFloat(results.Damage_Noise).toFixed(3);
-                    type = "A2";
-                }
-            })
-            .catch(function (error) {
-                // console.log(error);
-                message = "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and soundclass might be wrongly configured.";
-                req.error({
-                    code: 'Error in Service Call',
-                    message: message,
-                    target: 'admin-service.js|inferenceSoundAnomaly',
-                    status: 418
-                })
-
+            await UPDATE(Anomalies, anomalyEntity.ID).with({
+                status: "2",
+                confidence: confidence,
+                detectedAt: new Date(),
+                anomalyType_code: type,
             });
-        await sleep(2000);
-
-        await UPDATE(Anomalies, anomalyEntity.ID).with({
-            status: "2",
-            confidence: confidence,
-            detectedAt: new Date(),
-            anomalyType_code: type,
-        });
-
-        req.notify(
-            `Anomaly (ID: ` + anomalyEntity.ID + `) entity processed successfully.`
-        );
+            req.notify(message);
+        } catch (error) {
+            // console.log(error);
+            message =
+                "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and imageseg might be wrongly configured. Destination in BTP setup might be wrong.";
+            req.error({
+                code: "Error in Service Call",
+                message: message + ". Error: " + error,
+                target: "admin-service.js|inferenceSoundAnomaly",
+                status: 418,
+            });
+        }
     });
 
     /** Logic Flow of Inferencing CV Image Anomaly
@@ -264,7 +261,7 @@ module.exports = async function () {
      * 3. Return results
      */
     this.on("inferenceImageCV", async (req) => {
-        getDestination('AICORE').then(dest => {
+        await getDestination('AICORE').then(dest => {
             authToken = "Bearer " + dest.authTokens[0].value;
         });
 
@@ -283,27 +280,14 @@ module.exports = async function () {
         request.get(fsurl + cvEntity.image, function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 // data = "data:" + response.headers["content-type"] + ";base64," + Buffer.from(body).toString('base64');
-                data = JSON.stringify({
-                    image: Buffer.from(body).toString('base64')
-                });
+                data = { image: Buffer.from(body).toString('base64') };
             }
         });
 
         await sleep(2000);
 
-        var axios = require('axios');
-
-        var config = {
-            method: 'post',
-            url: aicoreurl + cv_inference_seg_url,
-            headers: {
-                'AI-Resource-Group': airesourcegroup,
-                'Authorization': authToken,
-                'Content-Type': 'application/json'
-            },
-            data: data
-        };
-
+        const aicoreAPI = await cds.connect.to("aicore");
+        //  3. Start CDS TX to call AI Core Inference API (path is defined at the top cv_inference_url)
         var label,
             defected,
             bin,
@@ -312,60 +296,65 @@ module.exports = async function () {
             defectDesc,
             defectDiscount;
 
-        axios(config)
-            .then(function (response) {
-                var segResults = response.data;
-                if (segResults.defected_area == "0.0") {
-                    label = "Y";
-                    defected = false;
-                    message =
-                        "CV Image (ID: " +
-                        cvImageEntity.ID +
-                        ") entity processed successfully with NO DEFECTS.";
-                } else {
-                    bin = "data:image/bmp;base64," + segResults.segmented_image;
-                    label = "N";
-                    defected = true;
-                    message =
-                        "CV Image (ID: " +
-                        cvImageEntity.ID +
-                        ") entity processed successfully with DEFECT detected.";
-                    areaPercDefect = parseFloat(segResults.defected_area).toFixed(3) * 100;
-                    var rangeMax, rangeMin;
-                    for (let i = 0; i < pricesArray.length; i++) {
-                        rangeMin = parseFloat(pricesArray[i].fromDefectedPerc);
-                        rangeMax = parseFloat(pricesArray[i].toDefectedPerc);
-                        if (areaPercDefect >= rangeMin && areaPercDefect <= rangeMax) {
-                            defectDesc = pricesArray[i].desc;
-                            defectDiscount = pricesArray[i].defectiveDiscount;
-                        }
+        try {
+            var headers = {
+                "AI-Resource-Group": image_aicore_resourcegroup,
+                "Content-Type": "application/json",
+                Authorization: authToken,
+            };
+
+            const segResults = await aicoreAPI
+                .tx(req)
+                .send("POST", cv_inference_seg_url, data, headers);
+
+            if (segResults.defected_area == "0.0") {
+                label = "Y";
+                defected = false;
+                message =
+                    "CV Image (ID: " +
+                    cvImageEntity.ID +
+                    ") entity processed successfully with NO DEFECTS.";
+            } else {
+                bin = "data:image/bmp;base64," + segResults.segmented_image;
+                label = "N";
+                defected = true;
+                message =
+                    "CV Image (ID: " +
+                    cvImageEntity.ID +
+                    ") entity processed successfully with DEFECT detected.";
+                areaPercDefect = parseFloat(segResults.defected_area).toFixed(3) * 100;
+                var rangeMax, rangeMin;
+                for (let i = 0; i < pricesArray.length; i++) {
+                    rangeMin = parseFloat(pricesArray[i].fromDefectedPerc);
+                    rangeMax = parseFloat(pricesArray[i].toDefectedPerc);
+                    if (areaPercDefect >= rangeMin && areaPercDefect <= rangeMax) {
+                        defectDesc = pricesArray[i].desc;
+                        defectDiscount = pricesArray[i].defectiveDiscount;
                     }
                 }
-            })
-            .catch(function (error) {
-                // console.log(error);
-                message = "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and imageseg might be wrongly configured.";
-                req.error({
-                    code: 'Error in Service Call',
-                    message: message,
-                    target: 'admin-service.js|inferenceImageCV',
-                    status: 418
-                })
+            }
 
+            await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
+                qualityLabel: label,
+                detectedAt: new Date(),
+                segmentedImage: bin,
+                successInference: defected,
+                defectedPerc: areaPercDefect,
+                defectiveDesc: defectDesc,
+                defectiveDiscount: defectDiscount,
             });
-        await sleep(2000);
-        await UPDATE(CVQualityRecords, cvImageEntity.ID).with({
-            qualityLabel: label,
-            detectedAt: new Date(),
-            segmentedImage: bin,
-            successInference: defected,
-            defectedPerc: areaPercDefect,
-            defectiveDesc: defectDesc,
-            defectiveDiscount: defectDiscount,
-        });
-
-        //  req.notify | req.error | req.info | req.warn
-        req.notify(message);
+            req.notify(message);
+        } catch (error) {
+            // console.log(error);
+            message =
+                "Opps! Something is wrong with config aicore service url. Check if you've configure the right resource group or the url path to the aicore and imageseg might be wrongly configured. Destination in BTP setup might be wrong.";
+            req.error({
+                code: "Error in Service Call",
+                message: message + ". Error: " + error,
+                target: "admin-service.js|inferenceImageCV",
+                status: 418,
+            });
+        }
     });
 
     this.before("NEW", "CVQualityRecords", genid);
