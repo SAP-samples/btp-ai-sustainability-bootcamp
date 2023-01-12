@@ -1,8 +1,5 @@
-FROM tensorflow/tensorflow:latest-gpu
-RUN export LD_LIBRARY_PATH=/usr/local/nvidia/lib:$LD_LIBRARY_PATH
+FROM tensorflow/tensorflow
 ENV LANG C.UTF-8
-
-RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
 
 RUN mkdir -m 777 /tmp/NUMBA_CACHE_DIR /tmp/MPLCONFIGDIR
 ENV NUMBA_CACHE_DIR=/tmp/NUMBA_CACHE_DIR/

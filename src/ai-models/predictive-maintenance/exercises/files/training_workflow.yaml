@@ -1,21 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
-  name: sound-train-uXXXX
+  name: sound-train
   annotations:
     scenarios.ai.sap.com/description: "SAP developers tutorial scenario"
-    scenarios.ai.sap.com/name: "sound-scen-uXXXX"
+    scenarios.ai.sap.com/name: "sound-scen"
     executables.ai.sap.com/description: "CNN for acoustic scene classification"
-    executables.ai.sap.com/name: "sound-train-exec-uXXXX"
+    executables.ai.sap.com/name: "sound-train-exec"
     artifacts.ai.sap.com/data.kind: "dataset"
     artifacts.ai.sap.com/model.kind: "model"
   labels:
-    scenarios.ai.sap.com/id: "sound-scen-uXXXX"
-    executables.ai.sap.com/id: "sound-train-uXXXX"
+    scenarios.ai.sap.com/id: "sound-scen"
+    executables.ai.sap.com/id: "sound-train"
     ai.sap.com/version: "1.0.0"
 spec:
   imagePullSecrets:
-    - name: docker-registry-uXXXX
+    - name: docker-registry-secret
   entrypoint: sound-training
   templates:
     - name: sound-training

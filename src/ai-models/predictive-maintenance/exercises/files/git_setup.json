@@ -1,8 +1,8 @@
 {
     "app": {
-        "applicationName": "sound-app-uXXXX",
-        "repositoryUrl": "https://github.com/sap-btp-ai-sustainability-bootcamp/LGP_FACTORY_REPO",
+        "applicationName": "sound-app",
+        "repositoryUrl": "YOUR_GIT_REPO_URL",
         "revision": "HEAD",
-        "path": "workflows_sound_UXXXX"
+        "path": "workflows_sound"
     }
 }
