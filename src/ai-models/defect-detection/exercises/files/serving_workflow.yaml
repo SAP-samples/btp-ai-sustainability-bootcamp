@@ -1,15 +1,15 @@
 apiVersion: ai.sap.com/v1alpha1
 kind: ServingTemplate
 metadata:
-  name: image-seg-infer-uXXXX
+  name: image-seg-infer
   annotations:
     scenarios.ai.sap.com/description: "SAP AI Core tutorial scenario"
-    scenarios.ai.sap.com/name: "image-seg-uXXXX"
+    scenarios.ai.sap.com/name: "image-seg"
     executables.ai.sap.com/description: "Inference executable for image segmentation"
-    executables.ai.sap.com/name: "image-seg-infer-exec-uXXXX"
+    executables.ai.sap.com/name: "image-seg-infer-exec"
   labels:
-    scenarios.ai.sap.com/id: "image-seg-uXXXX"
-    executables.ai.sap.com/id: "image-seg-infer-uXXXX"
+    scenarios.ai.sap.com/id: "image-seg"
+    executables.ai.sap.com/id: "image-seg-infer"
     ai.sap.com/version: "1.0.0"
 spec:
   inputs:
@@ -17,7 +17,7 @@ spec:
     artifacts:
       - name: imagesegmodel
   template:
-    apiVersion: "serving.kubeflow.org/v1beta1"
+    apiVersion: "serving.kserve.io/v1beta1"
     metadata:
       annotations: |
         autoscaling.knative.dev/metric: concurrency
@@ -28,11 +28,11 @@ spec:
     spec: |
       predictor:
         imagePullSecrets:
-          - name: docker-registry-uXXXX
+          - name: docker-registry-secret
         minReplicas: 1
         maxReplicas: 5
         containers:
-        - name: kfserving-container
+        - name: kserve-container
           image: "docker.io/YOUR_DOCKER_USERNAME/image-seg-infer:mobilenet"
           ports:
             - containerPort: 9001

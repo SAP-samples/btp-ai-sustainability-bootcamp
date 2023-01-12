@@ -21,7 +21,7 @@ import tensorflow as tf
 from tensorflow.keras import layers, Model, models
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 from tensorflow.keras.optimizers import schedules, Adamax, Adam
 from tensorflow.keras.initializers import HeNormal
@@ -330,8 +330,8 @@ class TrainSKInterface:
         msk_train_shuffle = [j for i,j in temp]
         
         # Load config
-        batch_size = 32
-        num_epochs = 200
+        batch_size = 3
+        num_epochs = 20
 
         # Initialize model
         self.init_model()

@@ -1,8 +1,5 @@
-FROM tensorflow/tensorflow:latest-gpu
-RUN export LD_LIBRARY_PATH=/usr/local/nvidia/lib:$LD_LIBRARY_PATH
+FROM tensorflow/tensorflow
 ENV LANG C.UTF-8
-
-RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
 
 RUN apt-get -y update
 RUN apt-get -y install git
