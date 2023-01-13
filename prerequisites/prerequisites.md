@@ -12,7 +12,7 @@ We recommend you to create an access token to be used in place of your password.
 ###  2. Install Git and clone bootcamp repositories
 *	Install Git following instructions [here](https://github.com/git-guides/install-git).
 
-*	Clone [btp-ai-sustainability-bootcamp repository](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp). This is the main bootcamp repository containing all the necessary code.  A guide on how to clone a repository can be found [here]( https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
+*	Clone [btp-ai-sustainability-bootcamp repository](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp). This is the main bootcamp repository containing all the necessary code. A guide on how to clone a repository can be found [here]( https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
 ```sh
 mkdir sap_aicore_bootcamp
 cd sap_aicore_bootcamp
@@ -22,7 +22,7 @@ git checkout opensap-exercises
 ```
 
 
-*	**Clone your GitHub repository**. This is the repository that will be synchronized with the SAP AI Core environment that you have to prepare for this OpenSAP course.
+*	**Clone your GitHub repository**. This is the repository that will be synchronized with the SAP AI Core environment that you have to create by yourself for this OpenSAP course.
 ```sh
 cd sap_aicore_bootcamp
 git clone YOUR_GITHUB_REPO_URL
