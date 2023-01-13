@@ -5,10 +5,10 @@ These instructions are for MacOS or Linux users. If you are a Windows user, plea
 
 ## Prerequisites
 
-### 0. Free tier for SAP AI Core and SAP AI Launchpad
-In order to go through the exercises proposed in this OpenSAP course, you need an AI Core instance and a subscription to AI Launchpad. Both are available in the SAP BTP Free Tier model (more information can be found at this [blog post](https://blogs.sap.com/2022/10/20/sap-ai-core-sap-ai-launchpad-free-tier-is-out-now/)).
-You can follow this [tutorial](https://developers.sap.com/tutorials/ai-core-launchpad-provisioning.html) to setup free tier for SAP AI Core and SAP AI Launchpad in your BTP global account (or subaccount). Please, notice that the free tier AI Core and AI Launchpad are free of charge, but they have some limitations, for instance in the use of GPU acceleration. You can check all the limitations at this [link](https://help.sap.com/docs/AI_CORE/2d6c5984063c40a59eda62f4a9135bee/c7244c6a7e3b4ffc928a2564c216e7c7.html). The exercises in this specific branch of the repository we are providing are meant to be executed with the free tier model, so they are tailored for that.
-In case you want to over
+### 0. Free Tier plan for SAP AI Core and SAP AI Launchpad
+In order to go through the exercises proposed in this OpenSAP course, you need an AI Core instance and a subscription to AI Launchpad. Both are available in the SAP BTP Free Tier plan (more information can be found at this [blog post](https://blogs.sap.com/2022/10/20/sap-ai-core-sap-ai-launchpad-free-tier-is-out-now/)).
+You can follow this [tutorial](https://developers.sap.com/tutorials/ai-core-launchpad-provisioning.html) to setup free tier for SAP AI Core and SAP AI Launchpad in your BTP global account (or subaccount). Please, notice that the free tier AI Core and AI Launchpad are free of charge, but they have some limitations, for instance in the use of GPU acceleration. You can check all the limitations at this [link](https://help.sap.com/docs/AI_CORE/2d6c5984063c40a59eda62f4a9135bee/c7244c6a7e3b4ffc928a2564c216e7c7.html). The exercises in this specific branch of the repository we are providing are meant to be executed with the free tier plan, so they are tailored for that.
+In case you are using the standard plan for AI Core and AI Launchpad, you can refer to this branch where the same exercises are sized to exploit the full capabilities of these two products.
 
 
 ### 1. Install Docker Desktop and create a personal Docker Registry
