@@ -5,12 +5,14 @@ These instructions are for MacOS or Linux users. If you are a Windows user, plea
 
 ## Prerequisites
 
+### 0. Install Docker Desktop and create a personal Docker Registry
+
 ### 1. Install Docker Desktop and create a personal Docker Registry
 Instructions can be found [here](https://docs.docker.com/docker-hub/), Step 1 to 4.
 We recommend you to create an access token to be used in place of your password. Instructions on how to generate a token can be found [here](https://docs.docker.com/docker-hub/access-tokens/#create-an-access-token).
 
 ###  2. Install Git and clone bootcamp repositories
-*	Install Git following instructions [here](https://github.com/git-guides/install-git).
+*	Install Git following the instructions [here](https://github.com/git-guides/install-git).
 
 *	Clone [btp-ai-sustainability-bootcamp repository](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp). This is the main bootcamp repository containing all the necessary code. A guide on how to clone a repository can be found [here]( https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
 ```sh
@@ -18,11 +20,11 @@ mkdir sap_aicore_bootcamp
 cd sap_aicore_bootcamp
 git clone https://github.com/SAP-samples/btp-ai-sustainability-bootcamp.git
 cd btp-ai-sustainability-bootcamp
-git checkout opensap-exercises
+git checkout opensap-freetier
 ```
 
 
-*	**Clone your GitHub repository**. This is the repository that will be synchronized with the SAP AI Core environment that you have to create by yourself for this OpenSAP course.
+*	**Clone your GitHub repository**. This is the GitHub repository that you have to create in order to go through the exercise of this OpenSAP course. The repository will host the AI Core (training and serving) templates and will be synchronized with the AI Core environment. You can find some instrcutions about how to create a GitHub repository at this [link](https://developers.sap.com/tutorials/ai-core-helloworld.html).
 ```sh
 cd sap_aicore_bootcamp
 git clone YOUR_GITHUB_REPO_URL
