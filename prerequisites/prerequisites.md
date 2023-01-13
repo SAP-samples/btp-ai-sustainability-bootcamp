@@ -17,6 +17,7 @@ We recommend you to create an access token to be used in place of your password.
 mkdir sap_aicore_bootcamp
 cd sap_aicore_bootcamp
 git clone https://github.com/SAP-samples/btp-ai-sustainability-bootcamp.git
+cd btp-ai-sustainability-bootcamp
 git checkout opensap-exercises
 ```
 
