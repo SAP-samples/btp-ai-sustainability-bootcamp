@@ -1,8 +1,14 @@
 {
+    "repo": {
+        "name": "github-repo",
+        "url": "YOUR_GIT_REPO_URL",
+        "username": "YOUR_GIT_USERNAME",
+        "password": "YOUR_PERSONAL_ACCESS_TOKEN"
+    },
     "app": {
-        "applicationName": "defect-det-app-uXXXX",
-        "repositoryUrl": "https://github.com/sap-btp-ai-sustainability-bootcamp/LGP_FACTORY_REPO",
+        "applicationName": "defect-det-app",
+        "repositoryUrl": "YOUR_GIT_REPO_URL",
         "revision": "HEAD",
-        "path": "workflows_defect_det_UXXXX"
+        "path": "workflows_defect_det"
     }
 }

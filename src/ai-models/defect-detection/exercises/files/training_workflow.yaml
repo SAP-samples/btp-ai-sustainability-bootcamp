@@ -1,21 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
-  name: image-seg-train-uXXXX
+  name: image-seg-train
   annotations:
     scenarios.ai.sap.com/description: "SAP developers tutorial scenario"
-    scenarios.ai.sap.com/name: "image-seg-uXXXX"
+    scenarios.ai.sap.com/name: "image-seg"
     executables.ai.sap.com/description: "Image segmentation training executable"
-    executables.ai.sap.com/name: "image-seg-train-exec-uXXXX"
+    executables.ai.sap.com/name: "image-seg-train-exec"
     artifacts.ai.sap.com/image-data.kind: "dataset"
     artifacts.ai.sap.com/image-model-tutorial.kind: "model"
   labels:
-    scenarios.ai.sap.com/id: "image-seg-uXXXX"
-    executables.ai.sap.com/id: "image-seg-train-uXXXX"
+    scenarios.ai.sap.com/id: "image-seg"
+    executables.ai.sap.com/id: "image-seg-train"
     ai.sap.com/version: "1.0.0"
 spec:
   imagePullSecrets:
-    - name: docker-registry-uXXXX
+    - name: docker-registry-secret
   entrypoint: image-seg-sk-training
   templates:
     - name: image-seg-sk-training
