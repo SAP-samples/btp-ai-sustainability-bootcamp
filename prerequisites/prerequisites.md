@@ -1,7 +1,6 @@
 # SAP AI Core exercises - Linux, MacOS
 
-
-These instructions are for MacOS or Linux users. If you are a Windows user, please check out Windows instructions [here](./prerequisites_win.md).
+These instructions are for MacOS or Linux users. If you are a Windows user, please check out the Windows instructions [here](./prerequisites_win.md).
 
 ## Prerequisites
 
@@ -28,7 +27,7 @@ git checkout opensap-freetier
 ```
 
 
-*	**Clone your GitHub repository**. This is the GitHub repository that you have to create in order to go through the exercise of this OpenSAP course. The repository will host the AI Core (training and serving) templates and will be synchronized with the AI Core environment. You can find some instrcutions about how to create a GitHub repository at this [link](https://developers.sap.com/tutorials/ai-core-helloworld.html).
+*	**Clone your GitHub repository**. This is the GitHub repository that you have to create in order to go through the exercises of this OpenSAP course. The repository will host the AI Core (training and serving) templates and will be synchronized with the AI Core environment. You can find some instrcutions about how to create a GitHub repository at this [link](https://developers.sap.com/tutorials/ai-core-helloworld.html).
 ```sh
 cd sap_aicore_bootcamp
 git clone YOUR_GITHUB_REPO_URL
