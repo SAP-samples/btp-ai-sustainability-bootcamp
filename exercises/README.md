@@ -1,4 +1,4 @@
-# AI and Sustainability Bootcamp Exercises
+# Building AI and Sustainability Solutions on SAP BTP - Exercises
 
 
 ## Day 1 Exercise - BYOM with Tensorflow part 1 - Defect Detection
