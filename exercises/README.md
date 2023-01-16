@@ -47,7 +47,7 @@ For information on how to provision them, please, check the prerequisites:
 3. Follow the rest of the instructions given in the [two Jupyter notebooks](../src/ai-models/predictive-maintenance/exercises).
 
 4. Once you have gone through the notebooks, we have prepared an extra exercise where you will repeat what you have already done in the notebooks but this time by using SAP AI Launchpad as client. Please, follow the instructions reported in the document [here](./02-ai-and-sustainability/AI210-Exercise02-BYOM_sound_based_pdm_with_SAP_AI_Launchpad_v2.pdf).
-5. 
+
 
 ## Week 4 - Embedding AI into a Custom Application on SAP BTP
 
