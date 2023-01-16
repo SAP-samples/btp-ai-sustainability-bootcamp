@@ -1,5 +1,7 @@
 #  SAP AI Core exercises - Windows
 
+These instructions are for Windows users. If you are a MacOS or Linux user, please check out the MacOS/Linux instructions [here](./prerequisites.md).
+
 ## Prerequisites
 
 ### 1. Install Docker Desktop and create a personal Docker Registry
