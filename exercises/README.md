@@ -8,8 +8,8 @@
 For this exercise, you will work on an SAP AI Core and an SAP AI Launchpad instance. 
 For information on how to provision them, please, check the prerequisites:
 
-    1. [Prerequisites for Windows](../prerequisites/prerequisites_win.md)
-    2. [Prerequisites for Linux/MacOS](../prerequisites/prerequisites.md)
+1. [Prerequisites for Windows](../prerequisites/prerequisites_win.md)
+2. [Prerequisites for Linux/MacOS](../prerequisites/prerequisites.md)
 
 ### Exercise Instructions
 
