@@ -31,8 +31,8 @@ For information on how to provision them, please, check the prerequisites:
 For this exercise, you will work on an SAP AI Core and an SAP AI Launchpad instance. 
 For information on how to provision them, please, check the prerequisites:
 
-    1. [Prerequisites for Windows](../prerequisites/prerequisites_win.md)
-    2. [Prerequisites for Linux/MacOS](../prerequisites/prerequisites.md)
+1. [Prerequisites for Windows](../prerequisites/prerequisites_win.md)
+2. [Prerequisites for Linux/MacOS](../prerequisites/prerequisites.md)
 
 ### Exercise Instructions
 
@@ -56,10 +56,9 @@ For information on how to provision them, please, check the prerequisites:
 ### Environment
 
 For this exercise, you will work on an SAP Analytics Cloud for Planning tenant. 
-For information on how to request system access please refer to the [bootcamp Teams channel](https://teams.microsoft.com/l/channel/19%3AQRr1arwovOFnp4D_1qHdECRWUa8qimdsAuH-nmagcjE1%40thread.tacv2/tab%3A%3A0ff9f779-bcfa-4d9c-8d3a-7cfc7890f5ed?groupId=887e94c7-ad74-47f4-a4de-8daf4bb0227f&tenantId=42f7676c-f455-423c-82f6-dc2d99791af7).
+For information on how to request system access please refer to ???
 
 ### Exercise Instructions
 
-Please follow the sequence(EP320_Exercise01~04) specified in the [exercises folder](./03-collaborative-enterprise-planning).
+Please follow the sequence (EP320_Exercise01~04) specified in the [exercises folder](./03-collaborative-enterprise-planning).
 The Master and transaction data required to complete the exercise is available at [here](./03-collaborative-enterprise-planning) to download.
-Save the SAC artefacts with your Participant/Team ID as Suffix, as described in the [bootcamp private Teams channel](https://sap.sharepoint.com/:x:/r/teams/SAPBTP-AISustainabilityBootcamp-SystemProvisionInvitedOnly/Shared%20Documents/%F0%9F%8E%AF%20System%20Provision%20(Invited%20Only)/Credentials.xlsx?d=w5acb57efb6f44351ac7503d1be43f494&csf=1&web=1&e=zvlXAJ).
