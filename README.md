@@ -24,15 +24,15 @@ This github repository includes the sample code and exercises of the btp-ai-core
 - Building a deep learning [Image Segmentation Model](src/ai-models/defect-detection) on product images with SAP AI Core for automatic Defeat Detection in production lines
 - Building a deep learning [Sound Anomaly Classification Model](src/ai-models/predictive-maintenance) on acoustical sounds of machinery with SAP AI Core for condition monitoring based Predictive Maintenance 
 - Configure and Deploy the [sustainable-smart-factory-app](src/sustainable-smart-factory-app)(CAP based) to your own SAP HANA Cloud  
-- Creating a Plant 360 story to analyse Production and Sustainability KPIs of plant such as production, defective rate, energy consumption and CO2 emission etc SAP Analytics Cloud.
+- Creating a Plant 360 story to analyze Production and Sustainability KPIs of plant such as production, defective rate, energy consumption and CO2 emission etc SAP Analytics Cloud.
 - Maintenance Cost Planning with Predictive Planning of SAP Analytics Cloud for Planning. 
 - Sustainability Planning and Energy Rate Prediction with Predictive Planning of SAP Analytics Cloud for Planning.
 
 ### Target Audience
-The bootcamp showcases an end-to-end process of building intelligence and sustainabality scenarios on SAP BTP with AI and Planning, which involve several personas as below, also as a reflection of real-life to build an industry cloud solution of Intelligence and Sustainability.
+The bootcamp showcases an end-to-end process of building intelligence and sustainability scenarios on SAP BTP with AI and Planning, which involve several personas as below, also as a reflection of real-life to build an industry cloud solution of Intelligence and Sustainability.
 * Data Scientist or Machine Learning Engineer, who are responsible for building, training and serving AI Models as APIs.
 * Application Developer, who is in charge of creating a cloud-based application which will extend the backend ERP with industry-related business process in a side-by-side manner, record and collect the sustainability data in daily business process, and inference the AI Models APIs. 
-* Enterprise Planning Consultant or Analytics Consultant, who can help to make sense of the sustainability KPIs along with business KPIs for coporate performance management, and assure the planning and execution of sustainability goals.
+* Enterprise Planning Consultant or Analytics Consultant, who can help to make sense of the sustainability KPIs along with business KPIs for corporate performance management, and assure the planning and execution of sustainability goals.
 
 ### Solution Architecture
 ![Solution Architecture](resources/solution-architecture-full.png)
@@ -57,9 +57,9 @@ A CAP-based application on BTP glues all the pieces together by inferencing the 
     * Sustainability Planning and Energy Rate Prediction
 
 ### Storyline
-Bagnoli Co. is a manufacturer of Light Guide Plates (LGP) used in LED panels since 2008, based in Milan, Italy. The company has design and manufacturing of LGP, adopted SAP S/4HANA Cloud as digtial business platfrom since 2020. The Bagnoli brothers have a vision to become an sustainable smart LGP manufacturer by reducing waste and improving production effeciency and workplace safety. In 2021, An SAP gold partner has been hired to implement their vision with SAP Business Technology Platform. SAP AI Core has been proposed to optimise these business process efficiency in quality inspection with computer vision, and sound anonaly detection based predictive maintenance in which sustainability key figures are recorded during plant daily operation such as energy consumption and CO2 emission. And SAP Analytics Cloud for Planning is also suggested to provide insights of production and sustainability KPI to plant manager, also used for Planning of Maintenance Cost and Sustainability. And a CAP-based Sustainable Smart Factory Application is also created for end users to glue different components for extending SAP S/4HANA Cloud in Quality Inspection and Maintenance Management with intelligence and sustainability.
+Bagnoli Co. is a manufacturer of Light Guide Plates (LGP) used in LED panels since 2008, based in Milan, Italy. The company has design and manufacturing of LGP, adopted SAP S/4HANA Cloud as digital business platform since 2020. The Bagnoli brothers have a vision to become an sustainable smart LGP manufacturer by reducing waste and improving production efficiency and workplace safety. In 2021, An SAP gold partner has been hired to implement their vision with SAP Business Technology Platform. SAP AI Core has been proposed to optimize these business process efficiency in quality inspection with computer vision, and sound anomaly detection based predictive maintenance in which sustainability key figures are recorded during plant daily operation such as energy consumption and CO2 emission. And SAP Analytics Cloud for Planning is also suggested to provide insights of production and sustainability KPI to plant manager, also used for Planning of Maintenance Cost and Sustainability. And a CAP-based Sustainable Smart Factory Application is also created for end users to glue different components for extending SAP S/4HANA Cloud in Quality Inspection and Maintenance Management with intelligence and sustainability.
 - LGP Product<br>
-Light Guide Plates (LGP) is used in LED panels, which can transform a line light source into a surface light source, widely applied in liquid crystal display screens such as computer monitors, car navigations, and PADs.
+Light Guide Plates (LGP) is used in LED panels, which can transform a line light source into a surface light source, widely applied in liquid crystal display screens such as computer monitors, car navigators, and PADs.
 ![LGP Product](resources/lgp-product.png)
 - Factory Layout
 ![LGP Factory Layout](resources/factory-layout.png)
@@ -104,7 +104,7 @@ We have closely worked with SAP HANA Academy Team for more deep dive content abo
 Exercise manuals are available [here](exercises) if you would like to replicate the solution on your own BTP account.
 
 ## Known Issues
-IoT Gateway part is out of the scope in this sample. However, in a real-life project, IoT Gateway is required for IoT sensor data streaming and ingetion.
+IoT Gateway part is out of the scope in this sample. However, in a real-life project, IoT Gateway is required for IoT sensor data streaming and ingestion.
 
 ## How to obtain support
 [Create an issue](https://github.com/SAP-samples/btp-ai-core-bootcamp/issues) in this repository if you find a bug or have questions about the content.
