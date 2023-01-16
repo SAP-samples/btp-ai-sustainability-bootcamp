@@ -13,36 +13,36 @@ SAP’s Business Technology Platform provides the foundation of application deve
 <br/>
 We also would like our SAP Partners to create industry cloud solutions for end-to-end industry-specific business processes that consider sustainability dimensions. Therefore, we have developed this AI&Sustainability Bootcamp to inspire and enable our partners to build intelligent scenarios and sustainability on BTP with AI and Planning. Please read more in [our blog series about this topic](https://blogs.sap.com/2022/05/19/building-intelligent-scenarios-and-sustainability-on-sap-btp/).<br/>
 <br/>
-Profitability and sustainability are two sides of a coin for an intelligent, networked, and sustainable enterprise. To achieve the ultimate goals of making profitability sustainable, and sustainability profitable, organizations need to embed sustainability goals into strategy planning and business operations. Importantly, Artificial Intelligence plays a critical role in this journey by helping businesses to be more efficient and intelligent. AI(Artificial Intelligence) and Sustainability are the very frontier of frontiers in today's digital technologies, where count for enormous oppotuines in various industries.<br/>
+Profitability and sustainability are two sides of a coin for an intelligent, networked, and sustainable enterprise. To achieve the ultimate goals of making profitability sustainable, and sustainability profitable, organizations need to embed sustainability goals into strategy planning and business operations. Importantly, Artificial Intelligence plays a critical role in this journey by helping businesses to be more efficient and intelligent. AI(Artificial Intelligence) and Sustainability are the very frontier of frontiers in today's digital technologies, where count for enormous opportunities in various industries.<br/>
 <br/>
-In agriculture, AI can transform agricultural production by better monitoring and managing environmental conditions, and higher crop/livestock yields. For example, Drone can fly over and film the field, and Computer Vision Algorithm can be applied for Automated Pest & Disease Diagnosis of crops etc. Another example in grape field, IoT sensors are used to monitor the light, wind, humility and temperature etc environmental factors, while AI algorithms come in to help with prediction on when to water, fertise and harvest. <br/>
+In agriculture, AI can transform agricultural production by better monitoring and managing environmental conditions, and higher crop/livestock yields. For example, Drone can fly over and film the field, and Computer Vision Algorithm can be applied for Automated Pest & Disease Diagnosis of crops etc. Another example in grape field, IoT sensors are used to monitor the light, wind, humility and temperature etc environmental factors, while AI algorithms come in to help with prediction on when to water, fertilize and harvest. <br/>
 <br/>
 In manufacturing, AI can help factories by improving production efficiency, and reducing waste, energy consumption and Green House Gas Emissions. Such as automatic defect detection for production with computer vision and equipment sound-based predictive maintenance...<br/>
 
 ## Description
 This github repository includes the sample code and exercises of the btp-ai-core-bootcamp, which is developed and delivered by Partner Ecosystem Success Organization (formerly known as GPO) of SAP SE, showcasing SAP partners how to add <b>Intelligence</b> and <b>Sustainability</b> into your industry cloud solutions on SAP Business Technology Platform with SAP AI Core/SAP Launchpad and SAP Analytics Cloud for Planning. The bootcamp uses an end-to-end storyline about a Sustainable Smart Factory filled with Intelligence and Sustainability
 - Building a deep learning [Image Segmentation Model](src/ai-models/defect-detection) on product images with SAP AI Core for automatic Defeat Detection in production lines
-- Building a deep learning [Sound Anomaly Classificaiton Model](src/ai-models/predictive-maintenance) on acoustical sounds of machinery with SAP AI Core for condition monitoring based Predictive Maintenance 
+- Building a deep learning [Sound Anomaly Classification Model](src/ai-models/predictive-maintenance) on acoustical sounds of machinery with SAP AI Core for condition monitoring based Predictive Maintenance 
 - Configure and Deploy the [sustainable-smart-factory-app](src/sustainable-smart-factory-app)(CAP based) to your own SAP HANA Cloud  
-- Creating a Plant 360 story to analyse Production and Sustainability KPIs of plant such as production, defective rate, energy consumption and CO2 emission etc SAP Analytics Cloud.
+- Creating a Plant 360 story to analyze Production and Sustainability KPIs of plant such as production, defective rate, energy consumption and CO2 emission etc SAP Analytics Cloud.
 - Maintenance Cost Planning with Predictive Planning of SAP Analytics Cloud for Planning. 
 - Sustainability Planning and Energy Rate Prediction with Predictive Planning of SAP Analytics Cloud for Planning.
 
 ### Target Audience
-The bootcamp showcases an end-to-end process of building intelligece and sustainabality scenarios on SAP BTP with AI and Planning, which involve serveral personas as below, also as a reflection of real-life to build an industry cloud solution of Intelligence and Sustainability.
-* Data Scientist or Machine Learning Engineer, who are responsible for building,training and serving AI Models as APIs.
+The bootcamp showcases an end-to-end process of building intelligence and sustainability scenarios on SAP BTP with AI and Planning, which involve several personas as below, also as a reflection of real-life to build an industry cloud solution of Intelligence and Sustainability.
+* Data Scientist or Machine Learning Engineer, who are responsible for building, training and serving AI Models as APIs.
 * Application Developer, who is in charge of creating a cloud-based application which will extend the backend ERP with industry-related business process in a side-by-side manner, record and collect the sustainability data in daily business process, and inference the AI Models APIs. 
-* Enterprise Planning Consultant or Analytics Consultant, who can help to make sense of the sustainability KPIs along with business KPIs for coporate performance management, and assure the planning and execution of sustainability goals.
+* Enterprise Planning Consultant or Analytics Consultant, who can help to make sense of the sustainability KPIs along with business KPIs for corporate performance management, and assure the planning and execution of sustainability goals.
 
 ### Solution Architecture
 ![Solution Architecture](resources/solution-architecture-full.png)
 - SAP AI Core and SAP AI Launchpad: <br>
 Streamline the execution and operations of Deep Learning Models in a standardized, scalable, and hyperscaler-agnostic way <br>
     * [Image Segmentation Model for Auto. Defect Detection](src/ai-models/defect-detection)
-    * [Sound Anomaly Classificaiton Model for Predictive Maintenance](src/ai-models/predictive-maintenance)
+    * [Sound Anomaly Classification Model for Predictive Maintenance](src/ai-models/predictive-maintenance)
 
 - [Sustainable Smart Factory Application](src/sustainable-smart-factory-app): <br>
-A CAP-based application on BTP glues all the pieces together by inferencing the AI models with IoT streaming data(product images from camera, machinery sound collectec by the), and recoridng data of plant daily operaiton and sustainability KPIs, extending [Maintenance Management of SAP S/4HANA Cloud](https://help.sap.com/docs/SAP_S4HANA_CLOUD/2dfa044a255f49e89a3050daf3c61c11/f9f9400b81de4235b910887d91d925c4.html?version=2202.500) with [Predictive Maintenance](https://en.wikipedia.org/wiki/Predictive_maintenance)
+A CAP-based application on BTP glues all the pieces together by inferencing the AI models with IoT streaming data(product images from camera, machinery sound collected by the microphones), and recording data of plant daily operation and sustainability KPIs, extending [Maintenance Management of SAP S/4HANA Cloud](https://help.sap.com/docs/SAP_S4HANA_CLOUD/2dfa044a255f49e89a3050daf3c61c11/f9f9400b81de4235b910887d91d925c4.html?version=2202.500) with [Predictive Maintenance](https://en.wikipedia.org/wiki/Predictive_maintenance)
     * Auto. Defect Detection<br>
     -Quality records via computer vision
     * Sound-based Predictive Maintenance<br>
@@ -57,9 +57,9 @@ A CAP-based application on BTP glues all the pieces together by inferencing the 
     * Sustainability Planning and Energy Rate Prediction
 
 ### Storyline
-Bagnoli Co. is a manufacturer of Light Guide Plates (LGP) used in LED panels since 2008, based in Milan, Italy. The company has design and manufacturing of LGP, adopted SAP S/4HANA Cloud as digtial business platfrom since 2020. The Bagnoli brothers have a vision to become an sustainable smart LGP manufacturer by reducing waste and improving production effeciency and workplace safety. In 2021, An SAP gold partner has been hired to implement their vision with SAP Business Technology Platform. SAP AI Core has been proposed to optimise these business process efficiency in quality inspection with computer vision, and sound anonaly detection based predictive maintenance in which sustainability key figures are recorded during plant daily operation such as energy consumption and CO2 emission. And SAP Analytics Cloud for Planning is also suggested to provide insights of production and sustainability KPI to plant manager, also used for Planning of Maintenance Cost and Sustainability. And a CAP-based Sustainable Smart Factory Application is also created for end users to glue different components for extending SAP S/4HANA Cloud in Quality Inspection and Maintenance Management with intelligence and sustainability.
+Bagnoli Co. is a manufacturer of Light Guide Plates (LGP) used in LED panels since 2008, based in Milan, Italy. The company has design and manufacturing of LGP, adopted SAP S/4HANA Cloud as digital business platform since 2020. The Bagnoli brothers have a vision to become an sustainable smart LGP manufacturer by reducing waste and improving production efficiency and workplace safety. In 2021, An SAP gold partner has been hired to implement their vision with SAP Business Technology Platform. SAP AI Core has been proposed to optimize these business process efficiency in quality inspection with computer vision, and sound anomaly detection based predictive maintenance in which sustainability key figures are recorded during plant daily operation such as energy consumption and CO2 emission. And SAP Analytics Cloud for Planning is also suggested to provide insights of production and sustainability KPI to plant manager, also used for Planning of Maintenance Cost and Sustainability. And a CAP-based Sustainable Smart Factory Application is also created for end users to glue different components for extending SAP S/4HANA Cloud in Quality Inspection and Maintenance Management with intelligence and sustainability.
 - LGP Product<br>
-Light Guide Plates (LGP) is used in LED panels, which can transform a line light source into a surface light source, widely applied in liquid crystal display screens such as computer monitors, car navigations, and PADs.
+Light Guide Plates (LGP) is used in LED panels, which can transform a line light source into a surface light source, widely applied in liquid crystal display screens such as computer monitors, car navigators, and PADs.
 ![LGP Product](resources/lgp-product.png)
 - Factory Layout
 ![LGP Factory Layout](resources/factory-layout.png)
@@ -93,7 +93,7 @@ System access below for exercises will be provided in bootcamp by SAP. Therefore
 Please follow [this manual](exercises/README.md) to perform the excises, which allows you to replicate the end-to-end Sustainable Smart Factory solution on your own SAP BTP account as described in above. 
 
 ## More Materials
-We have closedly worked with SAP HANA Academy Team for more deep dive content about AI&Sustainability based on the bootcamp storyline. If you would like to learn more, please visit this following YouTube video playlists prepared by SAP HANA Academy Team  
+We have closely worked with SAP HANA Academy Team for more deep dive content about AI&Sustainability based on the bootcamp storyline. If you would like to learn more, please visit this following YouTube video playlists prepared by SAP HANA Academy Team  
 * [SAP Artificial Intelligence Onboarding / Pre-reqs Playlist](https://youtube.com/playlist?list=PLkzo92owKnVyJ5bZXYHb8QUTNRaUMYNST)
 * [SAP Artificial Intelligence Defect Detection Playlist](https://youtube.com/playlist?list=PLkzo92owKnVzjYmJJMk17pu567BAKW5NL) 
 * [SAP Artificial Intelligence Predictive Maintenance Playlist](https://youtube.com/playlist?list=PLkzo92owKnVw6OOhfauKAM7MJSamnWBLn)
@@ -104,7 +104,7 @@ We have closedly worked with SAP HANA Academy Team for more deep dive content ab
 Exercise manuals are available [here](exercises) if you would like to replicate the solution on your own BTP account.
 
 ## Known Issues
-IoT Gateway part is out of the scope in this sample. However, in a real-life project, IoT Gateway is required for IoT sensor data streaming and ingetion.
+IoT Gateway part is out of the scope in this sample. However, in a real-life project, IoT Gateway is required for IoT sensor data streaming and ingestion.
 
 ## How to obtain support
 [Create an issue](https://github.com/SAP-samples/btp-ai-core-bootcamp/issues) in this repository if you find a bug or have questions about the content.
