@@ -1,15 +1,15 @@
 # Building AI and Sustainability Solutions on SAP BTP - Exercises
 
 
-## Day 1 Exercise - BYOM with Tensorflow part 1 - Defect Detection
+## Week 2 - Enterprise AI in Action – Defect Detection
 
 ### Environment
 
 For this exercise, you will work on an SAP AI Core and an SAP AI Launchpad instance. 
 For information on how to provision them, please, check the prerequisites:
 
-1. [Prerequisites for Windows](../prerequisites/prerequisites_win.md)
-2. [Prerequisites for Linux/MacOS](../prerequisites/prerequisites.md)
+1. [Prerequisites for Windows](../prerequisites/prerequisites_win.md#0-free-tier-plan-for-sap-ai-core-and-sap-ai-launchpad)
+2. [Prerequisites for Linux/MacOS](../prerequisites/prerequisites.md#0-free-tier-plan-for-sap-ai-core-and-sap-ai-launchpad)
 
 ### Exercise Instructions
 
@@ -24,7 +24,7 @@ For information on how to provision them, please, check the prerequisites:
 3. Follow the rest of the instructions given in the [two Jupyter notebooks](../src/ai-models/defect-detection/exercises).
 
 
-## Day 2 Exercise - BYOM with Tensorflow part 2 - Sound-based Predictive Maintenance
+## Week 3 - Enterprise AI in Action – Sound-Based Predictive Maintenance
 
 ### Environment
 
@@ -47,11 +47,14 @@ For information on how to provision them, please, check the prerequisites:
 3. Follow the rest of the instructions given in the [two Jupyter notebooks](../src/ai-models/predictive-maintenance/exercises).
 
 4. Once you have gone through the notebooks, we have prepared an extra exercise where you will repeat what you have already done in the notebooks but this time by using SAP AI Launchpad as client. Please, follow the instructions reported in the document [here](./02-ai-and-sustainability/AI210-Exercise02-BYOM_sound_based_pdm_with_SAP_AI_Launchpad_v2.pdf).
+5. 
 
-5. **(Optional)**. Follow this [manual](../src/sustainable-smart-factory-app/README.md) to deploy and run the sustainable-smart-factory app to your own BTP trial account. The hybrid deployment option is recommended for bootcamp exercise.
+## Week 4 - Embedding AI into a Custom Application on SAP BTP
+
+* **(Optional)**. Follow this [manual](../src/sustainable-smart-factory-app/README.md) to deploy and run the sustainable-smart-factory app to your own BTP trial account. The hybrid deployment option is recommended for bootcamp exercise.
 
 
-## Day 3 Exercises - Maintenance Cost and Sustainability Planning
+## Week 5 - Collaborative Enterprise Planning
 
 ### Environment
 
