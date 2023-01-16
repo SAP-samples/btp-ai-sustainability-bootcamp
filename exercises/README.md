@@ -56,4 +56,4 @@ For information on how to request system access please refer to the [bootcamp Te
 
 Please follow the sequence(EP320_Exercise01~04) specified in the [exercises folder](./03-collaborative-enterprise-planning).
 The Master and transaction data required to complete the exercise is available at [here](./03-collaborative-enterprise-planning) to download.
-Save the SAC artefacts with your Participant/Team ID as Suffix, as described in the [bootcamp private Teams channel](https://sap.sharepoint.com/:x:/r/teams/SAPBTP-AISustainabilityBootcamp-SystemProvisionInvitedOnly/Shared%20Documents/%F0%9F%8E%AF%20System%20Provision%20(Invited%20Only)/Credentials.xlsx?d=w5acb57efb6f44351ac7503d1be43f494&csf=1&web=1&e=zvlXAJ).
+Save the SAC artifacts with your Participant/Team ID as Suffix, as described in the [bootcamp private Teams channel](https://sap.sharepoint.com/:x:/r/teams/SAPBTP-AISustainabilityBootcamp-SystemProvisionInvitedOnly/Shared%20Documents/%F0%9F%8E%AF%20System%20Provision%20(Invited%20Only)/Credentials.xlsx?d=w5acb57efb6f44351ac7503d1be43f494&csf=1&web=1&e=zvlXAJ).
