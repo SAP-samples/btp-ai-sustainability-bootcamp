@@ -6,12 +6,12 @@
 ### Environment
 
 For this exercise, you will work on an SAP AI Core and an SAP AI Launchpad instance. 
-For information on how to provision them, please, check the prerequisites:
+For information on how to provision them, please, check point 0 of the prerequisites:
 
 1. [Prerequisites for Windows](../prerequisites/prerequisites_win.md#0-free-tier-plan-for-sap-ai-core-and-sap-ai-launchpad)
 2. [Prerequisites for Linux/MacOS](../prerequisites/prerequisites.md#0-free-tier-plan-for-sap-ai-core-and-sap-ai-launchpad)
 
-### Exercise Instructions
+### Exercise instructions
 
 1. **Setup prerequisites**. Please, refer to the links reported below:
     1. [Prerequisites for Windows](../prerequisites/prerequisites_win.md)
@@ -29,12 +29,12 @@ For information on how to provision them, please, check the prerequisites:
 ### Environment
 
 For this exercise, you will work on an SAP AI Core and an SAP AI Launchpad instance. 
-For information on how to provision them, please, check the prerequisites:
+For information on how to provision them, please, check point 0 of the prerequisites:
 
 1. [Prerequisites for Windows](../prerequisites/prerequisites_win.md)
 2. [Prerequisites for Linux/MacOS](../prerequisites/prerequisites.md)
 
-### Exercise Instructions
+### Exercise instructions
 
 1. **Setup prerequisites**. Please, refer to the links reported below:
     1. [Prerequisites for Windows](../prerequisites/prerequisites_win.md)
@@ -58,7 +58,7 @@ For information on how to provision them, please, check the prerequisites:
 
 ### Environment
 
-For this exercise, you will work on an SAP Analytics Cloud for Planning tenant. 
+For this exercise, you will work on a SAP Analytics Cloud for Planning tenant. 
 For information on how to request system access please refer to ???
 
 ### Exercise Instructions
