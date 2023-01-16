@@ -6,18 +6,18 @@ These instructions are for MacOS or Linux users. If you are a Windows user, plea
 
 ### 0. Free Tier plan for SAP AI Core and SAP AI Launchpad
 In order to go through the exercises proposed in this OpenSAP course, you need an AI Core instance and a subscription to AI Launchpad. Both are available in the SAP BTP Free Tier plan (more information can be found at this [blog post](https://blogs.sap.com/2022/10/20/sap-ai-core-sap-ai-launchpad-free-tier-is-out-now/)).
-You can follow this [tutorial](https://developers.sap.com/tutorials/ai-core-launchpad-provisioning.html) to setup free tier for SAP AI Core and SAP AI Launchpad in your BTP global account (or subaccount). Please, notice that the free tier AI Core and AI Launchpad are free of charge, but they have some limitations, for instance in the use of GPU acceleration. You can check all the limitations at this [link](https://help.sap.com/docs/AI_CORE/2d6c5984063c40a59eda62f4a9135bee/c7244c6a7e3b4ffc928a2564c216e7c7.html). The exercises in this specific branch of the repository we are providing are meant to be executed with the free tier plan, so they are tailored for that.
+You can follow this [tutorial](https://developers.sap.com/tutorials/ai-core-launchpad-provisioning.html) to setup free tier for SAP AI Core and SAP AI Launchpad in your BTP global account (or subaccount). Follow the tutorial until [Set Up Tools to Connect With and Operate SAP AI Core - STEP 3 - Set up tools for usage with SAP AI Core](https://developers.sap.com/tutorials/ai-core-setup.html). Please, notice that the free tier AI Core and AI Launchpad are free of charge, but they have some limitations, for instance in the use of GPU acceleration. You can check all the limitations at this [link](https://help.sap.com/docs/AI_CORE/2d6c5984063c40a59eda62f4a9135bee/c7244c6a7e3b4ffc928a2564c216e7c7.html). The exercises in this specific branch of the repository we are providing are meant to be executed with the free tier plan, so they are tailored for that.
 In case you are going to use the standard (paid) plan for AI Core and AI Launchpad, you can refer to [this branch](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/opensap-standard) where the same exercises are sized to exploit the full capabilities of these two products.
 
 
 ### 1. Install Docker Desktop and create a personal Docker Registry
-Instructions can be found [here](https://docs.docker.com/docker-hub/), Step 1 to 4.
+Instructions can be found [here](https://docs.docker.com/docker-hub/quickstart/), Step 1 to 4.
 We recommend you to create an access token to be used in place of your password. Instructions on how to generate a token can be found [here](https://docs.docker.com/docker-hub/access-tokens/#create-an-access-token).
 
 ###  2. Install Git and clone bootcamp repositories
-*	Install Git following the instructions [here](https://github.com/git-guides/install-git).
+*	**Install Git** following the instructions [here](https://github.com/git-guides/install-git).
 
-*	Clone [btp-ai-sustainability-bootcamp repository](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp). This is the main bootcamp repository containing all the necessary code. A guide on how to clone a repository can be found [here]( https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
+*	**Clone the [btp-ai-sustainability-bootcamp repository](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp)**. This is the main bootcamp repository containing all the necessary code. In a terminal, execute the following commands:
 ```sh
 mkdir sap_aicore_bootcamp
 cd sap_aicore_bootcamp
@@ -25,12 +25,18 @@ git clone https://github.com/SAP-samples/btp-ai-sustainability-bootcamp.git
 cd btp-ai-sustainability-bootcamp
 git checkout opensap-freetier
 ```
+In case of issues, please check out how to clone a repository [at this link]( https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
 
-
-*	**Clone your GitHub repository**. This is the GitHub repository that you have to create in order to go through the exercises of this OpenSAP course. The repository will host the AI Core (training and serving) templates and will be synchronized with the AI Core environment. You can find some instrcutions about how to create a GitHub repository at this [link](https://developers.sap.com/tutorials/ai-core-helloworld.html).
+*	**Create your aicore-pipelines repository**. This is the GitHub repository that you have to create in order to go through the exercises of this OpenSAP course. The repository will host the AI Core (training and serving) templates and will be synchronized with the AI Core environment. In a terminal, execute the following commands:
 ```sh
 cd sap_aicore_bootcamp
-git clone YOUR_GITHUB_REPO_URL
+mkdir aicore-pipelines
+cd aicore-pipelines
+git init && git symbolic-ref HEAD refs/heads/main
+git add .
+git commit -m "First commit"
+git remote add origin https://github.com/<YOUR-GITHUB-USERNAME>/aicore-pipelines
+git remote -v
 ```
 
 ### 3. Install a Python3 environment
@@ -61,7 +67,7 @@ jupyter lab
 
 ### Exercise 1 - Defect Detection
 
-Jupyter will start in your default browser. In the lefthand side pane, navigate to: <br> 
+Jupyter will start in your default browser. In the lefthand side pane, navigate to: <br>
 
 btp-ai-sustainability-bootcamp &rarr; src &rarr; ai-models &rarr; defect-detection &rarr; exercises <br>
 
@@ -70,9 +76,8 @@ and double click on defect-detection-part1.ipynb to open it. Follow through the 
 
 ### Exercise 2 - Sound classification
 
-Jupyter will start in your default browser. In the lefthand side pane, navigate to: <br> 
+Jupyter will start in your default browser. In the lefthand side pane, navigate to: <br>
 
 btp-ai-sustainability-bootcamp &rarr; src &rarr; ai-models &rarr; predictive-maintenance &rarr; exercises <br>
 
 and double click on sound-classification-part1.ipynb to open it. Follow through the notebook instructions.
-
