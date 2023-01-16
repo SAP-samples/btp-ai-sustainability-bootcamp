@@ -61,4 +61,4 @@ For information on how to request system access please refer to ???
 ### Exercise Instructions
 
 Please follow the sequence (EP320_Exercise01~04) specified in the [exercises folder](./03-collaborative-enterprise-planning).
-The Master and transaction data required to complete the exercise is available at [here](./03-collaborative-enterprise-planning) to download.
+The master and transaction data required to complete the exercise are available [here](./03-collaborative-enterprise-planning) to download.
