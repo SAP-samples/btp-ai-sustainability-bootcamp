@@ -4,7 +4,7 @@
 -->
 
 As part of the AI & Sustainability Bootcamp, we have developed a sample app named sustainable-smart-factory-app to inference the [AI models](../ai-models) which you have developed in Enterprise AI in Action sessions of this bootcamp. 
-* [Image segemtation](../ai-models/defect-detection) for auto. defect detection
+* [Image segmentation](../ai-models/defect-detection) for auto. defect detection
 * [Sound anomalies detection](/src/ai-models/predictive-maintenance) for predictive maintenance
 In this way, you also learn from to build end-to-end industry cloud solutions on SAP BTP focusing on AI & Sustainability topics.
 <p>The sample application is mainly built on top of SAP Cloud Application Programming (CAP) model and SAP Fiori Elements.It helps:
@@ -44,7 +44,7 @@ Please refer to this [tutorial](https://developers.sap.com/tutorials/hcp-create-
 ### **(iii) Connecting to a `S/4HANA Cloud System` via SAP BTP Connectivity Destination**
 > SAP BTP Cockpit > Connectivity > Destinations > **New Destination**
 
-In this step, you will require a S/4HANA Cloud instance for this to work. You will be using a technical user with the right authorisation to Manage Maintenance Order in your S/4HANA Cloud tenant. This will be triggered in the app itself part of the Equipments Condition module.
+In this step, you will require a S/4HANA Cloud instance for this to work. You will be using a technical user with the right authorization to Manage Maintenance Order in your S/4HANA Cloud tenant. This will be triggered in the app itself part of the Equipments Condition module.
 
 > **Name**: `S4HC_AICOREBOOTCAMP` 
 
@@ -58,7 +58,7 @@ In this step, you will require a S/4HANA Cloud instance for this to work. You wi
 
 > **Authentication**: BasicAuthentication
 
-> **User**: make sure this is a technical user setup with the right authorisation to manage maintenance order service
+> **User**: make sure this is a technical user setup with the right authorization to manage maintenance order service
 
 > **Password**: xxxx
 
@@ -169,7 +169,7 @@ cf create-service-key sustainable-smart-factory-app-db sustainable-smart-factory
 cf service-key sustainable-smart-factory-app-db sustainable-smart-factory-app-db-key
 ```
 
-**Copy & Paste the entire payload**, replace `_REPLACE_W_HANA_SERVICE_KEY_CREDENTIALS_` in the **credentials** section under `hana` in the [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/default-env.json](default-env.json) file. You might realise that the deployment of the SAP HANA HDI would have overwritten the default-env.json with the HANA credentials already. Not to worry, you can refer to this template below again.
+**Copy & Paste the entire payload**, replace `_REPLACE_W_HANA_SERVICE_KEY_CREDENTIALS_` in the **credentials** section under `hana` in the [btp-ai-core-bootcamp/src/sustainable-smart-factory-app/default-env.json](default-env.json) file. You might realize that the deployment of the SAP HANA HDI would have overwritten the default-env.json with the HANA credentials already. Not to worry, you can refer to this template below again.
 
 #### B. SAP BTP Connectivity Destination service instance
 
@@ -252,8 +252,8 @@ You may also formulate this with the service key's service url > AI_API_URL with
 #### Once you have the values formulated above and ready, open [package.json](package.json) and modify the following parameters to your AI Core parameters
 1. Copy & paste the **Deployment Inference URL** (**without `/deployment_id` at the end**) into package.json, replacing this variable `_AICORE_DEPLOYMENT_URL_`, under cds > aicore > url & cds > requires > aicore > credentials > url.
 2. Copy & paste the **Resource Group** into package.json, replacing this variable `_AICORE_RESOURCE_GROUP_`, under cds > aicore > resourcegroup.
-3. Copy & paste the successful deployement of the **Image Segmentation Deployment ID** into package.json, replacing this variable `_AICORE_IMAGESEG_DEPLOYMENT_ID_`, under cds > aicore > inferences > imageseg.
-4. Copy & paste the successful deployement of the **Sound Classification Deployment ID** into package.json, replacing this variable `_AICORE_SOUNDCLASS_DEPLOYMENT_ID_`, under cds > aicore > inferences > soundclass.
+3. Copy & paste the successful deployment of the **Image Segmentation Deployment ID** into package.json, replacing this variable `_AICORE_IMAGESEG_DEPLOYMENT_ID_`, under cds > aicore > inferences > imageseg.
+4. Copy & paste the successful deployment of the **Sound Classification Deployment ID** into package.json, replacing this variable `_AICORE_SOUNDCLASS_DEPLOYMENT_ID_`, under cds > aicore > inferences > soundclass.
 
 You may refer below as an example of the variables defined in your [package.json](package.json).
 
@@ -267,7 +267,7 @@ Note: Please make sure you're in the right folder directory. `btp-ai-core-bootca
 cds run
 ```
 
-Open the sustainable-smart-factory-app UI, Navitate to "http://localhost:4004/fiori-apps.html#Shell-home" with `Mozilla Firefox` or `Google Chrome`.
+Open the sustainable-smart-factory-app UI, Navigate to "http://localhost:4004/fiori-apps.html#Shell-home" with `Mozilla Firefox` or `Google Chrome`.
 
 ![App Running](../../resources/predictive-maintenance.gif)
 
