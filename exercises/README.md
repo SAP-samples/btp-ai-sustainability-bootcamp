@@ -59,7 +59,7 @@ For information on how to provision them, please, check point 0 of the prerequis
 ### Environment
 
 For this exercise, you will work on a SAP Analytics Cloud for Planning tenant. 
-For information on how to request system access please refer to ???
+For information about how to provision a free trial account, please, refer to [this link](https://www.sap.com/products/technology-platform/cloud-analytics/trial.html).
 
 ### Exercise Instructions
 
