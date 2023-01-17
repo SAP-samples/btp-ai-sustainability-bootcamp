@@ -51,7 +51,7 @@ For information on how to provision them, please, check point 0 of the prerequis
 
 ## Week 4 - Embedding AI into a Custom Application on SAP BTP
 
-**Optional exercise**. Follow this [manual](../src/sustainable-smart-factory-app/README.md) to deploy and run the sustainable-smart-factory app to your own BTP trial account. The hybrid deployment option is recommended for bootcamp exercise.
+**Optional exercise**. Follow this [manual](../src/sustainable-smart-factory-app/README.md) to deploy and run the sustainable-smart-factory app to your own BTP trial account. The hybrid deployment option is recommended for the course exercise.
 
 
 ## Week 5 - Collaborative Enterprise Planning
