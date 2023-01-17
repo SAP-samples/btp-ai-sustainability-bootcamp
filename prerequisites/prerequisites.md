@@ -27,17 +27,12 @@ git checkout opensap-freetier
 ```
 In case of issues, please check out how to clone a repository [at this link]( https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
 
-*	**Create your aicore-pipelines repository**. This is the GitHub repository that you have to create in order to go through the exercises of this OpenSAP course. The repository will host the AI Core (training and serving) templates and will be synchronized with the AI Core environment. In a terminal, execute the following commands:
+*	**Create your Github repository for AI Core templates**. This is the GitHub repository that you have to create in order to go through the exercises of this OpenSAP course. The repository will host the AI Core (training and serving) templates and will be synchronized with the AI Core environment. Create a new repository in your Github account and give it an arbitrary name that we will refer to as \<YOUR-GITHUB-REPO>. Instructions on how to create a repository are available [here](https://docs.github.com/en/get-started/quickstart/create-a-repo). Then open a terminal and execute the following commands to clone your repository:
 ```sh
 cd sap_aicore_bootcamp
-mkdir aicore-pipelines
-cd aicore-pipelines
-git init && git symbolic-ref HEAD refs/heads/main
-git add .
-git commit -m "First commit"
-git remote add origin https://github.com/<YOUR-GITHUB-USERNAME>/aicore-pipelines
-git remote -v
+git clone https://github.com/<YOUR-GITHUB-USERNAME>/<YOUR-GITHUB-REPO>.git
 ```
+
 
 ### 3. Install a Python3 environment
 
