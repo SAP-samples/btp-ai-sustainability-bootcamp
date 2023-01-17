@@ -4,7 +4,7 @@
 -->
 
 As part of the AI & Sustainability Bootcamp, we have developed a sample app named sustainable-smart-factory-app to inference the [AI models](../ai-models) which you have developed in Enterprise AI in Action sessions of this bootcamp. 
-* [Image segemtation](../ai-models/defect-detection) for auto. defect detection
+* [Image segmentation](../ai-models/defect-detection) for auto. defect detection
 * [Sound anomalies detection](/src/ai-models/predictive-maintenance) for predictive maintenance
 In this way, you also learn from to build end-to-end industry cloud solutions on SAP BTP focusing on AI & Sustainability topics.
 <p>The sample application is mainly built on top of SAP Cloud Application Programming (CAP) model and SAP Fiori Elements.It helps:
@@ -44,7 +44,7 @@ Please refer to this [tutorial](https://developers.sap.com/tutorials/hcp-create-
 ### **(iii) Connecting to a `S/4HANA Cloud System` via SAP BTP Connectivity Destination**
 > SAP BTP Cockpit > Connectivity > Destinations > **New Destination**
 
-In this step, you will require a S/4HANA Cloud instance for this to work. You will be using a technical user with the right authorisation to Manage Maintenance Order in your S/4HANA Cloud tenant. This will be triggered in the app itself part of the Equipments Condition module.
+In this step, you will require a S/4HANA Cloud instance for this to work. You will be using a technical user with the right authorization to Manage Maintenance Order in your S/4HANA Cloud tenant. This will be triggered in the app itself part of the Equipments Condition module.
 
 > **Name**: `S4HC_AICOREBOOTCAMP` 
 
@@ -58,7 +58,7 @@ In this step, you will require a S/4HANA Cloud instance for this to work. You wi
 
 > **Authentication**: BasicAuthentication
 
-> **User**: make sure this is a technical user setup with the right authorisation to manage maintenance order service
+> **User**: make sure this is a technical user setup with the right authorization to manage maintenance order service
 
 > **Password**: xxxx
 
