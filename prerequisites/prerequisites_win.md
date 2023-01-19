@@ -32,7 +32,7 @@ If needed, a guide on how to clone a repository can be found [here]( https://doc
 ```sh
 cd sap_aicore_bootcamp
 git clone https://github.com/<YOUR-GITHUB-USERNAME>/<YOUR-GITHUB-REPO>.git
-
+```
 
 ### 3. Install a Python3 environment
 
