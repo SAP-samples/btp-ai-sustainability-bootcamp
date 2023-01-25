@@ -1,7 +1,7 @@
 apiVersion: ai.sap.com/v1alpha1
 kind: ServingTemplate
 metadata:
-  name: image-seg-infer-uXXXX
+  name: image-seg-infer
   annotations:
     scenarios.ai.sap.com/description: "SAP AI Core tutorial scenario"
     scenarios.ai.sap.com/name: "image-seg"
