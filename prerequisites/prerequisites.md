@@ -55,6 +55,32 @@ source bootcamp_venv/bin/activate
 pip install -r btp-ai-sustainability-bootcamp/prerequisites/requirements.txt
 ```
 
+###  4. Set up an AWS S3 storage bucket
+In this course we will use AWS S3 Object Store as a cloud storage for our AI Core datasets and models.You can get an AWS S3 storage bucket from either of these two ways:
+* [through SAP BTP Cockpit](https://help.sap.com/docs/ObjectStore/2ee77ef7ea4648f9ab2c54ee3aef0a29/4236b942f67349d5a583773162d99660.html);
+* directly through AWS. In this case, refer to the [AWS User Guide for S3](https://aws.amazon.com/s3/).
+
+Once you have got your S3 bucket:
+1. [Install the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+2. Make sure you are working on the correct branch, **opensap-freetier** or **opensap-standard**, depending on the AI Core instance you are working with:
+```sh
+cd sap_aicore_bootcamp/btp-ai-sustainability-bootcamp/
+git branch
+```
+Use the command:
+```sh
+git checkout <BRANCH_NAME>
+```
+to switch to the correct branch if necessary.
+
+3. Upload the data in S3:
+```sh
+aws s3 cp --recursive src/ai-models/defect-detection/data/Images s3://<YOUR-BUCKET-ID>/image/data/
+aws s3 cp --recursive src/ai-models/predictive-maintenance/LGPsound s3://<YOUR-BUCKET-ID>/sound/data/
+```
+**A complete demo** is available in
+[this video](https://www.youtube.com/watch?v=K-moHwVFe6Q&list=PLkzo92owKnVyJ5bZXYHb8QUTNRaUMYNST&index=14)
+
 ## Exercises - BYOM with TensorFlow
 
 Open a terminal and type:
