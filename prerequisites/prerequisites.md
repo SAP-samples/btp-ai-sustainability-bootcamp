@@ -18,7 +18,7 @@ In case you want to use the Free Tier plan for AI Core and AI Launchpad, please,
 
 
 ### 1. Install Docker Desktop and create a personal Docker Registry
-Instructions can be found [here](https://docs.docker.com/docker-hub/), Step 1 to 4.
+Instructions can be found [here](https://docs.docker.com/docker-hub/quickstart/), Step 1 to 4.
 We recommend you to create an access token to be used in place of your password. Instructions on how to generate a token can be found [here](https://docs.docker.com/docker-hub/access-tokens/#create-an-access-token).
 
 ###  2. Install Git and clone bootcamp repositories
