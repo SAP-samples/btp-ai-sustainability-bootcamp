@@ -11,8 +11,11 @@ In order to go through the exercises proposed in this OpenSAP course, you need a
 * [SAP AI Core: Initial setup](https://help.sap.com/docs/AI_CORE/2d6c5984063c40a59eda62f4a9135bee/38c4599432d74c1d94e70f7c955a717d.html)
 * [SAP AI Launchpad: Initial setup](https://help.sap.com/docs/AI_LAUNCHPAD/92d77f26188e4582897b9106b9cb72e0/5d8adb6f43ea4eeca97c9a2b2bb93c6b.html?locale=en-US)
 
+After subcribing to SAP AI Launchpad, follow [these instructions](https://help.sap.com/docs/AI_LAUNCHPAD/92d77f26188e4582897b9106b9cb72e0/71dfe2cab0e94cf5bec9d707140ea0d1.html?locale=en-US) to create a connection to your SAP AI Core instance.
+
 AI Core and AI Lauchpad are also available in the SAP BTP Free Tier plan (more information can be found at this [blog post](https://blogs.sap.com/2022/10/20/sap-ai-core-sap-ai-launchpad-free-tier-is-out-now/)). Please, notice that the free tier AI Core and AI Launchpad are free of charge, but they have some limitations, for instance in the use of GPU acceleration. You can check all the limitations at this [link](https://help.sap.com/docs/AI_CORE/2d6c5984063c40a59eda62f4a9135bee/c7244c6a7e3b4ffc928a2564c216e7c7.html).
 In case you want to use the Free Tier plan for AI Core and AI Launchpad, please, refer to [this branch](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/opensap-freetier) where the same exercises are sized to cope with the forementioned limitations.
+
 
 ### 1. Install Docker Desktop and create a personal Docker Registry
 Instructions can be found [here](https://docs.docker.com/docker-hub/), Step 1 to 4.
