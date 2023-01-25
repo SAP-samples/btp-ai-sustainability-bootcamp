@@ -22,9 +22,9 @@ Instructions can be found [here](https://docs.docker.com/docker-hub/quickstart/)
 We recommend you to create an access token to be used in place of your password. Instructions on how to generate a token can be found [here](https://docs.docker.com/docker-hub/access-tokens/#create-an-access-token).
 
 ###  2. Install Git and clone bootcamp repositories
-*	Install Git following instructions [here](https://github.com/git-guides/install-git).
+*	**Install Git** following the instructions [here](https://github.com/git-guides/install-git).
 
-*	Clone [btp-ai-sustainability-bootcamp repository](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp). This is the main bootcamp repository containing all the necessary code.  A guide on how to clone a repository can be found [here]( https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
+*	**Clone the [btp-ai-sustainability-bootcamp repository](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp)**. This is the main bootcamp repository containing all the necessary code. In a terminal, execute the following commands:
 ```sh
 mkdir sap_aicore_bootcamp
 cd sap_aicore_bootcamp
@@ -32,11 +32,12 @@ git clone https://github.com/SAP-samples/btp-ai-sustainability-bootcamp.git
 cd btp-ai-sustainability-bootcamp
 git checkout opensap-standard
 ```
+In case of issues, please check out how to clone a repository [at this link]( https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
 
-*	**Clone your GitHub repository**. This is the GitHub repository that you have to create in order to go through the exercises of this OpenSAP course. The repository will host the AI Core (training and serving) templates and will be synchronized with the AI Core environment. You can find some instrcutions about how to create a GitHub repository at this [link](https://developers.sap.com/tutorials/ai-core-helloworld.html).
+*	**Create your Github repository for AI Core templates**. This is the GitHub repository that you have to create in order to go through the exercises of this OpenSAP course. The repository will host the AI Core (training and serving) templates and will be synchronized with the AI Core environment. Create a new repository in your Github account and give it an arbitrary name that we will refer to as \<YOUR-GITHUB-REPO>. Instructions on how to create a repository are available [here](https://docs.github.com/en/get-started/quickstart/create-a-repo). Then open a terminal and execute the following commands to clone your repository:
 ```sh
 cd sap_aicore_bootcamp
-git clone YOUR_GITHUB_REPO_URL
+git clone https://github.com/<YOUR-GITHUB-USERNAME>/<YOUR-GITHUB-REPO>.git
 ```
 
 ### 3. Install a Python3 environment
