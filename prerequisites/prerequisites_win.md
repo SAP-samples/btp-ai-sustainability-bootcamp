@@ -20,7 +20,7 @@ Instructions can be found [here](https://docs.docker.com/docker-hub/quickstart/)
 
 
 ###  2. Install Git and clone bootcamp repositories
-*	**Install Git** following instructions [here](https://github.com/git-guides/install-git).
+*	**Install Git** following the instructions [here](https://github.com/git-guides/install-git).
 
 *	**Clone [btp-ai-sustainability-bootcamp repository](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp)**. This is the main bootcamp repository containing all the necessary code. To clone the repo, start the <span style="color:orange">**Git Bash** </span> that was installed with git and type these following commands:
 ```sh
@@ -32,11 +32,12 @@ git checkout opensap-standard
 ```
 If needed, a guide on how to clone a repository can be found [here]( https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
 
-*	**Clone your GitHub repository**. This is the GitHub repository that you have to create in order to go through the exercises of this OpenSAP course. The repository will host the AI Core (training and serving) templates and will be synchronized with the AI Core environment. You can find some instrcutions about how to create a GitHub repository at this [link](https://developers.sap.com/tutorials/ai-core-helloworld.html).
+*	**Create your Github repository for AI Core templates**. This is the GitHub repository that you have to create in order to go through the exercises of this OpenSAP course. The repository will host the AI Core (training and serving) templates and will be synchronized with the AI Core environment. Create a new repository in your Github account and give it an arbitrary name that we will refer to as \<YOUR-GITHUB-REPO>. Instructions on how to create a repository are available [here](https://docs.github.com/en/get-started/quickstart/create-a-repo). Once you have created it, open a <span style="color:orange">**Git Bash** </span> and type the following commands to clone your repo:
 ```sh
 cd sap_aicore_bootcamp
-git clone YOUR_GITHUB_REPO_URL
+git clone https://github.com/<YOUR-GITHUB-USERNAME>/<YOUR-GITHUB-REPO>.git
 ```
+
 
 ### 3. Install a Python3 environment
 
