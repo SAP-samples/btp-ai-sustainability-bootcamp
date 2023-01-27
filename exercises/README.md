@@ -46,7 +46,7 @@ For information on how to provision them, please, check point 0 of the prerequis
     
 3. Follow the rest of the instructions given in the [two Jupyter notebooks](../src/ai-models/predictive-maintenance/exercises).
 
-4. Once you have gone through the notebooks, we have prepared an extra exercise where you will repeat what you have already done in the notebooks but this time by using SAP AI Launchpad as client. Please, follow the instructions reported in the document [here](./02-ai-and-sustainability/AI210-Exercise02-BYOM_sound_based_pdm_with_SAP_AI_Launchpad_v2.pdf).
+4. Once you have gone through the notebooks, we have prepared an extra exercise where you will repeat what you have already done in the notebooks but this time by using SAP AI Launchpad as client. Please, follow the instructions reported in the document [here](./03-ai-and-sustainability/Week3-Exercise02-BYOM_sound_based_pdm_with_SAP_AI_Launchpad_v2.pdf).
 
 
 ## Week 4 - Embedding AI into a Custom Application on SAP BTP
@@ -63,5 +63,5 @@ For information about how to provision a free trial account, please, refer to [t
 
 ### Exercise Instructions
 
-Please, follow the sequence (Week5_Exercise01~04) specified in the [exercises folder](./03-collaborative-enterprise-planning).
-The master and transaction data required to complete the exercise are available [here](./03-collaborative-enterprise-planning) to download.
+Please, follow the sequence (Week5_Exercise01~04) specified in the [exercises folder](./05-collaborative-enterprise-planning).
+The master and transaction data required to complete the exercise are available [here](./05-collaborative-enterprise-planning/datasets) to download.
