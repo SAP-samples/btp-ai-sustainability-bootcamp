@@ -63,5 +63,5 @@ For information about how to provision a free trial account, please, refer to [t
 
 ### Exercise Instructions
 
-Please follow the sequence (EP320_Exercise01~04) specified in the [exercises folder](./03-collaborative-enterprise-planning).
+Please, follow the sequence (Week5_Exercise01~04) specified in the [exercises folder](./03-collaborative-enterprise-planning).
 The master and transaction data required to complete the exercise are available [here](./03-collaborative-enterprise-planning) to download.
