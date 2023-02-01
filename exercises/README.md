@@ -1,6 +1,13 @@
 # AI and Sustainability Bootcamp Exercises
 
-
+## Important Notice
+If you are attending the openSAP course about [Building AI&Sustainability Solutions with SAP BTP](https://open.sap.com/courses/sustai1) and attempting to conduct the bonus hands-on exercises, please follow 
+* Option 1: If you have a SAP BTP Free Tier account, please switch to the exercise document [here](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/opensap-freetier/exercises), which is completely <b>free of charge</b>. Please note that the systems required by the hands-on exercise such as SAP AI Core, SAP AI Launchpad and SAP Analytics Cloud are not available in SAP BTP Trial account, but available in SAP BTP Free Tier Account.
+* Option 2: If you have a paid SAP BTP account under consumption-based Cloud Platform Enterprise Agreement (CPEA) and Cloud Credit or Pay-As-You-Go(PAYG) or Subscription etc other than free-tier and would like to conduct the hands-on exercises with your paid SAP BTP account(Please note that the provision of systems required by the hands-on exercise will produce some cost on your SAP BTP account), please switch to the exercise document [here](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/opensap-standard/exercises). Otherwise, switch to Option 1 above.
+<br/>
+The exercise flow and content are almost identical between option 1 and 2 above except that you will be able to use more resource during the AI model training in option 2 with a paid SAP BTP account. And option 1 with SAP BTP Free Tier account is completely free.
+<br/>
+The following section is only relevant for SAP hosted bootcamp, which is different from openSAP course. Please ignore it if you are an participant of the openSAP course.
 ## Day 1 Exercise - BYOM with Tensorflow part 1 - Defect Detection
 
 ### Environment
