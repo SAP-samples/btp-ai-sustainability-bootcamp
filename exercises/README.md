@@ -1,5 +1,11 @@
 # Building AI and Sustainability Solutions on SAP BTP - Exercises
+This document will guide you through the bonus hands-on exercises of openSAP course about [Building AI and Sustainability Solutions on SAP BTP](https://open.sap.com/courses/sustai1) based on the free-tier systems such as SAP AI Core, SAP AI Launchpad and SAP Analytics Cloud in SAP BTP, which are completed free of charge to conduct the exercise by following this exercise document. The hands-on exercise will help you to gain a better understanding of the systems. however, it is not mandatory, neither count for any point for openSAP course certificate.
+<br>
+<br>
+Alternatively, if you wish to perform the hands-on exercise with the paid plan in your SAP BTP account, please switch to [this exercise document](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/opensap-standard/exercises), which will produce some cost on your SAP BTP account. As a result, you will be able to use more resource(GPU) in AI model training for Week 2 and 3 exercises.  
 
+## Week 1 - AI and Sustainability
+No hands-on exercise.
 
 ## Week 2 - Enterprise AI in Action – Defect Detection
 
@@ -49,7 +55,7 @@ For information on how to provision them, please, check point 0 of the prerequis
 4. Once you have gone through the notebooks, we have prepared an extra exercise where you will repeat what you have already done in the notebooks but this time by using SAP AI Launchpad as client. Please, follow the instructions reported in the document [here](./03-ai-and-sustainability/Week3-Exercise02-BYOM_sound_based_pdm_with_SAP_AI_Launchpad_v2.pdf).
 
 
-## Week 4 - Embedding AI into a Custom Application on SAP BTP
+## Week 4 - Embedding AI into a Custom Application on SAP BTP(Optional)
 
 **Optional exercise**. Follow this [manual](../src/sustainable-smart-factory-app/README.md) to deploy and run the sustainable-smart-factory app to your own BTP trial account. The hybrid deployment option is recommended for the course exercise.
 
