@@ -2,7 +2,7 @@
 This document will guide you through the bonus hands-on exercises of openSAP course about [Building AI and Sustainability Solutions on SAP BTP](https://open.sap.com/courses/sustai1) based on the paid systems such as SAP AI Core, SAP AI Launchpad and SAP Analytics Cloud in SAP BTP, which will <b>produce some cost on your SAP BTP account</b> by following this exercise document here. 
 <br>
 <br>
-Alternatively, if you can switch to [this exercise document](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/opensap-freetier/exercises) with SAP BTP free-tier, which you can perform the hands-on exercise with the <b>free plan</b> of SAP AI Core, SAP AI Launchpad and SAP Analytics Cloud systems, which is completely <b>free of charge</b> on your SAP BTP account.
+If you do not want any cost on your SAP BTP account for doing this exercise, please switch to [this exercise document](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/opensap-freetier/exercises) with SAP BTP free-tier, which you can perform the hands-on exercise with the <b>free plan</b> of SAP AI Core, SAP AI Launchpad and SAP Analytics Cloud systems. As a result, <b>no cost occurred</b> on your SAP BTP account.
 <br>
 <br>
 Completing the hands-on exercise will help you to gain a better understanding of the systems. however, it is not mandatory, neither count for any point for openSAP course certificate.
