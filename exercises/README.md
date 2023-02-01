@@ -1,8 +1,11 @@
 # Building AI and Sustainability Solutions on SAP BTP - Exercises
-This document will guide you through the bonus hands-on exercises of openSAP course about [Building AI and Sustainability Solutions on SAP BTP](https://open.sap.com/courses/sustai1) based on the free-tier systems such as SAP AI Core, SAP AI Launchpad and SAP Analytics Cloud in SAP BTP, which are completed free of charge to conduct the exercise by following this exercise document. The hands-on exercise will help you to gain a better understanding of the systems. however, it is not mandatory, neither count for any point for openSAP course certificate.
+This document will guide you through the bonus hands-on exercises of openSAP course about [Building AI and Sustainability Solutions on SAP BTP](https://open.sap.com/courses/sustai1) based on the free-tier systems such as SAP AI Core, SAP AI Launchpad and SAP Analytics Cloud in SAP BTP, which are completed <b>free of charge</b> to conduct the exercise by following this exercise document. 
 <br>
 <br>
-Alternatively, if you wish to perform the hands-on exercise with the paid plan in your SAP BTP account, please switch to [this exercise document](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/opensap-standard/exercises), which will produce some cost on your SAP BTP account. As a result, you will be able to use more resource(GPU) in AI model training for Week 2 and 3 exercises.  
+Alternatively, if you wish to perform the hands-on exercise with the paid plan in your SAP BTP account, please switch to [this exercise document](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/opensap-standard/exercises), which will <b>produce some cost</b> on your SAP BTP account. As a result, you will be able to use more resource(GPU) in AI model training for Week 2 and 3 exercises.  
+<br>
+<br>
+Completing the hands-on exercise will help you to gain a better understanding of the systems. however, it is not mandatory, neither count for any point for openSAP course certificate.
 
 ## Week 1 - AI and Sustainability
 No hands-on exercise.
