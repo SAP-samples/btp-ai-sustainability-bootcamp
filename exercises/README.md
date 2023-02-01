@@ -9,6 +9,7 @@ The exercise flow and content are almost identical between option 1 and 2 above 
 <br>
 <br>
 The following section is only relevant for SAP hosted bootcamp, which is different from openSAP course. Please ignore it if you are an participant of the openSAP course.
+
 ## Day 1 Exercise - BYOM with Tensorflow part 1 - Defect Detection
 
 ### Environment
