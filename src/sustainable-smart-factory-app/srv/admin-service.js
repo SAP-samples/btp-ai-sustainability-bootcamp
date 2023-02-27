@@ -119,7 +119,7 @@ module.exports = async function () {
                 // console.log('Error:', err.message);
                 // console.log('Cause:', err.cause?.message);
                 // console.log('Root cause:', err.rootCause?.message);
-                message = err.rootCause?.message;
+                message = err.rootCause?.message + '. ' + err.cause?.message;
             });
         if (result === undefined) {
             req.error({
