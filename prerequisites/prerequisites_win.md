@@ -7,17 +7,13 @@ These instructions are for Windows users. If you are a MacOS or Linux user, plea
 ### 0. Free Tier plan for SAP AI Core and SAP AI Launchpad
 In order to go through the exercises proposed in this OpenSAP course, you need an AI Core instance and a subscription to AI Launchpad. Both are available in the **SAP BTP Free Tier plan** (more information can be found at this [blog post](https://blogs.sap.com/2022/10/20/sap-ai-core-sap-ai-launchpad-free-tier-is-out-now/)).
 
-You can follow this [tutorial](https://developers.sap.com/tutorials/ai-core-launchpad-provisioning.html) to setup free tier for SAP AI Core and SAP AI Launchpad in your BTP global account (or subaccount). Follow the tutorial until [Set Up Tools to Connect With and Operate SAP AI Core - STEP 3 - Set up tools for usage with SAP AI Core](https://developers.sap.com/tutorials/ai-core-setup.html). 
+You can follow this [tutorial](https://developers.sap.com/tutorials/ai-core-launchpad-provisioning.html) to setup free tier for SAP AI Core and SAP AI Launchpad in your BTP global account (or subaccount). Follow the tutorial until [Set Up Tools to Connect With and Operate SAP AI Core - STEP 3 - Set up tools for usage with SAP AI Core](https://developers.sap.com/tutorials/ai-core-setup.html).
 
-#### :red_circle: IMPORTANT WARNINGS: 
-* **BTP Free Tier VS BTP Trial ⚠️-** SAP AI Core and SAP AI Launchpad are available in **BTP Free Tier**, while they are **NOT** available in **BTP Free Trial**. About the difference between the two please refer to [this video](https://www.youtube.com/watch?v=5ah73IHs6r8). If you need to set up a BTP account to activate Free Tier Service plans, you can follow [this tutorial](https://developers.sap.com/tutorials/btp-free-tier-account.html).
+#### :red_circle: IMPORTANT WARNINGS:
+* **BTP Free Tier VS BTP Trial ⚠️-** SAP AI Core and SAP AI Launchpad are available in **BTP Free Tier**, while they are **NOT** available in **BTP Trial**. About the difference between the two please refer to [this video](https://www.youtube.com/watch?v=5ah73IHs6r8). If you need to set up a BTP account to activate Free Tier Service plans, follow [this link](https://www.sap.com/products/technology-platform/trial.html).
 * **Free Tier limitations ⚠️-** The free tier AI Core and AI Launchpad are free of charge, but they have some limitations, for instance in the use of GPU acceleration. You can check all the limitations at this [link](https://help.sap.com/docs/AI_CORE/2d6c5984063c40a59eda62f4a9135bee/c7244c6a7e3b4ffc928a2564c216e7c7.html). The exercises in this specific branch of the repository we are providing are meant to be executed with the free tier plan, so they are tailored for that.
 In case you are going to use the standard (paid) plan for AI Core and AI Launchpad, you can refer to [this branch](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/opensap-standard) where the same exercises are sized to exploit the full capabilities of these two products.
-
-### 1. Install Docker Desktop and create a personal Docker Registry
-Instructions can be found [here](https://docs.docker.com/docker-hub/quickstart/), Step 1 to 4.
-We recommend you to create an access token to be used in place of your password. Instructions on how to generate a token can be found [here](https://docs.docker.com/docker-hub/access-tokens/#create-an-access-token).
-
+* **Troubleshooting -** If you have doubts or issues in setting up your BTP account or your SAP AI Core instance, you can check [our cheatsheet](./BTP_how_to.md).
 
 ###  2. Install Git and clone bootcamp repositories
 *	**Install Git** following the instructions [here](https://github.com/git-guides/install-git).
