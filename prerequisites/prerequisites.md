@@ -13,7 +13,7 @@ You can follow this [tutorial](https://developers.sap.com/tutorials/ai-core-laun
 * **BTP Free Tier VS BTP Trial ⚠️-** SAP AI Core and SAP AI Launchpad are available in **BTP Free Tier**, while they are **NOT** available in **BTP Trial**. About the difference between the two please refer to [this video](https://www.youtube.com/watch?v=5ah73IHs6r8). If you need to set up a BTP account to activate Free Tier Service plans, follow [this link](https://www.sap.com/products/technology-platform/trial.html).
 * **Free Tier limitations ⚠️-** The free tier AI Core and AI Launchpad are free of charge, but they have some limitations, for instance in the use of GPU acceleration. You can check all the limitations at this [link](https://help.sap.com/docs/AI_CORE/2d6c5984063c40a59eda62f4a9135bee/c7244c6a7e3b4ffc928a2564c216e7c7.html). The exercises in this specific branch of the repository we are providing are meant to be executed with the free tier plan, so they are tailored for that.
 In case you are going to use the standard (paid) plan for AI Core and AI Launchpad, you can refer to [this branch](https://github.com/SAP-samples/btp-ai-sustainability-bootcamp/tree/opensap-standard) where the same exercises are sized to exploit the full capabilities of these two products.
-* **Troubleshooting -** If you have doubts or issues in setting up your BTP account or your SAP AI Core instance, you can check [our cheatsheet](./BTP_hot_to.md).
+* **Troubleshooting -** If you have doubts or issues in setting up your BTP account or your SAP AI Core instance, you can check [our cheatsheet](./BTP_how_to.md).
 
 
 ### 1. Install Docker Desktop and create a personal Docker Registry
