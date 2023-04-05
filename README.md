@@ -93,6 +93,15 @@ System access below for exercises will be provided in bootcamp by SAP. Therefore
 Please follow [this manual](exercises/README.md) to perform the excises, which allows you to replicate the end-to-end Sustainable Smart Factory solution on your own SAP BTP account as described in above. 
 
 ## More Materials
+### Blog post series of Building AI and Sustainability Solutions on SAP BTP
+* [An overview of sustainability on top of SAP BTP](https://blogs.sap.com/2022/05/19/building-intelligent-scenarios-and-sustainability-on-sap-btp/)
+* [Introduction of end-to-end ML ops with SAP AI Core](https://blogs.sap.com/2022/06/13/introduction-of-the-end-to-end-ml-ops-with-sap-ai-core/)
+* [BYOM with TensorFlow in SAP AI Core for Defect Detection](https://blogs.sap.com/2022/06/28/build-your-own-model-with-tensorflow-in-sap-ai-core-for-defect-detection/)
+* [BYOM with TensorFlow in SAP AI Core for Sound-based Predictive Maintenance](https://blogs.sap.com/2022/07/07/sound-based-predictive-maintenance-with-sap-ai-core-and-sap-ai-launchpad/)
+* [Embedding Intelligence and Sustainability into Custom Applications on SAP BTP](https://blogs.sap.com/2022/07/14/embedding-intelligence-and-sustainability-into-custom-applications-on-sap-btp/)
+* [Maintenance Cost & Sustainability Planning with SAP Analytics Cloud Planning](https://blogs.sap.com/2022/08/05/maintenance-cost-budgeting-sustainability-planning-with-sap-analytics-cloud/)
+
+### Demo videos recorded by SAP HANA Academy
 We have closely worked with SAP HANA Academy Team for more deep dive content about AI&Sustainability based on the bootcamp storyline. If you would like to learn more, please visit this following YouTube video playlists prepared by SAP HANA Academy Team  
 * [SAP Artificial Intelligence Onboarding / Pre-reqs Playlist](https://youtube.com/playlist?list=PLkzo92owKnVyJ5bZXYHb8QUTNRaUMYNST)
 * [SAP Artificial Intelligence Defect Detection Playlist](https://youtube.com/playlist?list=PLkzo92owKnVzjYmJJMk17pu567BAKW5NL) 
@@ -100,6 +109,29 @@ We have closely worked with SAP HANA Academy Team for more deep dive content abo
 * [SAP Artificial Intelligence; Application Playlist](https://youtube.com/playlist?list=PLkzo92owKnVxcURT-afSJePEUTSqFYVP_)
 * [Maintenance Cost & Sustainability Planning with SAP Analytics Cloud Playlist](https://youtube.com/playlist?list=PLkzo92owKnVy2ED2ZfPzJcSLZVlcQ0jDw)
 
+### Useful links for SAP AI Core and SAP AI Launchpad
+* [SAP AI Core Help Center](https://help.sap.com/docs/AI_CORE?locale=en-US)
+* [SAP AI Launchpad Help Center](https://help.sap.com/docs/AI_LAUNCHPAD?locale=en-US)
+* [Learning Journey of SAP AI](https://learning.sap.com/learning-journey/discover-sap-business-technology-platform/describing-artificial-intelligence-ai-_f6c2ab8d-2fa1-45db-9895-ac84b635ced5)
+* [SAP Computer Vision Package](https://pypi.org/project/sap-computer-vision-package/)
+* [Metaflow library for SAP AI Core](https://pypi.org/project/sap-ai-core-metaflow/)
+
+### Useful links for SAP Analytics Cloud
+* [SAP Analytics Cloud Help Center](https://help.sap.com/docs/SAP_ANALYTICS_CLOUD)
+* [Role-based learnign journey of SAP Analytics Cloud](https://help.sap.com/learning-journeys/overview?categories=SOL_10_01&search=SAP%20Analytics%20Cloud)
+* [openSAP course about Intelligent Decisions with SAP Analytics Cloud](https://open.sap.com/courses/sac1)
+* [openSAP course about SAP Analytics Cloud – Authentication and Data Connectivity](https://open.sap.com/courses/sac2)
+* [openSAP course about Planning with SAP Analytics Cloud](https://open.sap.com/courses/sac3)
+* [openSAP course about Planning with SAP Analytics Cloud – Advanced Topics](https://open.sap.com/courses/sac4)
+
+### Useful links for SAP Cloud for Sustainable Enterprise
+* [SAP Product Footprint Management Help Center](https://help.sap.com/docs/SAP_BTP_PFM)
+* [SAP Responsible Design and Production Help Center](https://help.sap.com/docs/SAP_RESPONSIBLE_DESIGN_AND_PRODUCTION)
+* [SAP Sustainability Control Tower Help Center](https://help.sap.com/docs/SAP_SUS_SCT)
+
+### Other useful links
+* [openSAP course about Helping Business Thrive in a Circular Economy](https://open.sap.com/courses/ce1)
+* [openSAP course about AI Ethics at SAP](https://open.sap.com/courses/aie1)
 ## Download and Installation
 Exercise manuals are available [here](exercises) if you would like to replicate the solution on your own BTP account.
 
