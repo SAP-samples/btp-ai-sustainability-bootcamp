@@ -4,7 +4,7 @@
 -->
 
 ## **Business challenge: image based defect detection**
-With the increasing demand, the LGP production lines must improve quality and speed.
+With the increasing demand, the Light Guide Plates (LGP) production lines must improve quality and speed.
 The distribution of the LGP points is uneven and the size, shape, and brightness of the same kind of defects can also differ one from another: the traditional computer vision methods give poor result.
 
 ### **Solution**
@@ -32,7 +32,7 @@ The network consists of a contracting path and an expansive path, which gives it
 
 ### Our modified U-Net architecture
 
-Usually the training of a complex DANN is a time consuming and expensive process. You need large dataset of images and a long trial and error process to succeed. Many frameworks (keras, tensorflow, pytorch) offer pre-built or pre-trained networks that can be used as a starting point. For these reasons in our scenario we have decided to use a MobileNetV2 as encoder, in-order to learn robust features and reduce the number of trainable parameters and to free the parameters in some of its layers.
+Usually the training of a complex Domain Adversarial Neural Networks (DANN) is a time consuming and expensive process. You need large dataset of images and a long trial and error process to succeed. Many frameworks (keras, tensorflow, pytorch) offer pre-built or pre-trained networks that can be used as a starting point. For these reasons in our scenario we have decided to use a MobileNetV2 as encoder, in-order to learn robust features and reduce the number of trainable parameters and to free the parameters in some of its layers.
 MobileNetV2 network was trained on more than a million images from the ImageNet database. Therefore the network has learned rich feature representations for a wide range of images.
 The upsample block is instead taken from the implementation in the pix2pix example available in the TensorFlow Examples repo.
 
